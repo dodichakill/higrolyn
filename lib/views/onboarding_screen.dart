@@ -48,7 +48,7 @@ class OnboardingScreen extends StatelessWidget {
         );
       },
       controllerColor: MyColors.secondaryColorDark,
-      totalPage: 4,
+      totalPage: 6,
       headerBackgroundColor: MyColors.secondaryColor,
       pageBackgroundGradient: const LinearGradient(colors: [
         MyColors.secondaryColor,
@@ -69,6 +69,16 @@ class OnboardingScreen extends StatelessWidget {
         ),
         Image.asset(
           ImageAssets.onboarding3,
+          height: 300,
+          alignment: Alignment.center,
+        ),
+        Image.asset(
+          ImageAssets.onboarding4,
+          height: 300,
+          alignment: Alignment.center,
+        ),
+        Image.asset(
+          ImageAssets.onboarding5,
           height: 300,
           alignment: Alignment.center,
         ),
@@ -175,6 +185,76 @@ class OnboardingScreen extends StatelessWidget {
               ),
               Text(
                 'Kamu bisa saling berdiskusi dengan para petani lainnya di sini',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white70,
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
+          ),
+        ),
+        Container(
+          alignment: Alignment.center,
+          width: MediaQuery.of(context).size.width,
+          padding: const EdgeInsets.symmetric(horizontal: 40),
+          child: const Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              SizedBox(
+                height: 480,
+              ),
+              Text(
+                'Chatbot Interaktif',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24.0,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                'Kamu juga bisa berdiskusi dengan chatbot tentang informasi pertanian',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white70,
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
+          ),
+        ),
+        Container(
+          alignment: Alignment.center,
+          width: MediaQuery.of(context).size.width,
+          padding: const EdgeInsets.symmetric(horizontal: 40),
+          child: const Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              SizedBox(
+                height: 480,
+              ),
+              Text(
+                'Artikel Edukasi',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24.0,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                'Tingkatkan Literasimu melalui artikel dan video edukasi pertanian',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white70,
