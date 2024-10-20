@@ -242,7 +242,7 @@ class OnboardingScreen extends StatelessWidget {
                 height: 480,
               ),
               Text(
-                'Artikel Edukasi',
+                'Edukasi Pertanian',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
