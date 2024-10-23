@@ -2,6 +2,7 @@ import 'package:agrolyn/shared/constants.dart';
 import 'package:agrolyn/utils/assets_path.dart';
 import 'package:agrolyn/views/auth/login_screen.dart';
 import 'package:agrolyn/views/auth/register_screen.dart';
+import 'package:agrolyn/views/choice_user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_onboarding_slider/flutter_onboarding_slider.dart';
 
@@ -11,12 +12,12 @@ class OnboardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return OnBoardingSlider(
-      finishButtonText: 'Daftar',
+      finishButtonText: 'Mulai',
       onFinish: () {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const RegisterScreen(),
+            builder: (context) => const ChoiceUser(),
           ),
         );
       },

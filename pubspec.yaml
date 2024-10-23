@@ -37,6 +37,7 @@ dependencies:
   provider: ^6.1.2
   another_flutter_splash_screen: ^1.2.1
   flutter_onboarding_slider: ^1.0.11
+  fluid_bottom_nav_bar: ^1.4.0
 
 dev_dependencies:
   flutter_test:

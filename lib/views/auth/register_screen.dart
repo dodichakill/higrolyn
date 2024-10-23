@@ -1,12 +1,269 @@
+import 'package:agrolyn/providers/register_notifier.dart';
+import 'package:agrolyn/utils/assets_path.dart';
+import 'package:agrolyn/views/auth/login_screen.dart';
+import 'package:agrolyn/views/home/home_page.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Register Screen!'),
+    return ChangeNotifierProvider(
+      create: (_) => RegisterNotifier(context: context),
+      child: Consumer<RegisterNotifier>(
+        builder: (context, value, child) => SafeArea(
+          child: Scaffold(
+            resizeToAvoidBottomInset: true,
+            body: Form(
+              key: value.keyfrom,
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Center(
+                    child: Container(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Center(
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height: 16,
+                                ),
+                                Image.asset(
+                                  ImageAssets.logo,
+                                  height: 192,
+                                  width: 192,
+                                ),
+                                SizedBox(
+                                  height: 16,
+                                ),
+                                Text(
+                                  'Daftar Akun',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                SizedBox(height: 8),
+                                Text(
+                                  'Tolong Daftar Akun Untuk Mengakses Aplikasi',
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 32),
+
+                          // Section: Name Field
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Nama'),
+                              SizedBox(height: 8),
+                              TextFormField(
+                                decoration: InputDecoration(
+                                  labelText: 'Masukan Nama',
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(16),
+                                  ),
+                                ),
+                                validator: (e) {
+                                  if (e!.isEmpty) {
+                                    return "Tolong Masukan Nama";
+                                  }
+                                  return null; // Mengembalikan null jika valid
+                                },
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 16),
+
+                          // Section: Email Field
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Email'),
+                              SizedBox(height: 8),
+                              TextFormField(
+                                decoration: InputDecoration(
+                                  labelText: 'Masukan Email',
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(16),
+                                  ),
+                                ),
+                                validator: (e) {
+                                  if (e!.isEmpty) {
+                                    return "Tolong Masukan Email";
+                                  }
+                                  return null; // Mengembalikan null jika valid
+                                },
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 16),
+
+                          // Section: Password Field
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Password'),
+                              SizedBox(height: 8),
+                              TextFormField(
+                                obscureText:
+                                    true, // Menyembunyikan input password
+                                decoration: InputDecoration(
+                                  labelText: 'Masukan Password',
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(16),
+                                  ),
+                                ),
+                                validator: (e) {
+                                  if (e!.isEmpty) {
+                                    return "Tolong Masukan Password";
+                                  }
+                                  return null; // Mengembalikan null jika valid
+                                },
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 16,
+                          ),
+                          // Section: Password Field
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Konfirmasi Password'),
+                              SizedBox(height: 8),
+                              TextFormField(
+                                obscureText:
+                                    true, // Menyembunyikan input password
+                                decoration: InputDecoration(
+                                  labelText: 'Tolong Masukan Password',
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(16),
+                                  ),
+                                ),
+                                validator: (e) {
+                                  if (e!.isEmpty) {
+                                    return "Tolong Masukan Password";
+                                  }
+                                  return null; // Mengembalikan null jika valid
+                                },
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 8),
+
+                          // Section: Forgot Password
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              TextButton(
+                                  onPressed: () {},
+                                  child: Text(
+                                    'Lupa Password',
+                                    style: TextStyle(color: Colors.black),
+                                  ))
+                            ],
+                          ),
+                          SizedBox(height: 16),
+
+                          // Section: Sign Up Button
+                          SizedBox(
+                            width: double.infinity,
+                            height: 56,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                if (value.keyfrom.currentState!.validate()) {
+                                  // Memanggil validate sebelum menavigasi
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => HomePage()),
+                                  );
+                                }
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.green,
+                              ),
+                              child: Text(
+                                'Daftar',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 16),
+
+                          // Section: Register Option
+                          Center(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text('Sudah Punya Akun ?'),
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => LoginScreen()),
+                                    );
+                                  },
+                                  child: Text(
+                                    'Masuk',
+                                    style: TextStyle(
+                                      color: Colors.green,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => HomePage()));
+                            },
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 16, vertical: 16),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(16),
+                                color: Colors.white,
+                              ),
+                              child: Stack(
+                                children: [
+                                  Image.asset(
+                                    ImageAssets.logoGoogle,
+                                    height: 24,
+                                  ),
+                                  const Center(
+                                    child:
+                                        Text("Daftar Menggunakan Akun Google"),
+                                  )
+                                ],
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
