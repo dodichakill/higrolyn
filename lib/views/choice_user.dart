@@ -11,7 +11,7 @@ class ChoiceUser extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             gradient: LinearGradient(
                 colors: [MyColors.primaryColor, MyColors.secondaryColor])),
         child: Center(
@@ -26,19 +26,25 @@ class ChoiceUser extends StatelessWidget {
                   height: 192,
                   width: 192,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 16,
                 ),
-                Text(
+                const Text(
                   "Pilih Ingin",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 24,
+                      color: Colors.white),
                 ),
-                SizedBox(height: 2),
-                Text(
+                const SizedBox(height: 2),
+                const Text(
                   "Daftar Sebagai Apa?",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 24,
+                      color: Colors.white),
                 ),
-                SizedBox(height: 32),
+                const SizedBox(height: 32),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -52,7 +58,7 @@ class ChoiceUser extends StatelessWidget {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              SizedBox(
+                              const SizedBox(
                                 height: 16,
                               ),
                               Image.asset(
@@ -60,17 +66,17 @@ class ChoiceUser extends StatelessWidget {
                                 height: 160,
                                 width: 160,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 8,
                               ),
-                              Text(
+                              const Text(
                                 "PETANI",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16,
                                     color: Colors.white),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                   height: 24), // Jarak antara gambar dan teks
                               Padding(
                                 padding: const EdgeInsets.symmetric(
@@ -81,20 +87,20 @@ class ChoiceUser extends StatelessWidget {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                RegisterScreen()),
+                                                const RegisterScreen()),
                                       );
                                     },
                                     style: ElevatedButton.styleFrom(
-                                        minimumSize: Size.fromHeight(50),
+                                        minimumSize: const Size.fromHeight(50),
                                         shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(16))),
-                                    child: Text(
+                                    child: const Text(
                                       "Daftar",
                                       style: TextStyle(color: Colors.black),
                                     )),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 8,
                               ),
                               Padding(
@@ -106,20 +112,20 @@ class ChoiceUser extends StatelessWidget {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                LoginScreen()),
+                                                const LoginScreen()),
                                       );
                                     },
                                     style: ElevatedButton.styleFrom(
-                                        minimumSize: Size.fromHeight(50),
+                                        minimumSize: const Size.fromHeight(50),
                                         shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(16))),
-                                    child: Text(
+                                    child: const Text(
                                       "Masuk",
                                       style: TextStyle(color: Colors.black),
                                     )),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 16,
                               )
                             ],
@@ -127,7 +133,7 @@ class ChoiceUser extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(width: 16),
+                    const SizedBox(width: 16),
                     Expanded(
                       child: Container(
                         decoration: BoxDecoration(
@@ -138,21 +144,21 @@ class ChoiceUser extends StatelessWidget {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              SizedBox(height: 16),
+                              const SizedBox(height: 16),
                               Image.asset(
                                 ImageAssets.user2,
                                 height: 160,
                                 width: 160,
                               ),
-                              SizedBox(height: 8),
-                              Text(
+                              const SizedBox(height: 8),
+                              const Text(
                                 "PENGGUNA BIASA",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16,
                                     color: Colors.white),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                   height: 24), // Jarak antara gambar dan teks
                               Padding(
                                 padding: const EdgeInsets.symmetric(
@@ -163,20 +169,20 @@ class ChoiceUser extends StatelessWidget {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                RegisterScreen()),
+                                                const RegisterScreen()),
                                       );
                                     },
                                     style: ElevatedButton.styleFrom(
-                                        minimumSize: Size.fromHeight(50),
+                                        minimumSize: const Size.fromHeight(50),
                                         shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(16))),
-                                    child: Text(
+                                    child: const Text(
                                       "Daftar",
                                       style: TextStyle(color: Colors.black),
                                     )),
                               ),
-                              SizedBox(height: 8),
+                              const SizedBox(height: 8),
                               Padding(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 16.0),
@@ -186,20 +192,20 @@ class ChoiceUser extends StatelessWidget {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                LoginScreen()),
+                                                const LoginScreen()),
                                       );
                                     },
                                     style: ElevatedButton.styleFrom(
-                                        minimumSize: Size.fromHeight(50),
+                                        minimumSize: const Size.fromHeight(50),
                                         shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(16))),
-                                    child: Text(
+                                    child: const Text(
                                       "Masuk",
                                       style: TextStyle(color: Colors.black),
                                     )),
                               ),
-                              SizedBox(height: 16),
+                              const SizedBox(height: 16),
                             ],
                           ),
                         ),
