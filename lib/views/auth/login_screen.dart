@@ -3,6 +3,7 @@ import 'package:agrolyn/shared/constants.dart';
 import 'package:agrolyn/utils/assets_path.dart';
 import 'package:agrolyn/views/auth/register_screen.dart';
 import 'package:agrolyn/views/home/home_page.dart';
+import 'package:agrolyn/widgets/menu.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -200,7 +201,7 @@ class LoginScreen extends StatelessWidget {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => HomePage()));
+                                      builder: (context) => Menu()));
                             },
                             child: Container(
                               padding: EdgeInsets.symmetric(
