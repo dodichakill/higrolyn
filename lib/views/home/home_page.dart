@@ -10,10 +10,6 @@ class HomePage extends StatelessWidget {
       body: Column(
         children: [
           Image.asset(ImageAssets.onboarding1),
-          Image.asset(ImageAssets.onboarding1),
-          Image.asset(ImageAssets.onboarding1),
-          Image.asset(ImageAssets.onboarding1),
-          Image.asset(ImageAssets.onboarding1)
         ],
       ),
     );

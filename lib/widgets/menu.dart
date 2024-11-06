@@ -31,7 +31,7 @@ class Menu extends StatelessWidget {
                               : value.page == 2
                                   ? const Detection()
                                   : value.page == 3
-                                      ? const Comunity()
+                                      ? const Community()
                                       : const Profile(),
                     ),
                   ],
@@ -57,7 +57,7 @@ class Menu extends StatelessWidget {
                         Expanded(
                           child: InkWell(
                             onTap: () {
-                              value.gatipage(0);
+                              value.changePage(0);
                             },
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -84,7 +84,7 @@ class Menu extends StatelessWidget {
                         Expanded(
                           child: InkWell(
                             onTap: () {
-                              value.gatipage(1);
+                              value.changePage(1);
                             },
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -114,7 +114,7 @@ class Menu extends StatelessWidget {
                               maxHeight:
                                   120, // Tinggi yang lebih besar untuk menonjol lebih jauh
                               child: GestureDetector(
-                                onTap: () => value.gatipage(2),
+                                onTap: () => value.changePage(2),
                                 child: Container(
                                   width: 60,
                                   height:
@@ -148,7 +148,7 @@ class Menu extends StatelessWidget {
                         ),
                         Expanded(
                           child: InkWell(
-                            onTap: () => value.gatipage(3),
+                            onTap: () => value.changePage(3),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -160,7 +160,7 @@ class Menu extends StatelessWidget {
                                       : Colors.grey,
                                 ),
                                 Text(
-                                  "Forum",
+                                  "Komunitas",
                                   style: TextStyle(
                                     color: value.page == 3
                                         ? const Color.fromARGB(255, 22, 22, 22)
@@ -173,7 +173,7 @@ class Menu extends StatelessWidget {
                         ),
                         Expanded(
                           child: InkWell(
-                            onTap: () => value.gatipage(4),
+                            onTap: () => value.changePage(4),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [

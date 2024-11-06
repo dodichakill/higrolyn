@@ -39,6 +39,7 @@ dependencies:
   flutter_onboarding_slider: ^1.0.11
   fluid_bottom_nav_bar: ^1.4.0
   persistent_bottom_nav_bar: ^6.2.1
+  floating_bottom_bar: ^0.0.1
 
 dev_dependencies:
   flutter_test:

@@ -7,7 +7,7 @@ class MenuNotifier extends ChangeNotifier {
 
   int page = 0;
 
-  void gatipage(int index) {
+  void changePage(int index) {
     page = index;
     notifyListeners();
   }

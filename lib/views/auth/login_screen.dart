@@ -27,7 +27,7 @@ class LoginScreen extends StatelessWidget {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          SizedBox(
+                          const SizedBox(
                             height: 16,
                           ),
                           Center(
@@ -38,10 +38,10 @@ class LoginScreen extends StatelessWidget {
                                   height: 192,
                                   width: 192,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 16,
                                 ),
-                                Row(
+                                const Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
@@ -63,8 +63,8 @@ class LoginScreen extends StatelessWidget {
                                     ),
                                   ],
                                 ),
-                                SizedBox(height: 8),
-                                Text(
+                                const SizedBox(height: 8),
+                                const Text(
                                   'Tolong Isi Untuk Masuk Aplikasi',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
@@ -74,12 +74,12 @@ class LoginScreen extends StatelessWidget {
                               ],
                             ),
                           ),
-                          SizedBox(height: 32),
+                          const SizedBox(height: 32),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text('Email'),
-                              SizedBox(height: 8),
+                              const Text('Email'),
+                              const SizedBox(height: 8),
                               TextFormField(
                                 decoration: InputDecoration(
                                   labelText: 'Masukan Email',
@@ -96,14 +96,14 @@ class LoginScreen extends StatelessWidget {
                               ),
                             ],
                           ),
-                          SizedBox(height: 16),
+                          const SizedBox(height: 16),
 
                           // Section: Password Field
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text('Password'),
-                              SizedBox(height: 8),
+                              const Text('Password'),
+                              const SizedBox(height: 8),
                               TextFormField(
                                 obscureText:
                                     true, // Menyembunyikan input password
@@ -122,7 +122,7 @@ class LoginScreen extends StatelessWidget {
                               ),
                             ],
                           ),
-                          SizedBox(height: 8),
+                          const SizedBox(height: 8),
 
                           // Section: Forgot Password
                           Row(
@@ -130,13 +130,13 @@ class LoginScreen extends StatelessWidget {
                             children: [
                               TextButton(
                                   onPressed: () {},
-                                  child: Text(
+                                  child: const Text(
                                     'Lupa Password',
                                     style: TextStyle(color: Colors.black),
                                   ))
                             ],
                           ),
-                          SizedBox(height: 16),
+                          const SizedBox(height: 16),
 
                           // Section: Sign Up Button
                           SizedBox(
@@ -149,14 +149,14 @@ class LoginScreen extends StatelessWidget {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => HomePage()),
+                                        builder: (context) => const HomePage()),
                                   );
                                 }
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.green,
                               ),
-                              child: Text(
+                              child: const Text(
                                 'Masuk',
                                 style: TextStyle(
                                     color: Colors.white,
@@ -165,24 +165,24 @@ class LoginScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                          SizedBox(height: 16),
+                          const SizedBox(height: 16),
 
                           // Section: Register Option
                           Center(
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text('Belum Punya Akun ?'),
+                                const Text('Belum Punya Akun ?'),
                                 TextButton(
                                   onPressed: () {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              RegisterScreen()),
+                                              const RegisterScreen()),
                                     );
                                   },
-                                  child: Text(
+                                  child: const Text(
                                     'Daftar',
                                     style: TextStyle(
                                       color: Colors.green,
@@ -193,7 +193,7 @@ class LoginScreen extends StatelessWidget {
                             ),
                           ),
 
-                          SizedBox(
+                          const SizedBox(
                             height: 16,
                           ),
                           InkWell(
@@ -201,10 +201,10 @@ class LoginScreen extends StatelessWidget {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => Menu()));
+                                      builder: (context) => const Menu()));
                             },
                             child: Container(
-                              padding: EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                   horizontal: 16, vertical: 16),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(16),
