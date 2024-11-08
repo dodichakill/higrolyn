@@ -1,19 +1,13 @@
 import 'package:agrolyn/shared/constants.dart';
 import 'package:agrolyn/utils/assets_path.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
-    return Scaffold(
-      body: Column(
-        children: [
-          Image.asset(ImageAssets.onboarding1),
-        ],
-=======
     return SafeArea(
       child: Scaffold(
         body: Stack(
@@ -672,7 +666,6 @@ class HomePage extends StatelessWidget {
                     )))
           ],
         ),
->>>>>>> homepage
       ),
     );
   }
