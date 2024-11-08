@@ -17,12 +17,10 @@ class ImageAssets {
   static const String user = "$root/AGROLYN (4).png";
   static const String user2 = "$root/AGROLYN (5).png";
   static const String community = "$root/banner-community.png";
-  static const String banner1 =
-      "$root/hijau putih minimalis makanan pokok global padi instagram post (1.920 x 1.080 piksel) (1) 1.png";
-  static const String banner2 = "$root/banner-community.png";
-  static const String banner3 =
-      "$root/DALL·E 2024-11-04 12.49.39 - A 2D illustration of agriculture depicting crop failure due to plant disease in Indonesia. The scene shows a landscape of withered crops, some leaves  1.png";
-  static const String banner4 =
-      "$root/DALL·E 2024-11-04 12.51.07 - A 2D illustration of agriculture depicting rice and corn crop failure due to plant disease in Indonesia. The scene shows a landscape of withered rice  1.png";
+  static const String banner1 = "$root/banner-community.png";
+  static const String banner2 = "$root/Group 252.png";
+  static const String banner3 = "$root/Group 253.png";
+  static const String banner4 = "$root/Group 254.png";
   static const String jagung = "$root/image (1).png";
+  static const String petaniComunity = "$root/Rectangle 23.png";
 }
