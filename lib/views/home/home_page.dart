@@ -1,7 +1,6 @@
 import 'package:agrolyn/shared/constants.dart';
 import 'package:agrolyn/utils/assets_path.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -45,8 +44,8 @@ class HomePage extends StatelessWidget {
                                         color: Colors.yellow[600],
                                         size: 18,
                                       ),
-                                      SizedBox(width: 4),
-                                      Text(
+                                      const SizedBox(width: 4),
+                                      const Text(
                                         "35°C",
                                         style: TextStyle(
                                           color: Colors.white,
@@ -54,8 +53,8 @@ class HomePage extends StatelessWidget {
                                           fontSize: 16,
                                         ),
                                       ),
-                                      SizedBox(width: 8),
-                                      Text(
+                                      const SizedBox(width: 8),
+                                      const Text(
                                         "|",
                                         style: TextStyle(
                                           color: Colors.white,
@@ -63,14 +62,14 @@ class HomePage extends StatelessWidget {
                                           fontSize: 16,
                                         ),
                                       ),
-                                      SizedBox(width: 8),
-                                      Icon(
+                                      const SizedBox(width: 8),
+                                      const Icon(
                                         Icons.location_on,
                                         color: Colors.white,
                                         size: 16,
                                       ),
-                                      SizedBox(width: 4),
-                                      Text(
+                                      const SizedBox(width: 4),
+                                      const Text(
                                         "Tegal, Jawa Tengah",
                                         style: TextStyle(
                                           color: Colors.white,
@@ -80,17 +79,17 @@ class HomePage extends StatelessWidget {
                                       ),
                                     ],
                                   ),
-                                  Icon(
+                                  const Icon(
                                     Icons.shopping_cart_outlined,
                                     color: Colors.white,
                                     size: 32,
                                   ),
                                 ],
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 16,
                               ),
-                              Text(
+                              const Text(
                                 "Selamat Datang Di Agrolyn",
                                 style: TextStyle(
                                   color: Colors.white,
@@ -98,8 +97,8 @@ class HomePage extends StatelessWidget {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              SizedBox(height: 4),
-                              Text(
+                              const SizedBox(height: 4),
+                              const Text(
                                 "Bangkit bersama untuk mengatasi krisis pangan",
                                 style: TextStyle(
                                   color: Colors.white,
@@ -111,7 +110,7 @@ class HomePage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 54,
                       ),
                       Padding(
@@ -151,7 +150,7 @@ class HomePage extends StatelessWidget {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
+                                const Text(
                                   "Belanja",
                                   style: TextStyle(
                                     fontSize: 16,
@@ -162,7 +161,7 @@ class HomePage extends StatelessWidget {
                                 ),
                                 TextButton(
                                   onPressed: () {},
-                                  child: Text(
+                                  child: const Text(
                                     "Lihat lainnya",
                                     style: TextStyle(
                                       fontSize: 14,
@@ -183,7 +182,7 @@ class HomePage extends StatelessWidget {
                           children: [
                             Container(
                               width: 150,
-                              padding: EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.all(8.0),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(8),
                               ),
@@ -191,7 +190,7 @@ class HomePage extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   ClipRRect(
-                                    borderRadius: BorderRadius.only(
+                                    borderRadius: const BorderRadius.only(
                                         topLeft: Radius.circular(8),
                                         topRight: Radius.circular(8)),
                                     child: Image.asset(
@@ -201,20 +200,20 @@ class HomePage extends StatelessWidget {
                                       fit: BoxFit.cover,
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 4,
                                   ),
-                                  Text(
+                                  const Text(
                                     "Jasuke",
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16,
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 2,
                                   ),
-                                  Row(
+                                  const Row(
                                     children: [
                                       Icon(
                                         Icons.label,
@@ -231,7 +230,7 @@ class HomePage extends StatelessWidget {
                             ),
                             Container(
                               width: 150,
-                              padding: EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.all(8.0),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(8),
                               ),
@@ -239,7 +238,7 @@ class HomePage extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   ClipRRect(
-                                    borderRadius: BorderRadius.only(
+                                    borderRadius: const BorderRadius.only(
                                         topLeft: Radius.circular(8),
                                         topRight: Radius.circular(8)),
                                     child: Image.asset(
@@ -249,20 +248,20 @@ class HomePage extends StatelessWidget {
                                       fit: BoxFit.cover,
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 4,
                                   ),
-                                  Text(
+                                  const Text(
                                     "Jasuke",
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16,
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 2,
                                   ),
-                                  Row(
+                                  const Row(
                                     children: [
                                       Icon(
                                         Icons.label,
@@ -279,7 +278,7 @@ class HomePage extends StatelessWidget {
                             ),
                             Container(
                               width: 150,
-                              padding: EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.all(8.0),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(8),
                               ),
@@ -287,7 +286,7 @@ class HomePage extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   ClipRRect(
-                                    borderRadius: BorderRadius.only(
+                                    borderRadius: const BorderRadius.only(
                                         topLeft: Radius.circular(8),
                                         topRight: Radius.circular(8)),
                                     child: Image.asset(
@@ -297,20 +296,20 @@ class HomePage extends StatelessWidget {
                                       fit: BoxFit.cover,
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 4,
                                   ),
-                                  Text(
+                                  const Text(
                                     "Jasuke",
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16,
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 2,
                                   ),
-                                  Row(
+                                  const Row(
                                     children: [
                                       Icon(
                                         Icons.label,
@@ -327,7 +326,7 @@ class HomePage extends StatelessWidget {
                             ),
                             Container(
                               width: 150,
-                              padding: EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.all(8.0),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(8),
                               ),
@@ -335,7 +334,7 @@ class HomePage extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   ClipRRect(
-                                    borderRadius: BorderRadius.only(
+                                    borderRadius: const BorderRadius.only(
                                         topLeft: Radius.circular(8),
                                         topRight: Radius.circular(8)),
                                     child: Image.asset(
@@ -345,20 +344,20 @@ class HomePage extends StatelessWidget {
                                       fit: BoxFit.cover,
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 4,
                                   ),
-                                  Text(
+                                  const Text(
                                     "Jasuke",
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16,
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 2,
                                   ),
-                                  Row(
+                                  const Row(
                                     children: [
                                       Icon(
                                         Icons.label,
@@ -391,7 +390,7 @@ class HomePage extends StatelessWidget {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
+                                const Text(
                                   "Artikel",
                                   style: TextStyle(
                                     fontSize: 16,
@@ -402,7 +401,7 @@ class HomePage extends StatelessWidget {
                                 ),
                                 TextButton(
                                   onPressed: () {},
-                                  child: Text(
+                                  child: const Text(
                                     "Lihat lainnya",
                                     style: TextStyle(
                                       fontSize: 14,
@@ -420,85 +419,73 @@ class HomePage extends StatelessWidget {
                       Padding(
                         padding:
                             const EdgeInsets.only(top: 8, left: 8, right: 8),
-                        child: Container(
-                          child: Column(
-                            children: [
-                              Container(
-                                  child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Image.asset(ImageAssets.jagung),
-                                  SizedBox(
-                                    width: 8,
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text("Cara nanam padi yang baik & benar"),
-                                      Text("Lorem Ipsum"),
-                                    ],
-                                  )
-                                ],
-                              ))
-                            ],
-                          ),
+                        child: Column(
+                          children: [
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Image.asset(ImageAssets.jagung),
+                                const SizedBox(
+                                  width: 8,
+                                ),
+                                const Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text("Cara nanam padi yang baik & benar"),
+                                    Text("Lorem Ipsum"),
+                                  ],
+                                )
+                              ],
+                            )
+                          ],
                         ),
                       ),
                       Padding(
                         padding:
                             const EdgeInsets.only(top: 8, left: 8, right: 8),
-                        child: Container(
-                          child: Column(
-                            children: [
-                              Container(
-                                  child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Image.asset(ImageAssets.jagung),
-                                  SizedBox(
-                                    width: 8,
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text("Cara nanam padi yang baik & benar"),
-                                      Text("Lorem Ipsum"),
-                                    ],
-                                  )
-                                ],
-                              ))
-                            ],
-                          ),
+                        child: Column(
+                          children: [
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Image.asset(ImageAssets.jagung),
+                                const SizedBox(
+                                  width: 8,
+                                ),
+                                const Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text("Cara nanam padi yang baik & benar"),
+                                    Text("Lorem Ipsum"),
+                                  ],
+                                )
+                              ],
+                            )
+                          ],
                         ),
                       ),
                       Padding(
                         padding:
                             const EdgeInsets.only(top: 8, left: 8, right: 8),
-                        child: Container(
-                          child: Column(
-                            children: [
-                              Container(
-                                  child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Image.asset(ImageAssets.jagung),
-                                  SizedBox(
-                                    width: 8,
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text("Cara nanam padi yang baik & benar"),
-                                      Text("Lorem Ipsum"),
-                                    ],
-                                  )
-                                ],
-                              ))
-                            ],
-                          ),
+                        child: Column(
+                          children: [
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Image.asset(ImageAssets.jagung),
+                                const SizedBox(
+                                  width: 8,
+                                ),
+                                const Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text("Cara nanam padi yang baik & benar"),
+                                    Text("Lorem Ipsum"),
+                                  ],
+                                )
+                              ],
+                            )
+                          ],
                         ),
                       )
                     ],
@@ -511,7 +498,7 @@ class HomePage extends StatelessWidget {
                       children: [
                         Expanded(
                             child: Container(
-                          padding: EdgeInsets.all(4),
+                          padding: const EdgeInsets.all(4),
                           height: 64,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(16),
@@ -521,7 +508,7 @@ class HomePage extends StatelessWidget {
                                   color: Colors.black.withOpacity(0.1),
                                   spreadRadius: 2,
                                   blurRadius: 2,
-                                  offset: Offset(2, 2),
+                                  offset: const Offset(2, 2),
                                 )
                               ],
                               border: Border.all(
@@ -536,10 +523,10 @@ class HomePage extends StatelessWidget {
                                     height: 32,
                                     width: 32,
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 8,
                                   ),
-                                  Column(
+                                  const Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
@@ -564,21 +551,15 @@ class HomePage extends StatelessWidget {
                                   )
                                 ],
                               ),
-                              IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(
-                                    Icons.arrow_forward,
-                                    color: Colors.black,
-                                  ))
                             ],
                           ),
                         )),
-                        SizedBox(
+                        const SizedBox(
                           width: 8,
                         ),
                         Expanded(
                             child: Container(
-                          padding: EdgeInsets.all(4),
+                          padding: const EdgeInsets.all(4),
                           height: 64,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(16),
@@ -588,7 +569,7 @@ class HomePage extends StatelessWidget {
                                   color: Colors.black.withOpacity(0.1),
                                   spreadRadius: 2,
                                   blurRadius: 2,
-                                  offset: Offset(2, 2),
+                                  offset: const Offset(2, 2),
                                 )
                               ],
                               border: Border.all(
@@ -603,10 +584,10 @@ class HomePage extends StatelessWidget {
                                     height: 32,
                                     width: 32,
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 8,
                                   ),
-                                  Column(
+                                  const Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
@@ -631,12 +612,6 @@ class HomePage extends StatelessWidget {
                                   )
                                 ],
                               ),
-                              IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(
-                                    Icons.arrow_forward,
-                                    color: Colors.black,
-                                  ))
                             ],
                           ),
                         )),
@@ -655,12 +630,10 @@ class HomePage extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Container(
-                          child: Image.asset(
-                            ImageAssets.logoChatbot,
-                            height: 80,
-                            width: 80,
-                          ),
+                        Image.asset(
+                          ImageAssets.logoChatbot,
+                          height: 80,
+                          width: 80,
                         ),
                       ],
                     )))
