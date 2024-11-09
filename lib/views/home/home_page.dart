@@ -8,10 +8,12 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+      bottom: false,
       child: Scaffold(
         body: Stack(
           children: [
             SingleChildScrollView(
+              padding: const EdgeInsets.only(bottom: 70),
               child: Stack(
                 children: [
                   Column(
@@ -622,7 +624,7 @@ class HomePage extends StatelessWidget {
               ),
             ),
             Positioned(
-                top: 775,
+                top: 700,
                 left: 8,
                 right: 8,
                 child: Padding(
@@ -632,8 +634,8 @@ class HomePage extends StatelessWidget {
                       children: [
                         Image.asset(
                           ImageAssets.logoChatbot,
-                          height: 80,
-                          width: 80,
+                          height: 90,
+                          width: 90,
                         ),
                       ],
                     )))

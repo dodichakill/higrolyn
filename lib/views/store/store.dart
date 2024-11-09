@@ -13,8 +13,10 @@ class Store extends StatelessWidget {
       create: (_) => StoreNotifier(context: context),
       child: Consumer<StoreNotifier>(
         builder: (context, value, child) => SafeArea(
+          bottom: false,
           child: Scaffold(
             body: SingleChildScrollView(
+              padding: const EdgeInsets.only(bottom: 70),
               child: Stack(
                 children: [
                   Column(
@@ -43,11 +45,11 @@ class Store extends StatelessWidget {
                                                 Colors.black.withOpacity(0.1),
                                             blurRadius: 5,
                                             spreadRadius: 2,
-                                            offset: Offset(0, 2),
+                                            offset: const Offset(0, 2),
                                           ),
                                         ],
                                       ),
-                                      child: TextField(
+                                      child: const TextField(
                                         decoration: InputDecoration(
                                           hintText: "Search...",
                                           hintStyle:
@@ -61,7 +63,7 @@ class Store extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  SizedBox(width: 8),
+                                  const SizedBox(width: 8),
                                   ClipOval(
                                     child: Image.asset(
                                       ImageAssets.logo,
@@ -80,7 +82,7 @@ class Store extends StatelessWidget {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Expanded(
+                                  const Expanded(
                                     flex: 2,
                                     child: Column(
                                       children: [
@@ -108,12 +110,12 @@ class Store extends StatelessWidget {
                           ],
                         ),
                       ),
-                      SizedBox(height: 48),
+                      const SizedBox(height: 48),
                       Row(
                         children: [
                           Expanded(
                             child: Container(
-                              padding: EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.all(8.0),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(8),
                               ),
@@ -121,7 +123,7 @@ class Store extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   ClipRRect(
-                                    borderRadius: BorderRadius.only(
+                                    borderRadius: const BorderRadius.only(
                                         topLeft: Radius.circular(8),
                                         topRight: Radius.circular(8)),
                                     child: Image.asset(
@@ -131,20 +133,20 @@ class Store extends StatelessWidget {
                                       fit: BoxFit.cover,
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 4,
                                   ),
-                                  Text(
+                                  const Text(
                                     "Jasuke",
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16,
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 2,
                                   ),
-                                  Row(
+                                  const Row(
                                     children: [
                                       Icon(
                                         Icons.label,
@@ -162,7 +164,7 @@ class Store extends StatelessWidget {
                           ),
                           Expanded(
                             child: Container(
-                              padding: EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.all(8.0),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(8),
                               ),
@@ -170,7 +172,7 @@ class Store extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   ClipRRect(
-                                    borderRadius: BorderRadius.only(
+                                    borderRadius: const BorderRadius.only(
                                         topLeft: Radius.circular(8),
                                         topRight: Radius.circular(8)),
                                     child: Image.asset(
@@ -180,20 +182,20 @@ class Store extends StatelessWidget {
                                       fit: BoxFit.cover,
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 4,
                                   ),
-                                  Text(
+                                  const Text(
                                     "Jasuke",
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16,
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 2,
                                   ),
-                                  Row(
+                                  const Row(
                                     children: [
                                       Icon(
                                         Icons.label,
@@ -215,7 +217,7 @@ class Store extends StatelessWidget {
                         children: [
                           Expanded(
                             child: Container(
-                              padding: EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.all(8.0),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(8),
                               ),
@@ -223,7 +225,7 @@ class Store extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   ClipRRect(
-                                    borderRadius: BorderRadius.only(
+                                    borderRadius: const BorderRadius.only(
                                         topLeft: Radius.circular(8),
                                         topRight: Radius.circular(8)),
                                     child: Image.asset(
@@ -233,20 +235,20 @@ class Store extends StatelessWidget {
                                       fit: BoxFit.cover,
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 4,
                                   ),
-                                  Text(
+                                  const Text(
                                     "Jasuke",
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16,
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 2,
                                   ),
-                                  Row(
+                                  const Row(
                                     children: [
                                       Icon(
                                         Icons.label,
@@ -264,7 +266,7 @@ class Store extends StatelessWidget {
                           ),
                           Expanded(
                             child: Container(
-                              padding: EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.all(8.0),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(8),
                               ),
@@ -272,7 +274,7 @@ class Store extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   ClipRRect(
-                                    borderRadius: BorderRadius.only(
+                                    borderRadius: const BorderRadius.only(
                                         topLeft: Radius.circular(8),
                                         topRight: Radius.circular(8)),
                                     child: Image.asset(
@@ -282,122 +284,20 @@ class Store extends StatelessWidget {
                                       fit: BoxFit.cover,
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 4,
                                   ),
-                                  Text(
+                                  const Text(
                                     "Jasuke",
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16,
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 2,
                                   ),
-                                  Row(
-                                    children: [
-                                      Icon(
-                                        Icons.label,
-                                        size: 12,
-                                      ),
-                                      Text(
-                                        "Makanan Olahan",
-                                        style: TextStyle(fontSize: 12),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Container(
-                              padding: EdgeInsets.all(8.0),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(8),
-                                        topRight: Radius.circular(8)),
-                                    child: Image.asset(
-                                      height: 105,
-                                      width: 205,
-                                      ImageAssets.jagung,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 4,
-                                  ),
-                                  Text(
-                                    "Jasuke",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 2,
-                                  ),
-                                  Row(
-                                    children: [
-                                      Icon(
-                                        Icons.label,
-                                        size: 12,
-                                      ),
-                                      Text(
-                                        "Makanan Olahan",
-                                        style: TextStyle(fontSize: 12),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Container(
-                              padding: EdgeInsets.all(8.0),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(8),
-                                        topRight: Radius.circular(8)),
-                                    child: Image.asset(
-                                      height: 105,
-                                      width: 205,
-                                      ImageAssets.jagung,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 4,
-                                  ),
-                                  Text(
-                                    "Jasuke",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 2,
-                                  ),
-                                  Row(
+                                  const Row(
                                     children: [
                                       Icon(
                                         Icons.label,
@@ -419,7 +319,7 @@ class Store extends StatelessWidget {
                         children: [
                           Expanded(
                             child: Container(
-                              padding: EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.all(8.0),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(8),
                               ),
@@ -427,7 +327,7 @@ class Store extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   ClipRRect(
-                                    borderRadius: BorderRadius.only(
+                                    borderRadius: const BorderRadius.only(
                                         topLeft: Radius.circular(8),
                                         topRight: Radius.circular(8)),
                                     child: Image.asset(
@@ -437,20 +337,20 @@ class Store extends StatelessWidget {
                                       fit: BoxFit.cover,
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 4,
                                   ),
-                                  Text(
+                                  const Text(
                                     "Jasuke",
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16,
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 2,
                                   ),
-                                  Row(
+                                  const Row(
                                     children: [
                                       Icon(
                                         Icons.label,
@@ -468,7 +368,7 @@ class Store extends StatelessWidget {
                           ),
                           Expanded(
                             child: Container(
-                              padding: EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.all(8.0),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(8),
                               ),
@@ -476,7 +376,7 @@ class Store extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   ClipRRect(
-                                    borderRadius: BorderRadius.only(
+                                    borderRadius: const BorderRadius.only(
                                         topLeft: Radius.circular(8),
                                         topRight: Radius.circular(8)),
                                     child: Image.asset(
@@ -486,20 +386,122 @@ class Store extends StatelessWidget {
                                       fit: BoxFit.cover,
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 4,
                                   ),
-                                  Text(
+                                  const Text(
                                     "Jasuke",
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16,
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 2,
                                   ),
-                                  Row(
+                                  const Row(
+                                    children: [
+                                      Icon(
+                                        Icons.label,
+                                        size: 12,
+                                      ),
+                                      Text(
+                                        "Makanan Olahan",
+                                        style: TextStyle(fontSize: 12),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Container(
+                              padding: const EdgeInsets.all(8.0),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(8),
+                                        topRight: Radius.circular(8)),
+                                    child: Image.asset(
+                                      height: 105,
+                                      width: 205,
+                                      ImageAssets.jagung,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 4,
+                                  ),
+                                  const Text(
+                                    "Jasuke",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 2,
+                                  ),
+                                  const Row(
+                                    children: [
+                                      Icon(
+                                        Icons.label,
+                                        size: 12,
+                                      ),
+                                      Text(
+                                        "Makanan Olahan",
+                                        style: TextStyle(fontSize: 12),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Container(
+                              padding: const EdgeInsets.all(8.0),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(8),
+                                        topRight: Radius.circular(8)),
+                                    child: Image.asset(
+                                      height: 105,
+                                      width: 205,
+                                      ImageAssets.jagung,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 4,
+                                  ),
+                                  const Text(
+                                    "Jasuke",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 2,
+                                  ),
+                                  const Row(
                                     children: [
                                       Icon(
                                         Icons.label,
@@ -524,7 +526,7 @@ class Store extends StatelessWidget {
                     left: 8,
                     right: 8,
                     child: Container(
-                      padding: EdgeInsets.all(4),
+                      padding: const EdgeInsets.all(4),
                       height: 64,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(16),
@@ -534,7 +536,7 @@ class Store extends StatelessWidget {
                             color: Colors.black.withOpacity(0.1),
                             spreadRadius: 2,
                             blurRadius: 2,
-                            offset: Offset(2, 2),
+                            offset: const Offset(2, 2),
                           )
                         ],
                         border:
@@ -552,8 +554,8 @@ class Store extends StatelessWidget {
                                   height: 32,
                                   width: 32,
                                 ),
-                                SizedBox(width: 8),
-                                Text(
+                                const SizedBox(width: 8),
+                                const Text(
                                   "Ayo mulai jadi mitra kami untuk berjulan",
                                   style: TextStyle(
                                     fontSize: 16,
@@ -562,13 +564,6 @@ class Store extends StatelessWidget {
                                   ),
                                 ),
                               ],
-                            ),
-                            IconButton(
-                              onPressed: () {},
-                              icon: Icon(
-                                Icons.arrow_forward,
-                                color: Colors.black,
-                              ),
                             ),
                           ],
                         ),

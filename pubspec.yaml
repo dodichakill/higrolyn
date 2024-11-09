@@ -38,7 +38,6 @@ dependencies:
   another_flutter_splash_screen: ^1.2.1
   flutter_onboarding_slider: ^1.0.11
   fluid_bottom_nav_bar: ^1.4.0
-  persistent_bottom_nav_bar: ^6.2.1
   floating_bottom_bar: ^0.0.1
   persistent_bottom_nav_bar_v2: ^5.3.1
 

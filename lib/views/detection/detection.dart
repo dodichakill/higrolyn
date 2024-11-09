@@ -12,7 +12,7 @@ class Detection extends StatelessWidget {
       child: Consumer<DetectionNotifier>(
         builder: (context, value, child) => Scaffold(
           appBar: AppBar(
-            title: Text("detection"),
+            title: const Text("detection"),
           ),
         ),
       ),

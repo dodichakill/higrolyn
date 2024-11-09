@@ -1,7 +1,10 @@
 import 'package:agrolyn/providers/profile_notifier.dart';
 import 'package:agrolyn/shared/constants.dart';
 import 'package:agrolyn/utils/assets_path.dart';
+import 'package:agrolyn/views/Profile/Information.dart';
 import 'package:agrolyn/views/splash_screen.dart';
+import 'package:agrolyn/widgets/ItemMenuProfile.dart';
+import 'package:agrolyn/widgets/Logout.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -15,11 +18,13 @@ class Profile extends StatelessWidget {
       child: Consumer<ProfileNotifier>(
         builder: (context, value, child) => SafeArea(
           child: Scaffold(
+            backgroundColor: Colors.white,
             body: Stack(
               children: [
                 SingleChildScrollView(
                   child: Column(
                     children: [
+                      // Headline Profile Start
                       Container(
                           color: MyColors.primaryColorDark,
                           width: double.infinity,
@@ -35,20 +40,20 @@ class Profile extends StatelessWidget {
                                   children: [
                                     Image.asset(
                                       ImageAssets.logo,
-                                      width: 64,
-                                      height: 64,
+                                      width: 70,
+                                      height: 70,
                                     ),
-                                    SizedBox(
-                                      width: 8,
+                                    const SizedBox(
+                                      width: 12,
                                     ),
-                                    Column(
+                                    const Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          "Dog D Herlangga",
+                                          "Faisal Putriani",
                                           style: TextStyle(
                                             color: Colors.white,
                                             fontSize: 20,
@@ -65,6 +70,9 @@ class Profile extends StatelessWidget {
                                             fontWeight: FontWeight.normal,
                                             fontSize: 16,
                                           ),
+                                        ),
+                                        SizedBox(
+                                          height: 4,
                                         ),
                                         Row(
                                           crossAxisAlignment:
@@ -91,13 +99,13 @@ class Profile extends StatelessWidget {
                                   ],
                                 ),
                                 Container(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 16, vertical: 8),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10, vertical: 8),
                                   decoration: BoxDecoration(
                                     color: Colors.green[700],
                                     borderRadius: BorderRadius.circular(16),
                                   ),
-                                  child: Row(
+                                  child: const Row(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       Icon(
@@ -120,369 +128,29 @@ class Profile extends StatelessWidget {
                               ],
                             ),
                           )),
-                      SizedBox(
+                      const SizedBox(
                         height: 16,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          height: 64,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                              color: MyColors.primaryColorDark,
-                              borderRadius: BorderRadius.circular(16)),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  children: [
-                                    Icon(
-                                      Icons.person,
-                                      color: Colors.white,
-                                    ),
-                                    SizedBox(
-                                      width: 8,
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          "Tentang Akun",
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        Text(
-                                          "Lengkapi atau ganti informasi pribadi",
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.normal,
-                                          ),
-                                        ),
-                                      ],
-                                    )
-                                  ],
-                                ),
-                                IconButton(
-                                    onPressed: () {},
-                                    icon: Icon(
-                                      Icons.arrow_forward_ios,
-                                      color: Colors.white,
-                                    ))
-                              ],
-                            ),
-                          ),
-                        ),
+
+                      // Menu
+                      const ItemMenuProfile(
+                        icon: Icons.person,
+                        name: "Informasi Akun",
+                        page: InformationScreen(),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          height: 64,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                              color: MyColors.primaryColorDark,
-                              borderRadius: BorderRadius.circular(16)),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  children: [
-                                    Icon(
-                                      Icons.person,
-                                      color: Colors.white,
-                                    ),
-                                    SizedBox(
-                                      width: 8,
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          "Tentang Akun",
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        Text(
-                                          "Lengkapi atau ganti informasi pribadi",
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.normal,
-                                          ),
-                                        ),
-                                      ],
-                                    )
-                                  ],
-                                ),
-                                IconButton(
-                                    onPressed: () {},
-                                    icon: Icon(
-                                      Icons.arrow_forward_ios,
-                                      color: Colors.white,
-                                    ))
-                              ],
-                            ),
-                          ),
-                        ),
+                      const ItemMenuProfile(
+                        icon: Icons.notes,
+                        name: "Syarat dan Ketentuan",
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          height: 64,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                              color: MyColors.primaryColorDark,
-                              borderRadius: BorderRadius.circular(16)),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  children: [
-                                    Icon(
-                                      Icons.person,
-                                      color: Colors.white,
-                                    ),
-                                    SizedBox(
-                                      width: 8,
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          "Tentang Akun",
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        Text(
-                                          "Lengkapi atau ganti informasi pribadi",
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.normal,
-                                          ),
-                                        ),
-                                      ],
-                                    )
-                                  ],
-                                ),
-                                IconButton(
-                                    onPressed: () {},
-                                    icon: Icon(
-                                      Icons.arrow_forward_ios,
-                                      color: Colors.white,
-                                    ))
-                              ],
-                            ),
-                          ),
-                        ),
+                      const ItemMenuProfile(
+                        icon: Icons.star,
+                        name: "Beri ulasan dan Rating",
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          height: 64,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                              color: MyColors.primaryColorDark,
-                              borderRadius: BorderRadius.circular(16)),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  children: [
-                                    Icon(
-                                      Icons.person,
-                                      color: Colors.white,
-                                    ),
-                                    SizedBox(
-                                      width: 8,
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          "Tentang Akun",
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        Text(
-                                          "Lengkapi atau ganti informasi pribadi",
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.normal,
-                                          ),
-                                        ),
-                                      ],
-                                    )
-                                  ],
-                                ),
-                                IconButton(
-                                    onPressed: () {},
-                                    icon: Icon(
-                                      Icons.arrow_forward_ios,
-                                      color: Colors.white,
-                                    ))
-                              ],
-                            ),
-                          ),
-                        ),
+                      const ItemMenuProfile(
+                        icon: Icons.info_outline,
+                        name: "Tentang Aplikasi",
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          height: 64,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                              color: MyColors.primaryColorDark,
-                              borderRadius: BorderRadius.circular(16)),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  children: [
-                                    Icon(
-                                      Icons.person,
-                                      color: Colors.white,
-                                    ),
-                                    SizedBox(
-                                      width: 8,
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          "Tentang Akun",
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        Text(
-                                          "Lengkapi atau ganti informasi pribadi",
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.normal,
-                                          ),
-                                        ),
-                                      ],
-                                    )
-                                  ],
-                                ),
-                                IconButton(
-                                    onPressed: () {},
-                                    icon: Icon(
-                                      Icons.arrow_forward_ios,
-                                      color: Colors.white,
-                                    ))
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          height: 64,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                              color: Colors.red,
-                              borderRadius: BorderRadius.circular(16)),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  children: [
-                                    Icon(
-                                      Icons.logout,
-                                      color: Colors.white,
-                                    ),
-                                    SizedBox(
-                                      width: 8,
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          "Keluar",
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        Text(
-                                          "Keluarkan akun dari aplikasi agrolyn",
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.normal,
-                                          ),
-                                        ),
-                                      ],
-                                    )
-                                  ],
-                                ),
-                                IconButton(
-                                    onPressed: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const SplashScreen()));
-                                    },
-                                    icon: Icon(
-                                      Icons.arrow_forward_ios,
-                                      color: Colors.white,
-                                    ))
-                              ],
-                            ),
-                          ),
-                        ),
-                      )
+                      const Logout(),
                     ],
                   ),
                 )
