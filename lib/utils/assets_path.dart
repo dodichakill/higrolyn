@@ -18,6 +18,7 @@ class ImageAssets {
   static const String user2 = "$root/AGROLYN (5).png";
   static const String community = "$root/banner-community.png";
   static const String banner1 = "$root/banner-community.png";
+  static const String bannerScan = "$root/banner-scan.png";
   static const String banner2 = "$root/Group 252.png";
   static const String banner3 = "$root/Group 253.png";
   static const String banner4 = "$root/Group 254.png";

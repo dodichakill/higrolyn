@@ -1,7 +1,7 @@
 import 'package:agrolyn/shared/constants.dart';
-import 'package:agrolyn/views/Profile/profile.dart';
+import 'package:agrolyn/views/Profile/profile_screen.dart';
 import 'package:agrolyn/views/comunity/comunity.dart';
-import 'package:agrolyn/views/detection/detection.dart';
+import 'package:agrolyn/views/detection/detection_screen.dart';
 import 'package:agrolyn/views/home/home_page.dart';
 import 'package:agrolyn/views/store/store.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +34,7 @@ class Menu extends StatelessWidget {
             ),
           ),
           PersistentTabConfig(
-            screen: const Detection(),
+            screen: const DetectionScreen(),
             item: ItemConfig(
               icon: const Icon(Icons.camera_alt_rounded, color: Colors.white),
               activeForegroundColor: Colors.green,

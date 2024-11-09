@@ -1,10 +1,10 @@
 import 'package:agrolyn/providers/profile_notifier.dart';
 import 'package:agrolyn/shared/constants.dart';
 import 'package:agrolyn/utils/assets_path.dart';
-import 'package:agrolyn/views/Profile/Information.dart';
-import 'package:agrolyn/views/splash_screen.dart';
-import 'package:agrolyn/widgets/ItemMenuProfile.dart';
-import 'package:agrolyn/widgets/Logout.dart';
+import 'package:agrolyn/views/Profile/information_screen.dart';
+import 'package:agrolyn/views/Profile/terms_screen.dart';
+import 'package:agrolyn/widgets/item_menu_profile.dart';
+import 'package:agrolyn/widgets/logout.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -24,7 +24,7 @@ class Profile extends StatelessWidget {
                 SingleChildScrollView(
                   child: Column(
                     children: [
-                      // Headline Profile Start
+                      // Headline Profile
                       Container(
                           color: MyColors.primaryColorDark,
                           width: double.infinity,
@@ -53,10 +53,10 @@ class Profile extends StatelessWidget {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          "Faisal Putriani",
+                                          "Daniel Pratama",
                                           style: TextStyle(
                                             color: Colors.white,
-                                            fontSize: 20,
+                                            fontSize: 18,
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
@@ -68,7 +68,7 @@ class Profile extends StatelessWidget {
                                           style: TextStyle(
                                             color: Colors.white,
                                             fontWeight: FontWeight.normal,
-                                            fontSize: 16,
+                                            fontSize: 12,
                                           ),
                                         ),
                                         SizedBox(
@@ -77,11 +77,13 @@ class Profile extends StatelessWidget {
                                         Row(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
                                           children: [
                                             Icon(
                                               Icons.location_on,
                                               color: Colors.white,
-                                              size: 16,
+                                              size: 14,
                                             ),
                                             SizedBox(width: 4),
                                             Text(
@@ -89,7 +91,7 @@ class Profile extends StatelessWidget {
                                               style: TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.normal,
-                                                fontSize: 16,
+                                                fontSize: 12,
                                               ),
                                             ),
                                           ],
@@ -132,7 +134,7 @@ class Profile extends StatelessWidget {
                         height: 16,
                       ),
 
-                      // Menu
+                      // List Menu
                       const ItemMenuProfile(
                         icon: Icons.person,
                         name: "Informasi Akun",

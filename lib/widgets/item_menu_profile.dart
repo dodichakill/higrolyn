@@ -18,8 +18,12 @@ class ItemMenuProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () => {
-        pushWithoutNavBar(context,
-            MaterialPageRoute(builder: (context) => page ?? Container()))
+        page != null
+            ? Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => page != null ? page! : Container()))
+            : null
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),
