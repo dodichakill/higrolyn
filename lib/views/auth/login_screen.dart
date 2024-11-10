@@ -197,7 +197,7 @@ class LoginScreen extends StatelessWidget {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const Menu()));
+                                    builder: (context) => Menu()));
                           },
                           child: Container(
                             padding: const EdgeInsets.symmetric(
