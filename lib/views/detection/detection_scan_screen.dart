@@ -1,8 +1,12 @@
+import 'package:agrolyn/shared/constants.dart';
+import 'package:agrolyn/views/detection/detection_result_screen.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'dart:io';
+
+import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 class DetectionScanScreen extends StatefulWidget {
   const DetectionScanScreen({super.key});
@@ -53,10 +57,12 @@ class _DetectionScanScreenState extends State<DetectionScanScreen> {
 
     try {
       await _cameraController!.takePicture().then((XFile file) {
-        file.saveTo(imagePath);
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Foto tersimpan di $imagePath')),
-        );
+        // file.saveTo(imagePath);
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   SnackBar(content: Text('Foto tersimpan di $imagePath')),
+        // );
+        pushWithoutNavBar(context,
+            MaterialPageRoute(builder: (context) => DetectionResultScreen()));
       });
     } catch (e) {
       print('Error taking picture: $e');
@@ -72,19 +78,32 @@ class _DetectionScanScreenState extends State<DetectionScanScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Camera Page'),
-      ),
       body: _isCameraInitialized
           ? Column(
               children: [
-                AspectRatio(
-                  aspectRatio: _cameraController!.value.aspectRatio,
-                  child: CameraPreview(_cameraController!),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height - 70,
+                  child: AspectRatio(
+                    aspectRatio: _cameraController!.value.aspectRatio,
+                    child: CameraPreview(
+                      _cameraController!,
+                    ),
+                  ),
                 ),
+                const SizedBox(height: 10),
                 ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: MyColors.primaryColor,
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
                   onPressed: _takePicture,
-                  child: const Text('Take Picture'),
+                  child: const Text(
+                    'Ambil Foto',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ),
               ],
             )

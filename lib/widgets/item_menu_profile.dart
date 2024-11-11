@@ -19,7 +19,7 @@ class ItemMenuProfile extends StatelessWidget {
     return InkWell(
       onTap: () => {
         page != null
-            ? Navigator.push(
+            ? pushWithoutNavBar(
                 context,
                 MaterialPageRoute(
                     builder: (context) => page != null ? page! : Container()))
