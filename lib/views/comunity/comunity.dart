@@ -144,6 +144,12 @@ class Community extends StatelessWidget {
                                                   size: 16),
                                               SizedBox(width: 4),
                                               Text("Dukung Naik - 150"),
+                                              SizedBox(
+                                                width: 16,
+                                              ),
+                                              Icon(
+                                                  Icons.thumb_down_alt_outlined,
+                                                  size: 16),
                                             ],
                                           ),
                                           Row(
@@ -233,6 +239,11 @@ class Community extends StatelessWidget {
                                                 size: 16),
                                             SizedBox(width: 4),
                                             Text("Dukung Naik - 150"),
+                                            SizedBox(
+                                              width: 16,
+                                            ),
+                                            Icon(Icons.thumb_down_alt_outlined,
+                                                size: 16),
                                           ],
                                         ),
                                         Row(
@@ -321,6 +332,11 @@ class Community extends StatelessWidget {
                                                 size: 16),
                                             SizedBox(width: 4),
                                             Text("Dukung Naik - 150"),
+                                            SizedBox(
+                                              width: 16,
+                                            ),
+                                            Icon(Icons.thumb_down_alt_outlined,
+                                                size: 16),
                                           ],
                                         ),
                                         Row(

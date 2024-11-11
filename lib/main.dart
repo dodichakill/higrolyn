@@ -3,8 +3,10 @@ import 'package:agrolyn/views/home/home_page.dart';
 import 'package:agrolyn/views/splash_screen.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gemini/flutter_gemini.dart';
 
 void main() async {
+  Gemini.init(apiKey: "AIzaSyCA40wBU3zgPyr3bYc9zP3WMWb53HsyoWM");
   WidgetsFlutterBinding.ensureInitialized();
 
   runApp(const MyApp());

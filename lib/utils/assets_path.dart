@@ -25,4 +25,6 @@ class ImageAssets {
   static const String jagung = "$root/image (1).png";
   static const String petaniComunity = "$root/Rectangle 23.png";
   static const String dummyResult = "$root/leaf-blight.jpg";
+  static const String backgroundChatbot =
+      "$root/Screenshot 2024-11-11 114500.png";
 }
