@@ -44,7 +44,7 @@ class RegisterScreen extends StatelessWidget {
                               ),
                               const SizedBox(height: 8),
                               const Text(
-                                'Tolong Daftar Akun Untuk Mengakses Aplikasi',
+                                'Daftar Akun Untuk Mengakses Aplikasi',
                                 textAlign: TextAlign.center,
                               ),
                             ],
@@ -56,18 +56,17 @@ class RegisterScreen extends StatelessWidget {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text('Nama'),
                             const SizedBox(height: 8),
                             TextFormField(
                               decoration: InputDecoration(
-                                labelText: 'Masukan Nama',
+                                labelText: 'Nama',
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(16),
                                 ),
                               ),
                               validator: (e) {
                                 if (e!.isEmpty) {
-                                  return "Tolong Masukan Nama";
+                                  return "Nama Tidak boleh kosong";
                                 }
                                 return null;
                               },
@@ -80,18 +79,17 @@ class RegisterScreen extends StatelessWidget {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text('Email'),
                             const SizedBox(height: 8),
                             TextFormField(
                               decoration: InputDecoration(
-                                labelText: 'Masukan Email',
+                                labelText: 'Email',
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(16),
                                 ),
                               ),
                               validator: (e) {
                                 if (e!.isEmpty) {
-                                  return "Tolong Masukan Email";
+                                  return "Email Tidak boleh kosong";
                                 }
                                 return null;
                               },
@@ -131,19 +129,18 @@ class RegisterScreen extends StatelessWidget {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text('Password'),
                             const SizedBox(height: 8),
                             TextFormField(
                               obscureText: true,
                               decoration: InputDecoration(
-                                labelText: 'Masukan Password',
+                                labelText: 'Password',
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(16),
                                 ),
                               ),
                               validator: (e) {
                                 if (e!.isEmpty) {
-                                  return "Tolong Masukan Password";
+                                  return "Password Tidak boleh kosong";
                                 }
                                 return null;
                               },
@@ -156,19 +153,18 @@ class RegisterScreen extends StatelessWidget {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text('Konfirmasi Password'),
                             const SizedBox(height: 8),
                             TextFormField(
                               obscureText: true,
                               decoration: InputDecoration(
-                                labelText: 'Tolong Masukan Password',
+                                labelText: 'Konfirmasi Password',
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(16),
                                 ),
                               ),
                               validator: (e) {
                                 if (e!.isEmpty) {
-                                  return "Tolong Masukan Password";
+                                  return "Konfirmasi Password Tidak boleh kosong";
                                 }
                                 return null;
                               },
