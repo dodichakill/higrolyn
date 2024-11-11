@@ -1,3 +1,4 @@
+import 'package:agrolyn/api/auth_service.dart';
 import 'package:agrolyn/providers/register_notifier.dart';
 import 'package:agrolyn/utils/assets_path.dart';
 import 'package:agrolyn/views/auth/login_screen.dart';
@@ -5,6 +6,7 @@ import 'package:agrolyn/views/home/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({super.key});
@@ -58,6 +60,7 @@ class RegisterScreen extends StatelessWidget {
                           children: [
                             const SizedBox(height: 8),
                             TextFormField(
+                              controller: value.nameController,
                               decoration: InputDecoration(
                                 labelText: 'Nama',
                                 border: OutlineInputBorder(
@@ -81,6 +84,7 @@ class RegisterScreen extends StatelessWidget {
                           children: [
                             const SizedBox(height: 8),
                             TextFormField(
+                              controller: value.emailController,
                               decoration: InputDecoration(
                                 labelText: 'Email',
                                 border: OutlineInputBorder(
@@ -96,34 +100,56 @@ class RegisterScreen extends StatelessWidget {
                             ),
                           ],
                         ),
+
                         const SizedBox(height: 16),
-// Section: Roles ID Field
+                        // Section: Phone Number Field
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text('Roles ID'),
                             const SizedBox(height: 8),
                             TextFormField(
-                              keyboardType: TextInputType
-                                  .number, // Hanya menampilkan keyboard angka
-                              inputFormatters: [
-                                FilteringTextInputFormatter.digitsOnly
-                              ], // Membatasi input hanya angka
+                              controller: value.phoneController,
                               decoration: InputDecoration(
-                                labelText: 'Masukan Roles ID',
+                                labelText: 'Nomor Hp',
+                                prefix: const Text('+62 '),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(16),
                                 ),
                               ),
                               validator: (e) {
-                                if (e == null || e.isEmpty) {
-                                  return "Tolong Masukan Roles ID";
+                                if (e!.isEmpty) {
+                                  return "Nomor HP Tidak boleh kosong";
                                 }
                                 return null;
                               },
                             ),
                           ],
                         ),
+                        const SizedBox(height: 8),
+
+                        // Section: Address Field
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(height: 8),
+                            TextFormField(
+                              controller: value.addressController,
+                              decoration: InputDecoration(
+                                labelText: 'Alamat',
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(16),
+                                ),
+                              ),
+                              validator: (e) {
+                                if (e!.isEmpty) {
+                                  return "Alamat Tidak boleh kosong";
+                                }
+                                return null;
+                              },
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 8),
 
                         // Section: Password Field
                         Column(
@@ -131,6 +157,7 @@ class RegisterScreen extends StatelessWidget {
                           children: [
                             const SizedBox(height: 8),
                             TextFormField(
+                              controller: value.passwordController,
                               obscureText: true,
                               decoration: InputDecoration(
                                 labelText: 'Password',
@@ -155,6 +182,7 @@ class RegisterScreen extends StatelessWidget {
                           children: [
                             const SizedBox(height: 8),
                             TextFormField(
+                              controller: value.retypePasswordController,
                               obscureText: true,
                               decoration: InputDecoration(
                                 labelText: 'Konfirmasi Password',
@@ -171,20 +199,6 @@ class RegisterScreen extends StatelessWidget {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 8),
-
-                        // Section: Forgot Password
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            TextButton(
-                                onPressed: () {},
-                                child: const Text(
-                                  'Lupa Password',
-                                  style: TextStyle(color: Colors.black),
-                                ))
-                          ],
-                        ),
                         const SizedBox(height: 16),
 
                         // Section: Sign Up Button
@@ -192,7 +206,23 @@ class RegisterScreen extends StatelessWidget {
                           width: double.infinity,
                           height: 56,
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () async {
+                              SharedPreferences prefs =
+                                  await SharedPreferences.getInstance();
+                              String? id = prefs.getString('role_choice');
+                              print(
+                                  "${int.parse(id ?? '0')} ${value.nameController.text} ${value.emailController.text} ${value.phoneController.text} ${value.addressController.text} ${value.passwordController.text}");
+                              // if (value.keyfrom.currentState!.validate()) {
+                              AuthService().register(
+                                  context,
+                                  int.parse(id!),
+                                  value.nameController.text,
+                                  value.emailController.text,
+                                  value.phoneController.text,
+                                  value.addressController.text,
+                                  value.passwordController.text);
+                              // }
+                            },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.green,
                             ),
@@ -234,12 +264,7 @@ class RegisterScreen extends StatelessWidget {
                         ),
 
                         InkWell(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const HomePage()));
-                          },
+                          onTap: () {},
                           child: Container(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 16, vertical: 16),

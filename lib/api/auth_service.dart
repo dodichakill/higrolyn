@@ -1,3 +1,4 @@
+import 'package:agrolyn/views/auth/login_screen.dart';
 import 'package:agrolyn/views/home/home_page.dart';
 import 'package:agrolyn/widgets/menu.dart';
 import 'package:dio/dio.dart';
@@ -66,15 +67,87 @@ class AuthService {
     }
   }
 
+  // Fungsi untuk login
+  Future<bool> register(context, int id, String name, String email,
+      String phoneNumber, String address, String password) async {
+    print("$id $name $email $phoneNumber $address $password ");
+    try {
+      final response = await _dio.post(
+        "/register",
+        data: {
+          "roles_id": id,
+          "name": name.toString(),
+          "email": email.toString(),
+          "phone_number": phoneNumber.toString(),
+          "address": address.toString(),
+          "password": password.toString(),
+        },
+      );
+
+      print(response);
+
+      if (response.statusCode == 201) {
+        print(response.data);
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const LoginScreen()),
+        );
+        return true;
+      } else {
+        return false;
+      }
+    } on DioException catch (e) {
+      print("Register error: ${e.response?.data['message']}");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+            backgroundColor: Colors.red,
+            content: Text(
+              "Gagal Daftar, ${e.response?.data['message']}",
+              style: const TextStyle(color: Colors.white),
+            )),
+      );
+      return false;
+    }
+  }
+
   // Fungsi untuk mengambil token
   Future<String?> getToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString('token');
+    return prefs.getString('access_token');
   }
 
   // Fungsi untuk logout
-  Future<void> logout() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.remove('token');
+  Future<void> logout(context) async {
+    // buatkan code untuk logout dengan endpoint /logout dan menambahkan token bernama 'access_token' di header
+    final token = await getToken();
+    print("Token: $token");
+    if (token != null) {
+      try {
+        final res = await _dio.post(
+          "/logout",
+          options: Options(headers: {
+            'Authorization': 'Bearer $token',
+          }),
+        );
+
+        if (res.statusCode == 200) {
+          print("Logout berhasil");
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          await prefs.remove('access_token');
+          pushReplacementWithoutNavBar(context,
+              MaterialPageRoute(builder: (context) => const LoginScreen()));
+        }
+      } on DioException catch (e) {
+        print("Register error: ${e.response?.data['message']}");
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+              backgroundColor: Colors.red,
+              content: Text(
+                "Logout Gagal ${e.response?.data['message']}",
+                style: const TextStyle(color: Colors.white),
+              )),
+        );
+      }
+    }
   }
 }

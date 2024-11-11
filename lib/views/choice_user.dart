@@ -3,6 +3,7 @@ import 'package:agrolyn/utils/assets_path.dart';
 import 'package:agrolyn/views/auth/login_screen.dart';
 import 'package:agrolyn/views/auth/register_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ChoiceUser extends StatelessWidget {
   const ChoiceUser({super.key});
@@ -82,7 +83,12 @@ class ChoiceUser extends StatelessWidget {
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 16.0),
                                 child: ElevatedButton(
-                                    onPressed: () {
+                                    onPressed: () async {
+                                      SharedPreferences prefs =
+                                          await SharedPreferences.getInstance();
+
+                                      await prefs.setString(
+                                          'role_choice', 2.toString());
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
@@ -152,7 +158,7 @@ class ChoiceUser extends StatelessWidget {
                               ),
                               const SizedBox(height: 8),
                               const Text(
-                                "PENGGUNA BIASA",
+                                "UMUM",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16,
@@ -164,7 +170,12 @@ class ChoiceUser extends StatelessWidget {
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 16.0),
                                 child: ElevatedButton(
-                                    onPressed: () {
+                                    onPressed: () async {
+                                      SharedPreferences prefs =
+                                          await SharedPreferences.getInstance();
+
+                                      await prefs.setString(
+                                          'role_choice', 3.toString());
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
