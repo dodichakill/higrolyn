@@ -108,7 +108,7 @@ class HomePage extends StatelessWidget {
                                   ),
                                   const SizedBox(height: 4),
                                   const Text(
-                                    "Bangkit bersama untuk mengatasi krisis pangan",
+                                    "Solusi Pertanian Cerdas Masa Depan",
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 16,
