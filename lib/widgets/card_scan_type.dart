@@ -1,5 +1,6 @@
 import 'package:agrolyn/utils/assets_path.dart';
 import 'package:agrolyn/views/detection/detection_result_screen.dart';
+import 'package:agrolyn/views/detection/detection_scan_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
@@ -13,7 +14,7 @@ class CardScanType extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        pushScreenWithoutNavBar(context, DetectionResultScreen());
+        pushScreenWithoutNavBar(context, const DetectionScanScreen());
       },
       child: Container(
         padding: const EdgeInsets.all(8.0),
