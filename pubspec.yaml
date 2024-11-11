@@ -40,6 +40,10 @@ dependencies:
   fluid_bottom_nav_bar: ^1.4.0
   persistent_bottom_nav_bar: ^6.2.1
   floating_bottom_bar: ^0.0.1
+  dio: ^5.7.0
+  json_to_model: ^3.2.4
+  quiver: ^3.2.1
+  shared_preferences: ^2.3.3
 
 dev_dependencies:
   flutter_test:

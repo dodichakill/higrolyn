@@ -1,0 +1,8 @@
+{
+  "address": "string",
+  "email": "string",
+  "name": "string",
+  "password": "string",
+  "phone_number": "string",
+  "roles_id": 0
+}

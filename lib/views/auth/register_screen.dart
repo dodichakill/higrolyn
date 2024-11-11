@@ -3,6 +3,7 @@ import 'package:agrolyn/utils/assets_path.dart';
 import 'package:agrolyn/views/auth/login_screen.dart';
 import 'package:agrolyn/views/home/home_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 class RegisterScreen extends StatelessWidget {
@@ -17,7 +18,6 @@ class RegisterScreen extends StatelessWidget {
           child: Scaffold(
             resizeToAvoidBottomInset: true,
             body: Form(
-              key: value.keyfrom,
               child: SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
@@ -28,17 +28,13 @@ class RegisterScreen extends StatelessWidget {
                         Center(
                           child: Column(
                             children: [
-                              const SizedBox(
-                                height: 16,
-                              ),
+                              const SizedBox(height: 16),
                               Image.asset(
                                 ImageAssets.logo,
                                 height: 192,
                                 width: 192,
                               ),
-                              const SizedBox(
-                                height: 16,
-                              ),
+                              const SizedBox(height: 16),
                               const Text(
                                 'Daftar Akun',
                                 style: TextStyle(
@@ -73,7 +69,7 @@ class RegisterScreen extends StatelessWidget {
                                 if (e!.isEmpty) {
                                   return "Tolong Masukan Nama";
                                 }
-                                return null; // Mengembalikan null jika valid
+                                return null;
                               },
                             ),
                           ],
@@ -97,12 +93,39 @@ class RegisterScreen extends StatelessWidget {
                                 if (e!.isEmpty) {
                                   return "Tolong Masukan Email";
                                 }
-                                return null; // Mengembalikan null jika valid
+                                return null;
                               },
                             ),
                           ],
                         ),
                         const SizedBox(height: 16),
+// Section: Roles ID Field
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text('Roles ID'),
+                            const SizedBox(height: 8),
+                            TextFormField(
+                              keyboardType: TextInputType
+                                  .number, // Hanya menampilkan keyboard angka
+                              inputFormatters: [
+                                FilteringTextInputFormatter.digitsOnly
+                              ], // Membatasi input hanya angka
+                              decoration: InputDecoration(
+                                labelText: 'Masukan Roles ID',
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(16),
+                                ),
+                              ),
+                              validator: (e) {
+                                if (e == null || e.isEmpty) {
+                                  return "Tolong Masukan Roles ID";
+                                }
+                                return null;
+                              },
+                            ),
+                          ],
+                        ),
 
                         // Section: Password Field
                         Column(
@@ -111,8 +134,7 @@ class RegisterScreen extends StatelessWidget {
                             const Text('Password'),
                             const SizedBox(height: 8),
                             TextFormField(
-                              obscureText:
-                                  true, // Menyembunyikan input password
+                              obscureText: true,
                               decoration: InputDecoration(
                                 labelText: 'Masukan Password',
                                 border: OutlineInputBorder(
@@ -123,23 +145,21 @@ class RegisterScreen extends StatelessWidget {
                                 if (e!.isEmpty) {
                                   return "Tolong Masukan Password";
                                 }
-                                return null; // Mengembalikan null jika valid
+                                return null;
                               },
                             ),
                           ],
                         ),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        // Section: Password Field
+                        const SizedBox(height: 16),
+
+                        // Section: Confirm Password Field
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Text('Konfirmasi Password'),
                             const SizedBox(height: 8),
                             TextFormField(
-                              obscureText:
-                                  true, // Menyembunyikan input password
+                              obscureText: true,
                               decoration: InputDecoration(
                                 labelText: 'Tolong Masukan Password',
                                 border: OutlineInputBorder(
@@ -150,7 +170,7 @@ class RegisterScreen extends StatelessWidget {
                                 if (e!.isEmpty) {
                                   return "Tolong Masukan Password";
                                 }
-                                return null; // Mengembalikan null jika valid
+                                return null;
                               },
                             ),
                           ],
@@ -176,16 +196,7 @@ class RegisterScreen extends StatelessWidget {
                           width: double.infinity,
                           height: 56,
                           child: ElevatedButton(
-                            onPressed: () {
-                              if (value.keyfrom.currentState!.validate()) {
-                                // Memanggil validate sebelum menavigasi
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const HomePage()),
-                                );
-                              }
-                            },
+                            onPressed: () {},
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.green,
                             ),

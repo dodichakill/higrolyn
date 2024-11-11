@@ -1,3 +1,5 @@
+import 'package:agrolyn/views/home/detail_article.dart';
+import 'package:agrolyn/views/home/home_page.dart';
 import 'package:agrolyn/views/splash_screen.dart';
 import 'package:flutter/material.dart';
 
