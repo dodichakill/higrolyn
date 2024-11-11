@@ -1,9 +1,11 @@
+import 'package:agrolyn/api/auth_service.dart';
 import 'package:agrolyn/providers/login_notifier.dart';
 import 'package:agrolyn/shared/constants.dart';
 import 'package:agrolyn/utils/assets_path.dart';
 import 'package:agrolyn/views/auth/register_screen.dart';
 import 'package:agrolyn/views/home/home_page.dart';
 import 'package:agrolyn/widgets/menu.dart';
+import 'package:agrolyn/widgets/text_input.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -78,6 +80,7 @@ class LoginScreen extends StatelessWidget {
                           children: [
                             const SizedBox(height: 8),
                             TextFormField(
+                              controller: value.emailController,
                               decoration: InputDecoration(
                                 labelText: 'Email',
                                 border: OutlineInputBorder(
@@ -90,7 +93,7 @@ class LoginScreen extends StatelessWidget {
                                 }
                                 return null; // Mengembalikan null jika valid
                               },
-                            ),
+                            )
                           ],
                         ),
                         const SizedBox(height: 16),
@@ -101,6 +104,7 @@ class LoginScreen extends StatelessWidget {
                           children: [
                             const SizedBox(height: 8),
                             TextFormField(
+                              controller: value.passwordController,
                               obscureText:
                                   true, // Menyembunyikan input password
                               decoration: InputDecoration(
@@ -142,11 +146,11 @@ class LoginScreen extends StatelessWidget {
                             onPressed: () {
                               if (value.keyfrom.currentState!.validate()) {
                                 // Memanggil validate sebelum menavigasi
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const HomePage()),
-                                );
+
+                                AuthService().login(
+                                    context,
+                                    value.emailController.text,
+                                    value.passwordController.text);
                               }
                             },
                             style: ElevatedButton.styleFrom(

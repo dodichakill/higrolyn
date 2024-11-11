@@ -396,12 +396,6 @@ class HomePage extends StatelessWidget {
                                       )
                                     ],
                                   ),
-                                  IconButton(
-                                      onPressed: () {},
-                                      icon: const Icon(
-                                        Icons.arrow_forward,
-                                        color: Colors.black,
-                                      ))
                                 ],
                               ),
                             )),
@@ -409,69 +403,66 @@ class HomePage extends StatelessWidget {
                               width: 8,
                             ),
                             Expanded(
-                                child: Container(
-                              padding: const EdgeInsets.all(4),
-                              height: 64,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(16),
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.1),
-                                      spreadRadius: 2,
-                                      blurRadius: 2,
-                                      offset: const Offset(2, 2),
-                                    )
-                                  ],
-                                  border: Border.all(
-                                      color: Colors.black.withOpacity(0.2))),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Image.asset(
-                                        ImageAssets.logoJagung,
-                                        height: 32,
-                                        width: 32,
-                                      ),
-                                      const SizedBox(
-                                        width: 8,
-                                      ),
-                                      const Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "Jagung",
-                                            style: TextStyle(
-                                              fontSize: 16,
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          Text(
-                                            "Augmented Reality",
-                                            style: TextStyle(
-                                              fontSize: 12,
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.normal,
-                                            ),
-                                          ),
-                                        ],
+                                child: InkWell(
+                              onTap: () {},
+                              child: Container(
+                                padding: const EdgeInsets.all(4),
+                                height: 64,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(16),
+                                    color: Colors.white,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.1),
+                                        spreadRadius: 2,
+                                        blurRadius: 2,
+                                        offset: const Offset(2, 2),
                                       )
                                     ],
-                                  ),
-                                  IconButton(
-                                      onPressed: () {},
-                                      icon: const Icon(
-                                        Icons.arrow_forward,
-                                        color: Colors.black,
-                                      ))
-                                ],
+                                    border: Border.all(
+                                        color: Colors.black.withOpacity(0.2))),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Image.asset(
+                                          ImageAssets.logoJagung,
+                                          height: 32,
+                                          width: 32,
+                                        ),
+                                        const SizedBox(
+                                          width: 8,
+                                        ),
+                                        const Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "Jagung",
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            Text(
+                                              "Augmented Reality",
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.normal,
+                                              ),
+                                            ),
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
                             )),
                           ],

@@ -1,0 +1,80 @@
+import 'package:agrolyn/views/home/home_page.dart';
+import 'package:agrolyn/widgets/menu.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+class AuthService {
+  final Dio _dio = Dio();
+
+  AuthService() {
+    _dio.options.baseUrl =
+        "https://apiv1.agrolyn.online"; // Sesuaikan URL API Anda
+    _dio.options.headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    };
+  }
+
+  // Fungsi untuk login
+  Future<bool> login(context, String email, String password) async {
+    print("$email $password");
+    try {
+      final response = await _dio.post(
+        "/login",
+        data: {
+          "email": email.toString(),
+          "password": password.toString(),
+        },
+      );
+
+      print(response);
+
+      if (response.statusCode == 200) {
+        // Simpan token di SharedPreferences
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setString('refresh_token', response.data['refresh_token']);
+        await prefs.setString('access_token', response.data['access_token']);
+        await prefs.setString('name', response.data['name']);
+        await prefs.setString('address', response.data['address']);
+        await prefs.setString('phone_number', response.data['phone_number']);
+        await prefs.setString('email', response.data['email']);
+        await prefs.setString('id', response.data['id'].toString());
+        await prefs.setString('img_profile', response.data['img_profile']);
+        await prefs.setString('roles_id', response.data['roles_id'].toString());
+        print(response.data);
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => Menu()),
+        );
+        return true;
+      } else {
+        return false;
+      }
+    } on DioException catch (e) {
+      print("Login error: ${e.response?.data}");
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+            backgroundColor: Colors.red,
+            content: Text(
+              'Gagal Login, silahkan coba lagi!',
+              style: TextStyle(color: Colors.white),
+            )),
+      );
+      return false;
+    }
+  }
+
+  // Fungsi untuk mengambil token
+  Future<String?> getToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('token');
+  }
+
+  // Fungsi untuk logout
+  Future<void> logout() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove('token');
+  }
+}
