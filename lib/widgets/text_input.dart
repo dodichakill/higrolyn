@@ -15,7 +15,7 @@ class TextInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       enabled: isDisabled == false ? true : false,
-      initialValue: defaultValue ?? "",
+      initialValue: defaultValue,
       decoration: InputDecoration(
         labelText: name,
         focusColor: MyColors.primaryColorDark,

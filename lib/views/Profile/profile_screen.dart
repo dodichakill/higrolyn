@@ -7,9 +7,13 @@ import 'package:agrolyn/widgets/item_menu_profile.dart';
 import 'package:agrolyn/widgets/logout.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Profile extends StatelessWidget {
-  const Profile({super.key});
+  late final BuildContext context;
+  String? name, email, address, rolesId;
+
+  Profile({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -36,97 +40,130 @@ class Profile extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Row(
-                                  children: [
-                                    Image.asset(
-                                      ImageAssets.logo,
-                                      width: 70,
-                                      height: 70,
-                                    ),
-                                    const SizedBox(
-                                      width: 12,
-                                    ),
-                                    const Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "Daniel Pratama",
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 4,
-                                        ),
-                                        Text(
-                                          "johndoe123@gmail.com",
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.normal,
-                                            fontSize: 12,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 4,
-                                        ),
-                                        Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Icon(
-                                              Icons.location_on,
-                                              color: Colors.white,
-                                              size: 14,
-                                            ),
-                                            SizedBox(width: 4),
-                                            Text(
-                                              "Tegal, Jawa Tengah",
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.normal,
-                                                fontSize: 12,
+                                FutureBuilder(
+                                    future: SharedPreferences.getInstance(),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.hasData) {
+                                        SharedPreferences prefs =
+                                            snapshot.data as SharedPreferences;
+                                        String name =
+                                            prefs.getString('name') ?? '';
+                                        String email =
+                                            prefs.getString('email') ?? '';
+                                        String address =
+                                            prefs.getString('address') ?? '';
+                                        String imgProfile =
+                                            prefs.getString('img_profile') ??
+                                                '';
+                                        String roleId =
+                                            prefs.getString('roles_id') ?? '';
+
+                                        return Row(children: [
+                                          Row(
+                                            children: [
+                                              Image.asset(
+                                                ImageAssets.logo,
+                                                width: 70,
+                                                height: 70,
                                               ),
+                                              const SizedBox(
+                                                width: 12,
+                                              ),
+                                              Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    name,
+                                                    style: const TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 18,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 4,
+                                                  ),
+                                                  Text(
+                                                    email,
+                                                    style: const TextStyle(
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.normal,
+                                                      fontSize: 12,
+                                                    ),
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 4,
+                                                  ),
+                                                  Row(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      const Icon(
+                                                        Icons.location_on,
+                                                        color: Colors.white,
+                                                        size: 14,
+                                                      ),
+                                                      const SizedBox(width: 4),
+                                                      Text(
+                                                        address,
+                                                        style: const TextStyle(
+                                                          color: Colors.white,
+                                                          fontWeight:
+                                                              FontWeight.normal,
+                                                          fontSize: 12,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                          const SizedBox(
+                                            width: 20,
+                                          ),
+                                          Container(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 10, vertical: 8),
+                                            decoration: BoxDecoration(
+                                              color: Colors.green[700],
+                                              borderRadius:
+                                                  BorderRadius.circular(16),
                                             ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10, vertical: 8),
-                                  decoration: BoxDecoration(
-                                    color: Colors.green[700],
-                                    borderRadius: BorderRadius.circular(16),
-                                  ),
-                                  child: const Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Icon(
-                                        Icons.person,
-                                        color: Colors.white,
-                                        size: 24,
-                                      ),
-                                      SizedBox(width: 8),
-                                      Text(
-                                        "Petani",
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                )
+                                            child: const Row(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                Icon(
+                                                  Icons.person,
+                                                  color: Colors.white,
+                                                  size: 24,
+                                                ),
+                                                SizedBox(width: 8),
+                                                Text(
+                                                  "Petani",
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          )
+                                        ]);
+                                      } else {
+                                        return const CircularProgressIndicator();
+                                      }
+                                    })
                               ],
                             ),
                           )),
@@ -138,7 +175,7 @@ class Profile extends StatelessWidget {
                       const ItemMenuProfile(
                         icon: Icons.person,
                         name: "Informasi Akun",
-                        page: InformationScreen(),
+                        // page: InformationScreen(),
                       ),
                       const ItemMenuProfile(
                         icon: Icons.notes,
