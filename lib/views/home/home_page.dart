@@ -200,7 +200,7 @@ class HomePage extends StatelessWidget {
                                         var article = value.articles[index];
                                         return InkWell(
                                           onTap: () {
-                                            Navigator.push(
+                                            pushWithoutNavBar(
                                               context,
                                               MaterialPageRoute(
                                                 builder: (context) =>
@@ -481,31 +481,37 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                    top: 775,
-                    left: 8,
-                    right: 8,
-                    child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                pushWithoutNavBar(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => const Chatbot()));
-                              },
-                              child: Container(
-                                child: Image.asset(
-                                  ImageAssets.logoChatbot,
-                                  height: 80,
-                                  width: 80,
-                                ),
-                              ),
-                            ),
-                          ],
-                        )))
+                  left: value.chatbotPosition.dx,
+                  top: value.chatbotPosition.dy,
+                  child: Draggable(
+                    feedback: Image.asset(
+                      ImageAssets.logoChatbot,
+                      height: 80,
+                      width: 80,
+                    ),
+                    childWhenDragging:
+                        Container(), // Widget shown when dragging
+                    onDraggableCanceled: (velocity, offset) {
+                      // Update position using the provider
+                      value.updateChatbotPosition(offset);
+                    },
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const Chatbot(),
+                          ),
+                        );
+                      },
+                      child: Image.asset(
+                        ImageAssets.logoChatbot,
+                        height: 80,
+                        width: 80,
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),

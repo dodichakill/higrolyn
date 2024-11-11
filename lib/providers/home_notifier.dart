@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 class HomeNotifier extends ChangeNotifier {
   final BuildContext context;
+  Offset chatbotPosition = Offset(8, 775);
 
   HomeNotifier({required this.context}) {
     fetchArticles();
@@ -13,6 +14,11 @@ class HomeNotifier extends ChangeNotifier {
 
   void fetchArticles() async {
     articles = await _articleService.getArticles();
-    notifyListeners(); // Memperbarui tampilan setelah data diterima
+    notifyListeners();
+  }
+
+  void updateChatbotPosition(Offset newPosition) {
+    chatbotPosition = newPosition;
+    notifyListeners(); // Trigger UI update with the new position
   }
 }
