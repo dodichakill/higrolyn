@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 class MenuNotifier extends ChangeNotifier {
   final BuildContext context;
 
   MenuNotifier({required this.context});
 
-  int page = 0;
+  PersistentTabController _page = PersistentTabController(initialIndex: 0);
 
-  void changePage(int index) {
-    page = index;
+  PersistentTabController get page => _page;
+
+  set setPage(PersistentTabController value) {
+    _page = value;
     notifyListeners();
   }
 }

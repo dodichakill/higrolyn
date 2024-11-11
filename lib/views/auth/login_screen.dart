@@ -86,7 +86,7 @@ class LoginScreen extends StatelessWidget {
                               ),
                               validator: (e) {
                                 if (e!.isEmpty) {
-                                  return "Tolong Masukan Email";
+                                  return "Email Tidak Boleh Kosong";
                                 }
                                 return null; // Mengembalikan null jika valid
                               },
@@ -111,7 +111,7 @@ class LoginScreen extends StatelessWidget {
                               ),
                               validator: (e) {
                                 if (e!.isEmpty) {
-                                  return "Tolong Masukan Password";
+                                  return "Password Tidak Boleh Kosong";
                                 }
                                 return null; // Mengembalikan null jika valid
                               },
@@ -197,7 +197,7 @@ class LoginScreen extends StatelessWidget {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const Menu()));
+                                    builder: (context) => Menu()));
                           },
                           child: Container(
                             padding: const EdgeInsets.symmetric(

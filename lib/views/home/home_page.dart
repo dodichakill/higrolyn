@@ -51,8 +51,8 @@ class HomePage extends StatelessWidget {
                                             color: Colors.yellow[600],
                                             size: 18,
                                           ),
-                                          SizedBox(width: 4),
-                                          Text(
+                                          const SizedBox(width: 4),
+                                          const Text(
                                             "35°C",
                                             style: TextStyle(
                                               color: Colors.white,
@@ -60,8 +60,8 @@ class HomePage extends StatelessWidget {
                                               fontSize: 16,
                                             ),
                                           ),
-                                          SizedBox(width: 8),
-                                          Text(
+                                          const SizedBox(width: 8),
+                                          const Text(
                                             "|",
                                             style: TextStyle(
                                               color: Colors.white,
@@ -69,14 +69,14 @@ class HomePage extends StatelessWidget {
                                               fontSize: 16,
                                             ),
                                           ),
-                                          SizedBox(width: 8),
-                                          Icon(
+                                          const SizedBox(width: 8),
+                                          const Icon(
                                             Icons.location_on,
                                             color: Colors.white,
                                             size: 16,
                                           ),
-                                          SizedBox(width: 4),
-                                          Text(
+                                          const SizedBox(width: 4),
+                                          const Text(
                                             "Tegal, Jawa Tengah",
                                             style: TextStyle(
                                               color: Colors.white,
@@ -86,17 +86,17 @@ class HomePage extends StatelessWidget {
                                           ),
                                         ],
                                       ),
-                                      Icon(
+                                      const Icon(
                                         Icons.shopping_cart_outlined,
                                         color: Colors.white,
                                         size: 32,
                                       ),
                                     ],
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 16,
                                   ),
-                                  Text(
+                                  const Text(
                                     "Selamat Datang Di Agrolyn",
                                     style: TextStyle(
                                       color: Colors.white,
@@ -104,8 +104,8 @@ class HomePage extends StatelessWidget {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  SizedBox(height: 4),
-                                  Text(
+                                  const SizedBox(height: 4),
+                                  const Text(
                                     "Bangkit bersama untuk mengatasi krisis pangan",
                                     style: TextStyle(
                                       color: Colors.white,
@@ -117,7 +117,7 @@ class HomePage extends StatelessWidget {
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 54,
                           ),
                           Padding(
@@ -159,7 +159,7 @@ class HomePage extends StatelessWidget {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(
+                                    const Text(
                                       "Artikel",
                                       style: TextStyle(
                                         fontSize: 16,
@@ -170,7 +170,7 @@ class HomePage extends StatelessWidget {
                                     ),
                                     TextButton(
                                       onPressed: () {},
-                                      child: Text(
+                                      child: const Text(
                                         "Lihat lainnya",
                                         style: TextStyle(
                                           fontSize: 14,
@@ -191,7 +191,8 @@ class HomePage extends StatelessWidget {
                                       right: 8, bottom: 8, left: 8),
                                   child: ListView.builder(
                                       shrinkWrap: true,
-                                      physics: NeverScrollableScrollPhysics(),
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
                                       itemCount: value.articles.length,
                                       itemBuilder: (context, index) {
                                         var article = value.articles[index];
@@ -239,9 +240,9 @@ class HomePage extends StatelessWidget {
                                                                     .cover,
                                                               ),
                                                             )
-                                                          : Text(
+                                                          : const Text(
                                                               "Thumbnail not available"),
-                                                      SizedBox(width: 16),
+                                                      const SizedBox(width: 16),
                                                       Expanded(
                                                         child: Column(
                                                           crossAxisAlignment:
@@ -250,16 +251,17 @@ class HomePage extends StatelessWidget {
                                                           children: [
                                                             Text(
                                                               "${article['title']}",
-                                                              style: TextStyle(
+                                                              style: const TextStyle(
                                                                   fontSize: 16,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .bold),
                                                             ),
-                                                            SizedBox(height: 2),
+                                                            const SizedBox(
+                                                                height: 2),
                                                             Text(
                                                               "${article['description']}",
-                                                              style: TextStyle(
+                                                              style: const TextStyle(
                                                                   fontSize: 16,
                                                                   fontWeight:
                                                                       FontWeight
@@ -281,7 +283,7 @@ class HomePage extends StatelessWidget {
                                         );
                                       }),
                                 )
-                              : Center(
+                              : const Center(
                                   child: Text("No articles available"),
                                 ),
                           Padding(
@@ -301,7 +303,7 @@ class HomePage extends StatelessWidget {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(
+                                    const Text(
                                       "Video Edukasi",
                                       style: TextStyle(
                                         fontSize: 16,
@@ -312,7 +314,7 @@ class HomePage extends StatelessWidget {
                                     ),
                                     TextButton(
                                       onPressed: () {},
-                                      child: Text(
+                                      child: const Text(
                                         "Lihat lainnya",
                                         style: TextStyle(
                                           fontSize: 14,
@@ -337,7 +339,7 @@ class HomePage extends StatelessWidget {
                           children: [
                             Expanded(
                                 child: Container(
-                              padding: EdgeInsets.all(4),
+                              padding: const EdgeInsets.all(4),
                               height: 64,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(16),
@@ -347,7 +349,7 @@ class HomePage extends StatelessWidget {
                                       color: Colors.black.withOpacity(0.1),
                                       spreadRadius: 2,
                                       blurRadius: 2,
-                                      offset: Offset(2, 2),
+                                      offset: const Offset(2, 2),
                                     )
                                   ],
                                   border: Border.all(
@@ -363,10 +365,10 @@ class HomePage extends StatelessWidget {
                                         height: 32,
                                         width: 32,
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         width: 8,
                                       ),
-                                      Column(
+                                      const Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         crossAxisAlignment:
@@ -394,19 +396,19 @@ class HomePage extends StatelessWidget {
                                   ),
                                   IconButton(
                                       onPressed: () {},
-                                      icon: Icon(
+                                      icon: const Icon(
                                         Icons.arrow_forward,
                                         color: Colors.black,
                                       ))
                                 ],
                               ),
                             )),
-                            SizedBox(
+                            const SizedBox(
                               width: 8,
                             ),
                             Expanded(
                                 child: Container(
-                              padding: EdgeInsets.all(4),
+                              padding: const EdgeInsets.all(4),
                               height: 64,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(16),
@@ -416,7 +418,7 @@ class HomePage extends StatelessWidget {
                                       color: Colors.black.withOpacity(0.1),
                                       spreadRadius: 2,
                                       blurRadius: 2,
-                                      offset: Offset(2, 2),
+                                      offset: const Offset(2, 2),
                                     )
                                   ],
                                   border: Border.all(
@@ -432,10 +434,10 @@ class HomePage extends StatelessWidget {
                                         height: 32,
                                         width: 32,
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         width: 8,
                                       ),
-                                      Column(
+                                      const Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         crossAxisAlignment:
@@ -463,7 +465,7 @@ class HomePage extends StatelessWidget {
                                   ),
                                   IconButton(
                                       onPressed: () {},
-                                      icon: Icon(
+                                      icon: const Icon(
                                         Icons.arrow_forward,
                                         color: Colors.black,
                                       ))
