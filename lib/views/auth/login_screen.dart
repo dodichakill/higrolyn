@@ -147,6 +147,7 @@ class LoginScreen extends StatelessWidget {
                               if (value.keyfrom.currentState!.validate()) {
                                 // Memanggil validate sebelum menavigasi
 
+                                value.setLoading(true);
                                 AuthService().login(
                                     context,
                                     value.emailController.text,
@@ -156,13 +157,15 @@ class LoginScreen extends StatelessWidget {
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.green,
                             ),
-                            child: const Text(
-                              'Masuk',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold),
-                            ),
+                            child: value.isLoading
+                                ? CircularProgressIndicator()
+                                : const Text(
+                                    'Masuk',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold),
+                                  ),
                           ),
                         ),
                         const SizedBox(height: 16),
