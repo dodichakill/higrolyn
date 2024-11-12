@@ -1,3 +1,4 @@
+import 'package:agrolyn/shared/constants.dart';
 import 'package:agrolyn/views/auth/login_screen.dart';
 import 'package:agrolyn/views/home/home_page.dart';
 import 'package:agrolyn/widgets/menu.dart';
@@ -87,7 +88,15 @@ class AuthService {
       print(response);
 
       if (response.statusCode == 201) {
-        print(response.data);
+        // print(response.data);
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+              backgroundColor: MyColors.primaryColorDark,
+              content: Text(
+                "Pendaftaran Berhasil, silahkan cek email anda untuk verifikasi akun",
+                style: TextStyle(color: Colors.white),
+              )),
+        );
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const LoginScreen()),
