@@ -331,6 +331,99 @@ class HomePage extends StatelessWidget {
                               ),
                             ),
                           ),
+                          ListView.builder(
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            itemCount: value.videos.length,
+                            itemBuilder: (context, index) {
+                              final video = value.videos[index];
+                              return Container(
+                                margin: const EdgeInsets.all(16),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(16),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.1),
+                                      blurRadius: 5,
+                                      spreadRadius: 2,
+                                      offset: const Offset(0, 2),
+                                    ),
+                                  ],
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    // Bagian gambar thumbnail video
+                                    ClipRRect(
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(16),
+                                        topRight: Radius.circular(16),
+                                      ),
+                                      child: Image.network(
+                                        video['snippet']['thumbnails']
+                                            ['default']['url'],
+                                        fit: BoxFit.cover,
+                                        width: double.infinity,
+                                        height: 150,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(16.0),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          // Judul video, maksimal 1 baris
+                                          Text(
+                                            video['snippet']['title'],
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: const TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 8),
+                                          // Deskripsi video, maksimal 2 baris
+                                          Text(
+                                            video['snippet']['description'],
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: const TextStyle(
+                                              fontSize: 14,
+                                              color: Colors.grey,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 8),
+                                          // Tombol atau aksi lainnya
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              IconButton(
+                                                icon: const Icon(
+                                                    Icons.open_in_new),
+                                                onPressed: () {
+                                                  // Navigasi untuk membuka link video
+                                                  final videoId =
+                                                      video['id']['videoId'];
+                                                  final url =
+                                                      'https://www.youtube.com/watch?v=$videoId';
+                                                  print('Opening URL: $url');
+                                                },
+                                              ),
+                                              // Tambahkan tombol atau aksi lainnya jika diperlukan
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          )
                         ],
                       ),
                       Positioned(
@@ -488,7 +581,7 @@ class HomePage extends StatelessWidget {
                     },
                     child: InkWell(
                       onTap: () {
-                        Navigator.push(
+                        pushWithoutNavBar(
                           context,
                           MaterialPageRoute(
                             builder: (context) => const Chatbot(),
