@@ -1,12 +1,14 @@
 import 'package:agrolyn/api/article_service.dart';
+import 'package:agrolyn/api/video_service.dart';
 import 'package:flutter/material.dart';
 
 class HomeNotifier extends ChangeNotifier {
   final BuildContext context;
-  Offset chatbotPosition = Offset(8, 775);
+  Offset chatbotPosition = Offset(8, 700);
 
   HomeNotifier({required this.context}) {
     fetchArticles();
+    fetchVideo();
   }
 
   final ArticleService _articleService = ArticleService();
@@ -19,6 +21,14 @@ class HomeNotifier extends ChangeNotifier {
 
   void updateChatbotPosition(Offset newPosition) {
     chatbotPosition = newPosition;
-    notifyListeners(); // Trigger UI update with the new position
+    notifyListeners();
+  }
+
+  final VideoService _videoService = VideoService();
+  List videos = [];
+
+  void fetchVideo() async {
+    videos = await _videoService.getVideo();
+    notifyListeners();
   }
 }

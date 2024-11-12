@@ -28,36 +28,243 @@ class Community extends StatelessWidget {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(
-                              top: 16, bottom: 8, left: 16, right: 16),
+                            top: 16,
+                            bottom: 8,
+                            left: 16,
+                            right: 16,
+                          ),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Expanded(
-                                child: Container(
-                                  height: 48,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(16),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.black.withOpacity(0.1),
-                                        blurRadius: 5,
-                                        spreadRadius: 2,
-                                        offset: const Offset(0, 2),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      // Tambahkan Expanded di sini agar TextField bisa menggunakan sisa space
+                                      child: Container(
+                                        height: 48,
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(16),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color:
+                                                  Colors.black.withOpacity(0.1),
+                                              blurRadius: 5,
+                                              spreadRadius: 2,
+                                              offset: const Offset(0, 2),
+                                            ),
+                                          ],
+                                        ),
+                                        child: const TextField(
+                                          decoration: InputDecoration(
+                                            hintText:
+                                                "Cari topik diskusimu disini",
+                                            hintStyle:
+                                                TextStyle(color: Colors.grey),
+                                            prefixIcon: Icon(Icons.search,
+                                                color: Colors.grey),
+                                            border: InputBorder.none,
+                                            contentPadding:
+                                                EdgeInsets.symmetric(
+                                              vertical: 12.0,
+                                              horizontal: 20.0,
+                                            ),
+                                          ),
+                                        ),
                                       ),
-                                    ],
-                                  ),
-                                  child: const TextField(
-                                    decoration: InputDecoration(
-                                      hintText: "Cari topik diskusimu disini",
-                                      hintStyle: TextStyle(color: Colors.grey),
-                                      prefixIcon: Icon(Icons.search,
-                                          color: Colors.grey),
-                                      border: InputBorder.none,
-                                      contentPadding: EdgeInsets.symmetric(
-                                          vertical: 12.0, horizontal: 20.0),
                                     ),
-                                  ),
+                                    const SizedBox(width: 8),
+                                    Container(
+                                      height: 48,
+                                      width:
+                                          48, // Tetapkan lebar agar tombol add terlihat simetris
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(16),
+                                        color: MyColors.primaryColorDark,
+                                      ),
+                                      child: const Icon(
+                                        Icons.filter_alt_rounded,
+                                        color: Colors.white,
+                                        size: 28,
+                                      ),
+                                    ),
+                                    const SizedBox(width: 8),
+                                    InkWell(
+                                      onTap: () {
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return Center(
+                                                child: Material(
+                                              borderRadius:
+                                                  BorderRadius.circular(16),
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(
+                                                    top: 32,
+                                                    bottom: 32,
+                                                    left: 16,
+                                                    right: 16),
+                                                child: Container(
+                                                  constraints:
+                                                      const BoxConstraints(
+                                                          maxWidth: 400),
+                                                  child: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.min,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      const Center(
+                                                        child: Text(
+                                                          "Buat Diskusi Baru",
+                                                          style: TextStyle(
+                                                              fontSize: 20,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color:
+                                                                  Colors.black),
+                                                        ),
+                                                      ),
+                                                      const SizedBox(
+                                                        height: 16,
+                                                      ),
+                                                      const TextField(
+                                                        decoration:
+                                                            InputDecoration(
+                                                          labelText:
+                                                              'Pilih Kategori',
+                                                          border:
+                                                              OutlineInputBorder(),
+                                                        ),
+                                                      ),
+                                                      const SizedBox(
+                                                        height: 8,
+                                                      ),
+                                                      const TextField(
+                                                        decoration:
+                                                            InputDecoration(
+                                                          labelText:
+                                                              'Isi Diskusi ...',
+                                                          border:
+                                                              OutlineInputBorder(),
+                                                        ),
+                                                      ),
+                                                      const SizedBox(
+                                                        height: 8,
+                                                      ),
+                                                      const TextField(
+                                                        decoration:
+                                                            InputDecoration(
+                                                          labelText:
+                                                              'Tambah Foto',
+                                                          border:
+                                                              OutlineInputBorder(),
+                                                        ),
+                                                      ),
+                                                      const SizedBox(
+                                                        height: 16,
+                                                      ),
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceEvenly,
+                                                        children: [
+                                                          InkWell(
+                                                            onTap: () {
+                                                              Navigator.pop(
+                                                                  context);
+                                                            },
+                                                            child: Container(
+                                                              height: 48,
+                                                              width: 184,
+                                                              decoration: BoxDecoration(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              16),
+                                                                  color: Colors
+                                                                      .red),
+                                                              child:
+                                                                  const Center(
+                                                                child: Text(
+                                                                  "Batal",
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          16,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                      color: Colors
+                                                                          .white),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          InkWell(
+                                                            onTap: () {
+                                                              Navigator.pop(
+                                                                  context);
+                                                            },
+                                                            child: Container(
+                                                              height: 48,
+                                                              width: 184,
+                                                              decoration: BoxDecoration(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              16),
+                                                                  color: MyColors
+                                                                      .primaryColorDark),
+                                                              child:
+                                                                  const Center(
+                                                                child: Text(
+                                                                  "Kirim",
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          16,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                      color: Colors
+                                                                          .white),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ));
+                                          },
+                                        );
+                                      },
+                                      child: Container(
+                                        height: 48,
+                                        width:
+                                            48, // Tetapkan lebar agar tombol add terlihat simetris
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(16),
+                                          color: MyColors.primaryColorDark,
+                                        ),
+                                        child: const Icon(
+                                          Icons.add_circle,
+                                          color: Colors.white,
+                                          size: 28,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],
@@ -357,168 +564,6 @@ class Community extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Positioned(
-                      top: 795,
-                      left: 8,
-                      right: 8,
-                      child: InkWell(
-                        onTap: () {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return Center(
-                                  child: Material(
-                                borderRadius: BorderRadius.circular(16),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 32, bottom: 32, left: 16, right: 16),
-                                  child: Container(
-                                    constraints:
-                                        const BoxConstraints(maxWidth: 400),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        const Center(
-                                          child: Text(
-                                            "Buat Diskusi Baru",
-                                            style: TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.black),
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 16,
-                                        ),
-                                        const TextField(
-                                          decoration: InputDecoration(
-                                            labelText: 'Pilih Kategori',
-                                            border: OutlineInputBorder(),
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 8,
-                                        ),
-                                        const TextField(
-                                          decoration: InputDecoration(
-                                            labelText: 'Isi Diskusi ...',
-                                            border: OutlineInputBorder(),
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 8,
-                                        ),
-                                        const TextField(
-                                          decoration: InputDecoration(
-                                            labelText: 'Tambah Foto',
-                                            border: OutlineInputBorder(),
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 16,
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            InkWell(
-                                              onTap: () {
-                                                Navigator.pop(context);
-                                              },
-                                              child: Container(
-                                                height: 48,
-                                                width: 184,
-                                                decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            16),
-                                                    color: Colors.red),
-                                                child: const Center(
-                                                  child: Text(
-                                                    "Batal",
-                                                    style: TextStyle(
-                                                        fontSize: 16,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color: Colors.white),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            InkWell(
-                                              onTap: () {
-                                                Navigator.pop(context);
-                                              },
-                                              child: Container(
-                                                height: 48,
-                                                width: 184,
-                                                decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            16),
-                                                    color: MyColors
-                                                        .primaryColorDark),
-                                                child: const Center(
-                                                  child: Text(
-                                                    "Kirim",
-                                                    style: TextStyle(
-                                                        fontSize: 16,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color: Colors.white),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ));
-                            },
-                          );
-                        },
-                        child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Container(
-                                  height: 48,
-                                  width: 184,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(16),
-                                      color: MyColors.primaryColorDark),
-                                  child: const Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.add_circle,
-                                        color: Colors.white,
-                                        size: 28,
-                                      ),
-                                      SizedBox(
-                                        width: 4,
-                                      ),
-                                      Text(
-                                        "Buat Diskusi Baru",
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            )),
-                      ))
                 ],
               )),
         ),
