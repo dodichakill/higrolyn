@@ -3,6 +3,7 @@ import 'package:agrolyn/shared/constants.dart';
 import 'package:agrolyn/utils/assets_path.dart';
 import 'package:agrolyn/views/Profile/information_screen.dart';
 import 'package:agrolyn/views/Profile/terms_screen.dart';
+import 'package:agrolyn/widgets/deeplink.dart';
 import 'package:agrolyn/widgets/item_menu_profile.dart';
 import 'package:agrolyn/widgets/logout.dart';
 import 'package:flutter/material.dart';
@@ -10,10 +11,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Profile extends StatelessWidget {
-  late final BuildContext context;
-  String? name, email, address, rolesId;
-
-  Profile({super.key});
+  const Profile({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -57,14 +55,25 @@ class Profile extends StatelessWidget {
                                                 '';
                                         String roleId =
                                             prefs.getString('roles_id') ?? '';
-
                                         return Row(children: [
                                           Row(
                                             children: [
-                                              Image.asset(
-                                                ImageAssets.logo,
-                                                width: 70,
-                                                height: 70,
+                                              ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(16),
+                                                child: Image.network(
+                                                  imgProfile,
+                                                  height: 70,
+                                                  width: 70,
+                                                  errorBuilder: (context, error,
+                                                      stackTrace) {
+                                                    return Image.asset(
+                                                      ImageAssets.logo,
+                                                      height: 70,
+                                                      width: 70,
+                                                    );
+                                                  },
+                                                ),
                                               ),
                                               const SizedBox(
                                                 width: 12,
@@ -139,20 +148,22 @@ class Profile extends StatelessWidget {
                                               borderRadius:
                                                   BorderRadius.circular(16),
                                             ),
-                                            child: const Row(
+                                            child: Row(
                                               mainAxisSize: MainAxisSize.min,
                                               children: [
-                                                Icon(
+                                                const Icon(
                                                   Icons.person,
                                                   color: Colors.white,
-                                                  size: 24,
+                                                  size: 14,
                                                 ),
-                                                SizedBox(width: 8),
+                                                const SizedBox(width: 4),
                                                 Text(
-                                                  "Petani",
-                                                  style: TextStyle(
+                                                  roleId == "2"
+                                                      ? "Petani"
+                                                      : "Umum",
+                                                  style: const TextStyle(
                                                     color: Colors.white,
-                                                    fontSize: 16,
+                                                    fontSize: 12,
                                                     fontWeight: FontWeight.bold,
                                                   ),
                                                 ),
@@ -175,15 +186,16 @@ class Profile extends StatelessWidget {
                       const ItemMenuProfile(
                         icon: Icons.person,
                         name: "Informasi Akun",
-                        // page: InformationScreen(),
+                        page: InformationScreen(),
                       ),
-                      const ItemMenuProfile(
-                        icon: Icons.notes,
-                        name: "Syarat dan Ketentuan",
-                      ),
-                      const ItemMenuProfile(
+                      // const ItemMenuProfile(
+                      //   icon: Icons.notes,
+                      //   name: "Syarat dan Ketentuan",
+                      // ),
+                      ItemMenuProfile(
                         icon: Icons.star,
                         name: "Beri ulasan dan Rating",
+                        onTap: () => Deeplink.toPlaystore(null),
                       ),
                       const ItemMenuProfile(
                         icon: Icons.info_outline,

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Deeplink Example</title>
+    <script>
+      function openApp() {
+        const appLink = "app://com.vincere.agrolyn"; // Deeplink aplikasi
+        const playStoreLink =
+          "https://play.google.com/store/apps/details?id=com.vincere.agrolyn";
+
+        // Coba buka aplikasi
+        window.location.href = appLink;
+
+        // Jika aplikasi tidak tersedia, fallback ke Play Store setelah delay
+        setTimeout(() => {
+          window.location.href = playStoreLink;
+        }, 10000); // Tunggu 10 detik sebelum fallback
+      }
+    </script>
+  </head>
+  <body>
+    <button onclick="openApp()" style="padding: 10px 20px; font-size: 16px">
+      Buka Agrolyn App
+    </button>
+  </body>
+</html>

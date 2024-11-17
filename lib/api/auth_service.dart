@@ -1,6 +1,6 @@
 import 'package:agrolyn/shared/constants.dart';
+import 'package:agrolyn/views/Profile/profile_screen.dart';
 import 'package:agrolyn/views/auth/login_screen.dart';
-import 'package:agrolyn/views/home/home_page.dart';
 import 'package:agrolyn/widgets/menu.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +21,6 @@ class AuthService {
 
   // Fungsi untuk login
   Future<bool> login(context, String email, String password) async {
-    print("$email $password");
     try {
       final response = await _dio.post(
         "/login",
@@ -30,8 +29,6 @@ class AuthService {
           "password": password.toString(),
         },
       );
-
-      print(response);
 
       if (response.statusCode == 200) {
         // Simpan token di SharedPreferences
@@ -45,7 +42,6 @@ class AuthService {
         await prefs.setString('id', response.data['id'].toString());
         await prefs.setString('img_profile', response.data['img_profile']);
         await prefs.setString('roles_id', response.data['roles_id'].toString());
-        print(response.data);
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => Menu()),
@@ -71,7 +67,6 @@ class AuthService {
   // Fungsi untuk login
   Future<bool> register(context, int id, String name, String email,
       String phoneNumber, String address, String password) async {
-    print("$id $name $email $phoneNumber $address $password ");
     try {
       final response = await _dio.post(
         "/register",
@@ -84,8 +79,6 @@ class AuthService {
           "password": password.toString(),
         },
       );
-
-      print(response);
 
       if (response.statusCode == 201) {
         // print(response.data);
@@ -112,6 +105,63 @@ class AuthService {
             backgroundColor: Colors.red,
             content: Text(
               "Gagal Daftar, ${e.response?.data['message']}",
+              style: const TextStyle(color: Colors.white),
+            )),
+      );
+      return false;
+    }
+  }
+
+  // edit profile
+  Future<bool> editProfile(
+      context, String name, String phoneNumber, String address) async {
+    try {
+      final token = await getToken();
+      final response = await _dio.put(
+        "/edit-profile",
+        data: {
+          "name": name.toString(),
+          "phone_number": phoneNumber.toString(),
+          "address": address.toString(),
+        },
+        options: Options(headers: {
+          'Authorization': 'Bearer $token',
+        }),
+      );
+      print(response);
+      if (response.statusCode == 200) {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setString('name', name);
+        await prefs.setString('address', address);
+        await prefs.setString('phone_number', phoneNumber);
+        PersistentTabController profile =
+            PersistentTabController(initialIndex: 4);
+        pushWithNavBar(
+            context,
+            MaterialPageRoute(
+                builder: (context) => Menu(
+                      page: profile,
+                    )));
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+              backgroundColor: MyColors.primaryColorDark,
+              content: Text(
+                "Perubahan data berhasil disimpan",
+                style: TextStyle(color: Colors.white),
+              )),
+        );
+        print(response.data);
+        return true;
+      }
+      return false;
+    } on DioException catch (e) {
+      print("Update Profile error: ${e.response?.data['message']}");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+            backgroundColor: Colors.red,
+            content: Text(
+              "Gagal menyimpan perubahan data, ${e.response?.data['message']}",
               style: const TextStyle(color: Colors.white),
             )),
       );

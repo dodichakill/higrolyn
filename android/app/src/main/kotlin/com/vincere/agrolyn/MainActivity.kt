@@ -1,4 +1,4 @@
-package com.example.agrolyn
+package com.vincere.agrolyn
 
 import io.flutter.embedding.android.FlutterActivity
 

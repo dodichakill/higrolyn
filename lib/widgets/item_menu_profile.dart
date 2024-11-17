@@ -6,12 +6,14 @@ class ItemMenuProfile extends StatelessWidget {
   final String name;
   final IconData icon;
   final Widget? page;
+  final void Function()? onTap;
 
   const ItemMenuProfile({
     super.key,
     required this.name,
     required this.icon,
     this.page,
+    this.onTap,
   });
 
   @override
@@ -23,7 +25,8 @@ class ItemMenuProfile extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                     builder: (context) => page != null ? page! : Container()))
-            : null
+            : null,
+        onTap != null ? onTap!() : null
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),
