@@ -43,7 +43,7 @@ class AuthService {
         await prefs.setString('id', response.data['id'].toString());
         await prefs.setString('img_profile', response.data['img_profile']);
         await prefs.setString('roles_id', response.data['roles_id'].toString());
-        Navigator.push(
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => Menu()),
         );
@@ -153,7 +153,7 @@ class AuthService {
           context,
           "Gagal Menyimpan Data",
           "Gagal Menyimpan perubahan data, silahkan coba lagi",
-          ContentType.success);
+          ContentType.failure);
 
       return false;
     }

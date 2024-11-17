@@ -25,7 +25,7 @@ class DetailComunity extends StatelessWidget {
                         color: Colors.black.withOpacity(0.1),
                         blurRadius: 5,
                         spreadRadius: 2,
-                        offset: Offset(0, 2),
+                        offset: const Offset(0, 2),
                       ),
                     ],
                   ),
@@ -34,7 +34,7 @@ class DetailComunity extends StatelessWidget {
                     children: [
                       // Bagian gambar
                       ClipRRect(
-                        borderRadius: BorderRadius.only(
+                        borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(16),
                           topRight: Radius.circular(16),
                         ),
@@ -45,8 +45,8 @@ class DetailComunity extends StatelessWidget {
                           height: 256,
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
+                      const Padding(
+                        padding: EdgeInsets.all(16.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [

@@ -89,7 +89,7 @@ class ChoiceUser extends StatelessWidget {
 
                                       await prefs.setString(
                                           'role_choice', 2.toString());
-                                      Navigator.push(
+                                      Navigator.pushReplacement(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
@@ -114,7 +114,7 @@ class ChoiceUser extends StatelessWidget {
                                     horizontal: 16.0),
                                 child: ElevatedButton(
                                     onPressed: () {
-                                      Navigator.push(
+                                      Navigator.pushReplacement(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>

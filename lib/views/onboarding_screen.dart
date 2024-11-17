@@ -1,18 +1,42 @@
 import 'package:agrolyn/shared/constants.dart';
 import 'package:agrolyn/utils/assets_path.dart';
+import 'package:agrolyn/views/auth/login_screen.dart';
 import 'package:agrolyn/views/choice_user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_onboarding_slider/flutter_onboarding_slider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class OnboardingScreen extends StatelessWidget {
+class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
+
+  @override
+  State<OnboardingScreen> createState() => _OnboardingScreenState();
+}
+
+class _OnboardingScreenState extends State<OnboardingScreen> {
+  @override
+  void initState() async {
+    // TODO: implement initState
+    super.initState();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (prefs.getBool('isOnboarded') == true) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const ChoiceUser(),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return OnBoardingSlider(
       finishButtonText: 'Mulai',
-      onFinish: () {
-        Navigator.push(
+      onFinish: () async {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setBool('isOnboarded', true);
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(
             builder: (context) => const ChoiceUser(),
@@ -38,7 +62,9 @@ class OnboardingScreen extends StatelessWidget {
           fontWeight: FontWeight.w600,
         ),
       ),
-      trailingFunction: () {
+      trailingFunction: () async {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setBool('isOnboarded', true);
         Navigator.push(
           context,
           MaterialPageRoute(

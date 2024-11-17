@@ -158,7 +158,9 @@ class LoginScreen extends StatelessWidget {
                               backgroundColor: Colors.green,
                             ),
                             child: value.isLoading
-                                ? CircularProgressIndicator()
+                                ? const CircularProgressIndicator(
+                                    color: Colors.white,
+                                  )
                                 : const Text(
                                     'Masuk',
                                     style: TextStyle(
