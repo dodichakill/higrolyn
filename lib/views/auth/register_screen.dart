@@ -207,6 +207,8 @@ class RegisterScreen extends StatelessWidget {
                           height: 56,
                           child: ElevatedButton(
                             onPressed: () async {
+                              value.setLoading(true);
+
                               SharedPreferences prefs =
                                   await SharedPreferences.getInstance();
                               String? id = prefs.getString('role_choice');
@@ -226,13 +228,17 @@ class RegisterScreen extends StatelessWidget {
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.green,
                             ),
-                            child: const Text(
-                              'Daftar',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold),
-                            ),
+                            child: value.isLoading
+                                ? CircularProgressIndicator(
+                                    color: Colors.white,
+                                  )
+                                : const Text(
+                                    'Daftar',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold),
+                                  ),
                           ),
                         ),
                         const SizedBox(height: 16),
