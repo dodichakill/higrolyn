@@ -23,6 +23,7 @@ class ImageAssets {
   static const String banner3 = "$root/Group 253.png";
   static const String banner4 = "$root/Group 254.png";
   static const String jagung = "$root/image (1).png";
+  static const String customerService = "$root/cs.png";
   static const String petaniComunity = "$root/Rectangle 23.png";
   static const String dummyResult = "$root/leaf-blight.jpg";
   static const String backgroundChatbot =

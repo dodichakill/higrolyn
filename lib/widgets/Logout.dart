@@ -4,11 +4,38 @@ import 'package:flutter/material.dart';
 class Logout extends StatelessWidget {
   const Logout({super.key});
 
+  void showExitDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Konfirmasi Keluar'),
+          content: const Text(
+              'Apakah Anda yakin ingin keluar dari aplikasi agrolyn?'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Tutup dialog
+              },
+              child: const Text('Batal'),
+            ),
+            TextButton(
+              onPressed: () async {
+                await AuthService().logout(context);
+              },
+              child: const Text('Keluar'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () async {
-        await AuthService().logout(context);
+      onTap: () {
+        showExitDialog(context);
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),

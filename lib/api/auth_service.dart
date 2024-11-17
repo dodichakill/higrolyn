@@ -1,7 +1,8 @@
 import 'package:agrolyn/shared/constants.dart';
-import 'package:agrolyn/views/Profile/profile_screen.dart';
+import 'package:agrolyn/shared/custom_snackbar.dart';
 import 'package:agrolyn/views/auth/login_screen.dart';
 import 'package:agrolyn/widgets/menu.dart';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
@@ -46,20 +47,15 @@ class AuthService {
           context,
           MaterialPageRoute(builder: (context) => Menu()),
         );
+
         return true;
       } else {
         return false;
       }
     } on DioException catch (e) {
       print("Login error: ${e.response?.data}");
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-            backgroundColor: Colors.red,
-            content: Text(
-              'Gagal Login, silahkan coba lagi!',
-              style: TextStyle(color: Colors.white),
-            )),
-      );
+      showCustomSnackbar(context, "Login Gagal",
+          "Periksa email dan kata sandi anda", ContentType.failure);
       return false;
     }
   }
@@ -90,6 +86,11 @@ class AuthService {
                 style: TextStyle(color: Colors.white),
               )),
         );
+        showCustomSnackbar(
+            context,
+            "Pendaftaran Berhasil",
+            "silahkan cek email anda untuk verifikasi akun",
+            ContentType.success);
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const LoginScreen()),
@@ -100,14 +101,9 @@ class AuthService {
       }
     } on DioException catch (e) {
       print("Register error: ${e.response?.data['message']}");
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-            backgroundColor: Colors.red,
-            content: Text(
-              "Gagal Daftar, ${e.response?.data['message']}",
-              style: const TextStyle(color: Colors.white),
-            )),
-      );
+      showCustomSnackbar(context, "Gagal Daftar",
+          "Pendaftaran akun gagal, silahkan dicoba lagi", ContentType.failure);
+
       return false;
     }
   }
@@ -136,35 +132,29 @@ class AuthService {
         await prefs.setString('phone_number', phoneNumber);
         PersistentTabController profile =
             PersistentTabController(initialIndex: 4);
-        pushWithNavBar(
-            context,
-            MaterialPageRoute(
-                builder: (context) => Menu(
-                      page: profile,
-                    )));
 
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-              backgroundColor: MyColors.primaryColorDark,
-              content: Text(
-                "Perubahan data berhasil disimpan",
-                style: TextStyle(color: Colors.white),
-              )),
-        );
+        showCustomSnackbar(context, "Data Tersimpan",
+            "Berhasil Menyimpan perubahan data", ContentType.success);
+        Future.delayed(const Duration(seconds: 3), () {
+          pushWithNavBar(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => Menu(
+                        page: profile,
+                      )));
+        });
         print(response.data);
         return true;
       }
       return false;
     } on DioException catch (e) {
       print("Update Profile error: ${e.response?.data['message']}");
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-            backgroundColor: Colors.red,
-            content: Text(
-              "Gagal menyimpan perubahan data, ${e.response?.data['message']}",
-              style: const TextStyle(color: Colors.white),
-            )),
-      );
+      showCustomSnackbar(
+          context,
+          "Gagal Menyimpan Data",
+          "Gagal Menyimpan perubahan data, silahkan coba lagi",
+          ContentType.success);
+
       return false;
     }
   }
@@ -190,7 +180,6 @@ class AuthService {
         );
 
         if (res.statusCode == 200) {
-          print("Logout berhasil");
           SharedPreferences prefs = await SharedPreferences.getInstance();
           await prefs.remove('access_token');
           pushReplacementWithoutNavBar(context,
@@ -198,14 +187,8 @@ class AuthService {
         }
       } on DioException catch (e) {
         print("Register error: ${e.response?.data['message']}");
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-              backgroundColor: Colors.red,
-              content: Text(
-                "Logout Gagal ${e.response?.data['message']}",
-                style: const TextStyle(color: Colors.white),
-              )),
-        );
+        showCustomSnackbar(context, "Gagal Logout",
+            "Logout gagal, silahkan dicoba lagi", ContentType.failure);
       }
     }
   }

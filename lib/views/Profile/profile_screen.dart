@@ -1,6 +1,7 @@
 import 'package:agrolyn/providers/profile_notifier.dart';
 import 'package:agrolyn/shared/constants.dart';
 import 'package:agrolyn/utils/assets_path.dart';
+import 'package:agrolyn/views/Profile/about_screen.dart';
 import 'package:agrolyn/views/Profile/information_screen.dart';
 import 'package:agrolyn/views/Profile/terms_screen.dart';
 import 'package:agrolyn/widgets/deeplink.dart';
@@ -200,6 +201,7 @@ class Profile extends StatelessWidget {
                       const ItemMenuProfile(
                         icon: Icons.info_outline,
                         name: "Tentang Aplikasi",
+                        page: AboutScreen(),
                       ),
                       const Logout(),
                     ],
