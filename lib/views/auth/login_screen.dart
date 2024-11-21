@@ -3,9 +3,7 @@ import 'package:agrolyn/providers/login_notifier.dart';
 import 'package:agrolyn/shared/constants.dart';
 import 'package:agrolyn/utils/assets_path.dart';
 import 'package:agrolyn/views/auth/register_screen.dart';
-import 'package:agrolyn/views/home/home_page.dart';
 import 'package:agrolyn/widgets/menu.dart';
-import 'package:agrolyn/widgets/text_input.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

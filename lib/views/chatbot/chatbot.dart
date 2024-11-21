@@ -38,9 +38,9 @@ class Chatbot extends StatelessWidget {
                             : CrossAxisAlignment.end,
                         children: [
                           Container(
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 horizontal: 16, vertical: 8),
-                            margin: EdgeInsets.symmetric(vertical: 8),
+                            margin: const EdgeInsets.symmetric(vertical: 8),
                             decoration: BoxDecoration(
                               color: e.posisi == "kiri"
                                   ? Colors.white
@@ -68,22 +68,23 @@ class Chatbot extends StatelessWidget {
                   child: Container(
                     color: Colors.transparent,
                     height: 60,
-                    padding: EdgeInsets.all(8),
+                    padding: const EdgeInsets.all(8),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         InkWell(
                           onTap: () => Navigator.pop(context),
                           child: Container(
-                            padding: EdgeInsets.all(8),
+                            padding: const EdgeInsets.all(8),
                             decoration: BoxDecoration(
                               color: MyColors.primaryColorDark,
                               borderRadius: BorderRadius.circular(8),
                             ),
-                            child: Icon(Icons.arrow_back, color: Colors.white),
+                            child: const Icon(Icons.arrow_back,
+                                color: Colors.white),
                           ),
                         ),
-                        Text(
+                        const Text(
                           "Agrolynbot",
                           style: TextStyle(
                               fontSize: 20,
@@ -105,7 +106,7 @@ class Chatbot extends StatelessWidget {
                   bottom: 0,
                   child: Container(
                     height: 86,
-                    padding: EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
                     child: TextField(
                       controller: value.chat,
                       maxLines: null,
@@ -113,7 +114,7 @@ class Chatbot extends StatelessWidget {
                       decoration: InputDecoration(
                         suffixIcon: InkWell(
                           onTap: () => value.submit(value.chat.text),
-                          child: Icon(
+                          child: const Icon(
                             Icons.send,
                             color: MyColors.primaryColorDark,
                           ),

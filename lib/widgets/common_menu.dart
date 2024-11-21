@@ -1,17 +1,17 @@
-import 'package:agrolyn/views/farmer/Profile/profile_screen.dart';
-import 'package:agrolyn/views/farmer/comunity/comunity.dart';
-import 'package:agrolyn/views/farmer/detection/detection_screen.dart';
-import 'package:agrolyn/views/farmer/home/home_page.dart';
-import 'package:agrolyn/views/farmer/store/store.dart';
+import 'package:agrolyn/views/common/home/common_home.dart';
+import 'package:agrolyn/views/common/order/common_order.dart';
+import 'package:agrolyn/views/common/profile/common_profile.dart';
+import 'package:agrolyn/views/common/recipe/common_recipe.dart';
+import 'package:agrolyn/views/common/store/common_store.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
-class Menu extends StatelessWidget {
+class CommonMenu extends StatelessWidget {
   final PersistentTabController? page;
 
   late final PersistentTabController _controller;
 
-  Menu({super.key, this.page})
+  CommonMenu({super.key, this.page})
       : _controller = page ?? PersistentTabController(initialIndex: 0);
 
   @override
@@ -23,7 +23,7 @@ class Menu extends StatelessWidget {
         backgroundColor: Colors.white,
         tabs: [
           PersistentTabConfig(
-            screen: const HomePage(),
+            screen: const CommonHome(),
             item: ItemConfig(
               activeForegroundColor: Colors.green,
               icon: const Icon(Icons.home),
@@ -31,32 +31,32 @@ class Menu extends StatelessWidget {
             ),
           ),
           PersistentTabConfig(
-            screen: const Store(),
+            screen: const CommonOrder(),
             item: ItemConfig(
               activeForegroundColor: Colors.green,
-              icon: const Icon(Icons.store),
+              icon: const Icon(Icons.payments),
+              title: "Pesanan",
+            ),
+          ),
+          PersistentTabConfig(
+            screen: const CommonStore(),
+            item: ItemConfig(
+              icon: const Icon(Icons.shopping_bag_rounded, color: Colors.white),
+              activeForegroundColor: Colors.green,
+              activeColorSecondary: Colors.white,
               title: "Toko",
             ),
           ),
           PersistentTabConfig(
-            screen: const DetectionScreen(),
+            screen: const CommonRecipe(),
             item: ItemConfig(
-              icon: const Icon(Icons.camera_alt_rounded, color: Colors.white),
               activeForegroundColor: Colors.green,
-              activeColorSecondary: Colors.white,
-              title: "Deteksi",
+              icon: const Icon(Icons.restaurant),
+              title: "resep",
             ),
           ),
           PersistentTabConfig(
-            screen: const Community(),
-            item: ItemConfig(
-              activeForegroundColor: Colors.green,
-              icon: const Icon(Icons.forum),
-              title: "Komunitas",
-            ),
-          ),
-          PersistentTabConfig(
-            screen: const Profile(),
+            screen: const CommonProfile(),
             item: ItemConfig(
               activeForegroundColor: Colors.green,
               icon: const Icon(Icons.person),

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class HomeNotifier extends ChangeNotifier {
   final BuildContext context;
-  Offset chatbotPosition = Offset(8, 700);
+  Offset chatbotPosition = const Offset(8, 700);
 
   HomeNotifier({required this.context}) {
     fetchArticles();

@@ -1,6 +1,5 @@
 import 'package:agrolyn/shared/constants.dart';
 import 'package:agrolyn/utils/assets_path.dart';
-import 'package:agrolyn/views/auth/login_screen.dart';
 import 'package:agrolyn/views/choice_user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_onboarding_slider/flutter_onboarding_slider.dart';
@@ -15,19 +14,19 @@ class OnboardingScreen extends StatefulWidget {
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
-  void initState() async {
-    // TODO: implement initState
-    super.initState();
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    if (prefs.getBool('isOnboarded') == true) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const ChoiceUser(),
-        ),
-      );
-    }
-  }
+  // void initState() async {
+  // TODO: implement initState
+  // super.initState();
+  // SharedPreferences prefs = await SharedPreferences.getInstance();
+  // if (prefs.getBool('isOnboarded') == true) {
+  //   Navigator.pushReplacement(
+  //     context,
+  //     MaterialPageRoute(
+  //       builder: (context) => const ChoiceUser(),
+  //     ),
+  //   );
+  // }
+  // }
 
   @override
   Widget build(BuildContext context) {

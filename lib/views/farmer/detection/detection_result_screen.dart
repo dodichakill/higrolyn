@@ -1,8 +1,6 @@
 import 'package:agrolyn/providers/menu_notifier.dart';
 import 'package:agrolyn/shared/constants.dart';
 import 'package:agrolyn/utils/assets_path.dart';
-import 'package:agrolyn/views/comunity/comunity.dart';
-import 'package:agrolyn/views/home/home_page.dart';
 import 'package:agrolyn/widgets/menu.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';

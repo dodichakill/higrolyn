@@ -1,6 +1,7 @@
 import 'package:agrolyn/shared/constants.dart';
 import 'package:agrolyn/shared/custom_snackbar.dart';
 import 'package:agrolyn/views/auth/login_screen.dart';
+import 'package:agrolyn/widgets/common_menu.dart';
 import 'package:agrolyn/widgets/menu.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:dio/dio.dart';
@@ -18,6 +19,10 @@ class AuthService {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
     };
+    _dio.options.followRedirects = true; // Allow redirects
+    _dio.options.validateStatus = (status) {
+      return status != null && status < 500; // Allow redirect codes
+    };
   }
 
   // Fungsi untuk login
@@ -31,6 +36,7 @@ class AuthService {
         },
       );
 
+      print(response);
       if (response.statusCode == 200) {
         // Simpan token di SharedPreferences
         SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -43,17 +49,25 @@ class AuthService {
         await prefs.setString('id', response.data['id'].toString());
         await prefs.setString('img_profile', response.data['img_profile']);
         await prefs.setString('roles_id', response.data['roles_id'].toString());
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => Menu()),
-        );
+
+        if (response.data['roles_id'] == 2) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => Menu()),
+          );
+        } else {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => CommonMenu()),
+          );
+        }
 
         return true;
       } else {
         return false;
       }
     } on DioException catch (e) {
-      print("Login error: ${e.response?.data}");
+      print("Login error: $e");
       showCustomSnackbar(context, "Login Gagal",
           "Periksa email dan kata sandi anda", ContentType.failure);
       return false;

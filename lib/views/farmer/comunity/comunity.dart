@@ -1,7 +1,7 @@
 import 'package:agrolyn/providers/community_notifer.dart';
 import 'package:agrolyn/shared/constants.dart';
 import 'package:agrolyn/utils/assets_path.dart';
-import 'package:agrolyn/views/comunity/detail_comunity.dart';
+import 'package:agrolyn/views/farmer/comunity/detail_comunity.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

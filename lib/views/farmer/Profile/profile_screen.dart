@@ -1,9 +1,8 @@
 import 'package:agrolyn/providers/profile_notifier.dart';
 import 'package:agrolyn/shared/constants.dart';
 import 'package:agrolyn/utils/assets_path.dart';
-import 'package:agrolyn/views/Profile/about_screen.dart';
-import 'package:agrolyn/views/Profile/information_screen.dart';
-import 'package:agrolyn/views/Profile/terms_screen.dart';
+import 'package:agrolyn/views/farmer/Profile/about_screen.dart';
+import 'package:agrolyn/views/farmer/Profile/information_screen.dart';
 import 'package:agrolyn/widgets/deeplink.dart';
 import 'package:agrolyn/widgets/item_menu_profile.dart';
 import 'package:agrolyn/widgets/logout.dart';

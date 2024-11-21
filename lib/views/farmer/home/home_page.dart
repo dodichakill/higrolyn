@@ -2,7 +2,7 @@ import 'package:agrolyn/providers/home_notifier.dart';
 import 'package:agrolyn/shared/constants.dart';
 import 'package:agrolyn/utils/assets_path.dart';
 import 'package:agrolyn/views/chatbot/chatbot.dart';
-import 'package:agrolyn/views/home/detail_article.dart';
+import 'package:agrolyn/views/farmer/home/detail_article.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:provider/provider.dart';
@@ -333,7 +333,7 @@ class HomePage extends StatelessWidget {
                           ),
                           ListView.builder(
                             shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
+                            physics: const NeverScrollableScrollPhysics(),
                             itemCount: value.videos.length,
                             itemBuilder: (context, index) {
                               final video = value.videos[index];
