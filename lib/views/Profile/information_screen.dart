@@ -62,6 +62,7 @@ class _InformationScreenState extends State<InformationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         title: const Text('Informasi Akun'),
       ),
@@ -70,20 +71,24 @@ class _InformationScreenState extends State<InformationScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Center(
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(16),
-                child: Image.network(
-                  imgController.text,
-                  height: 130,
-                  width: 130,
-                  errorBuilder: (context, error, stackTrace) {
-                    return Image.asset(
-                      ImageAssets.logo,
+            Form(
+              child: SingleChildScrollView(
+                child: Center(
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(16),
+                    child: Image.network(
+                      imgController.text,
                       height: 130,
                       width: 130,
-                    );
-                  },
+                      errorBuilder: (context, error, stackTrace) {
+                        return Image.asset(
+                          ImageAssets.logo,
+                          height: 130,
+                          width: 130,
+                        );
+                      },
+                    ),
+                  ),
                 ),
               ),
             ),
