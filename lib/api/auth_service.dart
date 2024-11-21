@@ -29,7 +29,7 @@ class AuthService {
   Future<bool> login(context, String email, String password) async {
     try {
       final response = await _dio.post(
-        "/login",
+        "/login/",
         data: {
           "email": email.toString(),
           "password": password.toString(),
@@ -79,7 +79,7 @@ class AuthService {
       String phoneNumber, String address, String password) async {
     try {
       final response = await _dio.post(
-        "/register",
+        "/register/",
         data: {
           "roles_id": id,
           "name": name.toString(),
@@ -128,7 +128,7 @@ class AuthService {
     try {
       final token = await getToken();
       final response = await _dio.put(
-        "/edit-profile",
+        "/edit-profile/",
         data: {
           "name": name.toString(),
           "phone_number": phoneNumber.toString(),
@@ -187,7 +187,7 @@ class AuthService {
     if (token != null) {
       try {
         final res = await _dio.post(
-          "/logout",
+          "/logout/",
           options: Options(headers: {
             'Authorization': 'Bearer $token',
           }),

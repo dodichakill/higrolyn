@@ -20,6 +20,7 @@ class Profile extends StatelessWidget {
       child: Consumer<ProfileNotifier>(
         builder: (context, value, child) => SafeArea(
           child: Scaffold(
+            resizeToAvoidBottomInset: true,
             backgroundColor: Colors.white,
             body: Stack(
               children: [
