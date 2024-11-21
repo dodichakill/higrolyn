@@ -16,266 +16,290 @@ class DetailComunity extends StatelessWidget {
           body: Stack(
             children: [
               SingleChildScrollView(
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(16),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        blurRadius: 5,
-                        spreadRadius: 2,
-                        offset: const Offset(0, 2),
+                child: Stack(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(16),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.1),
+                            blurRadius: 5,
+                            spreadRadius: 2,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Bagian gambar
-                      ClipRRect(
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(16),
-                          topRight: Radius.circular(16),
-                        ),
-                        child: Image.asset(
-                          ImageAssets.petaniComunity,
-                          fit: BoxFit.cover,
-                          width: double.infinity,
-                          height: 256,
-                        ),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.all(16.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            // Informasi pengguna
-                            Row(
-                              children: [
-                                Icon(Icons.person, size: 24),
-                                SizedBox(width: 8),
-                                Text(
-                                  "User123",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                SizedBox(width: 8),
-                                Text(
-                                  "#Padi",
-                                  style: TextStyle(color: Colors.grey),
-                                ),
-                              ],
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // Bagian gambar
+                          Stack(children: [
+                            Image.asset(
+                              ImageAssets.petaniComunity,
+                              fit: BoxFit.cover,
+                              width: double.infinity,
+                              height: 256,
                             ),
-                            SizedBox(height: 8),
-                            // Pertanyaan
-                            Text(
-                              "Bagaimana cara meningkatkan produktivitas padi secara organik secara efektif dan efisien?",
-                              style: TextStyle(fontSize: 16),
-                            ),
-                            SizedBox(height: 16),
-                            // Bagian tombol interaksi
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          ]),
+                          const Padding(
+                            padding: EdgeInsets.all(16.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
+                                // Informasi pengguna
                                 Row(
                                   children: [
-                                    Icon(Icons.thumb_up_alt_outlined, size: 16),
-                                    SizedBox(width: 4),
-                                    Text("Dukung Naik - 150"),
+                                    Icon(Icons.person, size: 24),
+                                    SizedBox(width: 8),
+                                    Text(
+                                      "User123",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    SizedBox(width: 8),
+                                    Text(
+                                      "#Padi",
+                                      style: TextStyle(color: Colors.grey),
+                                    ),
                                   ],
                                 ),
+                                SizedBox(height: 8),
+                                // Pertanyaan
+                                Text(
+                                  "Bagaimana cara meningkatkan produktivitas padi secara organik secara efektif dan efisien?",
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                                SizedBox(height: 16),
+                                // Bagian tombol interaksi
                                 Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Icon(Icons.comment, size: 16),
-                                    SizedBox(width: 4),
-                                    Text("24 Jawaban"),
+                                    Row(
+                                      children: [
+                                        Icon(Icons.thumb_up_alt_outlined,
+                                            size: 16),
+                                        SizedBox(width: 4),
+                                        Text("Dukung Naik - 150"),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Icon(Icons.comment, size: 16),
+                                        SizedBox(width: 4),
+                                        Text("24 Jawaban"),
+                                      ],
+                                    ),
                                   ],
                                 ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 8,
-                            ),
-                            Divider(
-                              color: MyColors.primaryColorDark,
-                            ),
+                                SizedBox(
+                                  height: 8,
+                                ),
+                                Divider(
+                                  color: MyColors.primaryColorDark,
+                                ),
 
-                            Text(
-                              "Jawaban",
-                              style: TextStyle(fontSize: 20),
-                            ),
-                            SizedBox(
-                              height: 8,
-                            ),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                CircleAvatar(
-                                  radius: 24,
-                                  backgroundImage: AssetImage(
-                                      'assets/avatar.jpg'), // Ganti dengan path gambar Anda
+                                Text(
+                                  "Jawaban",
+                                  style: TextStyle(fontSize: 20),
                                 ),
-                                SizedBox(width: 8),
-                                Expanded(
-                                  // Expanded digunakan di sini agar teks mengambil lebar yang tersedia
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "John Doe",
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      SizedBox(height: 4),
-                                      Text(
-                                        "libero eget convallis fringilla, lectus magna pulvinar massa, eget euismod purus ligula a neque. Aliquam erat volutpat. Aenean justo purus",
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.normal,
-                                          color: Colors.grey,
-                                        ),
-                                        softWrap: true,
-                                      ),
-                                      SizedBox(height: 4),
-                                      Row(
+                                SizedBox(
+                                  height: 8,
+                                ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    CircleAvatar(
+                                      radius: 24,
+                                      backgroundImage: AssetImage(
+                                          'assets/avatar.jpg'), // Ganti dengan path gambar Anda
+                                    ),
+                                    SizedBox(width: 8),
+                                    Expanded(
+                                      // Expanded digunakan di sini agar teks mengambil lebar yang tersedia
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
-                                          Icon(Icons.thumb_up_alt_outlined,
-                                              size: 16),
-                                          SizedBox(width: 4),
-                                          Text("Dukung Naik - 150"),
-                                          SizedBox(
-                                            width: 16,
+                                          Text(
+                                            "John Doe",
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                            ),
                                           ),
-                                          Icon(Icons.thumb_down_alt_outlined,
-                                              size: 16),
+                                          SizedBox(height: 4),
+                                          Text(
+                                            "libero eget convallis fringilla, lectus magna pulvinar massa, eget euismod purus ligula a neque. Aliquam erat volutpat. Aenean justo purus",
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.normal,
+                                              color: Colors.grey,
+                                            ),
+                                            softWrap: true,
+                                          ),
+                                          SizedBox(height: 4),
+                                          Row(
+                                            children: [
+                                              Icon(Icons.thumb_up_alt_outlined,
+                                                  size: 16),
+                                              SizedBox(width: 4),
+                                              Text("Dukung Naik - 150"),
+                                              SizedBox(
+                                                width: 16,
+                                              ),
+                                              Icon(
+                                                  Icons.thumb_down_alt_outlined,
+                                                  size: 16),
+                                            ],
+                                          ),
                                         ],
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
-                            Divider(),
-                            SizedBox(
-                              height: 16,
-                            ),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                CircleAvatar(
-                                  radius: 24,
-                                  backgroundImage: AssetImage(
-                                      'assets/avatar.jpg'), // Ganti dengan path gambar Anda
+                                Divider(),
+                                SizedBox(
+                                  height: 16,
                                 ),
-                                SizedBox(width: 8),
-                                Expanded(
-                                  // Expanded digunakan di sini agar teks mengambil lebar yang tersedia
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "John Doe",
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      SizedBox(height: 4),
-                                      Text(
-                                        "libero eget convallis fringilla, lectus magna pulvinar massa, eget euismod purus ligula a neque. Aliquam erat volutpat. Aenean justo purus",
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.normal,
-                                          color: Colors.grey,
-                                        ),
-                                        softWrap: true,
-                                      ),
-                                      SizedBox(height: 4),
-                                      Row(
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    CircleAvatar(
+                                      radius: 24,
+                                      backgroundImage: AssetImage(
+                                          'assets/avatar.jpg'), // Ganti dengan path gambar Anda
+                                    ),
+                                    SizedBox(width: 8),
+                                    Expanded(
+                                      // Expanded digunakan di sini agar teks mengambil lebar yang tersedia
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
-                                          Icon(Icons.thumb_up_alt_outlined,
-                                              size: 16),
-                                          SizedBox(width: 4),
-                                          Text("Dukung Naik - 150"),
-                                          SizedBox(
-                                            width: 16,
+                                          Text(
+                                            "John Doe",
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                            ),
                                           ),
-                                          Icon(Icons.thumb_down_alt_outlined,
-                                              size: 16),
+                                          SizedBox(height: 4),
+                                          Text(
+                                            "libero eget convallis fringilla, lectus magna pulvinar massa, eget euismod purus ligula a neque. Aliquam erat volutpat. Aenean justo purus",
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.normal,
+                                              color: Colors.grey,
+                                            ),
+                                            softWrap: true,
+                                          ),
+                                          SizedBox(height: 4),
+                                          Row(
+                                            children: [
+                                              Icon(Icons.thumb_up_alt_outlined,
+                                                  size: 16),
+                                              SizedBox(width: 4),
+                                              Text("Dukung Naik - 150"),
+                                              SizedBox(
+                                                width: 16,
+                                              ),
+                                              Icon(
+                                                  Icons.thumb_down_alt_outlined,
+                                                  size: 16),
+                                            ],
+                                          ),
                                         ],
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
-                            Divider(),
-                            SizedBox(
-                              height: 16,
-                            ),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                CircleAvatar(
-                                  radius: 24,
-                                  backgroundImage: AssetImage(
-                                      'assets/avatar.jpg'), // Ganti dengan path gambar Anda
+                                Divider(),
+                                SizedBox(
+                                  height: 16,
                                 ),
-                                SizedBox(width: 8),
-                                Expanded(
-                                  // Expanded digunakan di sini agar teks mengambil lebar yang tersedia
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "John Doe",
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      SizedBox(height: 4),
-                                      Text(
-                                        "libero eget convallis fringilla, lectus magna pulvinar massa, eget euismod purus ligula a neque. Aliquam erat volutpat. Aenean justo purus",
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.normal,
-                                          color: Colors.grey,
-                                        ),
-                                        softWrap: true,
-                                      ),
-                                      SizedBox(height: 4),
-                                      Row(
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    CircleAvatar(
+                                      radius: 24,
+                                      backgroundImage: AssetImage(
+                                          'assets/avatar.jpg'), // Ganti dengan path gambar Anda
+                                    ),
+                                    SizedBox(width: 8),
+                                    Expanded(
+                                      // Expanded digunakan di sini agar teks mengambil lebar yang tersedia
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
-                                          Icon(Icons.thumb_up_alt_outlined,
-                                              size: 16),
-                                          SizedBox(width: 4),
-                                          Text("Dukung Naik - 150"),
-                                          SizedBox(
-                                            width: 16,
+                                          Text(
+                                            "John Doe",
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                            ),
                                           ),
-                                          Icon(Icons.thumb_down_alt_outlined,
-                                              size: 16),
+                                          SizedBox(height: 4),
+                                          Text(
+                                            "libero eget convallis fringilla, lectus magna pulvinar massa, eget euismod purus ligula a neque. Aliquam erat volutpat. Aenean justo purus",
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.normal,
+                                              color: Colors.grey,
+                                            ),
+                                            softWrap: true,
+                                          ),
+                                          SizedBox(height: 4),
+                                          Row(
+                                            children: [
+                                              Icon(Icons.thumb_up_alt_outlined,
+                                                  size: 16),
+                                              SizedBox(width: 4),
+                                              Text("Dukung Naik - 150"),
+                                              SizedBox(
+                                                width: 16,
+                                              ),
+                                              Icon(
+                                                  Icons.thumb_down_alt_outlined,
+                                                  size: 16),
+                                            ],
+                                          ),
                                         ],
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
+                                Divider(),
                               ],
                             ),
-                            Divider(),
-                          ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    Positioned(
+                      top: 10,
+                      left: 0,
+                      right: 0,
+                      child: SizedBox(
+                        child: IconButton(
+                          alignment: AlignmentDirectional.topStart,
+                          style: const ButtonStyle(
+                              backgroundColor:
+                                  WidgetStatePropertyAll(Colors.transparent),
+                              padding:
+                                  WidgetStatePropertyAll(EdgeInsets.all(10))),
+                          onPressed: () => Navigator.pop(context),
+                          icon: const Icon(
+                            Icons.arrow_back,
+                          ),
                         ),
                       ),
-                    ],
-                  ),
+                    )
+                  ],
                 ),
               ),
             ],

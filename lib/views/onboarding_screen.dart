@@ -14,20 +14,20 @@ class OnboardingScreen extends StatefulWidget {
 }
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
-  @override
-  void initState() async {
-    // TODO: implement initState
-    super.initState();
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    if (prefs.getBool('isOnboarded') == true) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const ChoiceUser(),
-        ),
-      );
-    }
-  }
+  // @override
+  // void initState() async {
+  //   // TODO: implement initState
+  //   super.initState();
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   if (prefs.getBool('isOnboarded') == true) {
+  //     Navigator.pushReplacement(
+  //       context,
+  //       MaterialPageRoute(
+  //         builder: (context) => const ChoiceUser(),
+  //       ),
+  //     );
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
