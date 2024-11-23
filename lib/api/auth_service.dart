@@ -19,10 +19,10 @@ class AuthService {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
     };
-    _dio.options.followRedirects = true; // Allow redirects
-    _dio.options.validateStatus = (status) {
-      return status != null && status < 500; // Allow redirect codes
-    };
+    // _dio.options.followRedirects = true; // Allow redirects
+    // _dio.options.validateStatus = (status) {
+    //   return status != null && status < 500; // Allow redirect codes
+    // };
   }
 
   // Fungsi untuk login

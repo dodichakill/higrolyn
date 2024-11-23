@@ -1,13 +1,13 @@
+import 'package:agrolyn/api/community_service.dart';
 import 'package:agrolyn/providers/community_notifer.dart';
 import 'package:agrolyn/shared/constants.dart';
 import 'package:agrolyn/utils/assets_path.dart';
-import 'package:agrolyn/views/farmer/comunity/detail_comunity.dart';
+import 'package:agrolyn/widgets/card_community.dart';
 import 'package:flutter/material.dart';
-import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:provider/provider.dart';
 
-class Community extends StatelessWidget {
-  const Community({super.key});
+class CommunityScreen extends StatelessWidget {
+  const CommunityScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -271,297 +271,31 @@ class Community extends StatelessWidget {
                             ],
                           ),
                         ),
-                        InkWell(
-                          onTap: () {
-                            pushWithoutNavBar(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const DetailComunity()));
-                          },
-                          child: Container(
-                            margin: const EdgeInsets.all(16),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(16),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.1),
-                                  blurRadius: 5,
-                                  spreadRadius: 2,
-                                  offset: const Offset(0, 2),
-                                ),
-                              ],
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                // Bagian gambar
-                                ClipRRect(
-                                  borderRadius: const BorderRadius.only(
-                                    topLeft: Radius.circular(16),
-                                    topRight: Radius.circular(16),
-                                  ),
-                                  child: Image.asset(
-                                    ImageAssets.petaniComunity,
-                                    fit: BoxFit.cover,
-                                    width: double.infinity,
-                                    height: 150,
-                                  ),
-                                ),
-                                const Padding(
-                                  padding: EdgeInsets.all(16.0),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      // Informasi pengguna
-                                      Row(
-                                        children: [
-                                          Icon(Icons.person, size: 24),
-                                          SizedBox(width: 8),
-                                          Text(
-                                            "User123",
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          SizedBox(width: 8),
-                                          Text(
-                                            "#Padi",
-                                            style:
-                                                TextStyle(color: Colors.grey),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(height: 8),
-                                      // Pertanyaan
-                                      Text(
-                                        "Bagaimana cara meningkatkan produktivitas padi secara organik secara efektif dan efisien?",
-                                        style: TextStyle(fontSize: 16),
-                                      ),
-                                      SizedBox(height: 16),
-                                      // Bagian tombol interaksi
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Icon(Icons.thumb_up_alt_outlined,
-                                                  size: 16),
-                                              SizedBox(width: 4),
-                                              Text("Dukung Naik - 150"),
-                                              SizedBox(
-                                                width: 16,
-                                              ),
-                                              Icon(
-                                                  Icons.thumb_down_alt_outlined,
-                                                  size: 16),
-                                            ],
-                                          ),
-                                          Row(
-                                            children: [
-                                              Icon(Icons.comment, size: 16),
-                                              SizedBox(width: 4),
-                                              Text("24 Jawaban"),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.all(16),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(16),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.1),
-                                blurRadius: 5,
-                                spreadRadius: 2,
-                                offset: const Offset(0, 2),
+                        value.questions.isNotEmpty
+                            ? ListView.builder(
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount: value.questions.length,
+                                itemBuilder: (context, index) {
+                                  var question = value.questions[index];
+                                  return CardCommunity(
+                                    id: question['id'],
+                                    thumbnail: question['question_thumbnail'],
+                                    title: question['title_question'],
+                                    type: question['question_type'],
+                                    date: question['released_date'],
+                                    imgProfile: question['user_profile'],
+                                    likeNum: question['like_num'],
+                                    username: question['username'],
+                                    numberOfAnswer:
+                                        question['number_of_answer'],
+                                    key: UniqueKey(),
+                                  );
+                                })
+                            : Container(
+                                margin: const EdgeInsets.only(top: 20),
+                                child: const Text('Belum ada topik diskusi'),
                               ),
-                            ],
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              // Bagian gambar
-                              ClipRRect(
-                                borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(16),
-                                  topRight: Radius.circular(16),
-                                ),
-                                child: Image.asset(
-                                  ImageAssets.petaniComunity,
-                                  fit: BoxFit.cover,
-                                  width: double.infinity,
-                                  height: 150,
-                                ),
-                              ),
-                              const Padding(
-                                padding: EdgeInsets.all(16.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    // Informasi pengguna
-                                    Row(
-                                      children: [
-                                        Icon(Icons.person, size: 24),
-                                        SizedBox(width: 8),
-                                        Text(
-                                          "User123",
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        SizedBox(width: 8),
-                                        Text(
-                                          "#Padi",
-                                          style: TextStyle(color: Colors.grey),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(height: 8),
-                                    // Pertanyaan
-                                    Text(
-                                      "Bagaimana cara meningkatkan produktivitas padi secara organik secara efektif dan efisien?",
-                                      style: TextStyle(fontSize: 16),
-                                    ),
-                                    SizedBox(height: 16),
-                                    // Bagian tombol interaksi
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Icon(Icons.thumb_up_alt_outlined,
-                                                size: 16),
-                                            SizedBox(width: 4),
-                                            Text("Dukung Naik - 150"),
-                                            SizedBox(
-                                              width: 16,
-                                            ),
-                                            Icon(Icons.thumb_down_alt_outlined,
-                                                size: 16),
-                                          ],
-                                        ),
-                                        Row(
-                                          children: [
-                                            Icon(Icons.comment, size: 16),
-                                            SizedBox(width: 4),
-                                            Text("24 Jawaban"),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.all(16),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(16),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.1),
-                                blurRadius: 5,
-                                spreadRadius: 2,
-                                offset: const Offset(0, 2),
-                              ),
-                            ],
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              // Bagian gambar
-                              ClipRRect(
-                                borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(16),
-                                  topRight: Radius.circular(16),
-                                ),
-                                child: Image.asset(
-                                  ImageAssets.petaniComunity,
-                                  fit: BoxFit.cover,
-                                  width: double.infinity,
-                                  height: 150,
-                                ),
-                              ),
-                              const Padding(
-                                padding: EdgeInsets.all(16.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    // Informasi pengguna
-                                    Row(
-                                      children: [
-                                        Icon(Icons.person, size: 24),
-                                        SizedBox(width: 8),
-                                        Text(
-                                          "User123",
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        SizedBox(width: 8),
-                                        Text(
-                                          "#Padi",
-                                          style: TextStyle(color: Colors.grey),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(height: 8),
-                                    // Pertanyaan
-                                    Text(
-                                      "Bagaimana cara meningkatkan produktivitas padi secara organik secara efektif dan efisien?",
-                                      style: TextStyle(fontSize: 16),
-                                    ),
-                                    SizedBox(height: 16),
-                                    // Bagian tombol interaksi
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Icon(Icons.thumb_up_alt_outlined,
-                                                size: 16),
-                                            SizedBox(width: 4),
-                                            Text("Dukung Naik - 150"),
-                                            SizedBox(
-                                              width: 16,
-                                            ),
-                                            Icon(Icons.thumb_down_alt_outlined,
-                                                size: 16),
-                                          ],
-                                        ),
-                                        Row(
-                                          children: [
-                                            Icon(Icons.comment, size: 16),
-                                            SizedBox(width: 4),
-                                            Text("24 Jawaban"),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
                       ],
                     ),
                   ),

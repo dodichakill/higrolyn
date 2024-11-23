@@ -4,8 +4,8 @@ import 'package:agrolyn/utils/assets_path.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class DetailComunity extends StatelessWidget {
-  const DetailComunity({super.key});
+class DetailCommunity extends StatelessWidget {
+  const DetailCommunity({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,6 @@ class DetailComunity extends StatelessWidget {
                         ],
                       ),
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           // Bagian gambar
                           Stack(children: [
@@ -281,22 +280,42 @@ class DetailComunity extends StatelessWidget {
                       ),
                     ),
                     Positioned(
-                      top: 10,
+                      top: 20,
                       left: 0,
                       right: 0,
-                      child: SizedBox(
-                        child: IconButton(
-                          alignment: AlignmentDirectional.topStart,
-                          style: const ButtonStyle(
-                              backgroundColor:
-                                  WidgetStatePropertyAll(Colors.transparent),
-                              padding:
-                                  WidgetStatePropertyAll(EdgeInsets.all(10))),
-                          onPressed: () => Navigator.pop(context),
-                          icon: const Icon(
-                            Icons.arrow_back,
-                          ),
-                        ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: SizedBox(
+                            width: 44,
+                            height: 44,
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
+                              child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.black38,
+                                    borderRadius: BorderRadius.circular(40),
+                                    border: Border.all(color: Colors.grey),
+                                  ),
+                                  child: const Row(
+                                    children: [
+                                      SizedBox(
+                                        width: 15,
+                                      ),
+                                      Icon(
+                                        Icons.arrow_back_ios,
+                                        color: Colors.white,
+                                      ),
+                                      Text(
+                                        "Kembali Ke Halaman Utama",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold),
+                                      )
+                                    ],
+                                  )),
+                            )),
                       ),
                     )
                   ],
