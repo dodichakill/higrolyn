@@ -2,7 +2,7 @@ import 'package:agrolyn/api/community_service.dart';
 import 'package:agrolyn/providers/community_notifer.dart';
 import 'package:agrolyn/shared/constants.dart';
 import 'package:agrolyn/utils/assets_path.dart';
-import 'package:agrolyn/widgets/card_community.dart';
+import 'package:agrolyn/views/farmer/comunity/card_community.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

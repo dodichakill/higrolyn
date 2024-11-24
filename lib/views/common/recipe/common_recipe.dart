@@ -10,6 +10,6 @@ class CommonRecipe extends StatefulWidget {
 class _CommonRecipeState extends State<CommonRecipe> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return const Scaffold();
   }
 }

@@ -1,9 +1,8 @@
 import 'package:agrolyn/providers/community_notifer.dart';
-import 'package:agrolyn/views/farmer/comunity/detail_community.dart';
+import 'package:agrolyn/views/farmer/comunity/detail_community_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:agrolyn/utils/date.dart';
 
 class CardCommunity extends StatelessWidget {
@@ -33,7 +32,8 @@ class CardCommunity extends StatelessWidget {
                     pushWithoutNavBar(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => DetailCommunity(id: id)));
+                            builder: (context) =>
+                                DetailCommunityScreen(id: id)));
                   },
                   child: Container(
                     margin: const EdgeInsets.all(16),
