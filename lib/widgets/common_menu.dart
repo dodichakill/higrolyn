@@ -1,8 +1,8 @@
 import 'package:agrolyn/views/common/home/common_home.dart';
 import 'package:agrolyn/views/common/order/common_order.dart';
-import 'package:agrolyn/views/common/profile/common_profile.dart';
 import 'package:agrolyn/views/common/recipe/common_recipe.dart';
 import 'package:agrolyn/views/common/store/common_store.dart';
+import 'package:agrolyn/views/farmer/Profile/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
@@ -34,7 +34,7 @@ class CommonMenu extends StatelessWidget {
             screen: const CommonOrder(),
             item: ItemConfig(
               activeForegroundColor: Colors.green,
-              icon: const Icon(Icons.payments),
+              icon: const Icon(Icons.description),
               title: "Pesanan",
             ),
           ),
@@ -56,7 +56,7 @@ class CommonMenu extends StatelessWidget {
             ),
           ),
           PersistentTabConfig(
-            screen: const CommonProfile(),
+            screen: const Profile(),
             item: ItemConfig(
               activeForegroundColor: Colors.green,
               icon: const Icon(Icons.person),

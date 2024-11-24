@@ -1,5 +1,6 @@
 const String root = "assets/images";
 const String icon = "assets/icons";
+const String lotties = "assets/lotties";
 
 class ImageAssets {
   static const String logo = "$icon/logo-circle.png";
@@ -28,4 +29,13 @@ class ImageAssets {
   static const String dummyResult = "$root/leaf-blight.jpg";
   static const String backgroundChatbot =
       "$root/Screenshot 2024-11-11 114500.png";
+  static String cloud = "$lotties/cloud.json";
+  static String backgorundAnimation = "$lotties/Animation.json";
+  static String backgorundAnimation1 = "$lotties/Animation1.json";
+  static String vegetables = "$lotties/vegetables.json";
+  static String chef = "$lotties/Chef.json";
+  static String trcuk = "$lotties/truk.json";
+  static String piring1 = "$root/Untitled design (11).png";
+  static String piring2 = "$root/Untitled design (12).png";
+  static String map = "$root/acuma.png";
 }

@@ -10,6 +10,6 @@ class CommonOrder extends StatefulWidget {
 class _CommonOrderState extends State<CommonOrder> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return const Scaffold();
   }
 }
