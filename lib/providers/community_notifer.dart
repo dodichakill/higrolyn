@@ -1,20 +1,55 @@
 import 'package:agrolyn/api/community_service.dart';
+import 'package:agrolyn/models/detail_question_model.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CommunityNotifer extends ChangeNotifier {
   final BuildContext context;
+  final CommunityService _communityService = CommunityService();
 
   CommunityNotifer({required this.context}) {
-    fetchData();
+    fetchAllQuestion();
   }
 
-  final CommunityService _communityService = CommunityService();
   List questions = [];
+  var detailQuestion;
+  int questionId = 0;
+  bool isLike = false, isDislike = false, isLoading = false;
 
-  void fetchData() async {
+  void likeQuestion(int id) async {
+    await _communityService.fetchLikeQuestion(id);
+    isLike = true;
+    isDislike = false;
+    notifyListeners();
+  }
+
+  void dislikeQuestion(int id) async {
+    await _communityService.fetchDislikeQuestion(id);
+    isLike = false;
+    isDislike = true;
+    notifyListeners();
+  }
+
+  void fetchAllQuestion() async {
+    isLoading = true;
     questions = await _communityService.getQuestions();
     notifyListeners();
   }
 
-  set selectedCategory(String selectedCategory) {}
+  void fetchDetailQuestion(int id) async {
+    isLoading = true;
+    notifyListeners();
+    print('Fetching detail for question ID: $id');
+    try {
+      detailQuestion = await _communityService.getDetailQuestion(id);
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      print(detailQuestion);
+    } catch (e) {
+      print("Error fetching details: $e");
+      detailQuestion = null; // Fallback jika terjadi kesalahan
+    } finally {
+      isLoading = false;
+      notifyListeners();
+    }
+  }
 }

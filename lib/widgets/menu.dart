@@ -23,7 +23,7 @@ class Menu extends StatelessWidget {
         backgroundColor: Colors.white,
         tabs: [
           PersistentTabConfig(
-            screen: const HomePage(),
+            screen: HomePage(),
             item: ItemConfig(
               activeForegroundColor: Colors.green,
               icon: const Icon(Icons.home),

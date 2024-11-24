@@ -213,14 +213,16 @@ class RegisterScreen extends StatelessWidget {
                               print(
                                   "${int.parse(id ?? '0')} ${value.nameController.text} ${value.emailController.text} ${value.phoneController.text} ${value.addressController.text} ${value.passwordController.text}");
                               // if (value.keyfrom.currentState!.validate()) {
-                              AuthService().register(
-                                  context,
-                                  int.parse(id!),
-                                  value.nameController.text,
-                                  value.emailController.text,
-                                  value.phoneController.text,
-                                  value.addressController.text,
-                                  value.passwordController.text);
+                              AuthService()
+                                  .register(
+                                      context,
+                                      int.parse(id!),
+                                      value.nameController.text,
+                                      value.emailController.text,
+                                      value.phoneController.text,
+                                      value.addressController.text,
+                                      value.passwordController.text)
+                                  .whenComplete(() => value.setLoading(false));
                               // }
                             },
                             style: ElevatedButton.styleFrom(

@@ -1,8 +1,10 @@
-import 'package:agrolyn/providers/card_community_notifier.dart';
+import 'package:agrolyn/providers/community_notifer.dart';
 import 'package:agrolyn/views/farmer/comunity/detail_community.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:agrolyn/utils/date.dart';
 
 class CardCommunity extends StatelessWidget {
   final int id, likeNum, numberOfAnswer;
@@ -24,14 +26,14 @@ class CardCommunity extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-        create: (_) => CardCommunityNotifier(context: context),
-        child: Consumer<CardCommunityNotifier>(
+        create: (_) => CommunityNotifer(context: context),
+        child: Consumer<CommunityNotifer>(
             builder: (context, value, child) => InkWell(
                   onTap: () {
                     pushWithoutNavBar(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const DetailCommunity()));
+                            builder: (context) => DetailCommunity(id: id)));
                   },
                   child: Container(
                     margin: const EdgeInsets.all(16),
@@ -81,15 +83,26 @@ class CardCommunity extends StatelessWidget {
                                   Text(
                                     username,
                                     style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black54),
                                   ),
                                   const Spacer(),
-                                  const Icon(Icons.tag,
+                                  const Icon(Icons.calendar_month_outlined,
                                       size: 11, color: Colors.grey),
-                                  Text(
-                                    type,
-                                    style: const TextStyle(color: Colors.grey),
+                                  const SizedBox(width: 4),
+                                  FutureBuilder(
+                                    future: formatRelativeTime(date),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.hasData) {
+                                        return Text(
+                                          snapshot.data.toString(),
+                                          style: const TextStyle(
+                                              color: Colors.grey),
+                                        );
+                                      } else {
+                                        return const CircularProgressIndicator(); // or some other loading indicator
+                                      }
+                                    },
                                   ),
                                 ],
                               ),
@@ -97,7 +110,8 @@ class CardCommunity extends StatelessWidget {
                               // Pertanyaan
                               Text(
                                 title,
-                                style: const TextStyle(fontSize: 16),
+                                style: const TextStyle(
+                                    fontSize: 16, color: Colors.black87),
                               ),
                               const SizedBox(height: 8),
                               Divider(color: Colors.grey.shade300),
@@ -126,9 +140,12 @@ class CardCommunity extends StatelessWidget {
                                                     color: Colors.grey,
                                                   ),
                                             const SizedBox(width: 4),
-                                            Text(value.isLike
-                                                ? (likeNum + 1).toString()
-                                                : likeNum.toString()),
+                                            Text(
+                                                value.isLike
+                                                    ? (likeNum + 1).toString()
+                                                    : likeNum.toString(),
+                                                style: const TextStyle(
+                                                    color: Colors.grey)),
                                           ],
                                         ),
                                       ),
@@ -151,11 +168,36 @@ class CardCommunity extends StatelessWidget {
                                       )
                                     ],
                                   ),
+                                  const Spacer(),
                                   Row(
                                     children: [
-                                      const Icon(Icons.comment, size: 16),
+                                      const Icon(
+                                        Icons.beenhere_outlined,
+                                        size: 16,
+                                        color: Colors.grey,
+                                      ),
                                       const SizedBox(width: 4),
-                                      Text("$numberOfAnswer Jawaban"),
+                                      Text(
+                                        type,
+                                        style:
+                                            const TextStyle(color: Colors.grey),
+                                      ),
+                                    ],
+                                  ),
+                                  const Spacer(),
+                                  Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.comment_outlined,
+                                        size: 16,
+                                        color: Colors.grey,
+                                      ),
+                                      const SizedBox(width: 4),
+                                      Text(
+                                        "$numberOfAnswer Jawaban",
+                                        style:
+                                            const TextStyle(color: Colors.grey),
+                                      ),
                                     ],
                                   ),
                                 ],

@@ -1,4 +1,5 @@
 import 'package:agrolyn/api/auth_service.dart';
+import 'package:agrolyn/models/detail_question_model.dart';
 import 'package:dio/dio.dart';
 
 class CommunityService {
@@ -12,7 +13,7 @@ class CommunityService {
           options: Options(headers: {
             'Authorization': 'Bearer $token',
           }));
-      print(response);
+      // print(response);
       if (response.data['data'] != null) {
         return response.data['data']; // Mengembalikan semua pertanyaan
       } else {
@@ -21,6 +22,29 @@ class CommunityService {
     } catch (e) {
       print("Error: $e");
       return [];
+    }
+  }
+
+  Future<Map<String, dynamic>> getDetailQuestion(int questionId) async {
+    final token = await AuthService().getToken();
+    try {
+      // print('Fetching detail for question ID: $questionId');
+      final response = await _dio.get('$baseUrl/questions/$questionId/',
+          options: Options(headers: {
+            'Authorization': 'Bearer $token',
+          }));
+      // print('Response: ${response.data}');
+      if (response.data['data'] != null) {
+        return response.data['data'];
+      } else {
+        throw Exception('No data found for the question.');
+      }
+    } catch (e) {
+      if (e is DioException) {
+        print('DioError: ${e.response?.data}');
+        print('Status code: ${e.response?.statusCode}');
+      }
+      throw Exception('Error fetching question details: $e');
     }
   }
 
