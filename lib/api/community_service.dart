@@ -89,4 +89,31 @@ class CommunityService {
       return "Dislike Gagal";
     }
   }
+
+  Future<String?> fetchNewAnswer(
+      {required int questionId,
+      required String answer,
+      required int type}) async {
+    final token = await AuthService().getToken();
+    try {
+      final response = await _dio.post('$baseUrl/answer/new/$questionId/',
+          data: {
+            "answer": answer,
+            "plant_types_id": type,
+          },
+          options: Options(headers: {
+            'Authorization': 'Bearer $token',
+          }));
+      print(response);
+      if (response.statusCode == 201) {
+        return response.data['message'];
+      } else {
+        print("Jawaban Gagal dibuat");
+        return response.data['message'];
+      }
+    } catch (e) {
+      print("Error: $e");
+      return "Jawaban Gagal dibuat";
+    }
+  }
 }

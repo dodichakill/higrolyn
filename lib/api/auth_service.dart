@@ -1,9 +1,9 @@
 import 'package:agrolyn/shared/constants.dart';
 import 'package:agrolyn/shared/custom_snackbar.dart';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:agrolyn/views/auth/login_screen.dart';
 import 'package:agrolyn/widgets/common_menu.dart';
 import 'package:agrolyn/widgets/menu.dart';
-import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
@@ -92,14 +92,6 @@ class AuthService {
 
       if (response.statusCode == 201) {
         // print(response.data);
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-              backgroundColor: MyColors.primaryColorDark,
-              content: Text(
-                "Pendaftaran Berhasil, silahkan cek email anda untuk verifikasi akun",
-                style: TextStyle(color: Colors.white),
-              )),
-        );
         showCustomSnackbar(
             context,
             "Pendaftaran Berhasil",
