@@ -184,7 +184,7 @@ class CommonRecipe extends StatelessWidget {
                                                 height: 2,
                                               ),
                                               Text(
-                                                "${recipe['ingredients']}",
+                                                "${recipe['steps']}",
                                                 maxLines: 2,
                                                 overflow: TextOverflow.ellipsis,
                                                 style: const TextStyle(

@@ -227,201 +227,80 @@ class CommonHome extends StatelessWidget {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: Image.asset(
-                                    ImageAssets.jagung,
-                                    fit: BoxFit.cover,
-                                    height: 180,
-                                    width: 160,
-                                  ),
-                                ),
-                                const SizedBox(height: 8),
-                                const Text(
-                                  "Jagung Rebus Cik",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                const SizedBox(height: 2),
-                                const Text(
-                                  "Rp. 10.000",
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.green,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                const SizedBox(height: 2),
-                                const Row(
-                                  children: [
-                                    Icon(Icons.fastfood,
-                                        size: 16, color: Colors.grey),
-                                    SizedBox(width: 4),
-                                    Text(
-                                      "Makanan Olahan",
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.grey,
-                                      ),
+                      child: SizedBox(
+                        height:
+                            268, // Memberi tinggi tetap untuk ListView agar layout rapi
+                        child: value.products.isNotEmpty
+                            ? ListView.builder(
+                                scrollDirection:
+                                    Axis.horizontal, // Arah scroll horizontal
+                                itemCount: value.products.length, // Jumlah item
+                                itemBuilder: (context, index) {
+                                  var product = value.products[index];
+                                  return Padding(
+                                    padding: const EdgeInsets.only(
+                                        right: 8), // Jarak antar item
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        product['img_product'] != null &&
+                                                product['img_product']
+                                                    .isNotEmpty
+                                            ? ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        10), // Sudut melengkung
+                                                child: Image.network(
+                                                  product['img_product'],
+                                                  fit: BoxFit.cover,
+                                                  height: 180,
+                                                  width: 160,
+                                                ),
+                                              )
+                                            : const Text(
+                                                "img produk not available"),
+                                        const SizedBox(height: 8),
+                                        // Nama produk
+                                        Text(
+                                          "${product['product_name']}",
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        const SizedBox(height: 2),
+                                        // Harga produk
+                                        Text(
+                                          "${product['price']}",
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            color: Colors.green,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        const SizedBox(height: 2),
+                                        // Kategori atau desskripsi
+                                        Row(
+                                          children: [
+                                            const Icon(Icons.fastfood,
+                                                size: 16, color: Colors.grey),
+                                            const SizedBox(width: 4),
+                                            Text(
+                                              "${product['product_categories_id'] == 1 ? "Mentah" : (product['product_categories_id'] == 2 ? "Olahan" : "Lainnya")}",
+                                              style: TextStyle(
+                                                fontSize: 14,
+                                                color: Colors.grey,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              width: 8,
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: Image.asset(
-                                    ImageAssets.jagung,
-                                    fit: BoxFit.cover,
-                                    height: 180,
-                                    width: 160,
-                                  ),
-                                ),
-                                const SizedBox(height: 8),
-                                const Text(
-                                  "Jagung Rebus Cik",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                const SizedBox(height: 2),
-                                const Text(
-                                  "Rp. 10.000",
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.green,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                const SizedBox(height: 2),
-                                const Row(
-                                  children: [
-                                    Icon(Icons.fastfood,
-                                        size: 16, color: Colors.grey),
-                                    SizedBox(width: 4),
-                                    Text(
-                                      "Makanan Olahan",
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.grey,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              width: 8,
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: Image.asset(
-                                    ImageAssets.jagung,
-                                    fit: BoxFit.cover,
-                                    height: 180,
-                                    width: 160,
-                                  ),
-                                ),
-                                const SizedBox(height: 8),
-                                const Text(
-                                  "Jagung Rebus Cik",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                const SizedBox(height: 2),
-                                const Text(
-                                  "Rp. 10.000",
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.green,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                const SizedBox(height: 2),
-                                const Row(
-                                  children: [
-                                    Icon(Icons.fastfood,
-                                        size: 16, color: Colors.grey),
-                                    SizedBox(width: 4),
-                                    Text(
-                                      "Makanan Olahan",
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.grey,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              width: 8,
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: Image.asset(
-                                    ImageAssets.jagung,
-                                    fit: BoxFit.cover,
-                                    height: 180,
-                                    width: 160,
-                                  ),
-                                ),
-                                const SizedBox(height: 8),
-                                const Text(
-                                  "Jagung Rebus Cik",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                const SizedBox(height: 2),
-                                const Text(
-                                  "Rp. 10.000",
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.green,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                const SizedBox(height: 2),
-                                const Row(
-                                  children: [
-                                    Icon(Icons.fastfood,
-                                        size: 16, color: Colors.grey),
-                                    SizedBox(width: 4),
-                                    Text(
-                                      "Makanan Olahan",
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.grey,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
+                                  );
+                                },
+                              )
+                            : const Text("img produk not available"),
                       ),
                     ),
                     const SizedBox(

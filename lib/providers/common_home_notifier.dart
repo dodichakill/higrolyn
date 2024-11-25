@@ -1,4 +1,5 @@
 import 'package:agrolyn/api/article_service.dart';
+import 'package:agrolyn/api/store_service.dart';
 import 'package:agrolyn/api/video_service.dart';
 import 'package:flutter/material.dart';
 
@@ -8,6 +9,7 @@ class CommonHomeNotifier extends ChangeNotifier {
   CommonHomeNotifier({required this.context}) {
     fetchArticles();
     fetchVideo();
+    fetchProduct();
   }
   final ArticleService _articleService = ArticleService();
   List articles = [];
@@ -22,6 +24,14 @@ class CommonHomeNotifier extends ChangeNotifier {
 
   void fetchVideo() async {
     videos = await _videoService.getVideo();
+    notifyListeners();
+  }
+
+  final StoreService _storeService = StoreService();
+  List products = [];
+
+  void fetchProduct() async {
+    products = await _storeService.getProducts();
     notifyListeners();
   }
 }

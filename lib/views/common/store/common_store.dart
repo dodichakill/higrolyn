@@ -155,158 +155,177 @@ class CommonStore extends StatelessWidget {
                               ],
                             ),
                           ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          value.products.isNotEmpty
-                              ? ListView.builder(
-                                  shrinkWrap: true,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  itemCount: value.products.length,
-                                  itemBuilder: (context, index) {
-                                    var product = value.products[index];
-                                    return Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Container(
-                                        height: 100, // Tinggi container
-                                        width: double
-                                            .infinity, // Lebar mengikuti layar
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(
-                                              16), // Sudut melengkung
-                                          border: Border.all(
-                                              color: Colors.green,
-                                              width: 1), // Border hijau
-                                        ),
-                                        child: Row(
-                                          children: [
-                                            // Gambar di sisi kiri
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: product['img_product'] !=
-                                                          null &&
-                                                      product['img_product']
-                                                          .isNotEmpty
-                                                  ? ClipRRect(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              12), // Sudut melengkung gambar
-                                                      child: Image.network(
-                                                        product['img_product'],
-                                                        width: 88,
-                                                        height: 88,
-                                                        fit: BoxFit.cover,
-                                                      ),
-                                                    )
-                                                  : const Text(
-                                                      "img produk not available"),
-                                            ),
-                                            const SizedBox(width: 8),
-                                            // Teks di sisi kanan
-                                            Expanded(
-                                              flex:
-                                                  2, // Menyesuaikan proporsi teks
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  // Nama menu
-                                                  Text(
-                                                    "${product['product_name']}",
-                                                    style: const TextStyle(
-                                                      fontSize: 16,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Colors.black,
-                                                    ),
-                                                  ),
-                                                  const SizedBox(height: 0),
-                                                  // Deskripsi
-                                                  Text(
-                                                    "${product['desc_product']}",
-                                                    maxLines: 1,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    style: const TextStyle(
-                                                      fontSize: 14,
-                                                      color: Colors.grey,
-                                                    ),
-                                                  ),
-                                                  const SizedBox(height: 8),
-                                                  // Harga
-                                                  Text(
-                                                    "${product['price']}",
-                                                    style: const TextStyle(
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Colors.green,
-                                                    ),
-                                                  ),
-                                                ],
+                          SizedBox(
+                            child: value.products.isNotEmpty
+                                ? ListView.builder(
+                                    shrinkWrap: true,
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    itemCount: value.products.length,
+                                    itemBuilder: (context, index) {
+                                      var product = value.products[index];
+                                      return Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8, vertical: 4),
+                                        child: Container(
+                                          height: 100, // Tinggi container
+                                          width: double
+                                              .infinity, // Lebar mengikuti layar
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius:
+                                                BorderRadius.circular(16),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                spreadRadius: 0,
+                                                blurRadius: 8,
+                                                color: Colors.black
+                                                    .withOpacity(0.2),
+                                                offset: const Offset(0, 1),
                                               ),
-                                            ),
-                                            const SizedBox(width: 8),
-                                            // Tombol belanja
-                                            InkWell(
-                                              onTap: () {
-                                                pushWithoutNavBar(
+                                            ],
+                                          ),
+                                          child: Row(
+                                            children: [
+                                              // Gambar di sisi kiri
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: product['img_product'] !=
+                                                            null &&
+                                                        product['img_product']
+                                                            .isNotEmpty
+                                                    ? ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(12),
+                                                        child: Image.network(
+                                                          product[
+                                                              'img_product'],
+                                                          width: 88,
+                                                          height: 88,
+                                                          fit: BoxFit.cover,
+                                                        ),
+                                                      )
+                                                    : const Text(
+                                                        "img produk not available"),
+                                              ),
+                                              const SizedBox(width: 8),
+                                              // Teks di sisi kanan
+                                              Expanded(
+                                                flex: 2,
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    // Nama produk
+                                                    Text(
+                                                      "${product['product_name']}",
+                                                      style: const TextStyle(
+                                                        fontSize: 16,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Colors.black,
+                                                      ),
+                                                    ),
+                                                    const SizedBox(height: 4),
+                                                    // Kategori
+                                                    Row(
+                                                      children: [
+                                                        const Icon(
+                                                            Icons.fastfood,
+                                                            size: 16,
+                                                            color: Colors.grey),
+                                                        const SizedBox(
+                                                            width: 4),
+                                                        Text(
+                                                          "${product['product_categories_id'] == 1 ? "Mentah" : (product['product_categories_id'] == 2 ? "Olahan" : "Lainnya")}",
+                                                          style:
+                                                              const TextStyle(
+                                                            fontSize: 14,
+                                                            color: Colors.grey,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    const SizedBox(height: 8),
+                                                    // Harga
+                                                    Text(
+                                                      "Rp. ${product['price']}",
+                                                      style: const TextStyle(
+                                                        fontSize: 16,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Colors.green,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              const SizedBox(width: 8),
+                                              // Tombol belanja
+                                              InkWell(
+                                                onTap: () {
+                                                  pushWithoutNavBar(
                                                     context,
                                                     MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            DetailCommonStore(
-                                                                product:
-                                                                    product)));
-                                              },
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    right: 8),
-                                                child: Container(
-                                                  height: 40,
-                                                  width:
-                                                      80, // Lebar tetap untuk tombol
-                                                  alignment: Alignment
-                                                      .center, // Posisikan teks di tengah
-                                                  decoration: BoxDecoration(
-                                                    color: MyColors
-                                                        .primaryColorDark, // Warna tombol
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            8), // Sudut melengkung
-                                                    boxShadow: [
-                                                      BoxShadow(
-                                                        color: Colors.black
-                                                            .withOpacity(0.2),
-                                                        offset:
-                                                            const Offset(0, 4),
-                                                        blurRadius: 8,
+                                                      builder: (context) =>
+                                                          DetailCommonStore(
+                                                              product: product),
+                                                    ),
+                                                  );
+                                                },
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          right: 8),
+                                                  child: Container(
+                                                    height: 40,
+                                                    width:
+                                                        80, // Lebar tetap untuk tombol
+                                                    alignment: Alignment
+                                                        .center, // Posisikan teks di tengah
+                                                    decoration: BoxDecoration(
+                                                      color: MyColors
+                                                          .primaryColorDark, // Warna tombol
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8), // Sudut melengkung
+                                                      boxShadow: [
+                                                        BoxShadow(
+                                                          color: Colors.black
+                                                              .withOpacity(0.2),
+                                                          offset: const Offset(
+                                                              0, 4),
+                                                          blurRadius: 8,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    child: const Text(
+                                                      "Belanja",
+                                                      style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Colors
+                                                            .white, // Warna teks
+                                                        fontSize: 14,
                                                       ),
-                                                    ],
-                                                  ),
-                                                  child: const Text(
-                                                    "Belanja",
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Colors
-                                                          .white, // Warna teks
-                                                      fontSize: 14,
                                                     ),
                                                   ),
                                                 ),
                                               ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                    );
-                                  })
-                              : const Center(
-                                  child: Text("No Product available"),
-                                ),
+                                      );
+                                    },
+                                  )
+                                : const Center(
+                                    child: Text("No Product available"),
+                                  ),
+                          )
                         ],
                       ),
                     ),
