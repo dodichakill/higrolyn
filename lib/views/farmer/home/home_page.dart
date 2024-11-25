@@ -1,3 +1,4 @@
+import 'package:agrolyn/api/auth_service.dart';
 import 'package:agrolyn/providers/home_notifier.dart';
 import 'package:agrolyn/shared/constants.dart';
 import 'package:agrolyn/utils/assets_path.dart';
@@ -6,9 +7,17 @@ import 'package:agrolyn/views/farmer/home/detail_article.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  HomePage({super.key}) {
+    initialize();
+  }
+
+  void initialize() async {
+    String? res = await AuthService().refreshToken();
+    print(res);
+  }
 
   @override
   Widget build(BuildContext context) {
