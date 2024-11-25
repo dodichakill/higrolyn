@@ -11,6 +11,129 @@ class CommunityScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void addQuestion() async {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Center(
+              child: Material(
+            borderRadius: BorderRadius.circular(16),
+            child: Padding(
+              padding: const EdgeInsets.only(
+                  top: 32, bottom: 32, left: 16, right: 16),
+              child: Container(
+                constraints: const BoxConstraints(maxWidth: 400),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Center(
+                      child: Text(
+                        "Buat Diskusi Baru",
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    TextFormField(
+                      decoration: const InputDecoration(
+                        labelText: 'Pilih Kategori',
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 12,
+                    ),
+                    TextFormField(
+                      maxLines: 2,
+                      decoration: const InputDecoration(
+                        labelText: 'Jumlah Pertanyaan',
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 12,
+                    ),
+                    TextFormField(
+                      maxLines: 7,
+                      decoration: const InputDecoration(
+                        labelText: 'Deskripsi Pertanyaan',
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 12,
+                    ),
+                    TextFormField(
+                      decoration: const InputDecoration(
+                        labelText: 'Tambah Foto',
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Container(
+                            height: 48,
+                            width: 184,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(16),
+                                color: Colors.red),
+                            child: const Center(
+                              child: Text(
+                                "Batal",
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white),
+                              ),
+                            ),
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Container(
+                            height: 48,
+                            width: 184,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(16),
+                                color: MyColors.primaryColorDark),
+                            child: const Center(
+                              child: Text(
+                                "Kirim",
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ));
+        },
+      );
+    }
+
     return ChangeNotifierProvider(
       create: (_) => CommunityNotifer(context: context),
       child: Consumer<CommunityNotifer>(
@@ -41,7 +164,7 @@ class CommunityScreen extends StatelessWidget {
                                 child: Row(
                                   children: [
                                     Expanded(
-                                      // Tambahkan Expanded di sini agar TextField bisa menggunakan sisa space
+                                      //Tambahkan Expanded di sini agar TextFormField bisa menggunakan sisa space
                                       child: Container(
                                         height: 48,
                                         decoration: BoxDecoration(
@@ -93,162 +216,7 @@ class CommunityScreen extends StatelessWidget {
                                     ),
                                     const SizedBox(width: 8),
                                     InkWell(
-                                      onTap: () {
-                                        showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) {
-                                            return Center(
-                                                child: Material(
-                                              borderRadius:
-                                                  BorderRadius.circular(16),
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 32,
-                                                    bottom: 32,
-                                                    left: 16,
-                                                    right: 16),
-                                                child: Container(
-                                                  constraints:
-                                                      const BoxConstraints(
-                                                          maxWidth: 400),
-                                                  child: Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.min,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      const Center(
-                                                        child: Text(
-                                                          "Buat Diskusi Baru",
-                                                          style: TextStyle(
-                                                              fontSize: 20,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color:
-                                                                  Colors.black),
-                                                        ),
-                                                      ),
-                                                      const SizedBox(
-                                                        height: 16,
-                                                      ),
-                                                      const TextField(
-                                                        decoration:
-                                                            InputDecoration(
-                                                          labelText:
-                                                              'Pilih Kategori',
-                                                          border:
-                                                              OutlineInputBorder(),
-                                                        ),
-                                                      ),
-                                                      const SizedBox(
-                                                        height: 8,
-                                                      ),
-                                                      const TextField(
-                                                        decoration:
-                                                            InputDecoration(
-                                                          labelText:
-                                                              'Isi Diskusi ...',
-                                                          border:
-                                                              OutlineInputBorder(),
-                                                        ),
-                                                      ),
-                                                      const SizedBox(
-                                                        height: 8,
-                                                      ),
-                                                      const TextField(
-                                                        decoration:
-                                                            InputDecoration(
-                                                          labelText:
-                                                              'Tambah Foto',
-                                                          border:
-                                                              OutlineInputBorder(),
-                                                        ),
-                                                      ),
-                                                      const SizedBox(
-                                                        height: 16,
-                                                      ),
-                                                      Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceEvenly,
-                                                        children: [
-                                                          InkWell(
-                                                            onTap: () {
-                                                              Navigator.pop(
-                                                                  context);
-                                                            },
-                                                            child: Container(
-                                                              height: 48,
-                                                              width: 184,
-                                                              decoration: BoxDecoration(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              16),
-                                                                  color: Colors
-                                                                      .red),
-                                                              child:
-                                                                  const Center(
-                                                                child: Text(
-                                                                  "Batal",
-                                                                  style: TextStyle(
-                                                                      fontSize:
-                                                                          16,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                      color: Colors
-                                                                          .white),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          InkWell(
-                                                            onTap: () {
-                                                              Navigator.pop(
-                                                                  context);
-                                                            },
-                                                            child: Container(
-                                                              height: 48,
-                                                              width: 184,
-                                                              decoration: BoxDecoration(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              16),
-                                                                  color: MyColors
-                                                                      .primaryColorDark),
-                                                              child:
-                                                                  const Center(
-                                                                child: Text(
-                                                                  "Kirim",
-                                                                  style: TextStyle(
-                                                                      fontSize:
-                                                                          16,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                      color: Colors
-                                                                          .white),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ));
-                                          },
-                                        );
-                                      },
+                                      onTap: () => addQuestion(),
                                       child: Container(
                                         height: 48,
                                         width:

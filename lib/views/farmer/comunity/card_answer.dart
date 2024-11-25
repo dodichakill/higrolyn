@@ -1,3 +1,4 @@
+import 'package:agrolyn/shared/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:agrolyn/utils/date.dart';
 
@@ -16,6 +17,108 @@ class CardAnswer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void editAnswer() async {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Center(
+              child: Material(
+            borderRadius: BorderRadius.circular(16),
+            child: Padding(
+              padding: const EdgeInsets.only(
+                  top: 32, bottom: 32, left: 16, right: 16),
+              child: Container(
+                constraints: const BoxConstraints(maxWidth: 400),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Center(
+                      child: Text(
+                        "Edit Jawaban",
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    const SizedBox(
+                      height: 14,
+                    ),
+                    TextFormField(
+                      initialValue: answer,
+                      maxLines: 7,
+                      decoration: const InputDecoration(
+                        labelText: 'Judul Pertanyaan',
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 14,
+                    ),
+                    const SizedBox(
+                      height: 14,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Container(
+                            height: 48,
+                            width: 184,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(16),
+                                color: Colors.red),
+                            child: const Center(
+                              child: Text(
+                                "Batal",
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white),
+                              ),
+                            ),
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Container(
+                            height: 48,
+                            width: 184,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(16),
+                                color: MyColors.primaryColorDark),
+                            child: const Center(
+                              child: Text(
+                                "Simpan",
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ));
+        },
+      );
+    }
+
     return Column(mainAxisAlignment: MainAxisAlignment.start, children: [
       Padding(
         padding: const EdgeInsets.symmetric(vertical: 10),
@@ -65,7 +168,7 @@ class CardAnswer extends StatelessWidget {
                     style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.normal,
-                      color: Colors.black54,
+                      color: Colors.black87,
                     ),
                     softWrap: true,
                   ),
@@ -126,16 +229,19 @@ class CardAnswer extends StatelessWidget {
                       const Spacer(),
                       InkWell(
                         onTap: () {},
-                        child: const Row(
+                        child: Row(
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.edit_outlined,
                               size: 16,
                               color: Colors.grey,
                             ),
-                            SizedBox(width: 4),
-                            Text("Ubah Jawaban",
-                                style: TextStyle(color: Colors.grey)),
+                            const SizedBox(width: 4),
+                            InkWell(
+                              onTap: () => editAnswer(),
+                              child: const Text("Ubah Jawaban",
+                                  style: TextStyle(color: Colors.grey)),
+                            ),
                           ],
                         ),
                       )

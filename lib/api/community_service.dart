@@ -1,5 +1,4 @@
 import 'package:agrolyn/api/auth_service.dart';
-import 'package:agrolyn/models/detail_question_model.dart';
 import 'package:dio/dio.dart';
 
 class CommunityService {
