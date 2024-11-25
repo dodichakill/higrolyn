@@ -116,4 +116,25 @@ class CommunityService {
       return "Jawaban Gagal dibuat";
     }
   }
+
+  Future<String> fetchDeleteAnwser(int answerId) async {
+    final token = await AuthService().getToken();
+    try {
+      final response = await _dio.delete('$baseUrl/answer/delete/$answerId/',
+          options: Options(headers: {
+            'Authorization': 'Bearer $token',
+          }));
+      print(response);
+      if (response.statusCode == 200) {
+        print("Jawaban Berhasil dihapus");
+        return "Jawaban Berhasil dihapus";
+      } else {
+        print("Jawaban Gagal dihapus");
+        return "Jawaban Gagal dihapus";
+      }
+    } catch (e) {
+      print("Error: $e");
+      return "Jawaban Gagal dihapus";
+    }
+  }
 }

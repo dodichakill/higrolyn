@@ -55,6 +55,7 @@ class SectionAnswers extends StatelessWidget {
                   releasedDate: dataAnswer[index]["released_date"],
                   userProfile: dataAnswer[index]["user_profile"],
                   likeNum: dataAnswer[index]["like_num"],
+                  questionId: dataQuestion["id"],
                 );
               }),
           const SizedBox(

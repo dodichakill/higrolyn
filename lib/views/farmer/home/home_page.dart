@@ -25,6 +25,7 @@ class HomePage extends StatelessWidget {
       create: (_) => HomeNotifier(context: context),
       child: Consumer<HomeNotifier>(
         builder: (context, value, child) => SafeArea(
+          bottom: false,
           child: Scaffold(
             body: Stack(
               children: [

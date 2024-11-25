@@ -3,9 +3,11 @@ import 'package:agrolyn/views/farmer/comunity/card_answer.dart';
 import 'package:agrolyn/views/farmer/comunity/content_question_detail.dart';
 import 'package:agrolyn/views/farmer/comunity/input_answer.dart';
 import 'package:agrolyn/views/farmer/comunity/section_answers.dart';
+import 'package:agrolyn/widgets/menu.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 class DetailCommunityScreen extends StatelessWidget {
   final int id;
@@ -106,7 +108,14 @@ class DetailCommunityScreen extends StatelessWidget {
                                       height: 44,
                                       child: InkWell(
                                         onTap: () {
-                                          Navigator.pop(context);
+                                          PersistentTabController page =
+                                              PersistentTabController(
+                                                  initialIndex: 3);
+                                          pushWithoutNavBar(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      Menu(page: page)));
                                         },
                                         child: Container(
                                             decoration: BoxDecoration(

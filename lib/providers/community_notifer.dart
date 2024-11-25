@@ -1,5 +1,4 @@
 import 'package:agrolyn/api/community_service.dart';
-import 'package:agrolyn/models/detail_question_model.dart';
 import 'package:agrolyn/views/farmer/comunity/detail_community_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
@@ -80,6 +79,24 @@ class CommunityNotifer extends ChangeNotifier {
       print(e);
       showCustomSnackbar(context, "Gagal Menambahkan Jawaban",
           "Jawaban Anda Gagal Ditambahkan", ContentType.failure);
+    }
+  }
+
+  Future<void> deleteAnswer(context, int answerId, int questionId) async {
+    try {
+      await _communityService.fetchDeleteAnwser(answerId).whenComplete(() =>
+          pushWithoutNavBar(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      DetailCommunityScreen(id: questionId))));
+      showCustomSnackbar(context, "Berhasil Dihapus",
+          "Jawaban Anda Berhasil Dihapus!", ContentType.success);
+      notifyListeners();
+    } catch (e) {
+      print(e);
+      showCustomSnackbar(context, "Gagal Menghapus Jawaban",
+          "Jawaban Anda Gagal Dihapus", ContentType.failure);
     }
   }
 }
