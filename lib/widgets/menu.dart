@@ -1,5 +1,5 @@
 import 'package:agrolyn/views/farmer/Profile/profile_screen.dart';
-import 'package:agrolyn/views/farmer/comunity/comunity.dart';
+import 'package:agrolyn/views/farmer/comunity/community_screen.dart';
 import 'package:agrolyn/views/farmer/detection/detection_screen.dart';
 import 'package:agrolyn/views/farmer/home/home_page.dart';
 import 'package:agrolyn/views/farmer/store/store.dart';
@@ -23,7 +23,7 @@ class Menu extends StatelessWidget {
         backgroundColor: Colors.white,
         tabs: [
           PersistentTabConfig(
-            screen: const HomePage(),
+            screen: HomePage(),
             item: ItemConfig(
               activeForegroundColor: Colors.green,
               icon: const Icon(Icons.home),
@@ -48,7 +48,7 @@ class Menu extends StatelessWidget {
             ),
           ),
           PersistentTabConfig(
-            screen: const Community(),
+            screen: const CommunityScreen(),
             item: ItemConfig(
               activeForegroundColor: Colors.green,
               icon: const Icon(Icons.forum),

@@ -19,10 +19,10 @@ class AuthService {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
     };
-    _dio.options.followRedirects = true; // Allow redirects
-    _dio.options.validateStatus = (status) {
-      return status != null && status < 500; // Allow redirect codes
-    };
+    // _dio.options.followRedirects = true; // Allow redirects
+    // _dio.options.validateStatus = (status) {
+    //   return status != null && status < 500; // Allow redirect codes
+    // };
   }
 
   // Fungsi untuk login
@@ -36,7 +36,7 @@ class AuthService {
         },
       );
 
-      print(response);
+      // print(response);
       if (response.statusCode == 200) {
         // Simpan token di SharedPreferences
         SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -138,7 +138,7 @@ class AuthService {
           'Authorization': 'Bearer $token',
         }),
       );
-      print(response);
+      // print(response);
       if (response.statusCode == 200) {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         await prefs.setString('name', name);
@@ -177,6 +177,30 @@ class AuthService {
   Future<String?> getToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString('access_token');
+  }
+
+  Future<String?> refreshToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('refresh_token');
+    try {
+      final response = await _dio.post(
+        "/refresh-token/",
+        options: Options(headers: {
+          'Authorization': 'Bearer $token',
+        }),
+      );
+      if (response.statusCode == 200) {
+        // print(response.data);
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setString('access_token', response.data['access_token']);
+        return "berhasil memperbarui token";
+      } else {
+        return "gagal memperbarui token";
+      }
+    } on DioException catch (e) {
+      print("Refresh Token error: ${e.response?.data['message']}");
+      return "DIO Error: ${e.response?.data['message']}";
+    }
   }
 
   // Fungsi untuk logout

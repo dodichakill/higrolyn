@@ -154,13 +154,14 @@ class LoginScreen extends StatelessWidget {
                             child: ElevatedButton(
                               onPressed: () {
                                 if (value.keyfrom.currentState!.validate()) {
-                                  // Memanggil validate sebelum menavigasi
-
                                   value.setLoading(true);
-                                  AuthService().login(
-                                      context,
-                                      value.emailController.text,
-                                      value.passwordController.text);
+                                  AuthService()
+                                      .login(
+                                          context,
+                                          value.emailController.text,
+                                          value.passwordController.text)
+                                      .whenComplete(
+                                          () => value.setLoading(false));
                                 }
                               },
                               style: ElevatedButton.styleFrom(

@@ -1,6 +1,7 @@
 import 'package:agrolyn/providers/article_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:agrolyn/utils/date.dart';
 
 class DetailArticle extends StatelessWidget {
   final Map<String, dynamic> article;
@@ -31,15 +32,42 @@ class DetailArticle extends StatelessWidget {
                           )
                         : const Text("No image available"),
                     const SizedBox(height: 16),
-                    Text(
-                      "${article['location']}",
-                      style: const TextStyle(fontSize: 14, color: Colors.grey),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      "${article['released_date']}",
-                      style: const TextStyle(fontSize: 14, color: Colors.grey),
-                    ),
+                    Row(children: [
+                      Row(
+                        children: [
+                          const Icon(Icons.location_on_outlined,
+                              size: 11, color: Colors.grey),
+                          const SizedBox(width: 4),
+                          Text(
+                            "${article['location']}",
+                            style: const TextStyle(
+                                fontSize: 14, color: Colors.grey),
+                          ),
+                        ],
+                      ),
+                      const Spacer(),
+                      Row(
+                        children: [
+                          const Icon(Icons.calendar_month_outlined,
+                              size: 11, color: Colors.grey),
+                          const SizedBox(width: 4),
+                          FutureBuilder(
+                            future:
+                                formatRelativeTime(article["released_date"]),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                return Text(
+                                  snapshot.data.toString(),
+                                  style: const TextStyle(color: Colors.grey),
+                                );
+                              } else {
+                                return const CircularProgressIndicator(); // or some other loading indicator
+                              }
+                            },
+                          )
+                        ],
+                      ),
+                    ]),
                     const SizedBox(height: 8),
                     Text(
                       article['title'],
