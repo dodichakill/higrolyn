@@ -84,19 +84,48 @@ class CommunityNotifer extends ChangeNotifier {
 
   Future<void> deleteAnswer(context, int answerId, int questionId) async {
     try {
-      await _communityService.fetchDeleteAnwser(answerId).whenComplete(() =>
-          pushWithoutNavBar(
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      DetailCommunityScreen(id: questionId))));
-      showCustomSnackbar(context, "Berhasil Dihapus",
-          "Jawaban Anda Berhasil Dihapus!", ContentType.success);
+      await _communityService.fetchDeleteAnwser(answerId).whenComplete(() {
+        pushWithoutNavBar(
+            context,
+            MaterialPageRoute(
+                builder: (context) => DetailCommunityScreen(id: questionId)));
+        showCustomSnackbar(context, "Berhasil Dihapus",
+            "Jawaban Anda Berhasil Dihapus!", ContentType.success);
+      });
+
       notifyListeners();
     } catch (e) {
       print(e);
       showCustomSnackbar(context, "Gagal Menghapus Jawaban",
           "Jawaban Anda Gagal Dihapus", ContentType.failure);
     }
+  }
+
+  Future<void> editAnswer(context, int answerId, String answer) async {
+    try {
+      await _communityService.fetchEditAnswer(answerId, answer).whenComplete(
+          () => pushWithoutNavBar(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      DetailCommunityScreen(id: questionId))));
+      showCustomSnackbar(context, "Berhasil Diubah",
+          "Jawaban Anda Berhasil Diubah!", ContentType.success);
+      notifyListeners();
+    } catch (e) {
+      print(e);
+      showCustomSnackbar(context, "Gagal Mengubah Jawaban",
+          "Jawaban Anda Gagal Diubah", ContentType.failure);
+    }
+  }
+
+  Future<void> likeAnswer(int answerId) async {
+    await _communityService.fetchLikeAnswer(answerId);
+    notifyListeners();
+  }
+
+  Future<void> dislikeAnswer(int answerId) async {
+    await _communityService.fetchDislikeAnswer(answerId);
+    notifyListeners();
   }
 }

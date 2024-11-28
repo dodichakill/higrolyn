@@ -137,4 +137,70 @@ class CommunityService {
       return "Jawaban Gagal dihapus";
     }
   }
+
+  Future<String> fetchEditAnswer(int answerId, String answer) async {
+    final token = await AuthService().getToken();
+    try {
+      final response = await _dio.put('$baseUrl/answer/update/$answerId/',
+          data: {
+            "answer": answer,
+          },
+          options: Options(headers: {
+            'Authorization': 'Bearer $token',
+          }));
+      print(response);
+      if (response.statusCode == 200) {
+        print("Jawaban Berhasil diubah");
+        return "Jawaban Berhasil diubah";
+      } else {
+        print("Jawaban Gagal diubah");
+        return "Jawaban Gagal diubah";
+      }
+    } catch (e) {
+      print("Error: $e");
+      return "Jawaban Gagal diubah";
+    }
+  }
+
+  Future<String> fetchLikeAnswer(int answerId) async {
+    final token = await AuthService().getToken();
+    try {
+      final response = await _dio.post('$baseUrl/answer/$answerId/like/',
+          options: Options(headers: {
+            'Authorization': 'Bearer $token',
+          }));
+      print(response);
+      if (response.statusCode == 200) {
+        print("Like Answer Berhasil");
+        return "Like Answer Berhasil";
+      } else {
+        print("Like Answer Gagal");
+        return "Like  Answer Gagal";
+      }
+    } catch (e) {
+      print("Error: $e");
+      return "Like  Answer Gagal";
+    }
+  }
+
+  Future<String> fetchDislikeAnswer(int answerId) async {
+    final token = await AuthService().getToken();
+    try {
+      final response = await _dio.post('$baseUrl/answer/$answerId/dislike/',
+          options: Options(headers: {
+            'Authorization': 'Bearer $token',
+          }));
+      print(response);
+      if (response.statusCode == 200) {
+        print("Dislike Answer Berbayar");
+        return "Dislike Answer Berbayar";
+      } else {
+        print("Dislike Answer Gagal");
+        return "Dislike Answer Gagal";
+      }
+    } catch (e) {
+      print("Error: $e");
+      return "Dislike Answer Gagal";
+    }
+  }
 }

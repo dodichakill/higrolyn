@@ -5,9 +5,9 @@ import 'package:agrolyn/utils/date.dart';
 import 'package:provider/provider.dart';
 
 class CardAnswer extends StatelessWidget {
-  String answer, userProfile, username, releasedDate;
+  String answer, userProfile, username, releasedDate, name;
   int id, likeNum, questionId;
-
+  bool? isLike = false, isDislike = false;
   CardAnswer(
       {super.key,
       required this.answer,
@@ -16,7 +16,16 @@ class CardAnswer extends StatelessWidget {
       required this.releasedDate,
       required this.id,
       required this.likeNum,
-      required this.questionId});
+      required this.questionId,
+      required this.name}) {
+    initialize();
+  }
+
+  TextEditingController answerController = TextEditingController();
+
+  void initialize() async {
+    answerController.text = answer;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +62,8 @@ class CardAnswer extends StatelessWidget {
                       height: 14,
                     ),
                     TextFormField(
-                      initialValue: answer,
+                      initialValue: answerController.text,
+                      controller: answerController,
                       maxLines: 7,
                       decoration: const InputDecoration(
                         labelText: 'Judul Pertanyaan',
@@ -166,7 +176,6 @@ class CardAnswer extends StatelessWidget {
                         ),
                         const SizedBox(width: 8),
                         Expanded(
-                          // Expanded digunakan di sini agar teks mengambil lebar yang tersedia
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -214,98 +223,104 @@ class CardAnswer extends StatelessWidget {
                                     children: [
                                       InkWell(
                                         onTap: () {
-                                          // value.likeQuestion(id);
+                                          value.likeAnswer(id);
+                                          likeNum++;
+                                          isLike = true;
+                                          isDislike = false;
                                         },
                                         child: Row(
                                           children: [
-                                            // value.isLike
-                                            //     ? const Icon(
-                                            //         Icons.thumb_up_alt_outlined,
-                                            //         size: 16,
-                                            //         color: Colors.green,
-                                            //       )
-                                            //     :
-                                            const Icon(
-                                              Icons.thumb_up_alt_outlined,
-                                              size: 16,
-                                              color: Colors.grey,
-                                            ),
-                                            const SizedBox(width: 4),
-                                            Text(
-                                                // value.isLike
-                                                //     ? (likeNum + 1).toString()
-                                                //     :
-                                                20.toString(),
-                                                style: const TextStyle(
-                                                    color: Colors.grey)),
+                                            isLike == true
+                                                ? const Icon(
+                                                    Icons.thumb_up,
+                                                    size: 16,
+                                                    color: Colors.green,
+                                                  )
+                                                : const Icon(
+                                                    Icons.thumb_up_alt_outlined,
+                                                    size: 16,
+                                                    color: Colors.grey,
+                                                  ),
+                                            const SizedBox(width: 8),
                                           ],
                                         ),
                                       ),
+                                      Text(likeNum.toString(),
+                                          style: const TextStyle(
+                                              color: Colors.grey)),
                                       const SizedBox(width: 8),
+
                                       InkWell(
                                         onTap: () {
-                                          // value.dislikeQuestion(id);
+                                          value.dislikeAnswer(id);
+                                          likeNum--;
+                                          isDislike = true;
+                                          isLike = false;
                                         },
-                                        child:
-                                            // value.isDislike
-                                            //     ? const Icon(
-                                            //         Icons.thumb_down_alt_outlined,
-                                            //         size: 16,
-                                            //         color: Colors.red,
-                                            //       )
-                                            //     :
-                                            const Icon(
-                                          Icons.thumb_down_alt_outlined,
-                                          size: 16,
-                                          color: Colors.grey,
-                                        ),
-                                      )
+                                        child: isDislike == true
+                                            ? const Icon(
+                                                Icons.thumb_down,
+                                                size: 16,
+                                                color: Colors.red,
+                                              )
+                                            : const Icon(
+                                                Icons.thumb_down_alt_outlined,
+                                                size: 16,
+                                                color: Colors.grey,
+                                              ),
+                                      ),
+                                      // Text(id.toString())
                                     ],
                                   ),
                                   const Spacer(),
-                                  Row(
-                                    children: [
-                                      InkWell(
-                                        child: Row(
+                                  name == username
+                                      ? Row(
                                           children: [
-                                            const Icon(
-                                              Icons.edit_outlined,
-                                              size: 16,
-                                              color: Colors.grey,
-                                            ),
-                                            const SizedBox(width: 4),
                                             InkWell(
-                                              onTap: () => editAnswer(),
-                                              child: const Text("Ubah",
-                                                  style: TextStyle(
-                                                      color: Colors.grey)),
+                                              child: Row(
+                                                children: [
+                                                  const Icon(
+                                                    Icons.edit_outlined,
+                                                    size: 16,
+                                                    color: Colors.grey,
+                                                  ),
+                                                  const SizedBox(width: 4),
+                                                  InkWell(
+                                                    onTap: () => editAnswer(),
+                                                    child: const Text("Ubah",
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.grey)),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            const SizedBox(width: 12),
+                                            InkWell(
+                                              onTap: () =>
+                                                  deleteAnswer(id, value),
+                                              child: const Row(
+                                                children: [
+                                                  Row(
+                                                    children: [
+                                                      Icon(
+                                                        Icons.delete_outlined,
+                                                        size: 16,
+                                                        color: Colors.red,
+                                                      ),
+                                                      SizedBox(width: 4),
+                                                      Text("Hapus",
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.red)),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                           ],
-                                        ),
-                                      ),
-                                      const SizedBox(width: 12),
-                                      InkWell(
-                                        onTap: () => deleteAnswer(id, value),
-                                        child: const Row(
-                                          children: [
-                                            Row(
-                                              children: [
-                                                Icon(
-                                                  Icons.delete_outlined,
-                                                  size: 16,
-                                                  color: Colors.red,
-                                                ),
-                                                SizedBox(width: 4),
-                                                Text("Hapus",
-                                                    style: TextStyle(
-                                                        color: Colors.red)),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  )
+                                        )
+                                      : const SizedBox.shrink()
                                 ],
                               )
                             ],

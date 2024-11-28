@@ -150,8 +150,10 @@ class DetailCommunityScreen extends StatelessWidget {
                           ),
                           // bagian jawaban
                           SectionAnswers(
-                              dataQuestion: dataQuestion,
-                              dataAnswer: dataAnswer)
+                            dataQuestion: dataQuestion,
+                            dataAnswer: dataAnswer,
+                            name: name,
+                          )
                         ],
                       ),
                     ),

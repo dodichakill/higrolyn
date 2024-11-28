@@ -3,9 +3,14 @@ import 'package:agrolyn/views/farmer/comunity/card_answer.dart';
 
 class SectionAnswers extends StatelessWidget {
   final Map<String, dynamic> dataQuestion;
+  String? name;
   final List<dynamic> dataAnswer;
-  const SectionAnswers(
-      {super.key, required this.dataQuestion, required this.dataAnswer});
+  SectionAnswers({
+    super.key,
+    required this.dataQuestion,
+    required this.dataAnswer,
+    required this.name,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +53,7 @@ class SectionAnswers extends StatelessWidget {
               physics: const NeverScrollableScrollPhysics(),
               itemCount: dataAnswer.length,
               itemBuilder: (context, index) {
+                print(dataAnswer[index]);
                 return CardAnswer(
                   id: dataAnswer[index]["id"],
                   answer: dataAnswer[index]["answer"],
@@ -56,6 +62,7 @@ class SectionAnswers extends StatelessWidget {
                   userProfile: dataAnswer[index]["user_profile"],
                   likeNum: dataAnswer[index]["like_num"],
                   questionId: dataQuestion["id"],
+                  name: name!,
                 );
               }),
           const SizedBox(

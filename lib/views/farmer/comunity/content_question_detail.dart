@@ -1,6 +1,7 @@
 import 'package:agrolyn/shared/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:agrolyn/utils/date.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ContentQuestionDetail extends StatelessWidget {
   Map<String, dynamic> dataQuestion = {};
@@ -204,14 +205,14 @@ class ContentQuestionDetail extends StatelessWidget {
             Row(
               children: [
                 InkWell(
-                  onTap: () {
+                  onTap: () async {
                     likeQuestion(dataQuestion["id"]);
                   },
                   child: Row(
                     children: [
                       isLike
                           ? const Icon(
-                              Icons.thumb_up_alt_outlined,
+                              Icons.thumb_up,
                               size: 16,
                               color: Colors.green,
                             )
@@ -220,7 +221,7 @@ class ContentQuestionDetail extends StatelessWidget {
                               size: 16,
                               color: Colors.grey,
                             ),
-                      const SizedBox(width: 4),
+                      const SizedBox(width: 8),
                       Text(
                           isLike
                               ? (likeNum + 1).toString()
@@ -236,7 +237,7 @@ class ContentQuestionDetail extends StatelessWidget {
                   },
                   child: isDislike
                       ? const Icon(
-                          Icons.thumb_down_alt_outlined,
+                          Icons.thumb_down,
                           size: 16,
                           color: Colors.red,
                         )
