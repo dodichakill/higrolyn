@@ -142,9 +142,7 @@ class CommunityService {
     final token = await AuthService().getToken();
     try {
       final response = await _dio.put('$baseUrl/answer/update/$answerId/',
-          data: {
-            "answer": answer,
-          },
+          data: {"answer": answer},
           options: Options(headers: {
             'Authorization': 'Bearer $token',
           }));

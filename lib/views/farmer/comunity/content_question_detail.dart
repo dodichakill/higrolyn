@@ -249,6 +249,7 @@ class ContentQuestionDetail extends StatelessWidget {
                 )
               ],
             ),
+            // type question
             const Spacer(),
             Row(
               children: [
@@ -265,21 +266,40 @@ class ContentQuestionDetail extends StatelessWidget {
               ],
             ),
             const Spacer(),
+            // actions edit/delete
             Row(
               children: [
-                const Icon(
-                  Icons.edit_note_outlined,
-                  size: 16,
-                  color: Colors.grey,
-                ),
-                const SizedBox(width: 4),
-                InkWell(
-                  onTap: () => editQuestion(),
-                  child: const Text(
-                    "Ubah Pertanyaan",
-                    style: TextStyle(color: Colors.grey),
+                Row(children: [
+                  const Icon(
+                    Icons.edit_note_outlined,
+                    size: 16,
+                    color: Colors.grey,
                   ),
-                ),
+                  const SizedBox(width: 4),
+                  InkWell(
+                    onTap: () => editQuestion(),
+                    child: const Text(
+                      "Ubah",
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                  ),
+                ]),
+                const SizedBox(width: 8),
+                Row(children: [
+                  Icon(
+                    Icons.delete_outline,
+                    size: 16,
+                    color: Colors.red[400],
+                  ),
+                  const SizedBox(width: 4),
+                  InkWell(
+                    onTap: () => editQuestion(),
+                    child: Text(
+                      "Hapus",
+                      style: TextStyle(color: Colors.red[400]),
+                    ),
+                  ),
+                ])
               ],
             ),
           ],

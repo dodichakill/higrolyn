@@ -101,16 +101,20 @@ class CommunityNotifer extends ChangeNotifier {
     }
   }
 
-  Future<void> editAnswer(context, int answerId, String answer) async {
+  Future<void> editAnswer(
+      context, int answerId, String answer, int questionId) async {
     try {
-      await _communityService.fetchEditAnswer(answerId, answer).whenComplete(
-          () => pushWithoutNavBar(
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      DetailCommunityScreen(id: questionId))));
-      showCustomSnackbar(context, "Berhasil Diubah",
-          "Jawaban Anda Berhasil Diubah!", ContentType.success);
+      await _communityService
+          .fetchEditAnswer(answerId, answer)
+          .whenComplete(() {
+        pushWithoutNavBar(
+            context,
+            MaterialPageRoute(
+                builder: (context) => DetailCommunityScreen(id: questionId)));
+        showCustomSnackbar(context, "Berhasil Diperbarui",
+            "Jawaban Anda Berhasil Diperbarui!", ContentType.success);
+      });
+
       notifyListeners();
     } catch (e) {
       print(e);

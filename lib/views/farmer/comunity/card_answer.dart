@@ -1,3 +1,4 @@
+import 'package:agrolyn/api/community_service.dart';
 import 'package:agrolyn/providers/community_notifer.dart';
 import 'package:agrolyn/shared/constants.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +30,7 @@ class CardAnswer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    void editAnswer() async {
+    void editAnswer(context, CommunityNotifer value) async {
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -62,11 +63,10 @@ class CardAnswer extends StatelessWidget {
                       height: 14,
                     ),
                     TextFormField(
-                      initialValue: answerController.text,
                       controller: answerController,
                       maxLines: 7,
                       decoration: const InputDecoration(
-                        labelText: 'Judul Pertanyaan',
+                        labelText: 'Jawaban',
                         border: OutlineInputBorder(),
                       ),
                     ),
@@ -101,8 +101,9 @@ class CardAnswer extends StatelessWidget {
                           ),
                         ),
                         InkWell(
-                          onTap: () {
-                            Navigator.pop(context);
+                          onTap: () async {
+                            value.editAnswer(
+                                context, id, answerController.text, questionId);
                           },
                           child: Container(
                             height: 48,
@@ -286,7 +287,8 @@ class CardAnswer extends StatelessWidget {
                                                   ),
                                                   const SizedBox(width: 4),
                                                   InkWell(
-                                                    onTap: () => editAnswer(),
+                                                    onTap: () => editAnswer(
+                                                        context, value),
                                                     child: const Text("Ubah",
                                                         style: TextStyle(
                                                             color:
