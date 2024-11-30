@@ -1,23 +1,19 @@
+import 'package:agrolyn/api/auth_service.dart';
 import 'package:dio/dio.dart';
 
 class VideoService {
   final Dio _dio = Dio();
 
-  Future<List> getVideo() async {
+  Future<List> getVideos() async {
+    final token = await AuthService().getToken();
     try {
-      final response = await _dio.get(
-          'https://www.googleapis.com/youtube/v3/search',
-          queryParameters: {
-            'part': 'snippet',
-            'q': 'pertanian', // Kata kunci untuk pencarian video
-            'type': 'video',
-            'regionCode': 'ID', // Negara Indonesia
-            'maxResults': 10, // Jumlah hasil yang ingin ditampilkan
-            'key':
-                'AIzaSyDkSw6rLoSiVq4IE7m3ZRPW5K69lRqHmU4' // Ganti dengan API key Anda
-          });
-      if (response.data['items'] != null) {
-        return response.data['items']; // Mengembalikan daftar video
+      final response =
+          await _dio.get('https://apiv1.agrolyn.online/video-education/',
+              options: Options(headers: {
+                'Authorization': 'Bearer $token',
+              }));
+      if (response.data['data'] != null) {
+        return response.data['data']; // Mengembalikan semua video
       } else {
         return [];
       }

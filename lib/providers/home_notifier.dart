@@ -1,5 +1,6 @@
 import 'package:agrolyn/api/article_service.dart';
 import 'package:agrolyn/api/video_service.dart';
+import 'package:agrolyn/api/weather_service.dart';
 import 'package:flutter/material.dart';
 
 class HomeNotifier extends ChangeNotifier {
@@ -9,6 +10,7 @@ class HomeNotifier extends ChangeNotifier {
   HomeNotifier({required this.context}) {
     fetchArticles();
     fetchVideo();
+    fetchWeather();
   }
 
   final ArticleService _articleService = ArticleService();
@@ -28,7 +30,20 @@ class HomeNotifier extends ChangeNotifier {
   List videos = [];
 
   void fetchVideo() async {
-    videos = await _videoService.getVideo();
+    videos = await _videoService.getVideos();
+    notifyListeners();
+  }
+
+  final WeatherService _weatherService = WeatherService();
+  List weathers = [];
+
+  void fetchWeather() async {
+    final weatherData = await _weatherService.getWeather();
+    if (weatherData.isNotEmpty) {
+      weathers = [weatherData]; // Masukkan ke daftar (list)
+    } else {
+      weathers = [];
+    }
     notifyListeners();
   }
 }
