@@ -209,7 +209,6 @@ class CommunityService {
 
   Future<String> fetchAddQuestion(FormData formData) async {
     final token = await AuthService().getToken();
-    print(formData);
     try {
       final response = await _dio.post(
         '$baseUrl/question/new/',

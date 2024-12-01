@@ -43,8 +43,8 @@ class AddQuestion extends StatelessWidget {
       await CommunityService().fetchAddQuestion(formData).whenComplete(() {
         pushWithoutNavBar(context,
             MaterialPageRoute(builder: (context) => const CommunityScreen()));
-        showCustomSnackbar(context, "Berhasil Diperbarui",
-            "Jawaban Anda Berhasil Diperbarui!", ContentType.success);
+        showCustomSnackbar(context, "Berhasil Ditambahkan",
+            "Pertanyaan Anda Berhasil Ditambahkan!", ContentType.success);
       });
     }
   }
