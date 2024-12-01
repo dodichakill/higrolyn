@@ -283,4 +283,48 @@ class CommunityService {
       return "Pertanyaan Gagal diubah";
     }
   }
+
+  Future<List> fetchSearchQuestion(String keyword) async {
+    final token = await AuthService().getToken();
+    try {
+      final response =
+          await _dio.get('$baseUrl/questions/search/?query=$keyword',
+              options: Options(headers: {
+                'Authorization': 'Bearer $token',
+              }));
+      // print(response);
+      if (response.statusCode == 200) {
+        // print(response.data['message']);
+        return response.data['data'];
+      } else {
+        print("Pertanyaan gagal dicari");
+        return [];
+      }
+    } catch (e) {
+      print("Error: $e");
+      return [];
+    }
+  }
+
+  Future<List> fetchFilterQuestion(String keyword) async {
+    final token = await AuthService().getToken();
+    try {
+      final response = await _dio.get('$baseUrl/questions/filters/$keyword',
+          options: Options(headers: {
+            'Authorization': 'Bearer $token',
+          }));
+      // print(response);
+      if (response.statusCode == 200) {
+        print("= hasil filter : ${response.data['data'].length}");
+        print(response.data['message']);
+        return response.data['data'];
+      } else {
+        print("Pertanyaan gagal difilter");
+        return [];
+      }
+    } catch (e) {
+      print("Error: $e");
+      return [];
+    }
+  }
 }

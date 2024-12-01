@@ -195,4 +195,24 @@ class CommunityNotifer extends ChangeNotifier {
     _imageQuestionDefault = "";
     notifyListeners();
   }
+
+  // ==================================
+  // Search Question
+  // ==================================
+
+  Future<List> searchingQuestion(String value) async {
+    var result = await _communityService.fetchSearchQuestion(value);
+    print(result);
+    questions = result;
+    notifyListeners();
+    return result;
+  }
+
+  Future<List> fetchFilterQuestion(String value) async {
+    var result = await _communityService.fetchFilterQuestion(value);
+    print(result);
+    questions = result;
+    notifyListeners();
+    return result;
+  }
 }
