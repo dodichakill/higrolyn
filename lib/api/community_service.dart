@@ -1,5 +1,10 @@
 import 'package:agrolyn/api/auth_service.dart';
+import 'package:agrolyn/shared/custom_snackbar.dart';
+import 'package:agrolyn/views/farmer/comunity/community_screen.dart';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 class CommunityService {
   final Dio _dio = Dio();
@@ -223,6 +228,33 @@ class CommunityService {
     } catch (e) {
       print('Dio Error: $e');
       return "Pertanyaan Gagal dibuat";
+    }
+  }
+
+  Future<String> fetchDeleteQuestion(context, int questionId) async {
+    final token = await AuthService().getToken();
+    try {
+      final response =
+          await _dio.delete('$baseUrl/question/delete/$questionId/',
+              options: Options(headers: {
+                'Authorization': 'Bearer $token',
+              }));
+      print(response);
+      if (response.statusCode == 200) {
+        pushWithoutNavBar(context,
+            MaterialPageRoute(builder: (context) => const CommunityScreen()));
+        showCustomSnackbar(context, "Berhasil Dihapus",
+            "Jawaban Anda Berhasil Dihapus!", ContentType.success);
+        print("Pertanyaan Berhasil dihapus");
+
+        return "Pertanyaan Berhasil dihapus";
+      } else {
+        print("Pertanyaan Gagal dihapus");
+        return "Pertanyaan Gagal dihapus";
+      }
+    } catch (e) {
+      print("Error: $e");
+      return "Pertanyaan Gagal dihapus";
     }
   }
 }

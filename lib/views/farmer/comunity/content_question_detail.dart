@@ -1,3 +1,4 @@
+import 'package:agrolyn/api/community_service.dart';
 import 'package:agrolyn/shared/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:agrolyn/utils/date.dart';
@@ -146,6 +147,36 @@ class ContentQuestionDetail extends StatelessWidget {
       );
     }
 
+    void deleteQuestion() async {
+      await CommunityService().fetchDeleteQuestion(context, dataQuestion["id"]);
+    }
+
+    void showConfirmDelete() {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: const Text('Hapus Pertanyaan?'),
+              content: const Text(
+                  'Apakah Anda yakin ingin menghapus pertanyaan ini?'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(); // Tutup dialog
+                  },
+                  child: const Text('Batal'),
+                ),
+                TextButton(
+                  onPressed: () async {
+                    deleteQuestion();
+                  },
+                  child: const Text('Ya, Hapus!'),
+                ),
+              ],
+            );
+          });
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -267,41 +298,43 @@ class ContentQuestionDetail extends StatelessWidget {
             ),
             const Spacer(),
             // actions edit/delete
-            Row(
-              children: [
-                Row(children: [
-                  const Icon(
-                    Icons.edit_note_outlined,
-                    size: 16,
-                    color: Colors.grey,
-                  ),
-                  const SizedBox(width: 4),
-                  InkWell(
-                    onTap: () => editQuestion(),
-                    child: const Text(
-                      "Ubah",
-                      style: TextStyle(color: Colors.grey),
-                    ),
-                  ),
-                ]),
-                const SizedBox(width: 8),
-                Row(children: [
-                  Icon(
-                    Icons.delete_outline,
-                    size: 16,
-                    color: Colors.red[400],
-                  ),
-                  const SizedBox(width: 4),
-                  InkWell(
-                    onTap: () => editQuestion(),
-                    child: Text(
-                      "Hapus",
-                      style: TextStyle(color: Colors.red[400]),
-                    ),
-                  ),
-                ])
-              ],
-            ),
+            nameUser == dataQuestion["username"]
+                ? Row(
+                    children: [
+                      Row(children: [
+                        const Icon(
+                          Icons.edit_note_outlined,
+                          size: 16,
+                          color: Colors.grey,
+                        ),
+                        const SizedBox(width: 4),
+                        InkWell(
+                          onTap: () => editQuestion(),
+                          child: const Text(
+                            "Ubah",
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                        ),
+                      ]),
+                      const SizedBox(width: 8),
+                      Row(children: [
+                        Icon(
+                          Icons.delete_outline,
+                          size: 16,
+                          color: Colors.red[400],
+                        ),
+                        const SizedBox(width: 4),
+                        InkWell(
+                          onTap: () => showConfirmDelete(),
+                          child: Text(
+                            "Hapus",
+                            style: TextStyle(color: Colors.red[400]),
+                          ),
+                        ),
+                      ])
+                    ],
+                  )
+                : const SizedBox.shrink(),
           ],
         ),
       ],
