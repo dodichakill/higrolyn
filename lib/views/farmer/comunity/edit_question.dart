@@ -33,13 +33,14 @@ class EditQuestion extends StatelessWidget {
   Future<void> _submitForm(BuildContext context) async {
     final provider = context.read<CommunityNotifer>();
 
-    if (_formKey.currentState!.validate() && provider.imageQuestion != null) {
+    if (_formKey.currentState!.validate()) {
       final formData = FormData.fromMap({
         'title_q': provider.titleQuestion,
         'description': provider.descriptionQuestion,
         'plant_types_id': provider.categoryIdQuestion,
-        'img_q': await MultipartFile.fromFile(provider.imageQuestion!.path,
-            filename: 'img-question.jpg'),
+        if (provider.imageQuestion != null)
+          'img_q': await MultipartFile.fromFile(provider.imageQuestion!.path,
+              filename: 'img-question.jpg'),
       });
 
       await CommunityService().fetchEditQuestion(id, formData).whenComplete(() {
@@ -129,27 +130,38 @@ class EditQuestion extends StatelessWidget {
                               // Image picker
                               GestureDetector(
                                 onTap: () => _pickImage(context),
-                                child: provider.imageQuestion == null
-                                    ? Container(
-                                        height: 150,
-                                        width: double.infinity,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(16),
-                                          color: Colors.grey[300],
-                                        ),
-                                        child: Icon(Icons.add_a_photo,
-                                            color: Colors.grey[500]),
-                                      )
-                                    : ClipRRect(
+                                child: provider.imageQuestionDefault!.isNotEmpty
+                                    ? ClipRRect(
                                         borderRadius: BorderRadius.circular(16),
-                                        child: Image.file(
-                                          provider.imageQuestion!,
+                                        child: Image.network(
+                                          provider.imageQuestionDefault!,
                                           height: 150,
                                           width: double.infinity,
                                           fit: BoxFit.cover,
                                         ),
-                                      ),
+                                      )
+                                    : provider.imageQuestion == null
+                                        ? Container(
+                                            height: 150,
+                                            width: double.infinity,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(16),
+                                              color: Colors.grey[300],
+                                            ),
+                                            child: Icon(Icons.add_a_photo,
+                                                color: Colors.grey[500]),
+                                          )
+                                        : ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(16),
+                                            child: Image.file(
+                                              provider.imageQuestion!,
+                                              height: 150,
+                                              width: double.infinity,
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
                               ),
                               const SizedBox(height: 16),
                               const Row(

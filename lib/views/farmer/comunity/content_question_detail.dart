@@ -34,6 +34,8 @@ class ContentQuestionDetail extends StatelessWidget {
               builder: (context, child) {
                 final provider = context.read<CommunityNotifer>();
                 provider.setTitleQuestion(dataQuestion["title_question"]);
+                provider.setImageQuestionDefault(
+                    dataQuestion["question_thumbnail"]);
                 provider.setDescriptionQuestion(dataQuestion["description"]);
                 return EditQuestion(id: dataQuestion["id"]);
               });

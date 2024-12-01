@@ -164,6 +164,7 @@ class CommunityNotifer extends ChangeNotifier {
 
   void setImageQuestion(File? file) {
     _imageQuestion = file;
+    _imageQuestionDefault = '';
     notifyListeners();
   }
 
