@@ -1,7 +1,10 @@
 import 'package:agrolyn/api/community_service.dart';
+import 'package:agrolyn/providers/community_notifer.dart';
 import 'package:agrolyn/shared/constants.dart';
+import 'package:agrolyn/views/farmer/comunity/edit_question.dart';
 import 'package:flutter/material.dart';
 import 'package:agrolyn/utils/date.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ContentQuestionDetail extends StatelessWidget {
@@ -26,123 +29,14 @@ class ContentQuestionDetail extends StatelessWidget {
       showDialog(
         context: context,
         builder: (BuildContext context) {
-          return Center(
-              child: Material(
-            borderRadius: BorderRadius.circular(16),
-            child: Padding(
-              padding: const EdgeInsets.only(
-                  top: 32, bottom: 32, left: 16, right: 16),
-              child: Container(
-                constraints: const BoxConstraints(maxWidth: 400),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Center(
-                      child: Text(
-                        "Ubah Pertanyaan",
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    TextFormField(
-                      decoration: const InputDecoration(
-                        labelText: 'Pilih Kategori',
-                        border: OutlineInputBorder(),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 14,
-                    ),
-                    TextFormField(
-                      initialValue: dataQuestion["title_question"],
-                      maxLines: 2,
-                      decoration: const InputDecoration(
-                        labelText: 'Judul Pertanyaan',
-                        border: OutlineInputBorder(),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 14,
-                    ),
-                    TextFormField(
-                      initialValue: dataQuestion["description"],
-                      maxLines: 5,
-                      decoration: const InputDecoration(
-                        labelText: 'Deskripsi Pertanyaan',
-                        border: OutlineInputBorder(),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 14,
-                    ),
-                    TextFormField(
-                      decoration: const InputDecoration(
-                        labelText: 'Tambah Foto',
-                        border: OutlineInputBorder(),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: Container(
-                            height: 48,
-                            width: 184,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(16),
-                                color: Colors.red),
-                            child: const Center(
-                              child: Text(
-                                "Batal",
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),
-                              ),
-                            ),
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: Container(
-                            height: 48,
-                            width: 184,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(16),
-                                color: MyColors.primaryColorDark),
-                            child: const Center(
-                              child: Text(
-                                "Simpan",
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ));
+          return ChangeNotifierProvider(
+              create: (_) => CommunityNotifer(context: context),
+              builder: (context, child) {
+                final provider = context.read<CommunityNotifer>();
+                provider.setTitleQuestion(dataQuestion["title_question"]);
+                provider.setDescriptionQuestion(dataQuestion["description"]);
+                return EditQuestion(id: dataQuestion["id"]);
+              });
         },
       );
     }

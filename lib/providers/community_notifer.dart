@@ -143,13 +143,14 @@ class CommunityNotifer extends ChangeNotifier {
   String _descriptionQuestion = '';
   int _categoryIdQuestion = 1;
   File? _imageQuestion;
+  String? _imageQuestionDefault;
 
   // Getters
   String get titleQuestion => _titleQuestion;
   String get descriptionQuestion => _descriptionQuestion;
   int get categoryIdQuestion => _categoryIdQuestion;
   File? get imageQuestion => _imageQuestion;
-
+  String? get imageQuestionDefault => _imageQuestionDefault;
   // Setters
   void setTitleQuestion(String value) {
     _titleQuestion = value;
@@ -163,6 +164,11 @@ class CommunityNotifer extends ChangeNotifier {
 
   void setImageQuestion(File? file) {
     _imageQuestion = file;
+    notifyListeners();
+  }
+
+  void setImageQuestionDefault(String value) {
+    _imageQuestionDefault = value;
     notifyListeners();
   }
 
@@ -185,6 +191,7 @@ class CommunityNotifer extends ChangeNotifier {
     _descriptionQuestion = '';
     _categoryIdQuestion = 0;
     _imageQuestion = null;
+    _imageQuestionDefault = "";
     notifyListeners();
   }
 }

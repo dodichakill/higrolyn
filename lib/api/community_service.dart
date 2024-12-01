@@ -250,11 +250,37 @@ class CommunityService {
         return "Pertanyaan Berhasil dihapus";
       } else {
         print("Pertanyaan Gagal dihapus");
+        showCustomSnackbar(context, "Gagal Dihapus",
+            "Jawaban Anda Gagal Dihapus!", ContentType.failure);
         return "Pertanyaan Gagal dihapus";
       }
     } catch (e) {
       print("Error: $e");
+      showCustomSnackbar(context, "Gagal Dihapus",
+          "Jawaban Anda Gagal Dihapus, karena ada error!", ContentType.failure);
       return "Pertanyaan Gagal dihapus";
+    }
+  }
+
+  Future<String> fetchEditQuestion(int questionId, FormData formData) async {
+    final token = await AuthService().getToken();
+    try {
+      final response = await _dio.put('$baseUrl/question/update/$questionId/',
+          data: formData,
+          options: Options(headers: {
+            'Authorization': 'Bearer $token',
+          }));
+      print(response);
+      if (response.statusCode == 200) {
+        print("Pertanyaan Berhasil diubah");
+        return "Pertanyaan Berhasil diubah";
+      } else {
+        print("Pertanyaan Gagal diubah");
+        return "Pertanyaan Gagal diubah";
+      }
+    } catch (e) {
+      print("Error: $e");
+      return "Pertanyaan Gagal diubah";
     }
   }
 }
