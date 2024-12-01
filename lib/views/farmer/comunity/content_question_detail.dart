@@ -1,6 +1,11 @@
+import 'package:agrolyn/api/community_service.dart';
+import 'package:agrolyn/providers/community_notifer.dart';
 import 'package:agrolyn/shared/constants.dart';
+import 'package:agrolyn/views/farmer/comunity/edit_question.dart';
 import 'package:flutter/material.dart';
 import 'package:agrolyn/utils/date.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ContentQuestionDetail extends StatelessWidget {
   Map<String, dynamic> dataQuestion = {};
@@ -24,125 +29,48 @@ class ContentQuestionDetail extends StatelessWidget {
       showDialog(
         context: context,
         builder: (BuildContext context) {
-          return Center(
-              child: Material(
-            borderRadius: BorderRadius.circular(16),
-            child: Padding(
-              padding: const EdgeInsets.only(
-                  top: 32, bottom: 32, left: 16, right: 16),
-              child: Container(
-                constraints: const BoxConstraints(maxWidth: 400),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Center(
-                      child: Text(
-                        "Ubah Pertanyaan",
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    TextFormField(
-                      decoration: const InputDecoration(
-                        labelText: 'Pilih Kategori',
-                        border: OutlineInputBorder(),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 14,
-                    ),
-                    TextFormField(
-                      initialValue: dataQuestion["title_question"],
-                      maxLines: 2,
-                      decoration: const InputDecoration(
-                        labelText: 'Judul Pertanyaan',
-                        border: OutlineInputBorder(),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 14,
-                    ),
-                    TextFormField(
-                      initialValue: dataQuestion["description"],
-                      maxLines: 5,
-                      decoration: const InputDecoration(
-                        labelText: 'Deskripsi Pertanyaan',
-                        border: OutlineInputBorder(),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 14,
-                    ),
-                    TextFormField(
-                      decoration: const InputDecoration(
-                        labelText: 'Tambah Foto',
-                        border: OutlineInputBorder(),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: Container(
-                            height: 48,
-                            width: 184,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(16),
-                                color: Colors.red),
-                            child: const Center(
-                              child: Text(
-                                "Batal",
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),
-                              ),
-                            ),
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: Container(
-                            height: 48,
-                            width: 184,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(16),
-                                color: MyColors.primaryColorDark),
-                            child: const Center(
-                              child: Text(
-                                "Simpan",
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ));
+          return ChangeNotifierProvider(
+              create: (_) => CommunityNotifer(context: context),
+              builder: (context, child) {
+                final provider = context.read<CommunityNotifer>();
+                provider.setTitleQuestion(dataQuestion["title_question"]);
+                provider.setImageQuestionDefault(
+                    dataQuestion["question_thumbnail"]);
+                provider.setDescriptionQuestion(dataQuestion["description"]);
+                return EditQuestion(id: dataQuestion["id"]);
+              });
         },
       );
+    }
+
+    void deleteQuestion() async {
+      await CommunityService().fetchDeleteQuestion(context, dataQuestion["id"]);
+    }
+
+    void showConfirmDelete() {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: const Text('Hapus Pertanyaan?'),
+              content: const Text(
+                  'Apakah Anda yakin ingin menghapus pertanyaan ini?'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(); // Tutup dialog
+                  },
+                  child: const Text('Batal'),
+                ),
+                TextButton(
+                  onPressed: () async {
+                    deleteQuestion();
+                  },
+                  child: const Text('Ya, Hapus!'),
+                ),
+              ],
+            );
+          });
     }
 
     return Column(
@@ -204,14 +132,14 @@ class ContentQuestionDetail extends StatelessWidget {
             Row(
               children: [
                 InkWell(
-                  onTap: () {
+                  onTap: () async {
                     likeQuestion(dataQuestion["id"]);
                   },
                   child: Row(
                     children: [
                       isLike
                           ? const Icon(
-                              Icons.thumb_up_alt_outlined,
+                              Icons.thumb_up,
                               size: 16,
                               color: Colors.green,
                             )
@@ -220,7 +148,7 @@ class ContentQuestionDetail extends StatelessWidget {
                               size: 16,
                               color: Colors.grey,
                             ),
-                      const SizedBox(width: 4),
+                      const SizedBox(width: 8),
                       Text(
                           isLike
                               ? (likeNum + 1).toString()
@@ -236,7 +164,7 @@ class ContentQuestionDetail extends StatelessWidget {
                   },
                   child: isDislike
                       ? const Icon(
-                          Icons.thumb_down_alt_outlined,
+                          Icons.thumb_down,
                           size: 16,
                           color: Colors.red,
                         )
@@ -248,6 +176,7 @@ class ContentQuestionDetail extends StatelessWidget {
                 )
               ],
             ),
+            // type question
             const Spacer(),
             Row(
               children: [
@@ -264,23 +193,44 @@ class ContentQuestionDetail extends StatelessWidget {
               ],
             ),
             const Spacer(),
-            Row(
-              children: [
-                const Icon(
-                  Icons.edit_note_outlined,
-                  size: 16,
-                  color: Colors.grey,
-                ),
-                const SizedBox(width: 4),
-                InkWell(
-                  onTap: () => editQuestion(),
-                  child: const Text(
-                    "Ubah Pertanyaan",
-                    style: TextStyle(color: Colors.grey),
-                  ),
-                ),
-              ],
-            ),
+            // actions edit/delete
+            nameUser == dataQuestion["username"]
+                ? Row(
+                    children: [
+                      Row(children: [
+                        const Icon(
+                          Icons.edit_note_outlined,
+                          size: 16,
+                          color: Colors.grey,
+                        ),
+                        const SizedBox(width: 4),
+                        InkWell(
+                          onTap: () => editQuestion(),
+                          child: const Text(
+                            "Ubah",
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                        ),
+                      ]),
+                      const SizedBox(width: 8),
+                      Row(children: [
+                        Icon(
+                          Icons.delete_outline,
+                          size: 16,
+                          color: Colors.red[400],
+                        ),
+                        const SizedBox(width: 4),
+                        InkWell(
+                          onTap: () => showConfirmDelete(),
+                          child: Text(
+                            "Hapus",
+                            style: TextStyle(color: Colors.red[400]),
+                          ),
+                        ),
+                      ])
+                    ],
+                  )
+                : const SizedBox.shrink(),
           ],
         ),
       ],

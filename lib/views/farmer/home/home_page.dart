@@ -31,6 +31,7 @@ class HomePage extends StatelessWidget {
         final weather = value.weathers.isNotEmpty ? value.weathers.first : null;
 
         return SafeArea(
+          bottom: false,
           child: Scaffold(
             body: Stack(
               children: [

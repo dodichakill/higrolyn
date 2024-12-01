@@ -46,4 +46,5 @@ class ImageAssets {
   static String piring1 = "$root/Untitled design (11).png";
   static String piring2 = "$root/Untitled design (12).png";
   static String map = "$root/acuma.png";
+  static String question = "$root/question.webp";
 }

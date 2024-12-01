@@ -1,3 +1,4 @@
+import 'package:agrolyn/api/auth_service.dart';
 import 'package:agrolyn/shared/constants.dart';
 import 'package:agrolyn/shared/custom_snackbar.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
@@ -9,67 +10,39 @@ import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class AuthService {
+class DetectionService {
   final Dio _dio = Dio();
 
-  AuthService() {
-    _dio.options.baseUrl =
-        "https://apiv1.agrolyn.online"; // Sesuaikan URL API Anda
+  DetectionService() {
+    _dio.options.baseUrl = "https://apiv1.agrolyn.online";
     _dio.options.headers = {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
     };
-    // _dio.options.followRedirects = true; // Allow redirects
-    // _dio.options.validateStatus = (status) {
-    //   return status != null && status < 500; // Allow redirect codes
-    // };
   }
 
   // Fungsi untuk login
-  Future<bool> login(context, String email, String password) async {
+  Future<bool> fetchPredictCornDisease(
+      String disease, FormData formData) async {
+    final token = await AuthService().getToken();
     try {
-      final response = await _dio.post(
-        "/login/",
-        data: {
-          "email": email.toString(),
-          "password": password.toString(),
-        },
-      );
+      final response = await _dio.post("/corn-disease-predict/$disease/",
+          data: formData,
+          options: Options(headers: {
+            'Authorization': 'Bearer $token',
+          }));
 
       // print(response);
       if (response.statusCode == 200) {
-        // Simpan token di SharedPreferences
-        SharedPreferences prefs = await SharedPreferences.getInstance();
-        await prefs.setString('refresh_token', response.data['refresh_token']);
-        await prefs.setString('access_token', response.data['access_token']);
-        await prefs.setString('name', response.data['name']);
-        await prefs.setString('address', response.data['address']);
-        await prefs.setString('phone_number', response.data['phone_number']);
-        await prefs.setString('email', response.data['email']);
-        await prefs.setString('id', response.data['id'].toString());
-        await prefs.setString('img_profile', response.data['img_profile']);
-        await prefs.setString('roles_id', response.data['roles_id'].toString());
-
-        if (response.data['roles_id'] == 2) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => Menu()),
-          );
-        } else {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => CommonMenu()),
-          );
-        }
-
+        print("Fetch disease Berhasil");
+        print(response.data['data']);
         return true;
       } else {
+        print("Fetch disease Gagal");
         return false;
       }
     } on DioException catch (e) {
-      print("Login error: $e");
-      showCustomSnackbar(context, "Login Gagal",
-          "Periksa email dan kata sandi anda", ContentType.failure);
+      print("Feth disease error: $e");
       return false;
     }
   }

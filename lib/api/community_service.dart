@@ -1,5 +1,10 @@
 import 'package:agrolyn/api/auth_service.dart';
+import 'package:agrolyn/shared/custom_snackbar.dart';
+import 'package:agrolyn/views/farmer/comunity/community_screen.dart';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 class CommunityService {
   final Dio _dio = Dio();
@@ -87,6 +92,238 @@ class CommunityService {
     } catch (e) {
       print("Error: $e");
       return "Dislike Gagal";
+    }
+  }
+
+  Future<String?> fetchNewAnswer(
+      {required int questionId,
+      required String answer,
+      required int type}) async {
+    final token = await AuthService().getToken();
+    try {
+      final response = await _dio.post('$baseUrl/answer/new/$questionId/',
+          data: {
+            "answer": answer,
+            "plant_types_id": type,
+          },
+          options: Options(headers: {
+            'Authorization': 'Bearer $token',
+          }));
+      print(response);
+      if (response.statusCode == 201) {
+        return response.data['message'];
+      } else {
+        print("Jawaban Gagal dibuat");
+        return response.data['message'];
+      }
+    } catch (e) {
+      print("Error: $e");
+      return "Jawaban Gagal dibuat";
+    }
+  }
+
+  Future<String> fetchDeleteAnwser(int answerId) async {
+    final token = await AuthService().getToken();
+    try {
+      final response = await _dio.delete('$baseUrl/answer/delete/$answerId/',
+          options: Options(headers: {
+            'Authorization': 'Bearer $token',
+          }));
+      print(response);
+      if (response.statusCode == 200) {
+        print("Jawaban Berhasil dihapus");
+        return "Jawaban Berhasil dihapus";
+      } else {
+        print("Jawaban Gagal dihapus");
+        return "Jawaban Gagal dihapus";
+      }
+    } catch (e) {
+      print("Error: $e");
+      return "Jawaban Gagal dihapus";
+    }
+  }
+
+  Future<String> fetchEditAnswer(int answerId, String answer) async {
+    final token = await AuthService().getToken();
+    try {
+      final response = await _dio.put('$baseUrl/answer/update/$answerId/',
+          data: {"answer": answer},
+          options: Options(headers: {
+            'Authorization': 'Bearer $token',
+          }));
+      print(response);
+      if (response.statusCode == 200) {
+        print("Jawaban Berhasil diubah");
+        return "Jawaban Berhasil diubah";
+      } else {
+        print("Jawaban Gagal diubah");
+        return "Jawaban Gagal diubah";
+      }
+    } catch (e) {
+      print("Error: $e");
+      return "Jawaban Gagal diubah";
+    }
+  }
+
+  Future<String> fetchLikeAnswer(int answerId) async {
+    final token = await AuthService().getToken();
+    try {
+      final response = await _dio.post('$baseUrl/answer/$answerId/like/',
+          options: Options(headers: {
+            'Authorization': 'Bearer $token',
+          }));
+      print(response);
+      if (response.statusCode == 200) {
+        print("Like Answer Berhasil");
+        return "Like Answer Berhasil";
+      } else {
+        print("Like Answer Gagal");
+        return "Like  Answer Gagal";
+      }
+    } catch (e) {
+      print("Error: $e");
+      return "Like  Answer Gagal";
+    }
+  }
+
+  Future<String> fetchDislikeAnswer(int answerId) async {
+    final token = await AuthService().getToken();
+    try {
+      final response = await _dio.post('$baseUrl/answer/$answerId/dislike/',
+          options: Options(headers: {
+            'Authorization': 'Bearer $token',
+          }));
+      print(response);
+      if (response.statusCode == 200) {
+        print("Dislike Answer Berbayar");
+        return "Dislike Answer Berbayar";
+      } else {
+        print("Dislike Answer Gagal");
+        return "Dislike Answer Gagal";
+      }
+    } catch (e) {
+      print("Error: $e");
+      return "Dislike Answer Gagal";
+    }
+  }
+
+  Future<String> fetchAddQuestion(FormData formData) async {
+    final token = await AuthService().getToken();
+    try {
+      final response = await _dio.post(
+        '$baseUrl/question/new/',
+        data: formData,
+        options: Options(headers: {
+          'Authorization': 'Bearer $token',
+        }),
+      );
+      print('Response: ${response.statusCode}');
+      print('Data: ${response.data}');
+      if (response.statusCode == 201) {
+        return "Pertanyaan Berhasil dibuat";
+      } else {
+        return "Pertanyaan Gagal dibuat";
+      }
+    } catch (e) {
+      print('Dio Error: $e');
+      return "Pertanyaan Gagal dibuat";
+    }
+  }
+
+  Future<String> fetchDeleteQuestion(context, int questionId) async {
+    final token = await AuthService().getToken();
+    try {
+      final response =
+          await _dio.delete('$baseUrl/question/delete/$questionId/',
+              options: Options(headers: {
+                'Authorization': 'Bearer $token',
+              }));
+      print(response);
+      if (response.statusCode == 200) {
+        pushWithoutNavBar(context,
+            MaterialPageRoute(builder: (context) => const CommunityScreen()));
+        showCustomSnackbar(context, "Berhasil Dihapus",
+            "Jawaban Anda Berhasil Dihapus!", ContentType.success);
+        print("Pertanyaan Berhasil dihapus");
+
+        return "Pertanyaan Berhasil dihapus";
+      } else {
+        print("Pertanyaan Gagal dihapus");
+        showCustomSnackbar(context, "Gagal Dihapus",
+            "Jawaban Anda Gagal Dihapus!", ContentType.failure);
+        return "Pertanyaan Gagal dihapus";
+      }
+    } catch (e) {
+      print("Error: $e");
+      showCustomSnackbar(context, "Gagal Dihapus",
+          "Jawaban Anda Gagal Dihapus, karena ada error!", ContentType.failure);
+      return "Pertanyaan Gagal dihapus";
+    }
+  }
+
+  Future<String> fetchEditQuestion(int questionId, FormData formData) async {
+    final token = await AuthService().getToken();
+    try {
+      final response = await _dio.put('$baseUrl/question/update/$questionId/',
+          data: formData,
+          options: Options(headers: {
+            'Authorization': 'Bearer $token',
+          }));
+      print(response);
+      if (response.statusCode == 200) {
+        print("Pertanyaan Berhasil diubah");
+        return "Pertanyaan Berhasil diubah";
+      } else {
+        print("Pertanyaan Gagal diubah");
+        return "Pertanyaan Gagal diubah";
+      }
+    } catch (e) {
+      print("Error: $e");
+      return "Pertanyaan Gagal diubah";
+    }
+  }
+
+  Future<List> fetchSearchQuestion(String keyword) async {
+    final token = await AuthService().getToken();
+    try {
+      final response =
+          await _dio.get('$baseUrl/questions/search/?query=$keyword',
+              options: Options(headers: {
+                'Authorization': 'Bearer $token',
+              }));
+      // print(response);
+      if (response.statusCode == 200) {
+        // print(response.data['message']);
+        return response.data['data'];
+      } else {
+        print("Pertanyaan gagal dicari");
+        return [];
+      }
+    } catch (e) {
+      print("Error: $e");
+      return [];
+    }
+  }
+
+  Future<List> fetchFilterQuestion(String keyword) async {
+    final token = await AuthService().getToken();
+    try {
+      final response = await _dio.get('$baseUrl/questions/filters/$keyword',
+          options: Options(headers: {
+            'Authorization': 'Bearer $token',
+          }));
+      // print(response);
+      if (response.statusCode == 200) {
+        print("= hasil filter : ${response.data['data'].length}");
+        print(response.data['message']);
+        return response.data['data'];
+      } else {
+        print("Pertanyaan gagal difilter");
+        return [];
+      }
+    } catch (e) {
+      print("Error: $e");
+      return [];
     }
   }
 }

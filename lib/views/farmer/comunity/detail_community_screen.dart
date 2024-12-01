@@ -2,9 +2,12 @@ import 'package:agrolyn/providers/community_notifer.dart';
 import 'package:agrolyn/views/farmer/comunity/card_answer.dart';
 import 'package:agrolyn/views/farmer/comunity/content_question_detail.dart';
 import 'package:agrolyn/views/farmer/comunity/input_answer.dart';
+import 'package:agrolyn/views/farmer/comunity/section_answers.dart';
+import 'package:agrolyn/widgets/menu.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 class DetailCommunityScreen extends StatelessWidget {
   final int id;
@@ -39,7 +42,7 @@ class DetailCommunityScreen extends StatelessWidget {
             return Scaffold(
                 backgroundColor: Colors.white,
                 body: SafeArea(
-                  child: Stack(children: [
+                  child: Stack(fit: StackFit.expand, children: [
                     SingleChildScrollView(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -105,7 +108,14 @@ class DetailCommunityScreen extends StatelessWidget {
                                       height: 44,
                                       child: InkWell(
                                         onTap: () {
-                                          Navigator.pop(context);
+                                          PersistentTabController page =
+                                              PersistentTabController(
+                                                  initialIndex: 3);
+                                          pushWithoutNavBar(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      Menu(page: page)));
                                         },
                                         child: Container(
                                             decoration: BoxDecoration(
@@ -139,67 +149,23 @@ class DetailCommunityScreen extends StatelessWidget {
                             ],
                           ),
                           // bagian jawaban
-                          Padding(
-                            padding: const EdgeInsets.all(16),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                const SizedBox(
-                                  height: 12,
-                                ),
-                                Row(children: [
-                                  const Icon(
-                                    Icons.comment_outlined,
-                                    size: 16,
-                                  ),
-                                  const SizedBox(
-                                    width: 8,
-                                  ),
-                                  Text(
-                                    dataQuestion["number_of_answer"].toString(),
-                                    style: const TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.black87),
-                                  ),
-                                  const SizedBox(
-                                    width: 8,
-                                  ),
-                                  const Text(
-                                    "Jawaban",
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.black87),
-                                  ),
-                                ]),
-                                ListView.builder(
-                                    shrinkWrap: true,
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
-                                    itemCount: dataAnswer?.length,
-                                    itemBuilder: (context, index) {
-                                      return CardAnswer(
-                                        id: dataAnswer[index]["id"],
-                                        answer: dataAnswer[index]["answer"],
-                                        username: dataAnswer[index]["username"],
-                                        releasedDate: dataAnswer[index]
-                                            ["released_date"],
-                                        userProfile: dataAnswer[index]
-                                            ["user_profile"],
-                                        likeNum: dataAnswer[index]["like_num"],
-                                      );
-                                    }),
-                                const SizedBox(
-                                  height: 50,
-                                )
-                              ],
-                            ),
-                          ),
+                          SectionAnswers(
+                            dataQuestion: dataQuestion,
+                            dataAnswer: dataAnswer,
+                            name: name,
+                          )
                         ],
                       ),
                     ),
-                    InputAnswer()
+                    const Spacer(),
+                    InputAnswer(
+                      questionId: id,
+                      type: dataQuestion["question_type"] == "jagung"
+                          ? 1
+                          : dataQuestion["question_type"] == "padi"
+                              ? 2
+                              : 3,
+                    )
                   ]),
                 ));
           }
