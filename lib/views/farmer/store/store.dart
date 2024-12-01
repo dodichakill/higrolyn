@@ -1,7 +1,11 @@
 import 'package:agrolyn/providers/store_notifier.dart';
 import 'package:agrolyn/shared/constants.dart';
 import 'package:agrolyn/utils/assets_path.dart';
+import 'package:agrolyn/views/common/store/detail_common_store.dart';
+import 'package:agrolyn/views/farmer/store/form_product.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:provider/provider.dart';
 
 class Store extends StatelessWidget {
@@ -76,7 +80,7 @@ class Store extends StatelessWidget {
                             ),
                             Padding(
                               padding: const EdgeInsets.only(
-                                  left: 16, right: 16, top: 0, bottom: 4),
+                                  left: 16, right: 16, top: 8, bottom: 4),
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment:
@@ -87,23 +91,24 @@ class Store extends StatelessWidget {
                                     child: Column(
                                       children: [
                                         Text(
-                                          "Baru! AgrolynShop Hemat Mulai dari 2 ribu, lho!",
+                                          "Baru! AgrolynShop Hemat Mulai dari 5 ribu, lho!, Cepat dan Fresh Pastinya",
                                           style: TextStyle(
                                             color: Colors.white,
-                                            fontSize: 24,
+                                            fontSize: 20,
                                             fontWeight: FontWeight.bold,
                                           ),
+                                          maxLines: 3,
                                         ),
                                       ],
                                     ),
                                   ),
                                   Expanded(
-                                    flex: 1,
-                                    child: Image.asset(
-                                      ImageAssets.petani,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
+                                      flex: 1,
+                                      child: Lottie.asset(
+                                          ImageAssets.vegetables,
+                                          fit: BoxFit.cover,
+                                          height: 128,
+                                          width: 128)),
                                 ],
                               ),
                             ),
@@ -111,414 +116,190 @@ class Store extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 48),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Container(
-                              padding: const EdgeInsets.all(8.0),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: const BorderRadius.only(
-                                        topLeft: Radius.circular(8),
-                                        topRight: Radius.circular(8)),
-                                    child: Image.asset(
-                                      height: 105,
-                                      width: 205,
-                                      ImageAssets.jagung,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 4,
-                                  ),
-                                  const Text(
-                                    "Jasuke",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 2,
-                                  ),
-                                  const Row(
-                                    children: [
-                                      Icon(
-                                        Icons.label,
-                                        size: 12,
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: SizedBox(
+                          child: value.products.isNotEmpty
+                              ? ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemCount: value.products.length,
+                                  itemBuilder: (context, index) {
+                                    var product = value.products[index];
+                                    return Container(
+                                      margin: const EdgeInsets.all(
+                                          4), // Jarak antara card
+                                      padding: const EdgeInsets.all(16),
+                                      decoration: BoxDecoration(
+                                        color: Colors
+                                            .white, // Warna latar belakang
+                                        borderRadius: BorderRadius.circular(16),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color:
+                                                Colors.black.withOpacity(0.1),
+                                            blurRadius: 6,
+                                            spreadRadius: 2,
+                                            offset: const Offset(0, 2),
+                                          ),
+                                        ],
                                       ),
-                                      Text(
-                                        "Makanan Olahan",
-                                        style: TextStyle(fontSize: 12),
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          // Gambar thumbnail
+                                          product['img_product'] != null &&
+                                                  product['img_product']
+                                                      .isNotEmpty
+                                              ? ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(12),
+                                                  child: Image.network(
+                                                    product['img_product'],
+                                                    width: 120,
+                                                    height: 130,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                )
+                                              : const Text(
+                                                  "img produk not available"),
+                                          const SizedBox(width: 12),
+                                          // Kolom untuk teks
+                                          Expanded(
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                // Judul
+                                                Text(
+                                                  "${product['product_name']}",
+                                                  style: TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: 2,
+                                                ),
+                                                Text(
+                                                  "${product['desc_product']}",
+                                                  maxLines: 2,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style: const TextStyle(
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.normal,
+                                                      color: Colors.black),
+                                                ),
+                                                SizedBox(
+                                                  height: 2,
+                                                ),
+                                                Text(
+                                                  "Rp. ${product['price']}",
+                                                  style: const TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.green,
+                                                  ),
+                                                ),
+                                                // Detail informasi
+                                                Row(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.end,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween, // Menjauhkan kedua elemen ke kiri dan kanan
+                                                  children: [
+                                                    // Row untuk kategori produk
+                                                    Row(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        const Icon(
+                                                            Icons.fastfood,
+                                                            size: 14,
+                                                            color: Colors.grey),
+                                                        const SizedBox(
+                                                            width: 4),
+                                                        Text(
+                                                          "${product['product_categories_id'] == 1 ? 'Mentah' : (product['product_categories_id'] == 2 ? 'Olahan' : 'Lainnya')}",
+                                                          style:
+                                                              const TextStyle(
+                                                            fontSize: 12,
+                                                            color: Colors.grey,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    // Menampilkan data pada sisi kanan
+                                                    InkWell(
+                                                      onTap: () {
+                                                        pushWithoutNavBar(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                DetailCommonStore(
+                                                                    product:
+                                                                        product),
+                                                          ),
+                                                        );
+                                                      },
+                                                      child: Container(
+                                                        height: 40,
+                                                        width:
+                                                            120, // Lebar tetap untuk tombol
+                                                        alignment: Alignment
+                                                            .center, // Posisikan teks di tengah
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: MyColors
+                                                              .primaryColorDark, // Warna tombol
+                                                          borderRadius:
+                                                              BorderRadius.circular(
+                                                                  8), // Sudut melengkung
+                                                          boxShadow: [
+                                                            BoxShadow(
+                                                              color: Colors
+                                                                  .black
+                                                                  .withOpacity(
+                                                                      0.2),
+                                                              offset:
+                                                                  const Offset(
+                                                                      0, 4),
+                                                              blurRadius: 8,
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        child: const Text(
+                                                          "Lihat",
+                                                          style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color: Colors
+                                                                .white, // Warna teks
+                                                            fontSize: 14,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Container(
-                              padding: const EdgeInsets.all(8.0),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: const BorderRadius.only(
-                                        topLeft: Radius.circular(8),
-                                        topRight: Radius.circular(8)),
-                                    child: Image.asset(
-                                      height: 105,
-                                      width: 205,
-                                      ImageAssets.jagung,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 4,
-                                  ),
-                                  const Text(
-                                    "Jasuke",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 2,
-                                  ),
-                                  const Row(
-                                    children: [
-                                      Icon(
-                                        Icons.label,
-                                        size: 12,
-                                      ),
-                                      Text(
-                                        "Makanan Olahan",
-                                        style: TextStyle(fontSize: 12),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
+                                    );
+                                  },
+                                )
+                              : const Center(
+                                  child: Text("No Product available"),
+                                ),
+                        ),
                       ),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Container(
-                              padding: const EdgeInsets.all(8.0),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: const BorderRadius.only(
-                                        topLeft: Radius.circular(8),
-                                        topRight: Radius.circular(8)),
-                                    child: Image.asset(
-                                      height: 105,
-                                      width: 205,
-                                      ImageAssets.jagung,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 4,
-                                  ),
-                                  const Text(
-                                    "Jasuke",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 2,
-                                  ),
-                                  const Row(
-                                    children: [
-                                      Icon(
-                                        Icons.label,
-                                        size: 12,
-                                      ),
-                                      Text(
-                                        "Makanan Olahan",
-                                        style: TextStyle(fontSize: 12),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Container(
-                              padding: const EdgeInsets.all(8.0),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: const BorderRadius.only(
-                                        topLeft: Radius.circular(8),
-                                        topRight: Radius.circular(8)),
-                                    child: Image.asset(
-                                      height: 105,
-                                      width: 205,
-                                      ImageAssets.jagung,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 4,
-                                  ),
-                                  const Text(
-                                    "Jasuke",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 2,
-                                  ),
-                                  const Row(
-                                    children: [
-                                      Icon(
-                                        Icons.label,
-                                        size: 12,
-                                      ),
-                                      Text(
-                                        "Makanan Olahan",
-                                        style: TextStyle(fontSize: 12),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Container(
-                              padding: const EdgeInsets.all(8.0),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: const BorderRadius.only(
-                                        topLeft: Radius.circular(8),
-                                        topRight: Radius.circular(8)),
-                                    child: Image.asset(
-                                      height: 105,
-                                      width: 205,
-                                      ImageAssets.jagung,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 4,
-                                  ),
-                                  const Text(
-                                    "Jasuke",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 2,
-                                  ),
-                                  const Row(
-                                    children: [
-                                      Icon(
-                                        Icons.label,
-                                        size: 12,
-                                      ),
-                                      Text(
-                                        "Makanan Olahan",
-                                        style: TextStyle(fontSize: 12),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Container(
-                              padding: const EdgeInsets.all(8.0),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: const BorderRadius.only(
-                                        topLeft: Radius.circular(8),
-                                        topRight: Radius.circular(8)),
-                                    child: Image.asset(
-                                      height: 105,
-                                      width: 205,
-                                      ImageAssets.jagung,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 4,
-                                  ),
-                                  const Text(
-                                    "Jasuke",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 2,
-                                  ),
-                                  const Row(
-                                    children: [
-                                      Icon(
-                                        Icons.label,
-                                        size: 12,
-                                      ),
-                                      Text(
-                                        "Makanan Olahan",
-                                        style: TextStyle(fontSize: 12),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Container(
-                              padding: const EdgeInsets.all(8.0),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: const BorderRadius.only(
-                                        topLeft: Radius.circular(8),
-                                        topRight: Radius.circular(8)),
-                                    child: Image.asset(
-                                      height: 105,
-                                      width: 205,
-                                      ImageAssets.jagung,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 4,
-                                  ),
-                                  const Text(
-                                    "Jasuke",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 2,
-                                  ),
-                                  const Row(
-                                    children: [
-                                      Icon(
-                                        Icons.label,
-                                        size: 12,
-                                      ),
-                                      Text(
-                                        "Makanan Olahan",
-                                        style: TextStyle(fontSize: 12),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Container(
-                              padding: const EdgeInsets.all(8.0),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: const BorderRadius.only(
-                                        topLeft: Radius.circular(8),
-                                        topRight: Radius.circular(8)),
-                                    child: Image.asset(
-                                      height: 105,
-                                      width: 205,
-                                      ImageAssets.jagung,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 4,
-                                  ),
-                                  const Text(
-                                    "Jasuke",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 2,
-                                  ),
-                                  const Row(
-                                    children: [
-                                      Icon(
-                                        Icons.label,
-                                        size: 12,
-                                      ),
-                                      Text(
-                                        "Makanan Olahan",
-                                        style: TextStyle(fontSize: 12),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      )
                     ],
                   ),
                   Positioned(
@@ -556,7 +337,7 @@ class Store extends StatelessWidget {
                                 ),
                                 const SizedBox(width: 8),
                                 const Text(
-                                  "Ayo mulai jadi mitra kami untuk berjulan",
+                                  "Ayo mulai jadi mitra kami",
                                   style: TextStyle(
                                     fontSize: 16,
                                     color: Colors.black,
@@ -564,6 +345,43 @@ class Store extends StatelessWidget {
                                   ),
                                 ),
                               ],
+                            ),
+                            InkWell(
+                              onTap: () {
+                                pushWithoutNavBar(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => FormProduct(),
+                                  ),
+                                );
+                              },
+                              child: Container(
+                                height: 40,
+                                width: 136, // Lebar tetap untuk tombol
+                                alignment: Alignment
+                                    .center, // Posisikan teks di tengah
+                                decoration: BoxDecoration(
+                                  color:
+                                      MyColors.primaryColorDark, // Warna tombol
+                                  borderRadius: BorderRadius.circular(
+                                      8), // Sudut melengkung
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.2),
+                                      offset: const Offset(0, 4),
+                                      blurRadius: 8,
+                                    ),
+                                  ],
+                                ),
+                                child: const Text(
+                                  "Tambah Produk",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white, // Warna teks
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ),
                             ),
                           ],
                         ),
