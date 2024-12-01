@@ -42,7 +42,7 @@ class DetailCommunityScreen extends StatelessWidget {
             return Scaffold(
                 backgroundColor: Colors.white,
                 body: SafeArea(
-                  child: Stack(children: [
+                  child: Stack(fit: StackFit.expand, children: [
                     SingleChildScrollView(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -157,6 +157,7 @@ class DetailCommunityScreen extends StatelessWidget {
                         ],
                       ),
                     ),
+                    const Spacer(),
                     InputAnswer(
                       questionId: id,
                       type: dataQuestion["question_type"] == "jagung"

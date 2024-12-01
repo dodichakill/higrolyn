@@ -5,6 +5,7 @@ import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:agrolyn/shared/custom_snackbar.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import 'dart:io';
 
 class CommunityNotifer extends ChangeNotifier {
   final BuildContext context;
@@ -18,6 +19,7 @@ class CommunityNotifer extends ChangeNotifier {
   var detailQuestion;
   int questionId = 0;
   bool isLike = false, isDislike = false, isLoading = false;
+  String? selectedCategoryItem;
 
   void likeQuestion(int id) async {
     await _communityService.fetchLikeQuestion(id);
@@ -130,6 +132,59 @@ class CommunityNotifer extends ChangeNotifier {
 
   Future<void> dislikeAnswer(int answerId) async {
     await _communityService.fetchDislikeAnswer(answerId);
+    notifyListeners();
+  }
+
+  // ==================================
+  // Add Question
+  // ==================================
+
+  String _titleQuestion = '';
+  String _descriptionQuestion = '';
+  int _categoryIdQuestion = 1;
+  File? _imageQuestion;
+
+  // Getters
+  String get titleQuestion => _titleQuestion;
+  String get descriptionQuestion => _descriptionQuestion;
+  int get categoryIdQuestion => _categoryIdQuestion;
+  File? get imageQuestion => _imageQuestion;
+
+  // Setters
+  void setTitleQuestion(String value) {
+    _titleQuestion = value;
+    notifyListeners();
+  }
+
+  void setDescriptionQuestion(String value) {
+    _descriptionQuestion = value;
+    notifyListeners();
+  }
+
+  void setImageQuestion(File? file) {
+    _imageQuestion = file;
+    notifyListeners();
+  }
+
+  void selectCategoryItemQuestion(String value) {
+    print(value);
+    if (value == "Jagung") {
+      _categoryIdQuestion = 1;
+    } else if (value == "Padi") {
+      _categoryIdQuestion = 2;
+    } else {
+      _categoryIdQuestion = 3;
+    }
+    notifyListeners();
+    print(_categoryIdQuestion);
+  }
+
+  // Reset Form
+  void resetFormQuestion() {
+    _titleQuestion = '';
+    _descriptionQuestion = '';
+    _categoryIdQuestion = 0;
+    _imageQuestion = null;
     notifyListeners();
   }
 }

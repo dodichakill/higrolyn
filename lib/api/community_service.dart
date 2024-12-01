@@ -201,4 +201,28 @@ class CommunityService {
       return "Dislike Answer Gagal";
     }
   }
+
+  Future<String> fetchAddQuestion(FormData formData) async {
+    final token = await AuthService().getToken();
+    print(formData);
+    try {
+      final response = await _dio.post(
+        '$baseUrl/question/new/',
+        data: formData,
+        options: Options(headers: {
+          'Authorization': 'Bearer $token',
+        }),
+      );
+      print('Response: ${response.statusCode}');
+      print('Data: ${response.data}');
+      if (response.statusCode == 201) {
+        return "Pertanyaan Berhasil dibuat";
+      } else {
+        return "Pertanyaan Gagal dibuat";
+      }
+    } catch (e) {
+      print('Dio Error: $e');
+      return "Pertanyaan Gagal dibuat";
+    }
+  }
 }
