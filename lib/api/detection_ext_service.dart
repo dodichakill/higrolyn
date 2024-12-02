@@ -17,21 +17,27 @@ class DetectionExtService {
   DetectionExtService() {
     _dio.options.baseUrl = "http://194.31.53.102:5035";
     _dio.options.headers = {
-      'Content-Type': 'application/json',
       'Accept': 'application/json',
     };
+    _dio.options.contentType = Headers.formUrlEncodedContentType;
   }
 
   Future<bool> fetchPredictCornDisease(FormData formData) async {
     // final token = await AuthService().getToken();
     try {
-      final response =
-          await _dio.post("/corn-disease-predict/", data: formData);
+      final response = await _dio.post("/corn-disease-predict", data: formData);
 
       // print(response);
       if (response.statusCode == 200) {
         print("Prediksi Berhasil");
-        // final res = DetectionService().fetchPredictCornDisease()
+        final disease = response.data['prediction'];
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setString('disease', disease);
+        print('=====');
+        print(formData.toString());
+        print('=====');
+        final res =
+            DetectionService().fetchPredictCornDisease(disease, formData);
         print(response.data);
         return true;
       } else {
@@ -40,155 +46,6 @@ class DetectionExtService {
     } on DioException catch (e) {
       print("Error Fetch Predict : $e");
       return false;
-    }
-  }
-
-  // Fungsi untuk login
-  Future<bool> register(context, int id, String name, String email,
-      String phoneNumber, String address, String password) async {
-    try {
-      final response = await _dio.post(
-        "/register/",
-        data: {
-          "roles_id": id,
-          "name": name.toString(),
-          "email": email.toString(),
-          "phone_number": phoneNumber.toString(),
-          "address": address.toString(),
-          "password": password.toString(),
-        },
-      );
-
-      if (response.statusCode == 201) {
-        // print(response.data);
-        showCustomSnackbar(
-            context,
-            "Pendaftaran Berhasil",
-            "silahkan cek email anda untuk verifikasi akun",
-            ContentType.success);
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const LoginScreen()),
-        );
-        return true;
-      } else {
-        return false;
-      }
-    } on DioException catch (e) {
-      print("Register error: ${e.response?.data['message']}");
-      showCustomSnackbar(context, "Gagal Daftar",
-          "Pendaftaran akun gagal, silahkan dicoba lagi", ContentType.failure);
-
-      return false;
-    }
-  }
-
-  // edit profile
-  Future<bool> editProfile(
-      context, String name, String phoneNumber, String address) async {
-    try {
-      final token = await getToken();
-      final response = await _dio.put(
-        "/edit-profile/",
-        data: {
-          "name": name.toString(),
-          "phone_number": phoneNumber.toString(),
-          "address": address.toString(),
-        },
-        options: Options(headers: {
-          'Authorization': 'Bearer $token',
-        }),
-      );
-      // print(response);
-      if (response.statusCode == 200) {
-        SharedPreferences prefs = await SharedPreferences.getInstance();
-        await prefs.setString('name', name);
-        await prefs.setString('address', address);
-        await prefs.setString('phone_number', phoneNumber);
-        PersistentTabController profile =
-            PersistentTabController(initialIndex: 4);
-
-        showCustomSnackbar(context, "Data Tersimpan",
-            "Berhasil Menyimpan perubahan data", ContentType.success);
-        Future.delayed(const Duration(seconds: 3), () {
-          pushWithNavBar(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => Menu(
-                        page: profile,
-                      )));
-        });
-        print(response.data);
-        return true;
-      }
-      return false;
-    } on DioException catch (e) {
-      print("Update Profile error: ${e.response?.data['message']}");
-      showCustomSnackbar(
-          context,
-          "Gagal Menyimpan Data",
-          "Gagal Menyimpan perubahan data, silahkan coba lagi",
-          ContentType.failure);
-
-      return false;
-    }
-  }
-
-  // Fungsi untuk mengambil token
-  Future<String?> getToken() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString('access_token');
-  }
-
-  Future<String?> refreshToken() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? token = prefs.getString('refresh_token');
-    try {
-      final response = await _dio.post(
-        "/refresh-token/",
-        options: Options(headers: {
-          'Authorization': 'Bearer $token',
-        }),
-      );
-      if (response.statusCode == 200) {
-        // print(response.data);
-        SharedPreferences prefs = await SharedPreferences.getInstance();
-        await prefs.setString('access_token', response.data['access_token']);
-        return "berhasil memperbarui token";
-      } else {
-        return "gagal memperbarui token";
-      }
-    } on DioException catch (e) {
-      print("Refresh Token error: ${e.response?.data['message']}");
-      return "DIO Error: ${e.response?.data['message']}";
-    }
-  }
-
-  // Fungsi untuk logout
-  Future<void> logout(context) async {
-    // buatkan code untuk logout dengan endpoint /logout dan menambahkan token bernama 'access_token' di header
-    final token = await getToken();
-    print("Token: $token");
-    if (token != null) {
-      try {
-        final res = await _dio.post(
-          "/logout/",
-          options: Options(headers: {
-            'Authorization': 'Bearer $token',
-          }),
-        );
-
-        if (res.statusCode == 200) {
-          SharedPreferences prefs = await SharedPreferences.getInstance();
-          await prefs.remove('access_token');
-          pushReplacementWithoutNavBar(context,
-              MaterialPageRoute(builder: (context) => const LoginScreen()));
-        }
-      } on DioException catch (e) {
-        print("Register error: ${e.response?.data['message']}");
-        showCustomSnackbar(context, "Gagal Logout",
-            "Logout gagal, silahkan dicoba lagi", ContentType.failure);
-      }
     }
   }
 }

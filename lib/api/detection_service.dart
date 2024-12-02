@@ -35,7 +35,7 @@ class DetectionService {
       // print(response);
       if (response.statusCode == 200) {
         print("Fetch disease Berhasil");
-        print(response.data['data']);
+        print(response.data['prediction']);
         return true;
       } else {
         print("Fetch disease Gagal");
