@@ -45,59 +45,45 @@ class StoreService {
     }
   }
 
-  Future<bool> createProduct(
-      context,
-      String product_name,
-      String desc_product,
-      int price,
-      int stock,
-      String product_categories_id,
-      String? img_product) async {
+  Future<String?> fetchNewProduct({
+    required String product_name,
+    required String desc_product,
+    required int price,
+    required int stock,
+    required String product_categories_id, // kategori harus berupa string
+    required String?
+        img_product, // gambar juga berupa string (misalnya path atau URL gambar)
+  }) async {
     final token = await AuthService().getToken();
     try {
-      // Jika img_product bukan null, lakukan upload file
-      FormData formData = FormData.fromMap({
-        "product_name": product_name,
-        "desc_product": desc_product,
-        "price": price,
-        "stock": stock,
-        "product_categories_id": product_categories_id,
-        if (img_product != null)
-          "img_product": await MultipartFile.fromFile(img_product),
-      });
-
       final response = await _dio.post(
-          "https://apiv1.agrolyn.online/ecommerce/products/new-product/",
-          data: formData,
-          options: Options(
-            headers: {
-              'Authorization': 'Bearer $token',
-            },
-          ));
-
-      if (response.statusCode == 200) {
-        // Handle successful creation of product
-        SharedPreferences prefs = await SharedPreferences.getInstance();
-        await prefs.setString('product_name', response.data['product_name']);
-        await prefs.setString('desc_product', response.data['desc_product']);
-        await prefs.setInt('price', response.data['price']);
-        await prefs.setInt('stock', response.data['stock']);
-        await prefs.setString(
-            'product_categories_id', response.data['product_categories_id']);
-        await prefs.setString('img_product', response.data['img_product']);
-        return true;
+        'https://apiv1.agrolyn.online/ecommerce/products/new-product/',
+        data: {
+          'product_name': product_name,
+          'desc_product': desc_product,
+          'price': price,
+          'stock': stock,
+          'product_categories_id': product_categories_id,
+          'img_product': img_product,
+        },
+        options: Options(headers: {
+          'Authorization': 'Bearer $token',
+        }),
+      );
+      print("Response Status: ${response.statusCode}");
+      print("Response Data: ${response.data}");
+    } catch (e) {
+      if (e is DioException) {
+        print("Error Status: ${e.response?.statusCode}");
+        print("Error Message: ${e.response?.statusMessage}");
+        print("Error Body: ${e.response?.data}");
+        if (e.response?.data != null) {
+          // Mencetak response body lebih lanjut
+          print("Error Body (Full): ${e.response?.data}");
+        }
       } else {
-        return false;
+        print("Unexpected Error: $e");
       }
-    } on DioException catch (e) {
-      String errorMessage = "Terjadi kesalahan";
-      if (e.response != null) {
-        errorMessage = e.response?.data['message'] ?? errorMessage;
-      }
-      showCustomSnackbar(
-          context, "Tambah Produk Gagal", errorMessage, ContentType.failure);
-      print("Tambah Produk error: $e");
-      return false;
     }
   }
 }

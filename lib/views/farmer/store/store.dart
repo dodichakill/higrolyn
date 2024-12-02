@@ -274,7 +274,7 @@ class Store extends StatelessWidget {
                                                           ],
                                                         ),
                                                         child: const Text(
-                                                          "Lihat",
+                                                          "Detail",
                                                           style: TextStyle(
                                                             fontWeight:
                                                                 FontWeight.bold,

@@ -24,7 +24,7 @@ class _DropdownCategoryState extends State<DropdownCategoryStore> {
                 onChanged: (String? newValue) {
                   setState(() {
                     _selectedCategory = newValue!;
-                    value.selectCategoryItemQuestion(newValue);
+                    value.selectCategoryProduct(newValue);
                   });
                 },
                 items: _categories.map((String category) {

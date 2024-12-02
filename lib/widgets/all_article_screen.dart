@@ -21,7 +21,7 @@ class AllArticleScreen extends StatelessWidget {
           length: 2, // Jumlah tab
           child: Scaffold(
             appBar: AppBar(
-              title: const Text("Artikel"),
+              title: const Text("Artikel dan Video Edukasi"),
               bottom: const TabBar(
                 tabs: [
                   Tab(
