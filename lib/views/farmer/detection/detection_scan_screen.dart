@@ -93,8 +93,8 @@ class _DetectionScanScreenState extends State<DetectionScanScreen>
           String disease = prefs.getString('disease') ?? '';
           await DetectionService().fetchPredictCornDisease(disease, formData2);
         });
-        // pushWithoutNavBar(context,
-        //     MaterialPageRoute(builder: (context) => DetectionResultScreen()));
+        pushWithoutNavBar(context,
+            MaterialPageRoute(builder: (context) => DetectionResultScreen()));
       });
     } catch (e) {
       print('Error taking picture: $e');
