@@ -77,8 +77,20 @@ class ChoiceUser extends StatelessWidget {
                                     fontSize: 16,
                                     color: Colors.white),
                               ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: const Text(
+                                  "Deteksi penyakit tanamananmu dan jual produk kamu di Agrolyn",
+                                  maxLines: 3,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.normal,
+                                      fontSize: 14,
+                                      color: Colors.white),
+                                ),
+                              ),
                               const SizedBox(
-                                  height: 24), // Jarak antara gambar dan teks
+                                  height: 16), // Jarak antara gambar dan teks
                               Padding(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 16.0),
@@ -164,8 +176,20 @@ class ChoiceUser extends StatelessWidget {
                                     fontSize: 16,
                                     color: Colors.white),
                               ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: const Text(
+                                  "Belanja dan masak makanan kamu sendiri di Agrolyn",
+                                  maxLines: 3,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.normal,
+                                      fontSize: 14,
+                                      color: Colors.white),
+                                ),
+                              ),
                               const SizedBox(
-                                  height: 24), // Jarak antara gambar dan teks
+                                  height: 16), // Jarak antara gambar dan teks
                               Padding(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 16.0),

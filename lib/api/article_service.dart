@@ -21,4 +21,26 @@ class ArticleService {
       return [];
     }
   }
+
+  Future<Map<String, dynamic>> getDetailArticle(int articleId) async {
+    final token = await AuthService().getToken();
+    try {
+      final response =
+          await _dio.get('https://apiv1.agrolyn.online/articles/$articleId/',
+              options: Options(headers: {
+                'Authorization': 'Bearer $token',
+              }));
+      if (response.data['data'] != null) {
+        return response.data['data'];
+      } else {
+        throw Exception('No data found for the article.');
+      }
+    } catch (e) {
+      if (e is DioException) {
+        print('DioError: ${e.response?.data}');
+        print('Status code: ${e.response?.statusCode}');
+      }
+      throw Exception('Error fetching article details: $e');
+    }
+  }
 }

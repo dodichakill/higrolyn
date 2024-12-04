@@ -79,44 +79,42 @@ class DetailCommonRecipe extends StatelessWidget {
                             ),
                             child: Row(
                               children: [
-                                Container(
-                                  width: 48,
-                                  height: 48,
-                                  decoration: BoxDecoration(
-                                    color: MyColors.primaryColorDark
-                                        .withOpacity(0.1),
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: const Center(
-                                    child: Text(
-                                      "250",
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ),
-                                ),
                                 const SizedBox(width: 8),
-                                const Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "Calories",
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
+                                // Memastikan kolom menyesuaikan ruang yang ada
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "Protein",
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
-                                    ),
-                                    Text(
-                                      "Kcal",
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.grey,
+                                      SizedBox(
+                                        height: 2,
                                       ),
-                                    ),
-                                  ],
+                                      RichText(
+                                        text: TextSpan(
+                                          style: const TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.normal,
+                                            color: Colors.grey,
+                                          ),
+                                          children: [
+                                            TextSpan(
+                                                text: "${recipe['protein']}",
+                                                style: TextStyle(
+                                                    color: MyColors
+                                                        .primaryColorDark)),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),
@@ -132,44 +130,42 @@ class DetailCommonRecipe extends StatelessWidget {
                             ),
                             child: Row(
                               children: [
-                                Container(
-                                  width: 48,
-                                  height: 48,
-                                  decoration: BoxDecoration(
-                                    color: MyColors.primaryColorDark
-                                        .withOpacity(0.1),
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: const Center(
-                                    child: Text(
-                                      "35",
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ),
-                                ),
                                 const SizedBox(width: 8),
-                                const Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "Karbo",
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
+                                // Memastikan kolom menyesuaikan ruang yang ada
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "Calories",
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
-                                    ),
-                                    Text(
-                                      "gram",
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.grey,
+                                      SizedBox(
+                                        height: 2,
                                       ),
-                                    ),
-                                  ],
+                                      RichText(
+                                        text: TextSpan(
+                                          style: const TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.normal,
+                                            color: Colors.grey,
+                                          ),
+                                          children: [
+                                            TextSpan(
+                                                text: "${recipe['calories']}",
+                                                style: TextStyle(
+                                                    color: MyColors
+                                                        .primaryColorDark)),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),
@@ -185,57 +181,117 @@ class DetailCommonRecipe extends StatelessWidget {
                             ),
                             child: Row(
                               children: [
-                                Container(
-                                  width: 48,
-                                  height: 48,
-                                  decoration: BoxDecoration(
-                                    color: MyColors.primaryColorDark
-                                        .withOpacity(0.1),
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: const Center(
-                                    child: Text(
-                                      "6.8",
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ),
-                                ),
                                 const SizedBox(width: 8),
-                                const Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "Protein",
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
+                                // Memastikan kolom menyesuaikan ruang yang ada
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "Karbo",
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
-                                    ),
-                                    Text(
-                                      "gram",
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.grey,
+                                      SizedBox(
+                                        height: 2,
                                       ),
-                                    ),
-                                  ],
+                                      RichText(
+                                        text: TextSpan(
+                                          style: const TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.normal,
+                                            color: Colors.grey,
+                                          ),
+                                          children: [
+                                            TextSpan(
+                                                text: "${recipe['karbo']}",
+                                                style: TextStyle(
+                                                    color: MyColors
+                                                        .primaryColorDark)),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 24,
+                          ),
+                          RichText(
+                            text: TextSpan(
+                              children: [
+                                const TextSpan(
+                                  text: "Apa sih ",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                TextSpan(
+                                  text: recipe['title'],
+                                  style: const TextStyle(
+                                      color: Colors.green,
+                                      decorationColor: Colors.green,
+                                      decorationThickness: 2,
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                const TextSpan(
+                                  text: " itu?",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 8,
+                          ),
+                          Text(
+                            "${recipe['description']}",
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.normal,
+                              color: Colors.black,
                             ),
                           ),
                           const SizedBox(
-                            height: 16,
+                            height: 24,
                           ),
-                          const Text(
-                            "Bahan-bahan",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold),
+                          RichText(
+                            text: TextSpan(
+                              children: [
+                                const TextSpan(
+                                  text: "Bahan-bahan ",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                TextSpan(
+                                  text: recipe['title'],
+                                  style: const TextStyle(
+                                      color: Colors.green,
+                                      decorationColor: Colors.green,
+                                      decorationThickness: 2,
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                const TextSpan(text: " Resep Dari Agrolyn"),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 8,
                           ),
                           Text(
                             "${recipe['ingredients']}",
@@ -247,14 +303,33 @@ class DetailCommonRecipe extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(
-                            height: 16,
+                            height: 24,
                           ),
-                          const Text(
-                            "Langkah Pembuatan",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold),
+                          RichText(
+                            text: TextSpan(
+                              children: [
+                                const TextSpan(
+                                  text: "Langkah-langkah pembuatan ",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                TextSpan(
+                                  text: recipe['title'],
+                                  style: const TextStyle(
+                                      color: Colors.green,
+                                      decorationColor: Colors.green,
+                                      decorationThickness: 2,
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                const TextSpan(text: " Resep Dari Agrolyn"),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 8,
                           ),
                           Text(
                             "${recipe['steps']}",
@@ -264,6 +339,9 @@ class DetailCommonRecipe extends StatelessWidget {
                               fontSize: 14,
                               color: Colors.black,
                             ),
+                          ),
+                          SizedBox(
+                            height: 16,
                           ),
                         ],
                       ),

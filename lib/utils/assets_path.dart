@@ -24,17 +24,25 @@ class ImageAssets {
   static const String banner3 = "$root/Group 253.png";
   static const String banner4 = "$root/Group 254.png";
   static const String jagung = "$root/image (1).png";
+  static const String tomato = "$root/Untitled design (17).png";
+  static const String chili = "$root/Untitled design (16).png";
   static const String customerService = "$root/cs.png";
   static const String petaniComunity = "$root/Rectangle 23.png";
   static const String dummyResult = "$root/leaf-blight.jpg";
   static const String backgroundChatbot =
       "$root/Screenshot 2024-11-11 114500.png";
   static String cloud = "$lotties/cloud.json";
+  static String cloudy = "$lotties/cloudy.json";
   static String backgorundAnimation = "$lotties/Animation.json";
   static String backgorundAnimation1 = "$lotties/Animation1.json";
   static String vegetables = "$lotties/vegetables.json";
   static String chef = "$lotties/Chef.json";
   static String trcuk = "$lotties/truk.json";
+  static String article = "$lotties/article.json";
+  static String confirm = "$lotties/confirm.json";
+  static String completed = "$lotties/completed.json";
+  static String proses = "$lotties/proses.json";
+  static String videos = "$lotties/videos.json";
   static String piring1 = "$root/Untitled design (11).png";
   static String piring2 = "$root/Untitled design (12).png";
   static String map = "$root/acuma.png";
