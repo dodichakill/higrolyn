@@ -25,6 +25,7 @@ class _DetectionScanScreenState extends State<DetectionScanScreen>
   bool _isCameraInitialized = false;
   late AnimationController _animationController;
   late Animation<double> _scanAnimation;
+  late bool loading = false;
 
   @override
   void initState() {
@@ -73,11 +74,9 @@ class _DetectionScanScreenState extends State<DetectionScanScreen>
 
     try {
       await _cameraController!.takePicture().then((XFile file) async {
-        // file.saveTo(imagePath);
-        // ScaffoldMessenger.of(context).showSnackBar(
-        //   SnackBar(content: Text('Foto tersimpan di $imagePath')),
-        // );
-
+        setState(() {
+          loading = true;
+        });
         final formData = FormData.fromMap({
           'img_pred':
               await MultipartFile.fromFile(file.path, filename: 'scan.jpg'),
@@ -92,12 +91,19 @@ class _DetectionScanScreenState extends State<DetectionScanScreen>
           SharedPreferences prefs = await SharedPreferences.getInstance();
           String disease = prefs.getString('disease') ?? '';
           await DetectionService().fetchPredictCornDisease(disease, formData2);
+        }).whenComplete(() {
+          setState(() {
+            loading = false;
+          });
+          pushWithoutNavBar(context,
+              MaterialPageRoute(builder: (context) => DetectionResultScreen()));
         });
-        pushWithoutNavBar(context,
-            MaterialPageRoute(builder: (context) => DetectionResultScreen()));
       });
     } catch (e) {
       print('Error taking picture: $e');
+      setState(() {
+        loading = false;
+      });
     }
   }
 
@@ -143,11 +149,20 @@ class _DetectionScanScreenState extends State<DetectionScanScreen>
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
-                  onPressed: _takePicture,
-                  child: const Text(
-                    'Ambil Foto',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
+                  onPressed: loading ? null : _takePicture,
+                  child: loading
+                      ? const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: CircularProgressIndicator(
+                            color: Colors.green,
+                            semanticsLabel: "Sedang Mengidentifikasi Tanaman",
+                            semanticsValue: "Sedang Mengidentifikasi Tanaman",
+                          ),
+                        )
+                      : const Text(
+                          'Ambil Foto',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
                 ),
               ],
             )

@@ -1,6 +1,8 @@
 import 'package:agrolyn/api/auth_service.dart';
 import 'package:agrolyn/shared/constants.dart';
 import 'package:agrolyn/shared/custom_snackbar.dart';
+import 'package:agrolyn/views/farmer/detection/detail_card_history_screen.dart';
+import 'package:agrolyn/views/farmer/detection/history_scan_screen.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:agrolyn/views/auth/login_screen.dart';
 import 'package:agrolyn/widgets/common_menu.dart';
@@ -19,6 +21,12 @@ class DetectionService {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
     };
+  }
+
+  Map<String, dynamic> detailHistory = {};
+
+  void addDetailHistory(String key, dynamic value) {
+    detailHistory[key] = value;
   }
 
   // Fungsi untuk login
@@ -54,7 +62,6 @@ class DetectionService {
           options: Options(headers: {
             'Authorization': 'Bearer $token',
           }));
-
       // print(response);
       if (response.statusCode == 200) {
         print(response.data['data']);
@@ -67,6 +74,68 @@ class DetectionService {
     } on DioException catch (e) {
       print("Feth History error: $e");
       return [];
+    }
+  }
+
+  Future<String> fetchDeleteHistory(context, int id) async {
+    final token = await AuthService().getToken();
+    try {
+      final response =
+          await _dio.delete("/history/detection-history/delete-history/$id/",
+              options: Options(headers: {
+                'Authorization': 'Bearer $token',
+              }));
+      // print(response);
+      if (response.statusCode == 200) {
+        print("Delete History Berhasil");
+        pushWithoutNavBar(context, MaterialPageRoute(builder: (context) {
+          return HistoryScanScreen();
+        }));
+        showCustomSnackbar(context, "Berhasil Dihapus",
+            "Riwayat Berhasil Dihapus!", ContentType.success);
+        return "Delete History Berhasil";
+      } else {
+        print("Delete History Gagal");
+        showCustomSnackbar(context, "Gagal Dihapus", "Riwayat Gagal Dihapus!",
+            ContentType.failure);
+        return "Delete History Gagal";
+      }
+    } on DioException catch (e) {
+      print("Delete History error: $e");
+      showCustomSnackbar(context, "Gagal Dihapus", "Riwayat Gagal Dihapus!",
+          ContentType.failure);
+      return "Delete History Gagal";
+    }
+  }
+
+  Future<String> fetchDeleteAllHistory(context) async {
+    final token = await AuthService().getToken();
+    try {
+      final response =
+          await _dio.delete("/history/detection-history/delete-all-history/",
+              options: Options(headers: {
+                'Authorization': 'Bearer $token',
+              }));
+      // print(response);
+      if (response.statusCode == 200) {
+        print("Delete All History Berhasil");
+        pushWithoutNavBar(context, MaterialPageRoute(builder: (context) {
+          return HistoryScanScreen();
+        }));
+        showCustomSnackbar(context, "Berhasil Dihapus",
+            "Semua Riwayat Berhasil Dihapus!", ContentType.success);
+        return "Delete All History Berhasil";
+      } else {
+        print("Delete All History Gagal");
+        showCustomSnackbar(context, "Gagal Dihapus",
+            "Semua Riwayat Gagal Dihapus!", ContentType.failure);
+        return "Delete All History Gagal";
+      }
+    } on DioException catch (e) {
+      print("Delete All History error: $e");
+      showCustomSnackbar(context, "Gagal Dihapus",
+          "Semua Riwayat Gagal Dihapus!", ContentType.failure);
+      return "Delete All History Gagal";
     }
   }
 }
