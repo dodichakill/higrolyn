@@ -2,6 +2,7 @@ import 'package:agrolyn/api/detection_service.dart';
 import 'package:agrolyn/providers/detection_notifier.dart';
 import 'package:agrolyn/shared/constants.dart';
 import 'package:agrolyn/utils/assets_path.dart';
+import 'package:agrolyn/views/farmer/detection/detail_history_scan_screen.dart';
 import 'package:agrolyn/views/farmer/detection/detection_result_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:agrolyn/utils/date.dart';
@@ -42,8 +43,11 @@ class CardHistory extends StatelessWidget {
 
     return InkWell(
       onTap: () {
-        pushWithoutNavBar(context,
-            MaterialPageRoute(builder: (context) => DetectionResultScreen()));
+        pushWithoutNavBar(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    DetailHistoryScanScreen(id: history['id'])));
       },
       child: Card(
         child: Container(

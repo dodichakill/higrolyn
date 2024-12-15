@@ -15,7 +15,7 @@ class DetectionExtService {
   final Dio _dio = Dio();
 
   DetectionExtService() {
-    _dio.options.baseUrl = "http://194.31.53.102:5035";
+    _dio.options.baseUrl = "http://194.31.53.102:5025";
     _dio.options.headers = {
       'Accept': 'application/json',
     };
@@ -23,9 +23,15 @@ class DetectionExtService {
   }
 
   Future<bool> fetchPredictCornDisease(FormData formData) async {
-    // final token = await AuthService().getToken();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final type = prefs.getString('scan_type') ?? '';
     try {
-      final response = await _dio.post("/corn-disease-predict", data: formData);
+      final Response response;
+      if (type == 'Jagung') {
+        response = await _dio.post("/corn-disease-predict", data: formData);
+      } else {
+        response = await _dio.post("/rice-disease-predict", data: formData);
+      }
 
       // print(response);
       if (response.statusCode == 200) {

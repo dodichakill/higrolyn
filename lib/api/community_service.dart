@@ -240,7 +240,7 @@ class CommunityService {
               }));
       print(response);
       if (response.statusCode == 200) {
-        pushWithoutNavBar(context,
+        pushWithNavBar(context,
             MaterialPageRoute(builder: (context) => const CommunityScreen()));
         showCustomSnackbar(context, "Berhasil Dihapus",
             "Jawaban Anda Berhasil Dihapus!", ContentType.success);

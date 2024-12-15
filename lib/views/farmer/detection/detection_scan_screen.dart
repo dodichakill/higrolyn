@@ -7,7 +7,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
-
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -26,6 +25,7 @@ class _DetectionScanScreenState extends State<DetectionScanScreen>
   late AnimationController _animationController;
   late Animation<double> _scanAnimation;
   late bool loading = false;
+  late String imgPath;
 
   @override
   void initState() {
@@ -77,11 +77,12 @@ class _DetectionScanScreenState extends State<DetectionScanScreen>
         setState(() {
           loading = true;
         });
-        final formData = FormData.fromMap({
+        imgPath = file.path;
+        var formData = FormData.fromMap({
           'img_pred':
               await MultipartFile.fromFile(file.path, filename: 'scan.jpg'),
         });
-        final formData2 = FormData.fromMap({
+        var formData2 = FormData.fromMap({
           'img_pred':
               await MultipartFile.fromFile(file.path, filename: 'scan.jpg'),
         });
@@ -90,13 +91,17 @@ class _DetectionScanScreenState extends State<DetectionScanScreen>
             .whenComplete(() async {
           SharedPreferences prefs = await SharedPreferences.getInstance();
           String disease = prefs.getString('disease') ?? '';
-          await DetectionService().fetchPredictCornDisease(disease, formData2);
-        }).whenComplete(() {
-          setState(() {
-            loading = false;
+          await DetectionService()
+              .fetchPredictCornDisease(disease, formData2)
+              .whenComplete(() {
+            setState(() {
+              loading = false;
+            });
+            pushWithoutNavBar(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const DetectionResultScreen()));
           });
-          pushWithoutNavBar(context,
-              MaterialPageRoute(builder: (context) => DetectionResultScreen()));
         });
       });
     } catch (e) {
@@ -140,7 +145,6 @@ class _DetectionScanScreenState extends State<DetectionScanScreen>
                         ],
                       )),
                 ),
-                const SizedBox(height: 10),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: MyColors.primaryColor,

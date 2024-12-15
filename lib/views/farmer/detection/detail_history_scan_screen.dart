@@ -1,3 +1,5 @@
+import 'package:agrolyn/api/detection_service.dart';
+import 'package:agrolyn/providers/detection_notifier.dart';
 import 'package:agrolyn/providers/menu_notifier.dart';
 import 'package:agrolyn/shared/constants.dart';
 import 'package:agrolyn/utils/assets_path.dart';
@@ -6,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:provider/provider.dart';
 
-class DetailCardHistoryScreen extends StatelessWidget {
+class DetailHistoryScanScreen extends StatelessWidget {
   List<String> list = [
     "Penggunaan Varietas Tahan PenyakitPilih varietas padi yang memiliki ketahanan terhadap Hawar Daun Bakteri. Penggunaan varietas tahan adalah salah satu cara paling efektif untuk mengurangi risiko penyakit ini.",
     "Pengaturan Irigasi dan Drainase yang Baik, Hindari genangan air yang dapat meningkatkan kelembapan dan memudahkan penyebaran bakteri. Pastikan saluran drainase berfungsi dengan baik untuk mencegah air tergenang.",
@@ -14,20 +16,21 @@ class DetailCardHistoryScreen extends StatelessWidget {
     "Sanitasi dan Pemangkasan Daun Terinfeksi. Potong daun yang terinfeksi untuk mengurangi sumber infeksi. Buang daun terinfeksi jauh dari lahan tanam agar tidak menyebar ke tanaman lain.",
     "Penggunaan Bakterisida Sesuai Anjuran. Jika serangan sudah meluas, aplikasi bakterisida dapat digunakan"
   ];
-
-  DetailCardHistoryScreen({super.key});
+  final int id;
+  DetailHistoryScanScreen({super.key, required this.id});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Hasil Deteksi"),
+          title: const Text("Detail Riwayat Deteksi"),
           backgroundColor: Colors.white,
           elevation: 0,
         ),
         body: ChangeNotifierProvider(
-            create: (_) => MenuNotifier(context: context),
-            child: Consumer<MenuNotifier>(
+            create: (_) => DetectionNotifier(
+                context: context, page: 'detail-history', idHistory: id),
+            child: Consumer<DetectionNotifier>(
                 builder: (context, value, child) => SafeArea(
                       bottom: false,
                       child: SingleChildScrollView(
@@ -43,10 +46,15 @@ class DetailCardHistoryScreen extends StatelessWidget {
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(16),
                                         color: MyColors.primaryColorDark),
-                                    child: const Text(
-                                        "Hawar Daun Bakteri (Bacterial Leaf Blight)",
+                                    child: Text(
+                                        value.detailHistoryResult[
+                                                'disease_indonesian_name'] +
+                                            " (" +
+                                            value.detailHistoryResult[
+                                                'disease_name'] +
+                                            ")",
                                         textAlign: TextAlign.center,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             fontWeight: FontWeight.w600,
                                             fontSize: 18,
                                             color: Colors.white)),
@@ -56,8 +64,8 @@ class DetailCardHistoryScreen extends StatelessWidget {
                                   ),
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(16),
-                                    child: Image.asset(
-                                      ImageAssets.dummyResult,
+                                    child: Image.network(
+                                      "https://agrolyn.online/static/uploads/${value.detailHistoryResult['image_detection']}",
                                       width: double.infinity,
                                       height: 180,
                                       fit: BoxFit.cover,
@@ -66,8 +74,8 @@ class DetailCardHistoryScreen extends StatelessWidget {
                                   const SizedBox(
                                     height: 16,
                                   ),
-                                  const Text(
-                                      'Disebabkan oleh bakteri Xanthomonas oryzae, menyebabkan daun padi menjadi kuning dan layu. Penyakit ini dapat mengakibatkan penurunan hasil panen yang signifikan'),
+                                  Text(
+                                      value.detailHistoryResult["description"]),
                                   const SizedBox(
                                     height: 16,
                                   ),
@@ -80,17 +88,7 @@ class DetailCardHistoryScreen extends StatelessWidget {
                                   const SizedBox(
                                     height: 16,
                                   ),
-                                  ListView.builder(
-                                    shrinkWrap: true,
-                                    itemCount: list.length,
-                                    itemBuilder: (BuildContext ctx, int index) {
-                                      return Container(
-                                          margin:
-                                              const EdgeInsets.only(bottom: 8),
-                                          child: Text(
-                                              "${index + 1}. ${list[index]}"));
-                                    },
-                                  ),
+                                  Text(value.detailHistoryResult["handling"]),
                                   const SizedBox(
                                     height: 16,
                                   ),

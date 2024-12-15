@@ -1,20 +1,52 @@
+import 'dart:convert';
+
 import 'package:agrolyn/api/detection_service.dart';
 import 'package:agrolyn/shared/custom_snackbar.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DetectionNotifier extends ChangeNotifier {
   final BuildContext context;
-  DetectionNotifier({required this.context, String? page}) {
+  DetectionNotifier({required this.context, String? page, int? idHistory}) {
     if (page == "history") {
       fetchHistory();
     }
+    if (page == "detail-history") {
+      fetchDetailHistory(idHistory);
+    }
+    if (page == "result-prediction") {
+      getPredictionResult();
+    }
   }
 
-  bool historyIsLoading = false;
+  // ==================================
+  // Scan Result
+  // ==================================
   bool predictionIsLoading = false;
+  var resultPrediction = {};
 
+  Future<Map<String, dynamic>> getPredictionResult() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final resPred = prefs.getString("detail_result_scan");
+    // final resImg = prefs.getString("detail_result_scan");
+    if (resPred != null) {
+      final decodeData = jsonDecode(resPred);
+      print(decodeData);
+      resultPrediction = decodeData;
+      notifyListeners();
+      return decodeData;
+    }
+    return {};
+  }
+
+  // ==================================
+  // History
+  // ==================================
+
+  bool historyIsLoading = false;
   var resultHistories = [];
+  var detailHistoryResult = {};
 
   Future<List> fetchHistory() async {
     var result = await DetectionService().fetchGetHistory();
@@ -24,13 +56,11 @@ class DetectionNotifier extends ChangeNotifier {
     return result;
   }
 
-  // Future<String> deleteHistory(int id) async {
-  //   var result =
-  //       await DetectionService().fetchDeleteHistory(id).whenComplete(() {
-  //     showCustomSnackbar(context, "Berhasil Dihapus",
-  //         "Riwayat Berhasil Dihapus!", ContentType.success);
-  //   });
-  //   print(result);
-  //   return result;
-  // }
+  Future<Map<String, dynamic>> fetchDetailHistory(int? id) async {
+    var result = await DetectionService().fetchDetailHistory(id);
+    print(result);
+    detailHistoryResult = result;
+    notifyListeners();
+    return result;
+  }
 }

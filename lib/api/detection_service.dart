@@ -1,12 +1,9 @@
+import 'dart:convert';
+
 import 'package:agrolyn/api/auth_service.dart';
-import 'package:agrolyn/shared/constants.dart';
 import 'package:agrolyn/shared/custom_snackbar.dart';
-import 'package:agrolyn/views/farmer/detection/detail_card_history_screen.dart';
 import 'package:agrolyn/views/farmer/detection/history_scan_screen.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
-import 'package:agrolyn/views/auth/login_screen.dart';
-import 'package:agrolyn/widgets/common_menu.dart';
-import 'package:agrolyn/widgets/menu.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
@@ -32,25 +29,37 @@ class DetectionService {
   // Fungsi untuk login
   Future<bool> fetchPredictCornDisease(
       String disease, FormData formData) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final type = prefs.getString('scan_type') ?? '';
     final token = await AuthService().getToken();
     try {
-      final response = await _dio.post("/corn-disease-predict/$disease/",
-          data: formData,
-          options: Options(headers: {
-            'Authorization': 'Bearer $token',
-          }));
+      final Response response;
+      if (type == 'Jagung') {
+        response = await _dio.post("/corn-disease-predict/$disease/",
+            data: formData,
+            options: Options(headers: {
+              'Authorization': 'Bearer $token',
+            }));
+      } else {
+        response = await _dio.post("/rice-disease-predict/$disease/",
+            data: formData,
+            options: Options(headers: {
+              'Authorization': 'Bearer $token',
+            }));
+      }
 
-      // print(response);
       if (response.statusCode == 200) {
         print("Fetch disease Berhasil");
-        print(response.data['prediction']);
+        // print(response.data);
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setString('detail_result_scan', jsonEncode(response.data));
         return true;
       } else {
         print("Fetch disease Gagal");
         return false;
       }
     } on DioException catch (e) {
-      print("Feth disease error: $e");
+      print("Fetch disease error: $e");
       return false;
     }
   }
@@ -136,6 +145,28 @@ class DetectionService {
       showCustomSnackbar(context, "Gagal Dihapus",
           "Semua Riwayat Gagal Dihapus!", ContentType.failure);
       return "Delete All History Gagal";
+    }
+  }
+
+  Future<Map<String, dynamic>> fetchDetailHistory(int? id) async {
+    final token = await AuthService().getToken();
+    try {
+      final response = await _dio.get("/history/detection-history/$id/",
+          options: Options(headers: {
+            'Authorization': 'Bearer $token',
+          }));
+      // print(response);
+      if (response.statusCode == 200) {
+        // print(response.data['data']);
+        print("Fetch Detail History Berhasil");
+        return response.data['data'];
+      } else {
+        print("Fetch Detail History Gagal");
+        return response.data['message'];
+      }
+    } on DioException catch (e) {
+      print("Feth Detail History error: $e");
+      return {};
     }
   }
 }
