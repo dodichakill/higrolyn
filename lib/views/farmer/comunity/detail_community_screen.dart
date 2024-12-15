@@ -82,8 +82,6 @@ class DetailCommunityScreen extends StatelessWidget {
                                           // Konten Detail Pertanyaan + interaksi
                                           ContentQuestionDetail(
                                               dataQuestion: dataQuestion,
-                                              isLike: value.isLike,
-                                              isDislike: value.isDislike,
                                               likeQuestion: value.likeQuestion,
                                               dislikeQuestion:
                                                   value.dislikeQuestion,
