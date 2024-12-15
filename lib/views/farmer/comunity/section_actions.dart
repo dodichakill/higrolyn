@@ -16,7 +16,7 @@ class SectionActions extends StatelessWidget {
         builder: (BuildContext context) {
           return ChangeNotifierProvider(
             create: (_) => CommunityNotifer(context: context),
-            builder: (context, child) => AddQuestion(),
+            builder: (context, child) => const AddQuestion(),
           );
         },
       );
@@ -118,92 +118,119 @@ class SectionActions extends StatelessWidget {
     return ChangeNotifierProvider(
         create: (_) => CommunityNotifer(context: context),
         child: Consumer<CommunityNotifer>(
-            builder: (context, value, child) => Row(
+            builder: (context, value, child) => Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(
-                      child: Row(
-                        children: [
-                          // Search Bar
-                          Expanded(
-                            child: Container(
-                              height: 48,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(16),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.1),
-                                    blurRadius: 5,
-                                    spreadRadius: 2,
-                                    offset: const Offset(0, 2),
-                                  ),
-                                ],
-                              ),
-                              child: TextField(
-                                decoration: const InputDecoration(
-                                  hintText: "Cari topik diskusimu disini",
-                                  hintStyle: TextStyle(color: Colors.grey),
-                                  prefixIcon:
-                                      Icon(Icons.search, color: Colors.grey),
-                                  border: InputBorder.none,
-                                  contentPadding: EdgeInsets.symmetric(
-                                    vertical: 12.0,
-                                    horizontal: 20.0,
-                                  ),
-                                ),
-                                onChanged: (value) {
-                                  if (value.length > 2) {
-                                    Future<List> result =
-                                        Provider.of<CommunityNotifer>(context,
-                                                listen: false)
-                                            .searchingQuestion(value);
-                                  }
-                                },
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: 8),
-                          // Filter Question
-                          InkWell(
-                            onTap: () => filterQuestion(value),
-                            child: Container(
-                              height: 48,
-                              width:
-                                  48, // Tetapkan lebar agar tombol add terlihat simetris
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(16),
-                                color: MyColors.primaryColorDark,
-                              ),
-                              child: const Icon(
-                                Icons.filter_alt_rounded,
-                                color: Colors.white,
-                                size: 28,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: 8),
-                          // Add Question
-                          InkWell(
-                            onTap: () => addQuestion(value),
-                            child: Container(
-                              height: 48,
-                              width:
-                                  48, // Tetapkan lebar agar tombol add terlihat simetris
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(16),
-                                color: MyColors.primaryColorDark,
-                              ),
-                              child: const Icon(
-                                Icons.add_circle,
-                                color: Colors.white,
-                                size: 28,
-                              ),
-                            ),
+                    Container(
+                      height: 48,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(16),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.1),
+                            blurRadius: 5,
+                            spreadRadius: 2,
+                            offset: const Offset(0, 2),
                           ),
                         ],
                       ),
+                      child: TextField(
+                        decoration: const InputDecoration(
+                          hintText: "Cari topik diskusi favoritmu disini",
+                          hintStyle: TextStyle(color: Colors.grey),
+                          prefixIcon: Icon(Icons.search, color: Colors.grey),
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.symmetric(
+                            vertical: 12.0,
+                            horizontal: 20.0,
+                          ),
+                        ),
+                        onChanged: (value) {
+                          if (value.length > 2) {
+                            Future<List> result = Provider.of<CommunityNotifer>(
+                                    context,
+                                    listen: false)
+                                .searchingQuestion(value);
+                          }
+                        },
+                      ),
                     ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    Row(
+                      children: [
+                        Row(
+                          children: [
+                            InkWell(
+                              onTap: () => filterQuestion(value),
+                              child: Container(
+                                height: 48,
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                ),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(16),
+                                  border: Border.all(
+                                    color: MyColors.primaryColorDark,
+                                  ),
+                                  color: Colors.white,
+                                ),
+                                child: const Row(
+                                  children: [
+                                    Icon(
+                                      Icons.filter_alt_rounded,
+                                      color: MyColors.primaryColorDark,
+                                      size: 28,
+                                    ),
+                                    SizedBox(width: 8),
+                                    Text(
+                                      "Filter Diskusi",
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          color: MyColors.primaryColorDark),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const Spacer(),
+                        // Add Question
+                        InkWell(
+                          onTap: () => addQuestion(value),
+                          child: Container(
+                            height: 48,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                            ),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(16),
+                              color: MyColors.primaryColorDark,
+                            ),
+                            child: const Row(
+                              children: [
+                                Icon(
+                                  Icons.add_circle,
+                                  color: Colors.white,
+                                  size: 28,
+                                ),
+                                SizedBox(width: 8),
+                                Text(
+                                  "Buat Diskusi Baru",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
                   ],
                 )));
   }

@@ -19,6 +19,119 @@ class CommunityNotifer extends ChangeNotifier {
     fetchAllQuestion();
   }
 
+  // ==================================
+  // Question
+  // ==================================
+
+  String _titleQuestion = '';
+  String _descriptionQuestion = '';
+  File? _imageQuestion;
+  String? _imageQuestionDefault;
+
+  // Getters
+  String get titleQuestion => _titleQuestion;
+  String get descriptionQuestion => _descriptionQuestion;
+  File? get imageQuestion => _imageQuestion;
+  String? get imageQuestionDefault => _imageQuestionDefault;
+
+  // Setters
+  void setTitleQuestion(String value) {
+    _titleQuestion = value;
+    notifyListeners();
+  }
+
+  void setDescriptionQuestion(String value) {
+    _descriptionQuestion = value;
+    notifyListeners();
+  }
+
+  void setImageQuestion() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      _imageQuestion = File(pickedFile.path);
+      _imageQuestionDefault = '';
+    }
+    notifyListeners();
+  }
+
+  void setImageQuestionDefault(String value) {
+    _imageQuestionDefault = value;
+    notifyListeners();
+  }
+
+  void selectCategoryItemQuestion(String value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (value == "Jagung") {
+      prefs.setInt('category_id', 1);
+    } else if (value == "Padi") {
+      prefs.setInt('category_id', 2);
+    } else {
+      prefs.setInt('category_id', 3);
+    }
+    notifyListeners();
+  }
+
+  Future<void> submitAddQuestion() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (formKey.currentState!.validate() && imageQuestion != null) {
+      final formData = FormData.fromMap({
+        'title_q': titleQuestion,
+        'description': descriptionQuestion,
+        'plant_types_id': prefs.getInt("category_id"),
+        'img_q': await MultipartFile.fromFile(imageQuestion!.path,
+            filename: 'img-question.jpg'),
+      });
+
+      print(formData.fields);
+
+      await CommunityService().fetchAddQuestion(formData).whenComplete(() {
+        pushWithoutNavBar(context,
+            MaterialPageRoute(builder: (context) => const CommunityScreen()));
+        showCustomSnackbar(context, "Berhasil Ditambahkan",
+            "Pertanyaan Anda Berhasil Ditambahkan!", ContentType.success);
+      });
+    }
+  }
+
+  Future<void> submitEditQuestion(int id) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (formKey.currentState!.validate()) {
+      final formData = FormData.fromMap({
+        'title_q': titleQuestion,
+        'description': descriptionQuestion,
+        'plant_types_id': prefs.getInt("category_id"),
+        if (imageQuestion != null)
+          'img_q': await MultipartFile.fromFile(imageQuestion!.path,
+              filename: 'img-question.jpg'),
+      });
+
+      print(formData.fields);
+
+      await CommunityService().fetchEditQuestion(id, formData).whenComplete(() {
+        pushWithoutNavBar(
+            context,
+            MaterialPageRoute(
+                builder: (context) => DetailCommunityScreen(
+                      id: id,
+                    )));
+        showCustomSnackbar(context, "Berhasil Diperbarui",
+            "Pertanyaan Anda Berhasil Diperbarui!", ContentType.success);
+      });
+    }
+  }
+
+  // Reset Form
+  void resetFormQuestion() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt('category_id', 0);
+    _titleQuestion = '';
+    _descriptionQuestion = '';
+    _imageQuestion = null;
+    _imageQuestionDefault = "";
+    notifyListeners();
+  }
+
   List questions = [];
   var detailQuestion;
   int questionId = 0;
@@ -140,119 +253,6 @@ class CommunityNotifer extends ChangeNotifier {
 
   Future<void> dislikeAnswer(int answerId) async {
     await _communityService.fetchDislikeAnswer(answerId);
-    notifyListeners();
-  }
-
-  // ==================================
-  // Question
-  // ==================================
-
-  String _titleQuestion = '';
-  String _descriptionQuestion = '';
-  File? _imageQuestion;
-  String? _imageQuestionDefault;
-
-  // Getters
-  String get titleQuestion => _titleQuestion;
-  String get descriptionQuestion => _descriptionQuestion;
-  File? get imageQuestion => _imageQuestion;
-  String? get imageQuestionDefault => _imageQuestionDefault;
-
-  // Setters
-  void setTitleQuestion(String value) {
-    _titleQuestion = value;
-    notifyListeners();
-  }
-
-  void setDescriptionQuestion(String value) {
-    _descriptionQuestion = value;
-    notifyListeners();
-  }
-
-  void setImageQuestion() async {
-    final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      _imageQuestion = File(pickedFile.path);
-      _imageQuestionDefault = '';
-    }
-    notifyListeners();
-  }
-
-  void setImageQuestionDefault(String value) {
-    _imageQuestionDefault = value;
-    notifyListeners();
-  }
-
-  void selectCategoryItemQuestion(String value) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    if (value == "Jagung") {
-      prefs.setInt('category_id', 1);
-    } else if (value == "Padi") {
-      prefs.setInt('category_id', 2);
-    } else {
-      prefs.setInt('category_id', 3);
-    }
-    notifyListeners();
-  }
-
-  Future<void> submitAddQuestion() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    if (formKey.currentState!.validate() && imageQuestion != null) {
-      final formData = FormData.fromMap({
-        'title_q': titleQuestion,
-        'description': descriptionQuestion,
-        'plant_types_id': prefs.getInt("category_id"),
-        'img_q': await MultipartFile.fromFile(imageQuestion!.path,
-            filename: 'img-question.jpg'),
-      });
-
-      print(formData.fields);
-
-      await CommunityService().fetchAddQuestion(formData).whenComplete(() {
-        pushWithoutNavBar(context,
-            MaterialPageRoute(builder: (context) => const CommunityScreen()));
-        showCustomSnackbar(context, "Berhasil Ditambahkan",
-            "Pertanyaan Anda Berhasil Ditambahkan!", ContentType.success);
-      });
-    }
-  }
-
-  Future<void> submitEditQuestion(int id) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    if (formKey.currentState!.validate()) {
-      final formData = FormData.fromMap({
-        'title_q': titleQuestion,
-        'description': descriptionQuestion,
-        'plant_types_id': prefs.getInt("category_id"),
-        if (imageQuestion != null)
-          'img_q': await MultipartFile.fromFile(imageQuestion!.path,
-              filename: 'img-question.jpg'),
-      });
-
-      print(formData.fields);
-
-      await CommunityService().fetchEditQuestion(id, formData).whenComplete(() {
-        pushWithoutNavBar(
-            context,
-            MaterialPageRoute(
-                builder: (context) => DetailCommunityScreen(
-                      id: id,
-                    )));
-        showCustomSnackbar(context, "Berhasil Diperbarui",
-            "Pertanyaan Anda Berhasil Diperbarui!", ContentType.success);
-      });
-    }
-  }
-
-  // Reset Form
-  void resetFormQuestion() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setInt('category_id', 0);
-    _titleQuestion = '';
-    _descriptionQuestion = '';
-    _imageQuestion = null;
-    _imageQuestionDefault = "";
     notifyListeners();
   }
 
