@@ -1,4 +1,5 @@
 import 'package:agrolyn/api/community_service.dart';
+import 'package:agrolyn/shared/constants.dart';
 import 'package:agrolyn/views/farmer/comunity/community_screen.dart';
 import 'package:agrolyn/views/farmer/comunity/detail_community_screen.dart';
 import 'package:dio/dio.dart';
@@ -9,6 +10,9 @@ import 'package:agrolyn/shared/custom_snackbar.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
+import 'package:agrolyn/utils/assets_path.dart';
+import 'package:agrolyn/utils/inter_prefs.dart';
+import 'package:agrolyn/views/farmer/comunity/item_filter.dart';
 
 class CommunityNotifer extends ChangeNotifier {
   final BuildContext context;
@@ -257,9 +261,10 @@ class CommunityNotifer extends ChangeNotifier {
   }
 
   // ==================================
-  // Search Question
+  // Search & Filter Question
   // ==================================
 
+  String selectedOption = 'semua';
   Future<List> searchingQuestion(String value) async {
     var result = await _communityService.fetchSearchQuestion(value);
     print(result);
@@ -268,11 +273,145 @@ class CommunityNotifer extends ChangeNotifier {
     return result;
   }
 
-  Future<List> fetchFilterQuestion(String value) async {
-    var result = await _communityService.fetchFilterQuestion(value);
-    print(result);
-    questions = result;
+  void showFilterQuestion() async {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Center(
+              child: Material(
+            type: MaterialType.transparency,
+            child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(16),
+                        child: Image.asset(ImageAssets.imgFilter),
+                      ),
+                      const SizedBox(height: 16),
+                      const Text(
+                        "Filter Diskusi Berdasarkan",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      const Text("Kategori Tanaman",
+                          style: TextStyle(
+                              fontSize: 15, fontWeight: FontWeight.w500)),
+                      Row(
+                        children: [
+                          ItemFilter(
+                              name: "Semua",
+                              onTap: () async {
+                                await InterPrefs.init();
+                                InterPrefs.setPrefs("filterBy", "semua");
+                                print("filter berdasarkan : semua");
+                                notifyListeners();
+                              }),
+                          ItemFilter(
+                              name: "Jagung",
+                              onTap: () async {
+                                await InterPrefs.init();
+                                InterPrefs.setPrefs("filterBy", "jagung");
+                                print("filter berdasarkan : jagung");
+                                notifyListeners();
+                              }),
+                          ItemFilter(
+                              name: "Padi",
+                              onTap: () async {
+                                await InterPrefs.init();
+                                InterPrefs.setPrefs("filterBy", "padi");
+                                print("filter berdasarkan : padi");
+                                notifyListeners();
+                              }),
+                        ],
+                      ),
+                      const Text("Lainnya",
+                          style: TextStyle(
+                              fontSize: 15, fontWeight: FontWeight.w500)),
+                      Row(
+                        children: [
+                          ItemFilter(
+                              name: "Umum",
+                              onTap: () async {
+                                await InterPrefs.init();
+                                InterPrefs.setPrefs("filterBy", "umum");
+                                print("filter berdasarkan : umum");
+                              }),
+                          ItemFilter(
+                              name: "Pertanyaanku",
+                              onTap: () async {
+                                await InterPrefs.init();
+                                InterPrefs.setPrefs("filterBy", "pertanyaanku");
+                                print("filter berdasarkan : answerme");
+                              }),
+                        ],
+                      ),
+                      const SizedBox(
+                        width: 16,
+                      ),
+                      Divider(color: Colors.grey[300], thickness: 1),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      Row(
+                        children: [
+                          ElevatedButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              style: ButtonStyle(
+                                backgroundColor:
+                                    WidgetStateProperty.all(Colors.red),
+                                foregroundColor:
+                                    WidgetStateProperty.all(Colors.white),
+                              ),
+                              child: const Text("Batalkan")),
+                          const SizedBox(
+                            width: 16,
+                          ),
+                          ElevatedButton(
+                              onPressed: () async {
+                                await InterPrefs.init();
+                                String value = InterPrefs.getPrefs("filterBy");
+                                if (value == 'pertanyaanku') {
+                                  fetchFilterQuestion('answerme');
+                                } else if (value == 'semua') {
+                                  fetchFilterQuestion('all');
+                                }
+                                fetchFilterQuestion(value);
+                                Navigator.pop(context);
+                              },
+                              style: ButtonStyle(
+                                backgroundColor: WidgetStateProperty.all(
+                                    MyColors.primaryColorDark),
+                                foregroundColor:
+                                    WidgetStateProperty.all(Colors.white),
+                              ),
+                              child: const Text("Terapkan"))
+                        ],
+                      ),
+                    ])),
+          ));
+        });
+  }
+
+  Future<void> fetchFilterQuestion(String value) async {
+    if (value == "semua") {
+      fetchAllQuestion();
+    } else {
+      var result = await _communityService.fetchFilterQuestion(value);
+      questions = result;
+    }
     notifyListeners();
-    return result;
   }
 }

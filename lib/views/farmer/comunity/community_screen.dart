@@ -1,6 +1,7 @@
 import 'package:agrolyn/providers/community_notifer.dart';
 import 'package:agrolyn/shared/constants.dart';
 import 'package:agrolyn/utils/assets_path.dart';
+import 'package:agrolyn/utils/inter_prefs.dart';
 import 'package:agrolyn/views/farmer/comunity/card_community.dart';
 import 'package:agrolyn/views/farmer/comunity/add_question.dart';
 import 'package:agrolyn/views/farmer/comunity/item_filter.dart';
@@ -24,98 +25,132 @@ class CommunityScreen extends StatelessWidget {
       );
     }
 
-    void filterQuestion(value) async {
-      showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return ChangeNotifierProvider(
-                create: (_) => CommunityNotifer(context: context),
-                builder: (context, child) => Center(
-                        child: Material(
-                      type: MaterialType.transparency,
-                      child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                          padding: const EdgeInsets.all(16),
-                          child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text(
-                                  "Filter Berdasarkan",
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                const SizedBox(height: 16),
-                                const Text("Kategori Tanaman",
-                                    style: TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w500)),
-                                Row(
-                                  children: [
-                                    ItemFilter(name: "Semua", onTap: () {}),
-                                    ItemFilter(name: "Jagung", onTap: () {}),
-                                    ItemFilter(name: "Padi", onTap: () {}),
-                                  ],
-                                ),
-                                const Text("Lainnya",
-                                    style: TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w500)),
-                                Row(
-                                  children: [
-                                    ItemFilter(name: "Umum", onTap: () {}),
-                                    ItemFilter(
-                                        name: "Pertanyaanku", onTap: () {}),
-                                  ],
-                                ),
-                                const SizedBox(
-                                  width: 16,
-                                ),
-                                Divider(color: Colors.grey[300], thickness: 1),
-                                const SizedBox(
-                                  width: 20,
-                                ),
-                                Row(
-                                  children: [
-                                    ElevatedButton(
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                        },
-                                        style: ButtonStyle(
-                                          backgroundColor:
-                                              WidgetStateProperty.all(
-                                                  Colors.red),
-                                          foregroundColor:
-                                              WidgetStateProperty.all(
-                                                  Colors.white),
-                                        ),
-                                        child: const Text("Batalkan")),
-                                    const SizedBox(
-                                      width: 16,
-                                    ),
-                                    ElevatedButton(
-                                        onPressed: () {},
-                                        style: ButtonStyle(
-                                          backgroundColor:
-                                              WidgetStateProperty.all(
-                                                  MyColors.primaryColorDark),
-                                          foregroundColor:
-                                              WidgetStateProperty.all(
-                                                  Colors.white),
-                                        ),
-                                        child: const Text("Terapkan"))
-                                  ],
-                                ),
-                              ])),
-                    )));
-          });
-    }
+    // void filterQuestion(value) async {
+    //   showDialog(
+    //       context: context,
+    //       builder: (BuildContext context) {
+    //         return ChangeNotifierProvider(
+    //             create: (_) => CommunityNotifer(context: context),
+    //             builder: (context, child) => Center(
+    //                     child: Material(
+    //                   type: MaterialType.transparency,
+    //                   child: Container(
+    //                       decoration: BoxDecoration(
+    //                         color: Colors.white,
+    //                         borderRadius: BorderRadius.circular(16),
+    //                       ),
+    //                       padding: const EdgeInsets.all(16),
+    //                       child: Column(
+    //                           mainAxisSize: MainAxisSize.min,
+    //                           mainAxisAlignment: MainAxisAlignment.start,
+    //                           crossAxisAlignment: CrossAxisAlignment.start,
+    //                           children: [
+    //                             ClipRRect(
+    //                               borderRadius: BorderRadius.circular(16),
+    //                               child: Image.asset(ImageAssets.imgFilter),
+    //                             ),
+    //                             const SizedBox(height: 16),
+    //                             const Text(
+    //                               "Filter Diskusi Berdasarkan",
+    //                               style: TextStyle(
+    //                                 fontSize: 20,
+    //                                 fontWeight: FontWeight.bold,
+    //                               ),
+    //                             ),
+    //                             const SizedBox(height: 16),
+    //                             const Text("Kategori Tanaman",
+    //                                 style: TextStyle(
+    //                                     fontSize: 15,
+    //                                     fontWeight: FontWeight.w500)),
+    //                             Row(
+    //                               children: [
+    //                                 ItemFilter(
+    //                                     name: "Semua",
+    //                                     onTap: () async {
+    //                                       await InterPrefs.init();
+    //                                       InterPrefs.setPrefs(
+    //                                           "filterBy", "all");
+    //                                     }),
+    //                                 ItemFilter(
+    //                                     name: "Jagung",
+    //                                     onTap: () async {
+    //                                       await InterPrefs.init();
+    //                                       InterPrefs.setPrefs(
+    //                                           "filterBy", "jagung");
+    //                                     }),
+    //                                 ItemFilter(
+    //                                     name: "Padi",
+    //                                     onTap: () async {
+    //                                       await InterPrefs.init();
+    //                                       InterPrefs.setPrefs(
+    //                                           "filterBy", "padi");
+    //                                     }),
+    //                               ],
+    //                             ),
+    //                             const Text("Lainnya",
+    //                                 style: TextStyle(
+    //                                     fontSize: 15,
+    //                                     fontWeight: FontWeight.w500)),
+    //                             Row(
+    //                               children: [
+    //                                 ItemFilter(
+    //                                     name: "Umum",
+    //                                     onTap: () async {
+    //                                       await InterPrefs.init();
+    //                                       InterPrefs.setPrefs(
+    //                                           "filterBy", "umum");
+    //                                     }),
+    //                                 ItemFilter(
+    //                                     name: "Pertanyaanku",
+    //                                     onTap: () async {
+    //                                       await InterPrefs.init();
+    //                                       InterPrefs.setPrefs(
+    //                                           "filterBy", "answerme");
+    //                                     }),
+    //                               ],
+    //                             ),
+    //                             const SizedBox(
+    //                               width: 16,
+    //                             ),
+    //                             Divider(color: Colors.grey[300], thickness: 1),
+    //                             const SizedBox(
+    //                               width: 20,
+    //                             ),
+    //                             Row(
+    //                               children: [
+    //                                 ElevatedButton(
+    //                                     onPressed: () {
+    //                                       Navigator.pop(context);
+    //                                     },
+    //                                     style: ButtonStyle(
+    //                                       backgroundColor:
+    //                                           WidgetStateProperty.all(
+    //                                               Colors.red),
+    //                                       foregroundColor:
+    //                                           WidgetStateProperty.all(
+    //                                               Colors.white),
+    //                                     ),
+    //                                     child: const Text("Batalkan")),
+    //                                 const SizedBox(
+    //                                   width: 16,
+    //                                 ),
+    //                                 ElevatedButton(
+    //                                     onPressed: () {},
+    //                                     style: ButtonStyle(
+    //                                       backgroundColor:
+    //                                           WidgetStateProperty.all(
+    //                                               MyColors.primaryColorDark),
+    //                                       foregroundColor:
+    //                                           WidgetStateProperty.all(
+    //                                               Colors.white),
+    //                                     ),
+    //                                     child: const Text("Terapkan"))
+    //                               ],
+    //                             ),
+    //                           ])),
+    //                 )));
+    //       });
+    // }
 
     return ChangeNotifierProvider(
       create: (_) => CommunityNotifer(context: context),
@@ -185,7 +220,7 @@ class CommunityScreen extends StatelessWidget {
                                 Row(
                                   children: [
                                     InkWell(
-                                      onTap: () => filterQuestion(value),
+                                      onTap: () => value.showFilterQuestion(),
                                       child: Container(
                                         height: 48,
                                         padding: const EdgeInsets.symmetric(

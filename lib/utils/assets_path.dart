@@ -48,4 +48,5 @@ class ImageAssets {
   static String map = "$root/acuma.png";
   static String question = "$root/question.webp";
   static String noScan = "$root/no-scan.webp";
+  static String imgFilter = "$root/filter.webp";
 }
