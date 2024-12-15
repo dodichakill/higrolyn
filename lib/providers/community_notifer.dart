@@ -414,4 +414,8 @@ class CommunityNotifer extends ChangeNotifier {
     }
     notifyListeners();
   }
+
+  void reNotifyListeners() {
+    super.notifyListeners();
+  }
 }

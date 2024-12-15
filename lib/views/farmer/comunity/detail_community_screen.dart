@@ -1,4 +1,5 @@
 import 'package:agrolyn/providers/community_notifer.dart';
+import 'package:agrolyn/utils/inter_prefs.dart';
 import 'package:agrolyn/views/farmer/comunity/card_answer.dart';
 import 'package:agrolyn/views/farmer/comunity/content_question_detail.dart';
 import 'package:agrolyn/views/farmer/comunity/input_answer.dart';
@@ -105,7 +106,11 @@ class DetailCommunityScreen extends StatelessWidget {
                                       width: 44,
                                       height: 44,
                                       child: InkWell(
-                                        onTap: () {
+                                        onTap: () async {
+                                          await InterPrefs.init();
+                                          InterPrefs.setPrefs(
+                                              "filterBy", "semua");
+                                          value.reNotifyListeners();
                                           PersistentTabController page =
                                               PersistentTabController(
                                                   initialIndex: 3);
