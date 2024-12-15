@@ -32,12 +32,12 @@ class ContentQuestionDetail extends StatelessWidget {
           return ChangeNotifierProvider(
               create: (_) => CommunityNotifer(context: context),
               builder: (context, child) {
-                final provider = context.read<CommunityNotifer>();
-                provider.setTitleQuestion(dataQuestion["title_question"]);
-                provider.setImageQuestionDefault(
-                    dataQuestion["question_thumbnail"]);
-                provider.setDescriptionQuestion(dataQuestion["description"]);
-                return EditQuestion(id: dataQuestion["id"]);
+                return EditQuestion(
+                  id: dataQuestion["id"],
+                  titleQuestion: dataQuestion["title_question"],
+                  imageQuestionDefault: dataQuestion["question_thumbnail"],
+                  descriptionQuestion: dataQuestion["description"],
+                );
               });
         },
       );

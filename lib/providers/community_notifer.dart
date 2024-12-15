@@ -1,15 +1,19 @@
 import 'package:agrolyn/api/community_service.dart';
+import 'package:agrolyn/views/farmer/comunity/community_screen.dart';
 import 'package:agrolyn/views/farmer/comunity/detail_community_screen.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:agrolyn/shared/custom_snackbar.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 
 class CommunityNotifer extends ChangeNotifier {
   final BuildContext context;
   final CommunityService _communityService = CommunityService();
+  final formKey = GlobalKey<FormState>();
 
   CommunityNotifer({required this.context}) {
     fetchAllQuestion();
@@ -58,6 +62,10 @@ class CommunityNotifer extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  // ==================================
+  // Answer
+  // ==================================
 
   Future<void> createAnswer(
       {context,
@@ -136,21 +144,20 @@ class CommunityNotifer extends ChangeNotifier {
   }
 
   // ==================================
-  // Add Question
+  // Question
   // ==================================
 
   String _titleQuestion = '';
   String _descriptionQuestion = '';
-  int _categoryIdQuestion = 1;
   File? _imageQuestion;
   String? _imageQuestionDefault;
 
   // Getters
   String get titleQuestion => _titleQuestion;
   String get descriptionQuestion => _descriptionQuestion;
-  int get categoryIdQuestion => _categoryIdQuestion;
   File? get imageQuestion => _imageQuestion;
   String? get imageQuestionDefault => _imageQuestionDefault;
+
   // Setters
   void setTitleQuestion(String value) {
     _titleQuestion = value;
@@ -162,9 +169,13 @@ class CommunityNotifer extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setImageQuestion(File? file) {
-    _imageQuestion = file;
-    _imageQuestionDefault = '';
+  void setImageQuestion() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      _imageQuestion = File(pickedFile.path);
+      _imageQuestionDefault = '';
+    }
     notifyListeners();
   }
 
@@ -173,24 +184,73 @@ class CommunityNotifer extends ChangeNotifier {
     notifyListeners();
   }
 
-  void selectCategoryItemQuestion(String value) {
-    print(value);
+  void selectCategoryItemQuestion(String value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     if (value == "Jagung") {
-      _categoryIdQuestion = 1;
+      prefs.setInt('category_id', 1);
     } else if (value == "Padi") {
-      _categoryIdQuestion = 2;
+      prefs.setInt('category_id', 2);
     } else {
-      _categoryIdQuestion = 3;
+      prefs.setInt('category_id', 3);
     }
     notifyListeners();
-    print(_categoryIdQuestion);
+  }
+
+  Future<void> submitAddQuestion() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (formKey.currentState!.validate() && imageQuestion != null) {
+      final formData = FormData.fromMap({
+        'title_q': titleQuestion,
+        'description': descriptionQuestion,
+        'plant_types_id': prefs.getInt("category_id"),
+        'img_q': await MultipartFile.fromFile(imageQuestion!.path,
+            filename: 'img-question.jpg'),
+      });
+
+      print(formData.fields);
+
+      await CommunityService().fetchAddQuestion(formData).whenComplete(() {
+        pushWithoutNavBar(context,
+            MaterialPageRoute(builder: (context) => const CommunityScreen()));
+        showCustomSnackbar(context, "Berhasil Ditambahkan",
+            "Pertanyaan Anda Berhasil Ditambahkan!", ContentType.success);
+      });
+    }
+  }
+
+  Future<void> submitEditQuestion(int id) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (formKey.currentState!.validate()) {
+      final formData = FormData.fromMap({
+        'title_q': titleQuestion,
+        'description': descriptionQuestion,
+        'plant_types_id': prefs.getInt("category_id"),
+        if (imageQuestion != null)
+          'img_q': await MultipartFile.fromFile(imageQuestion!.path,
+              filename: 'img-question.jpg'),
+      });
+
+      print(formData.fields);
+
+      await CommunityService().fetchEditQuestion(id, formData).whenComplete(() {
+        pushWithoutNavBar(
+            context,
+            MaterialPageRoute(
+                builder: (context) => DetailCommunityScreen(
+                      id: id,
+                    )));
+        showCustomSnackbar(context, "Berhasil Diperbarui",
+            "Pertanyaan Anda Berhasil Diperbarui!", ContentType.success);
+      });
+    }
   }
 
   // Reset Form
-  void resetFormQuestion() {
+  void resetFormQuestion() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt('category_id', 0);
     _titleQuestion = '';
     _descriptionQuestion = '';
-    _categoryIdQuestion = 0;
     _imageQuestion = null;
     _imageQuestionDefault = "";
     notifyListeners();
