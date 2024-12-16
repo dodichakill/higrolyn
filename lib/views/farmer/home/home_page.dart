@@ -130,7 +130,7 @@ class HomePage extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(
-                            height: 54,
+                            height: 40,
                           ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -302,171 +302,181 @@ class HomePage extends StatelessWidget {
                           SizedBox(
                             height: 8,
                           ),
-                          value.articles.isNotEmpty
-                              ? Padding(
-                                  padding:
-                                      const EdgeInsets.only(right: 8, left: 8),
-                                  child: ListView.builder(
-                                      shrinkWrap: true,
-                                      physics:
-                                          const NeverScrollableScrollPhysics(),
-                                      itemCount: 3,
-                                      itemBuilder: (context, index) {
-                                        var article = value.articles[index];
-                                        return InkWell(
-                                            onTap: () {
-                                              pushWithoutNavBar(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      DetailArticle(
-                                                          article: article),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 8,
+                            ),
+                            child: value.articles.isNotEmpty
+                                ? Padding(
+                                    padding: const EdgeInsets.only(
+                                        right: 0, left: 0),
+                                    child: ListView.builder(
+                                        shrinkWrap: true,
+                                        physics:
+                                            const NeverScrollableScrollPhysics(),
+                                        itemCount: 3,
+                                        itemBuilder: (context, index) {
+                                          var article = value.articles[index];
+                                          return InkWell(
+                                              onTap: () {
+                                                pushWithoutNavBar(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        DetailArticle(
+                                                            article: article),
+                                                  ),
+                                                );
+                                              },
+                                              child: Container(
+                                                padding:
+                                                    const EdgeInsets.all(12.0),
+                                                margin: const EdgeInsets.only(
+                                                    bottom:
+                                                        8), // Memberikan sedikit jarak antar artikel
+                                                decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: Colors.black
+                                                          .withOpacity(0.1),
+                                                      blurRadius: 6,
+                                                      spreadRadius: 2,
+                                                      offset:
+                                                          const Offset(0, 2),
+                                                    ),
+                                                  ],
                                                 ),
-                                              );
-                                            },
-                                            child: Container(
-                                              padding:
-                                                  const EdgeInsets.all(12.0),
-                                              margin: const EdgeInsets.only(
-                                                  bottom:
-                                                      8), // Memberikan sedikit jarak antar artikel
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(8),
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                    color: Colors.black
-                                                        .withOpacity(0.1),
-                                                    blurRadius: 6,
-                                                    spreadRadius: 2,
-                                                    offset: const Offset(0, 2),
-                                                  ),
-                                                ],
-                                              ),
-                                              child: Row(
-                                                children: [
-                                                  // Gambar thumbnail
-                                                  ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            8),
-                                                    child: Image.network(
-                                                      article['thumbnail'],
-                                                      height: 100,
-                                                      width: 70,
-                                                      fit: BoxFit.cover,
+                                                child: Row(
+                                                  children: [
+                                                    // Gambar thumbnail
+                                                    ClipRRect(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8),
+                                                      child: Image.network(
+                                                        article['thumbnail'],
+                                                        height: 100,
+                                                        width: 70,
+                                                        fit: BoxFit.cover,
+                                                      ),
                                                     ),
-                                                  ),
-                                                  const SizedBox(width: 12),
-                                                  // Kolom untuk teks (kategori, judul, waktu)
-                                                  Expanded(
-                                                    child: Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Row(
-                                                          children: [
-                                                            const Icon(
-                                                                Icons
-                                                                    .location_on_outlined,
-                                                                size: 11,
-                                                                color: Colors
-                                                                    .grey),
-                                                            const SizedBox(
-                                                                width: 4),
-                                                            Text(
-                                                              "${article['location']}",
-                                                              style: TextStyle(
-                                                                fontSize: 12,
-                                                                color:
-                                                                    Colors.grey,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
+                                                    const SizedBox(width: 12),
+                                                    // Kolom untuk teks (kategori, judul, waktu)
+                                                    Expanded(
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Row(
+                                                            children: [
+                                                              const Icon(
+                                                                  Icons
+                                                                      .location_on_outlined,
+                                                                  size: 11,
+                                                                  color: Colors
+                                                                      .grey),
+                                                              const SizedBox(
+                                                                  width: 4),
+                                                              Text(
+                                                                "${article['location']}",
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize: 12,
+                                                                  color: Colors
+                                                                      .grey,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                ),
                                                               ),
+                                                            ],
+                                                          ),
+                                                          const SizedBox(
+                                                              height: 2),
+                                                          Text(
+                                                            "${article['title']}",
+                                                            style: TextStyle(
+                                                              fontSize: 16,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
                                                             ),
-                                                          ],
-                                                        ),
-                                                        const SizedBox(
-                                                            height: 2),
-                                                        Text(
-                                                          "${article['title']}",
-                                                          style: TextStyle(
-                                                            fontSize: 16,
-                                                            fontWeight:
-                                                                FontWeight.bold,
+                                                            maxLines: 2,
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
                                                           ),
-                                                          maxLines: 2,
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                        ),
-                                                        Text(
-                                                          "${article['description']}",
-                                                          style: TextStyle(
-                                                            fontSize: 14,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .normal,
+                                                          Text(
+                                                            "${article['description']}",
+                                                            style: TextStyle(
+                                                              fontSize: 14,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .normal,
+                                                            ),
+                                                            maxLines: 2,
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
                                                           ),
-                                                          maxLines: 2,
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                        ),
-                                                        const SizedBox(
-                                                            height: 4),
-                                                        Row(
-                                                          children: [
-                                                            const Icon(
-                                                                Icons
-                                                                    .calendar_month_outlined,
-                                                                size: 11,
-                                                                color: Colors
-                                                                    .grey),
-                                                            const SizedBox(
-                                                                width: 4),
-                                                            FutureBuilder(
-                                                              future: formatRelativeTime(
-                                                                  article[
-                                                                      "released_date"]),
-                                                              builder: (context,
-                                                                  snapshot) {
-                                                                if (snapshot
-                                                                    .hasData) {
-                                                                  return Text(
-                                                                    snapshot
-                                                                        .data
-                                                                        .toString(),
-                                                                    style:
-                                                                        TextStyle(
-                                                                      fontSize:
-                                                                          12,
-                                                                      color: Colors
-                                                                          .grey,
-                                                                    ),
-                                                                  );
-                                                                } else {
-                                                                  return const CircularProgressIndicator(); // or some other loading indicator
-                                                                }
-                                                              },
-                                                            )
-                                                          ],
-                                                        ),
-                                                      ],
+                                                          const SizedBox(
+                                                              height: 4),
+                                                          Row(
+                                                            children: [
+                                                              const Icon(
+                                                                  Icons
+                                                                      .calendar_month_outlined,
+                                                                  size: 11,
+                                                                  color: Colors
+                                                                      .grey),
+                                                              const SizedBox(
+                                                                  width: 4),
+                                                              FutureBuilder(
+                                                                future: formatRelativeTime(
+                                                                    article[
+                                                                        "released_date"]),
+                                                                builder: (context,
+                                                                    snapshot) {
+                                                                  if (snapshot
+                                                                      .hasData) {
+                                                                    return Text(
+                                                                      snapshot
+                                                                          .data
+                                                                          .toString(),
+                                                                      style:
+                                                                          TextStyle(
+                                                                        fontSize:
+                                                                            12,
+                                                                        color: Colors
+                                                                            .grey,
+                                                                      ),
+                                                                    );
+                                                                  } else {
+                                                                    return const CircularProgressIndicator(); // or some other loading indicator
+                                                                  }
+                                                                },
+                                                              )
+                                                            ],
+                                                          ),
+                                                        ],
+                                                      ),
                                                     ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ));
-                                      }),
-                                )
-                              : const Center(
-                                  child: Text("No articles available"),
-                                ),
+                                                  ],
+                                                ),
+                                              ));
+                                        }),
+                                  )
+                                : const Center(
+                                    child: Text("No articles available"),
+                                  ),
+                          ),
                           Padding(
                             padding: const EdgeInsets.only(
-                                top: 8, left: 8, bottom: 8, right: 8),
+                                left: 8, bottom: 8, right: 8),
                             child: Container(
                               height: 40,
                               width: double.infinity,
@@ -518,7 +528,9 @@ class HomePage extends StatelessWidget {
                             height: 8,
                           ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 8,
+                            ),
                             child: ListView.builder(
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
@@ -528,7 +540,7 @@ class HomePage extends StatelessWidget {
 
                                 return Container(
                                   margin: const EdgeInsets.only(
-                                      bottom: 8), // Atur jarak antar video
+                                      bottom: 16), // Atur jarak antar video
                                   decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(16),
@@ -634,7 +646,7 @@ class HomePage extends StatelessWidget {
                                 );
                               },
                             ),
-                          )
+                          ),
                         ],
                       ),
                       Positioned(

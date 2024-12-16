@@ -1,9 +1,7 @@
 import 'dart:ui';
 import 'package:agrolyn/providers/common_store_notifier.dart';
 import 'package:agrolyn/shared/constants.dart';
-import 'package:agrolyn/utils/assets_path.dart';
 import 'package:flutter/material.dart';
-import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:provider/provider.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
@@ -300,6 +298,9 @@ class DetailCommonStore extends StatelessWidget {
                                 ),
                               ),
                             ),
+                          ),
+                          SizedBox(
+                            height: 16,
                           ),
                         ],
                       ),

@@ -2,9 +2,11 @@ import 'dart:io';
 
 import 'package:agrolyn/api/store_service.dart';
 import 'package:agrolyn/shared/custom_snackbar.dart';
-import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import 'package:agrolyn/views/farmer/store/store.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 /// Enum untuk kategori produk
 enum ProductCategory { Mentah, Olahan, Lainnya }
@@ -14,30 +16,34 @@ class StoreNotifier extends ChangeNotifier {
 
   StoreNotifier({required this.context}) {
     fetchProduct();
+    searchProduct('');
   }
 
-  // Key untuk form
   final keyfrom = GlobalKey<FormState>();
 
-  // Loading state
   bool _isLoading = false;
+  bool _isDeleting = false;
   bool get isLoading => _isLoading;
+  bool get isDeleting => _isDeleting;
+  List product = [];
+
+  void setDeleting(bool value) {
+    _isDeleting = value;
+    notifyListeners();
+  }
 
   void setLoading(bool value) {
     _isLoading = value;
     notifyListeners();
   }
 
-  // Text controllers untuk input form
   final TextEditingController nameEditingController = TextEditingController();
   final TextEditingController descEditingController = TextEditingController();
   final TextEditingController priceEditingController = TextEditingController();
   final TextEditingController stockEditingController = TextEditingController();
-  final TextEditingController categoryEditingController =
+  final TextEditingController categoryProductController =
       TextEditingController();
-  final TextEditingController imgEditingController = TextEditingController();
 
-  // Error message state
   String? _errorMessage;
   String? get errorMessage => _errorMessage;
 
@@ -46,76 +52,47 @@ class StoreNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-  // Service untuk store
   final StoreService _storeService = StoreService();
   List products = [];
 
-  // Ambil produk
   void fetchProduct() async {
     products = await _storeService.getProductsMe();
     notifyListeners();
   }
 
-  // Fungsi untuk memilih gambar dari galeri atau kamera
-  Future<void> pickImage(ImageSource source) async {
-    final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: source);
-
-    if (pickedFile != null) {
-      imgEditingController.text =
-          pickedFile.path; // Menyimpan path gambar ke controller
-      notifyListeners();
-    }
-  }
-
-  // Membersihkan controller ketika widget dihancurkan
   @override
   void dispose() {
     nameEditingController.dispose();
     descEditingController.dispose();
     priceEditingController.dispose();
     stockEditingController.dispose();
-    categoryEditingController.dispose();
-    imgEditingController.dispose();
+    categoryProductController.dispose();
     super.dispose();
   }
 
-  // Fungsi untuk membuat produk baru
-  Future<void> CreateProduct({
-    required String product_name,
-    required String desc_product,
-    required int price,
-    required int stock,
-    required String product_categories_id, // Misal: mentah, olahan, lainnya
-    required String? img_product,
-  }) async {
+  Future<void> pickImage(BuildContext context) async {
     try {
-      String? errorMessage = await _storeService.fetchNewProduct(
-        product_name: product_name,
-        desc_product: desc_product,
-        price: price,
-        stock: stock,
-        product_categories_id: product_categories_id,
-        img_product: img_product,
-      );
+      final pickedFile =
+          await ImagePicker().pickImage(source: ImageSource.gallery);
 
-      if (errorMessage == null) {
-        showCustomSnackbar(context, "Berhasil", "Produk berhasil ditambahkan",
-            ContentType.success);
+      if (pickedFile != null) {
+        final file = File(pickedFile.path);
+        if (await file.exists()) {
+          _imageProduct = file;
+          notifyListeners();
+        } else {
+          setErrorMessage("File tidak ditemukan atau tidak dapat diakses");
+        }
       } else {
-        showCustomSnackbar(context, "Gagal Menambahkan Produk", errorMessage,
-            ContentType.failure);
+        setErrorMessage("Tidak ada file yang dipilih");
       }
     } catch (e) {
-      print("Error: $e");
-      showCustomSnackbar(context, "Gagal Menambahkan Produk",
-          "Terjadi kesalahan saat menambahkan produk", ContentType.failure);
+      setErrorMessage("Error picking image: $e");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Error picking image: $e")),
+      );
     }
   }
-
-  // ==================================
-  // Add Question
-  // ==================================
 
   String _nameProduct = '';
   String _descProduct = '';
@@ -125,7 +102,6 @@ class StoreNotifier extends ChangeNotifier {
   File? _imageProduct;
   String? _imageProductDefault;
 
-  // Getters
   String get nameProduct => _nameProduct;
   String get descProduct => _descProduct;
   int get priceProduct => _priceProduct;
@@ -133,7 +109,10 @@ class StoreNotifier extends ChangeNotifier {
   int get categoryIdProduct => _categoryIdProduct;
   File? get imageProduct => _imageProduct;
   String? get imageProductDefault => _imageProductDefault;
-  // Setters
+
+  int? _productId;
+  int get productId => _productId ?? 0;
+
   void setNameProduct(String value) {
     _nameProduct = value;
     notifyListeners();
@@ -165,26 +144,19 @@ class StoreNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-  // State untuk kategori produk
-  ProductCategory _category = ProductCategory.Mentah;
-  ProductCategory get category => _category;
-
   void selectCategoryProduct(String value) {
-    switch (value) {
-      case "Mentah":
-        _category = ProductCategory.Mentah;
-        break;
-      case "Olahan":
-        _category = ProductCategory.Olahan;
-        break;
-      default:
-        _category = ProductCategory.Lainnya;
+    if (value == "Mentah") {
+      _categoryIdProduct = 1;
+    } else if (value == "Olahan") {
+      _categoryIdProduct = 2;
+    } else {
+      _categoryIdProduct = 3;
     }
+    categoryProductController.text = value;
     notifyListeners();
   }
 
-  // Reset Form
-  void resetFormQuestion() {
+  void resetFormProduct() {
     _nameProduct = '';
     _descProduct = '';
     _priceProduct = 0;
@@ -192,14 +164,34 @@ class StoreNotifier extends ChangeNotifier {
     _categoryIdProduct = 1;
     _imageProduct = null;
     _imageProductDefault = "";
+    categoryProductController.clear();
+    keyfrom.currentState?.reset();
     notifyListeners();
   }
 
-  fetchNewProduct(
-      {required String product_name,
-      required String desc_product,
-      required int price,
-      required int stock,
-      required String product_categories_id,
-      required String img_product}) {}
+  Future<void> deleteProduct(int id) async {
+    setDeleting(true);
+    try {
+      await _storeService.deleteProduct(id);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Produk berhasil dihapus")),
+      );
+      fetchProduct();
+    } catch (e) {
+      print("Error: $e");
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Produk gagal dihapus")),
+      );
+    } finally {
+      setDeleting(false);
+    }
+  }
+
+  Future<List> searchProduct(String value) async {
+    var result = await _storeService.fetchSearchProduct(value);
+    print(result);
+    product = result;
+    notifyListeners();
+    return result;
+  }
 }

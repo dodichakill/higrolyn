@@ -3,10 +3,12 @@ import 'package:agrolyn/shared/constants.dart';
 import 'package:agrolyn/utils/assets_path.dart';
 import 'package:agrolyn/views/farmer/Profile/about_screen.dart';
 import 'package:agrolyn/views/farmer/Profile/information_screen.dart';
+import 'package:agrolyn/views/farmer/Profile/review_screnn.dart';
 import 'package:agrolyn/widgets/deeplink.dart';
 import 'package:agrolyn/widgets/item_menu_profile.dart';
 import 'package:agrolyn/widgets/logout.dart';
 import 'package:flutter/material.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -196,7 +198,16 @@ class Profile extends StatelessWidget {
                       ItemMenuProfile(
                         icon: Icons.star,
                         name: "Beri ulasan dan Rating",
-                        onTap: () => Deeplink.toPlaystore(null),
+                        onTap: value.isReviewSubmit
+                            ? null // Nonaktifkan tombol jika ulasan sudah diberikan
+                            : () {
+                                pushWithoutNavBar(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ReviewScreen(),
+                                  ),
+                                );
+                              },
                       ),
                       const ItemMenuProfile(
                         icon: Icons.info_outline,

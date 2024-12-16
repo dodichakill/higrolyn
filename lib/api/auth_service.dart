@@ -1,4 +1,3 @@
-import 'package:agrolyn/shared/constants.dart';
 import 'package:agrolyn/shared/custom_snackbar.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:agrolyn/views/auth/login_screen.dart';

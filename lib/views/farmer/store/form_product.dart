@@ -1,15 +1,13 @@
 import 'dart:io';
 
-import 'package:agrolyn/api/auth_service.dart';
 import 'package:agrolyn/api/store_service.dart';
 import 'package:agrolyn/providers/store_notifier.dart';
 import 'package:agrolyn/shared/constants.dart';
 import 'package:agrolyn/shared/custom_snackbar.dart';
-import 'package:agrolyn/utils/assets_path.dart';
-import 'package:agrolyn/widgets/menu.dart';
+import 'package:agrolyn/widgets/dropdown_category_store.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 class FormProduct extends StatelessWidget {
@@ -19,8 +17,64 @@ class FormProduct extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => StoreNotifier(context: context),
-      child: Consumer<StoreNotifier>(
-        builder: (context, value, child) => Scaffold(
+      child: Consumer<StoreNotifier>(builder: (context, value, child) {
+        Future<void> _submitForm(BuildContext context) async {
+          if (value.keyfrom.currentState!.validate() &&
+              value.imageProduct != null) {
+            value.setLoading(true);
+            value.setNameProduct(value.nameEditingController.text);
+            value.setDescProduct(value.descEditingController.text);
+            value.setPriceProduct(int.parse(value.priceEditingController.text));
+            value.setStockProduct(int.parse(value.stockEditingController.text));
+            value.selectCategoryProduct(value.categoryProductController.text);
+
+            final file = File(value.imageProduct!.path);
+            if (await file.exists()) {
+              final formData = FormData.fromMap({
+                "product_name": value.nameProduct,
+                "desc_product": value.descProduct,
+                "price": value.priceProduct,
+                "stock": value.stockProduct,
+                "product_categories_id":
+                    value.categoryIdProduct.toString(), // Convert to String
+                "img_product":
+                    await MultipartFile.fromFile(value.imageProduct!.path),
+              });
+              await StoreService().fetchNewProduct(formData).then((result) {
+                value.setLoading(false);
+                if (result == "Produk berhasil ditambahkan") {
+                  Navigator.pop(context, true);
+                  showCustomSnackbar(context, "Berhasil Ditambahkan",
+                      "Produk Berhasil Di tambahkan", ContentType.success);
+                } else {
+                  showCustomSnackbar(context, "Berhasil ditambahkan",
+                      "Produk Berhasil Ditambahkan", ContentType.success);
+                  Navigator.pop(context, true);
+                }
+              }).catchError((error) {
+                value.setLoading(false);
+                showCustomSnackbar(context, "Error",
+                    "Terjadi kesalahan: $error", ContentType.failure);
+                print("Error: $error");
+              });
+            } else {
+              value.setLoading(false);
+              showCustomSnackbar(
+                  context,
+                  "Error",
+                  "File tidak ditemukan atau tidak dapat diakses",
+                  ContentType.failure);
+            }
+          } else {
+            showCustomSnackbar(
+                context,
+                "Error",
+                "Form tidak valid atau gambar tidak dipilih",
+                ContentType.failure);
+          }
+        }
+
+        return Scaffold(
           body: Form(
             key: value.keyfrom,
             child: SingleChildScrollView(
@@ -157,165 +211,44 @@ class FormProduct extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const SizedBox(height: 8),
-                              DropdownButtonFormField<String>(
-                                decoration: InputDecoration(
-                                  labelText: 'Kategori Produk',
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(16),
-                                  ),
-                                ),
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return "Kategori Produk harus dipilih";
-                                  }
-                                  return null;
-                                },
-                                items: [
-                                  DropdownMenuItem<String>(
-                                    value: 'mentah',
-                                    child: Text('Mentah'),
-                                  ),
-                                  DropdownMenuItem<String>(
-                                    value: 'olahan',
-                                    child: Text('Olahan'),
-                                  ),
-                                  DropdownMenuItem<String>(
-                                    value: 'lainnya',
-                                    child: Text('Lainnya'),
-                                  ),
-                                ],
-                                onChanged: (newValue) {
-                                  if (newValue != null) {
-                                    value.categoryEditingController.text =
-                                        newValue;
-                                  } else {
-                                    // Set default value if newValue is null, for instance
-                                    value.categoryEditingController.text =
-                                        'mentah'; // Set default category
-                                  }
-                                },
-                              ),
+                              DropdownCategoryStore()
                             ],
                           ),
                           const SizedBox(height: 16),
-                          Container(
-                            padding: const EdgeInsets.all(4),
-                            height: 64,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(16),
-                              color: MyColors.primaryColorDark,
-                              border: Border.all(
-                                  color: Colors.black.withOpacity(0.2)),
-                            ),
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 8),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  const Text(
-                                    "Pilih Foto Produk",
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
+                          GestureDetector(
+                            onTap: () => value.pickImage(context),
+                            child: value.imageProduct == null
+                                ? Container(
+                                    height: 150,
+                                    width: double.infinity,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(16),
+                                      color: Colors.grey[300],
+                                    ),
+                                    child: Icon(Icons.add_a_photo,
+                                        color: Colors.grey[500]),
+                                  )
+                                : ClipRRect(
+                                    borderRadius: BorderRadius.circular(16),
+                                    child: Image.file(
+                                      value.imageProduct!,
+                                      height: 150,
+                                      width: double.infinity,
+                                      fit: BoxFit.cover,
                                     ),
                                   ),
-                                  InkWell(
-                                    onTap: () async {
-                                      // Menggunakan ImagePicker untuk memilih gambar dari galeri
-                                      final picker = ImagePicker();
-                                      final XFile? pickedFile =
-                                          await picker.pickImage(
-                                              source: ImageSource.gallery);
-
-                                      if (pickedFile != null) {
-                                        // Menampilkan path gambar yang dipilih pada TextFormField
-                                        value.imgEditingController.text =
-                                            pickedFile.path;
-                                        value.notifyListeners();
-                                      }
-                                    },
-                                    child: Icon(
-                                      Icons.camera_alt,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
                           ),
                           const SizedBox(height: 16),
-                          if (value.imgEditingController.text.isNotEmpty)
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 8),
-                              child: Image.file(
-                                File(value.imgEditingController.text),
-                                height: 150,
-                                width: 150,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          const SizedBox(height: 16),
                           ElevatedButton(
-                            onPressed: value.isLoading
-                                ? null // Disable the button if loading
-                                : () async {
-                                    if (value.keyfrom.currentState!
-                                        .validate()) {
-                                      // Ambil form values
-                                      final productName =
-                                          value.nameEditingController.text;
-                                      final productDesc =
-                                          value.descEditingController.text;
-                                      final productPrice = int.parse(
-                                          value.priceEditingController.text);
-                                      final productStock = int.parse(
-                                          value.stockEditingController.text);
-                                      final productCategory =
-                                          value.categoryEditingController.text;
-                                      final productImage =
-                                          value.imgEditingController.text;
-
-                                      // Memanggil fungsi untuk membuat produk baru
-                                      await value.CreateProduct(
-                                        product_name: productName,
-                                        desc_product: productDesc,
-                                        price: productPrice,
-                                        stock: productStock,
-                                        product_categories_id: productCategory,
-                                        img_product: productImage,
-                                      );
-
-                                      // Menampilkan snackbar jika produk berhasil ditambahkan
-                                      if (!value.isLoading) {
-                                        showCustomSnackbar(
-                                            context,
-                                            "Berhasil",
-                                            "Produk Anda telah berhasil ditambahkan!",
-                                            ContentType.success);
-                                      }
-                                    }
-                                  },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: MyColors.primaryColorDark,
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 14, horizontal: 32),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16),
-                              ),
-                            ),
-                            child: value.isLoading
-                                ? CircularProgressIndicator(color: Colors.white)
-                                : Text(
-                                    'Tambah Produk',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
-                                    ),
-                                  ),
+                            onPressed: () => _submitForm(context),
+                            style: ButtonStyle(
+                                backgroundColor: WidgetStateProperty.all(
+                                    MyColors.primaryColorDark),
+                                foregroundColor:
+                                    WidgetStateProperty.all(Colors.white),
+                                minimumSize:
+                                    WidgetStateProperty.all(Size(180, 40))),
+                            child: const Text('Simpan'),
                           ),
                         ],
                       ),
@@ -325,8 +258,8 @@ class FormProduct extends StatelessWidget {
               ),
             ),
           ),
-        ),
-      ),
+        );
+      }),
     );
   }
 }
