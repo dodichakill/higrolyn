@@ -36,11 +36,11 @@ class DetectionScreen extends StatelessWidget {
                       height: 20,
                     ),
                     const CardScanType(
-                      title: "Scan Tanaman Jagung",
+                      title: "Jagung",
                       image: ImageAssets.logoJagung,
                     ),
                     const CardScanType(
-                      title: "Scan Tanaman Padi",
+                      title: "Padi",
                       image: ImageAssets.logoPadi,
                     ),
                     const SizedBox(

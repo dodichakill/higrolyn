@@ -1,51 +1,111 @@
+import 'package:agrolyn/api/detection_service.dart';
+import 'package:agrolyn/providers/detection_notifier.dart';
+import 'package:agrolyn/shared/constants.dart';
 import 'package:agrolyn/utils/assets_path.dart';
+import 'package:agrolyn/views/farmer/detection/detail_history_scan_screen.dart';
 import 'package:agrolyn/views/farmer/detection/detection_result_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:agrolyn/utils/date.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 class CardHistory extends StatelessWidget {
-  const CardHistory({super.key});
+  final history;
+  const CardHistory({super.key, required this.history});
 
   @override
   Widget build(BuildContext context) {
+    void deleteHistory() {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text("Hapus Riwayat"),
+              content: const Text(
+                  "Apakah anda yakin ingin menghapus riwayat scan tanaman ini?"),
+              actions: [
+                TextButton(
+                  child: const Text("Batal"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                TextButton(
+                  child: const Text("Ya, Hapus!"),
+                  onPressed: () async {
+                    await DetectionService()
+                        .fetchDeleteHistory(context, history['id']);
+                  },
+                ),
+              ],
+            );
+          });
+    }
+
     return InkWell(
-      onTap: () => pushWithoutNavBar(
-        context,
-        MaterialPageRoute(builder: (context) => DetectionResultScreen()),
-      ),
+      onTap: () {
+        pushWithoutNavBar(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    DetailHistoryScanScreen(id: history['id'])));
+      },
       child: Card(
         child: Container(
           padding: const EdgeInsets.all(10),
           width: double.infinity,
           child: Column(
             children: [
-              Container(
-                width: double.infinity,
-                height: 180,
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage(ImageAssets.petaniComunity),
-                    fit: BoxFit.cover,
+              Stack(children: [
+                Container(
+                  width: double.infinity,
+                  height: 180,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: Image.network(
+                              "https://agrolyn.online/static/uploads/${history['image_detection']}")
+                          .image,
+                      fit: BoxFit.cover,
+                    ),
+                    borderRadius: const BorderRadius.all(Radius.circular(16)),
                   ),
-                  borderRadius: BorderRadius.all(Radius.circular(16)),
                 ),
-              ),
+                Positioned(
+                  top: 0,
+                  right: 0,
+                  child: Container(
+                    padding: const EdgeInsets.all(2),
+                    decoration: const BoxDecoration(
+                        color: MyColors.secondaryColorDark,
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(16),
+                          topRight: Radius.circular(16),
+                        )),
+                    child: IconButton(
+                        onPressed: () => deleteHistory(),
+                        icon: const Icon(
+                          Icons.delete_forever,
+                          color: Colors.white,
+                        )),
+                  ),
+                )
+              ]),
               const SizedBox(
                 height: 10,
               ),
-              const Row(
+              Row(
                 children: [
                   Text(
-                    "Hawar Daun Bakteri",
-                    style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+                    history['disease_indonesian_name'],
+                    style: const TextStyle(
+                        fontWeight: FontWeight.w500, fontSize: 16),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 8,
                   ),
                   Text(
-                    "(Bacterial Leaf Blight)",
-                    style: TextStyle(fontWeight: FontWeight.w400, fontSize: 16),
+                    "(${history['disease_name']})",
+                    style: const TextStyle(
+                        fontWeight: FontWeight.w400, fontSize: 16),
                   ),
                 ],
               ),
@@ -55,7 +115,7 @@ class CardHistory extends StatelessWidget {
                       size: 11, color: Colors.grey),
                   const SizedBox(width: 4),
                   FutureBuilder(
-                    future: formatRelativeTime("Wed, 13 Nov 2024 21:53:54 GMT"),
+                    future: formatRelativeTime(history['history_date']),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         return Text(

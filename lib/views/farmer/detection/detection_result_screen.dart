@@ -1,21 +1,14 @@
-import 'package:agrolyn/providers/menu_notifier.dart';
+import 'package:agrolyn/providers/detection_notifier.dart';
 import 'package:agrolyn/shared/constants.dart';
 import 'package:agrolyn/utils/assets_path.dart';
 import 'package:agrolyn/widgets/menu.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DetectionResultScreen extends StatelessWidget {
-  List<String> list = [
-    "Penggunaan Varietas Tahan PenyakitPilih varietas padi yang memiliki ketahanan terhadap Hawar Daun Bakteri. Penggunaan varietas tahan adalah salah satu cara paling efektif untuk mengurangi risiko penyakit ini.",
-    "Pengaturan Irigasi dan Drainase yang Baik, Hindari genangan air yang dapat meningkatkan kelembapan dan memudahkan penyebaran bakteri. Pastikan saluran drainase berfungsi dengan baik untuk mencegah air tergenang.",
-    "Penggunaan Benih Sehat dan Bebas Penyakit Pilih benih yang sehat dan bebas dari kontaminasi penyakit. Benih yang terinfeksi dapat menjadi sumber utama penyebaran penyakit ini.",
-    "Sanitasi dan Pemangkasan Daun Terinfeksi. Potong daun yang terinfeksi untuk mengurangi sumber infeksi. Buang daun terinfeksi jauh dari lahan tanam agar tidak menyebar ke tanaman lain.",
-    "Penggunaan Bakterisida Sesuai Anjuran. Jika serangan sudah meluas, aplikasi bakterisida dapat digunakan"
-  ];
-
-  DetectionResultScreen({super.key});
+  const DetectionResultScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +19,9 @@ class DetectionResultScreen extends StatelessWidget {
           elevation: 0,
         ),
         body: ChangeNotifierProvider(
-            create: (_) => MenuNotifier(context: context),
-            child: Consumer<MenuNotifier>(
+            create: (_) =>
+                DetectionNotifier(context: context, page: "result-prediction"),
+            child: Consumer<DetectionNotifier>(
                 builder: (context, value, child) => SafeArea(
                       bottom: false,
                       child: SingleChildScrollView(
@@ -43,10 +37,15 @@ class DetectionResultScreen extends StatelessWidget {
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(16),
                                         color: MyColors.primaryColorDark),
-                                    child: const Text(
-                                        "Hawar Daun Bakteri (Bacterial Leaf Blight)",
+                                    child: Text(
+                                        value.resultPrediction['prediction']
+                                                ["dis_indo_name"]! +
+                                            " (" +
+                                            value.resultPrediction['prediction']
+                                                ["dis_name"]! +
+                                            ")",
                                         textAlign: TextAlign.center,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             fontWeight: FontWeight.w600,
                                             fontSize: 18,
                                             color: Colors.white)),
@@ -56,18 +55,34 @@ class DetectionResultScreen extends StatelessWidget {
                                   ),
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(16),
-                                    child: Image.asset(
-                                      ImageAssets.dummyResult,
-                                      width: double.infinity,
-                                      height: 180,
-                                      fit: BoxFit.cover,
-                                    ),
+                                    // child: Image.network(
+                                    //   value.resultPrediction['prediction']["img_detection"]!,
+                                    //   width: double.infinity,
+                                    //   height: 180,
+                                    //   fit: BoxFit.cover,
+                                    // ),
+                                    child: value.resultPrediction[
+                                                "img_detection"] !=
+                                            null
+                                        ? Image.network(
+                                            value.resultPrediction[
+                                                "img_detection"]!,
+                                            width: double.infinity,
+                                            height: 180,
+                                            fit: BoxFit.cover,
+                                          )
+                                        : Image.asset(
+                                            ImageAssets.community,
+                                            width: double.infinity,
+                                            height: 180,
+                                            fit: BoxFit.cover,
+                                          ),
                                   ),
                                   const SizedBox(
                                     height: 16,
                                   ),
-                                  const Text(
-                                      'Disebabkan oleh bakteri Xanthomonas oryzae, menyebabkan daun padi menjadi kuning dan layu. Penyakit ini dapat mengakibatkan penurunan hasil panen yang signifikan'),
+                                  Text(value.resultPrediction['prediction']
+                                      ["description"]!),
                                   const SizedBox(
                                     height: 16,
                                   ),
@@ -80,17 +95,11 @@ class DetectionResultScreen extends StatelessWidget {
                                   const SizedBox(
                                     height: 16,
                                   ),
-                                  ListView.builder(
-                                    shrinkWrap: true,
-                                    itemCount: list.length,
-                                    itemBuilder: (BuildContext ctx, int index) {
-                                      return Container(
-                                          margin:
-                                              const EdgeInsets.only(bottom: 8),
-                                          child: Text(
-                                              "${index + 1}. ${list[index]}"));
-                                    },
-                                  ),
+                                  Container(
+                                      margin: const EdgeInsets.only(bottom: 8),
+                                      child: Text(
+                                          value.resultPrediction['prediction']
+                                              ["handling"]!)),
                                   const SizedBox(
                                     height: 16,
                                   ),

@@ -1,6 +1,7 @@
 import 'package:agrolyn/views/farmer/detection/detection_scan_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CardScanType extends StatelessWidget {
   final String title;
@@ -11,7 +12,9 @@ class CardScanType extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
+      onTap: () async {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setString('scan_type', title);
         pushScreenWithoutNavBar(context, const DetectionScanScreen());
       },
       child: Container(
@@ -39,7 +42,7 @@ class CardScanType extends StatelessWidget {
           ),
           const SizedBox(width: 20),
           Text(
-            title,
+            "Scan Tanaman $title",
             style: const TextStyle(color: Colors.black, fontSize: 16),
           ),
           const Spacer(),

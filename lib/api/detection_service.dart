@@ -1,10 +1,9 @@
+import 'dart:convert';
+
 import 'package:agrolyn/api/auth_service.dart';
-import 'package:agrolyn/shared/constants.dart';
 import 'package:agrolyn/shared/custom_snackbar.dart';
+import 'package:agrolyn/views/farmer/detection/history_scan_screen.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
-import 'package:agrolyn/views/auth/login_screen.dart';
-import 'package:agrolyn/widgets/common_menu.dart';
-import 'package:agrolyn/widgets/menu.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
@@ -21,178 +20,153 @@ class DetectionService {
     };
   }
 
+  Map<String, dynamic> detailHistory = {};
+
+  void addDetailHistory(String key, dynamic value) {
+    detailHistory[key] = value;
+  }
+
   // Fungsi untuk login
   Future<bool> fetchPredictCornDisease(
       String disease, FormData formData) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final type = prefs.getString('scan_type') ?? '';
     final token = await AuthService().getToken();
     try {
-      final response = await _dio.post("/corn-disease-predict/$disease/",
-          data: formData,
-          options: Options(headers: {
-            'Authorization': 'Bearer $token',
-          }));
+      final Response response;
+      if (type == 'Jagung') {
+        response = await _dio.post("/corn-disease-predict/$disease/",
+            data: formData,
+            options: Options(headers: {
+              'Authorization': 'Bearer $token',
+            }));
+      } else {
+        response = await _dio.post("/rice-disease-predict/$disease/",
+            data: formData,
+            options: Options(headers: {
+              'Authorization': 'Bearer $token',
+            }));
+      }
 
-      // print(response);
       if (response.statusCode == 200) {
         print("Fetch disease Berhasil");
-        print(response.data['prediction']);
+        // print(response.data);
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setString('detail_result_scan', jsonEncode(response.data));
         return true;
       } else {
         print("Fetch disease Gagal");
         return false;
       }
     } on DioException catch (e) {
-      print("Feth disease error: $e");
+      print("Fetch disease error: $e");
       return false;
     }
   }
 
-  // Fungsi untuk login
-  Future<bool> register(context, int id, String name, String email,
-      String phoneNumber, String address, String password) async {
+  Future<List> fetchGetHistory() async {
+    final token = await AuthService().getToken();
     try {
-      final response = await _dio.post(
-        "/register/",
-        data: {
-          "roles_id": id,
-          "name": name.toString(),
-          "email": email.toString(),
-          "phone_number": phoneNumber.toString(),
-          "address": address.toString(),
-          "password": password.toString(),
-        },
-      );
-
-      if (response.statusCode == 201) {
-        // print(response.data);
-        showCustomSnackbar(
-            context,
-            "Pendaftaran Berhasil",
-            "silahkan cek email anda untuk verifikasi akun",
-            ContentType.success);
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const LoginScreen()),
-        );
-        return true;
-      } else {
-        return false;
-      }
-    } on DioException catch (e) {
-      print("Register error: ${e.response?.data['message']}");
-      showCustomSnackbar(context, "Gagal Daftar",
-          "Pendaftaran akun gagal, silahkan dicoba lagi", ContentType.failure);
-
-      return false;
-    }
-  }
-
-  // edit profile
-  Future<bool> editProfile(
-      context, String name, String phoneNumber, String address) async {
-    try {
-      final token = await getToken();
-      final response = await _dio.put(
-        "/edit-profile/",
-        data: {
-          "name": name.toString(),
-          "phone_number": phoneNumber.toString(),
-          "address": address.toString(),
-        },
-        options: Options(headers: {
-          'Authorization': 'Bearer $token',
-        }),
-      );
-      // print(response);
-      if (response.statusCode == 200) {
-        SharedPreferences prefs = await SharedPreferences.getInstance();
-        await prefs.setString('name', name);
-        await prefs.setString('address', address);
-        await prefs.setString('phone_number', phoneNumber);
-        PersistentTabController profile =
-            PersistentTabController(initialIndex: 4);
-
-        showCustomSnackbar(context, "Data Tersimpan",
-            "Berhasil Menyimpan perubahan data", ContentType.success);
-        Future.delayed(const Duration(seconds: 3), () {
-          pushWithNavBar(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => Menu(
-                        page: profile,
-                      )));
-        });
-        print(response.data);
-        return true;
-      }
-      return false;
-    } on DioException catch (e) {
-      print("Update Profile error: ${e.response?.data['message']}");
-      showCustomSnackbar(
-          context,
-          "Gagal Menyimpan Data",
-          "Gagal Menyimpan perubahan data, silahkan coba lagi",
-          ContentType.failure);
-
-      return false;
-    }
-  }
-
-  // Fungsi untuk mengambil token
-  Future<String?> getToken() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString('access_token');
-  }
-
-  Future<String?> refreshToken() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? token = prefs.getString('refresh_token');
-    try {
-      final response = await _dio.post(
-        "/refresh-token/",
-        options: Options(headers: {
-          'Authorization': 'Bearer $token',
-        }),
-      );
-      if (response.statusCode == 200) {
-        // print(response.data);
-        SharedPreferences prefs = await SharedPreferences.getInstance();
-        await prefs.setString('access_token', response.data['access_token']);
-        return "berhasil memperbarui token";
-      } else {
-        return "gagal memperbarui token";
-      }
-    } on DioException catch (e) {
-      print("Refresh Token error: ${e.response?.data['message']}");
-      return "DIO Error: ${e.response?.data['message']}";
-    }
-  }
-
-  // Fungsi untuk logout
-  Future<void> logout(context) async {
-    // buatkan code untuk logout dengan endpoint /logout dan menambahkan token bernama 'access_token' di header
-    final token = await getToken();
-    print("Token: $token");
-    if (token != null) {
-      try {
-        final res = await _dio.post(
-          "/logout/",
+      final response = await _dio.get("/history/detection-history/",
           options: Options(headers: {
             'Authorization': 'Bearer $token',
-          }),
-        );
-
-        if (res.statusCode == 200) {
-          SharedPreferences prefs = await SharedPreferences.getInstance();
-          await prefs.remove('access_token');
-          pushReplacementWithoutNavBar(context,
-              MaterialPageRoute(builder: (context) => const LoginScreen()));
-        }
-      } on DioException catch (e) {
-        print("Register error: ${e.response?.data['message']}");
-        showCustomSnackbar(context, "Gagal Logout",
-            "Logout gagal, silahkan dicoba lagi", ContentType.failure);
+          }));
+      // print(response);
+      if (response.statusCode == 200) {
+        print(response.data['data']);
+        print("Fetch History Berhasil");
+        return response.data['data'];
+      } else {
+        print("Fetch History Gagal");
+        return [];
       }
+    } on DioException catch (e) {
+      print("Feth History error: $e");
+      return [];
+    }
+  }
+
+  Future<String> fetchDeleteHistory(context, int id) async {
+    final token = await AuthService().getToken();
+    try {
+      final response =
+          await _dio.delete("/history/detection-history/delete-history/$id/",
+              options: Options(headers: {
+                'Authorization': 'Bearer $token',
+              }));
+      // print(response);
+      if (response.statusCode == 200) {
+        print("Delete History Berhasil");
+        pushWithoutNavBar(context, MaterialPageRoute(builder: (context) {
+          return HistoryScanScreen();
+        }));
+        showCustomSnackbar(context, "Berhasil Dihapus",
+            "Riwayat Berhasil Dihapus!", ContentType.success);
+        return "Delete History Berhasil";
+      } else {
+        print("Delete History Gagal");
+        showCustomSnackbar(context, "Gagal Dihapus", "Riwayat Gagal Dihapus!",
+            ContentType.failure);
+        return "Delete History Gagal";
+      }
+    } on DioException catch (e) {
+      print("Delete History error: $e");
+      showCustomSnackbar(context, "Gagal Dihapus", "Riwayat Gagal Dihapus!",
+          ContentType.failure);
+      return "Delete History Gagal";
+    }
+  }
+
+  Future<String> fetchDeleteAllHistory(context) async {
+    final token = await AuthService().getToken();
+    try {
+      final response =
+          await _dio.delete("/history/detection-history/delete-all-history/",
+              options: Options(headers: {
+                'Authorization': 'Bearer $token',
+              }));
+      // print(response);
+      if (response.statusCode == 200) {
+        print("Delete All History Berhasil");
+        pushWithoutNavBar(context, MaterialPageRoute(builder: (context) {
+          return HistoryScanScreen();
+        }));
+        showCustomSnackbar(context, "Berhasil Dihapus",
+            "Semua Riwayat Berhasil Dihapus!", ContentType.success);
+        return "Delete All History Berhasil";
+      } else {
+        print("Delete All History Gagal");
+        showCustomSnackbar(context, "Gagal Dihapus",
+            "Semua Riwayat Gagal Dihapus!", ContentType.failure);
+        return "Delete All History Gagal";
+      }
+    } on DioException catch (e) {
+      print("Delete All History error: $e");
+      showCustomSnackbar(context, "Gagal Dihapus",
+          "Semua Riwayat Gagal Dihapus!", ContentType.failure);
+      return "Delete All History Gagal";
+    }
+  }
+
+  Future<Map<String, dynamic>> fetchDetailHistory(int? id) async {
+    final token = await AuthService().getToken();
+    try {
+      final response = await _dio.get("/history/detection-history/$id/",
+          options: Options(headers: {
+            'Authorization': 'Bearer $token',
+          }));
+      // print(response);
+      if (response.statusCode == 200) {
+        // print(response.data['data']);
+        print("Fetch Detail History Berhasil");
+        return response.data['data'];
+      } else {
+        print("Fetch Detail History Gagal");
+        return response.data['message'];
+      }
+    } on DioException catch (e) {
+      print("Feth Detail History error: $e");
+      return {};
     }
   }
 }

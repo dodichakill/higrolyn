@@ -1,6 +1,7 @@
 import 'package:agrolyn/api/community_service.dart';
 import 'package:agrolyn/providers/community_notifer.dart';
 import 'package:agrolyn/shared/constants.dart';
+import 'package:agrolyn/utils/inter_prefs.dart';
 import 'package:agrolyn/views/farmer/comunity/edit_question.dart';
 import 'package:flutter/material.dart';
 import 'package:agrolyn/utils/date.dart';
@@ -9,19 +10,34 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class ContentQuestionDetail extends StatelessWidget {
   Map<String, dynamic> dataQuestion = {};
-  bool isLike, isDislike;
   String? nameUser;
   int likeNum;
   void Function(int) likeQuestion, dislikeQuestion;
+  bool? isLiked = false, isDisliked = false;
+
   ContentQuestionDetail(
       {super.key,
       this.nameUser,
       required this.dataQuestion,
-      required this.isLike,
-      required this.isDislike,
       required this.likeQuestion,
       required this.dislikeQuestion,
-      required this.likeNum});
+      required this.likeNum}) {
+    init();
+  }
+
+  void init() async {
+    await InterPrefs.init();
+    if (InterPrefs.getPrefs('like_question_${dataQuestion["id"]}').isNotEmpty) {
+      isLiked = bool.parse(
+          InterPrefs.getPrefs('like_question_${dataQuestion["id"]}'));
+    }
+
+    if (InterPrefs.getPrefs('dislike_question_${dataQuestion["id"]}')
+        .isNotEmpty) {
+      isDisliked = bool.parse(
+          InterPrefs.getPrefs('dislike_question_${dataQuestion["id"]}'));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,12 +48,12 @@ class ContentQuestionDetail extends StatelessWidget {
           return ChangeNotifierProvider(
               create: (_) => CommunityNotifer(context: context),
               builder: (context, child) {
-                final provider = context.read<CommunityNotifer>();
-                provider.setTitleQuestion(dataQuestion["title_question"]);
-                provider.setImageQuestionDefault(
-                    dataQuestion["question_thumbnail"]);
-                provider.setDescriptionQuestion(dataQuestion["description"]);
-                return EditQuestion(id: dataQuestion["id"]);
+                return EditQuestion(
+                  id: dataQuestion["id"],
+                  titleQuestion: dataQuestion["title_question"],
+                  imageQuestionDefault: dataQuestion["question_thumbnail"],
+                  descriptionQuestion: dataQuestion["description"],
+                );
               });
         },
       );
@@ -133,11 +149,20 @@ class ContentQuestionDetail extends StatelessWidget {
               children: [
                 InkWell(
                   onTap: () async {
-                    likeQuestion(dataQuestion["id"]);
+                    await InterPrefs.init();
+                    if (isLiked == false) {
+                      likeQuestion(dataQuestion["id"]);
+                    }
+                    InterPrefs.setPrefs(
+                        'like_question_${dataQuestion["id"]}', 'true');
+                    InterPrefs.setPrefs(
+                        'dislike_question_${dataQuestion["id"]}', 'false');
+                    isLiked = true;
+                    isDisliked = false;
                   },
                   child: Row(
                     children: [
-                      isLike
+                      (isLiked == true)
                           ? const Icon(
                               Icons.thumb_up,
                               size: 16,
@@ -150,7 +175,7 @@ class ContentQuestionDetail extends StatelessWidget {
                             ),
                       const SizedBox(width: 8),
                       Text(
-                          isLike
+                          isLiked == true
                               ? (likeNum + 1).toString()
                               : likeNum.toString(),
                           style: const TextStyle(color: Colors.grey)),
@@ -159,10 +184,19 @@ class ContentQuestionDetail extends StatelessWidget {
                 ),
                 const SizedBox(width: 8),
                 InkWell(
-                  onTap: () {
-                    dislikeQuestion(dataQuestion["id"]);
+                  onTap: () async {
+                    await InterPrefs.init();
+                    if (isDisliked == false) {
+                      dislikeQuestion(dataQuestion["id"]);
+                    }
+                    InterPrefs.setPrefs(
+                        'like_question_${dataQuestion["id"]}', 'false');
+                    InterPrefs.setPrefs(
+                        'dislike_question_${dataQuestion["id"]}', 'true');
+                    isLiked = false;
+                    isDisliked = true;
                   },
-                  child: isDislike
+                  child: (isDisliked == true)
                       ? const Icon(
                           Icons.thumb_down,
                           size: 16,

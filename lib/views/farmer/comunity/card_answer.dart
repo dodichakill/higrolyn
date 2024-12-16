@@ -1,6 +1,7 @@
 import 'package:agrolyn/api/community_service.dart';
 import 'package:agrolyn/providers/community_notifer.dart';
 import 'package:agrolyn/shared/constants.dart';
+import 'package:agrolyn/utils/inter_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:agrolyn/utils/date.dart';
 import 'package:provider/provider.dart';
@@ -8,7 +9,7 @@ import 'package:provider/provider.dart';
 class CardAnswer extends StatelessWidget {
   String answer, userProfile, username, releasedDate, name;
   int id, likeNum, questionId;
-  bool? isLike = false, isDislike = false;
+  bool? isLiked = false, isDisliked = false;
   CardAnswer(
       {super.key,
       required this.answer,
@@ -26,6 +27,14 @@ class CardAnswer extends StatelessWidget {
 
   void initialize() async {
     answerController.text = answer;
+    await InterPrefs.init();
+    if (InterPrefs.getPrefs('like_answer_$id').isNotEmpty) {
+      isLiked = bool.parse(InterPrefs.getPrefs('like_answer_$id'));
+    }
+
+    if (InterPrefs.getPrefs('dislike_answer_$id').isNotEmpty) {
+      isDisliked = bool.parse(InterPrefs.getPrefs('dislike_answer_$id'));
+    }
   }
 
   @override
@@ -223,15 +232,22 @@ class CardAnswer extends StatelessWidget {
                                   Row(
                                     children: [
                                       InkWell(
-                                        onTap: () {
-                                          value.likeAnswer(id);
+                                        onTap: () async {
+                                          if (isLiked == false) {
+                                            value.likeAnswer(id);
+                                          }
+                                          await InterPrefs.init();
+                                          InterPrefs.setPrefs(
+                                              'like_answer_$id', 'true');
+                                          InterPrefs.setPrefs(
+                                              'dislike_answer_$id', 'false');
                                           likeNum++;
-                                          isLike = true;
-                                          isDislike = false;
+                                          isLiked = true;
+                                          isDisliked = false;
                                         },
                                         child: Row(
                                           children: [
-                                            isLike == true
+                                            isLiked == true
                                                 ? const Icon(
                                                     Icons.thumb_up,
                                                     size: 16,
@@ -252,13 +268,20 @@ class CardAnswer extends StatelessWidget {
                                       const SizedBox(width: 8),
 
                                       InkWell(
-                                        onTap: () {
-                                          value.dislikeAnswer(id);
+                                        onTap: () async {
+                                          if (isDisliked == false) {
+                                            value.dislikeAnswer(id);
+                                          }
+                                          await InterPrefs.init();
+                                          InterPrefs.setPrefs(
+                                              'like_answer_$id', 'false');
+                                          InterPrefs.setPrefs(
+                                              'dislike_answer_$id', 'true');
                                           likeNum--;
-                                          isDislike = true;
-                                          isLike = false;
+                                          isDisliked = true;
+                                          isLiked = false;
                                         },
-                                        child: isDislike == true
+                                        child: isDisliked == true
                                             ? const Icon(
                                                 Icons.thumb_down,
                                                 size: 16,
