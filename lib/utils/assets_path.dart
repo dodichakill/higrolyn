@@ -49,4 +49,7 @@ class ImageAssets {
   static String question = "$root/question.webp";
   static String noScan = "$root/no-scan.webp";
   static String imgFilter = "$root/filter.webp";
+  static String forgot = "$root/forgot.webp";
+  static String bgPagi = "$root/bg-p.webp";
+  static String bgSore = "$root/bg-s.webp";
 }

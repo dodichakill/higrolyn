@@ -221,4 +221,43 @@ class AuthService {
       }
     }
   }
+
+  // reset password
+  Future<bool> forgotPassword(context, String email) async {
+    try {
+      final response = await _dio.put(
+        "/forgot_password/",
+        data: {
+          "email": email,
+        },
+      );
+      print(response);
+      if (response.statusCode == 200) {
+        showCustomSnackbar(
+            context,
+            "Permintaan Berhasil",
+            "Permintaan Reset kata sandi telah dikirimkan ke alamat email anda",
+            ContentType.success);
+        Future.delayed(const Duration(seconds: 3), () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const LoginScreen()));
+        });
+        print(response.data);
+        return true;
+      }
+      return false;
+    } on DioException catch (e) {
+      print("error dio: $e");
+      showCustomSnackbar(
+          context,
+          "Permintaan Gagal",
+          "Gagal Mengirimkan Permintaan Reset kata sandi, silahkan coba lagi",
+          ContentType.failure);
+
+      return false;
+    } catch (e) {
+      print("error : $e");
+      return false;
+    }
+  }
 }
