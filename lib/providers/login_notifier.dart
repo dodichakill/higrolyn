@@ -23,4 +23,6 @@ class LoginNotifier extends ChangeNotifier {
     _errorMessage = value;
     notifyListeners();
   }
+
+  void fetchLogin() async {}
 }

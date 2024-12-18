@@ -25,7 +25,8 @@ class AuthService {
   }
 
   // Fungsi untuk login
-  Future<bool> login(context, String email, String password) async {
+  Future<bool> login(
+      BuildContext context, String email, String password) async {
     try {
       final response = await _dio.post(
         "/login/",
