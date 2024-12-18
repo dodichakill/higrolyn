@@ -9,19 +9,25 @@ import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {
-  final Dio _dio = Dio();
+  Dio _dio = Dio();
+  late SharedPreferences sharedPreferences;
+
+  // Menambahkan setter untuk sharedPreferences
+  set setSharedPreferences(SharedPreferences prefs) {
+    sharedPreferences = prefs;
+  }
+
+  // Menambahkan setter untuk dio
+  set setDio(Dio dio) {
+    _dio = dio;
+  }
 
   AuthService() {
-    _dio.options.baseUrl =
-        "https://apiv1.agrolyn.online"; // Sesuaikan URL API Anda
+    _dio.options.baseUrl = "https://apiv1.agrolyn.online";
     _dio.options.headers = {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
     };
-    // _dio.options.followRedirects = true; // Allow redirects
-    // _dio.options.validateStatus = (status) {
-    //   return status != null && status < 500; // Allow redirect codes
-    // };
   }
 
   // Fungsi untuk login

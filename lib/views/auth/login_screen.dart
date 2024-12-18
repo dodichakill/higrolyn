@@ -89,6 +89,7 @@ class LoginScreen extends StatelessWidget {
                             children: [
                               const SizedBox(height: 8),
                               TextFormField(
+                                key: const Key('email'),
                                 controller: value.emailController,
                                 decoration: InputDecoration(
                                   labelText: 'Email',
@@ -113,6 +114,7 @@ class LoginScreen extends StatelessWidget {
                             children: [
                               const SizedBox(height: 8),
                               TextFormField(
+                                key: const Key('password'),
                                 controller: value.passwordController,
                                 obscureText:
                                     true, // Menyembunyikan input password
@@ -152,6 +154,7 @@ class LoginScreen extends StatelessWidget {
                             width: double.infinity,
                             height: 56,
                             child: ElevatedButton(
+                              key: const Key('login_button'),
                               onPressed: () {
                                 if (value.keyfrom.currentState!.validate()) {
                                   value.setLoading(true);

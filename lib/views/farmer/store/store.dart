@@ -280,8 +280,10 @@ class Store extends StatelessWidget {
                                                 },
                                                 child: Container(
                                                   height: 40,
-                                                  width:
-                                                      120, // Lebar tetap untuk tombol
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.265,
                                                   alignment: Alignment
                                                       .center, // Posisikan teks di tengah
                                                   decoration: BoxDecoration(
@@ -327,8 +329,10 @@ class Store extends StatelessWidget {
                                                 },
                                                 child: Container(
                                                   height: 40,
-                                                  width:
-                                                      120, // Lebar tetap untuk tombol
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.265,
                                                   alignment: Alignment
                                                       .center, // Posisikan teks di tengah
                                                   decoration: BoxDecoration(
@@ -373,8 +377,10 @@ class Store extends StatelessWidget {
                                                 },
                                                 child: Container(
                                                   height: 40,
-                                                  width:
-                                                      120, // Lebar tetap untuk tombol
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.265,
                                                   alignment: Alignment
                                                       .center, // Posisikan teks di tengah
                                                   decoration: BoxDecoration(
