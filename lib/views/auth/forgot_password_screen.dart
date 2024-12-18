@@ -68,7 +68,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                                 AuthService()
                                     .forgotPassword(
                                       context,
-                                      emailController.text,
+                                      value.emailController.text,
                                     )
                                     .whenComplete(
                                         () => value.setLoading(false));

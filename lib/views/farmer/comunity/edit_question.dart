@@ -1,19 +1,9 @@
-import 'dart:io';
-
-import 'package:agrolyn/api/community_service.dart';
 import 'package:agrolyn/providers/community_notifer.dart';
 import 'package:agrolyn/shared/constants.dart';
-import 'package:agrolyn/shared/custom_snackbar.dart';
 import 'package:agrolyn/utils/assets_path.dart';
-import 'package:agrolyn/views/farmer/comunity/detail_community_screen.dart';
-import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
-import 'package:agrolyn/views/farmer/comunity/community_screen.dart';
 import 'package:agrolyn/widgets/dropdown_category.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:provider/provider.dart';
-import 'package:dio/dio.dart';
 
 class EditQuestion extends StatelessWidget {
   int id;

@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:agrolyn/api/auth_service.dart';
 import 'package:agrolyn/shared/constants.dart';
 import 'package:agrolyn/utils/assets_path.dart';
 import 'package:agrolyn/widgets/text_input.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -18,7 +21,9 @@ class _InformationScreenState extends State<InformationScreen> {
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController addressController = TextEditingController();
   final TextEditingController roleController = TextEditingController();
-  final TextEditingController imgController = TextEditingController();
+  late String? imgNetwork;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  late File? imageFile;
 
   bool isLoading = false;
 
@@ -35,7 +40,7 @@ class _InformationScreenState extends State<InformationScreen> {
       emailController.text = prefs.getString('email') ?? '';
       phoneController.text = prefs.getString('phone_number') ?? '';
       addressController.text = prefs.getString('address') ?? '';
-      imgController.text = prefs.getString('img_profile') ?? '';
+      imgNetwork = prefs.getString('img_profile') ?? '';
       roleController.text =
           prefs.getString('roles_id') == "2" ? "Petani" : "Umum";
     });
@@ -45,18 +50,18 @@ class _InformationScreenState extends State<InformationScreen> {
     setState(() {
       isLoading = true;
     });
-    final res = await AuthService().editProfile(
-      context,
-      nameController.text,
-      phoneController.text,
-      addressController.text,
-    );
 
-    if (res == true) {
+    var fromData = FormData.fromMap({
+      'name': nameController.text,
+      'address': addressController.text,
+      'phone_number': phoneController.text,
+    });
+
+    await AuthService().editProfile(context, fromData).whenComplete(() {
       setState(() {
         isLoading = false;
       });
-    }
+    });
   }
 
   @override
@@ -72,22 +77,21 @@ class _InformationScreenState extends State<InformationScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Form(
-              child: SingleChildScrollView(
-                child: Center(
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(16),
-                    child: Image.network(
-                      imgController.text,
-                      height: 130,
-                      width: 130,
-                      errorBuilder: (context, error, stackTrace) {
-                        return Image.asset(
-                          ImageAssets.logo,
-                          height: 130,
-                          width: 130,
-                        );
-                      },
-                    ),
+              child: Center(
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(16),
+                  child: Image.network(
+                    imgNetwork!,
+                    height: 130,
+                    width: 130,
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Image.asset(
+                        ImageAssets.logo,
+                        height: 130,
+                        width: 130,
+                      );
+                    },
                   ),
                 ),
               ),
