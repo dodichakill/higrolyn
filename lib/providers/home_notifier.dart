@@ -4,7 +4,7 @@ import 'package:agrolyn/api/weather_service.dart';
 import 'package:flutter/material.dart';
 
 class HomeNotifier extends ChangeNotifier {
-  final BuildContext context;
+  final BuildContext? context;
   Offset chatbotPosition = const Offset(8, 700);
 
   HomeNotifier({required this.context}) {

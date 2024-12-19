@@ -45,10 +45,9 @@ class AllArticleScreen extends StatelessWidget {
                     ),
                   ),
                 ],
-                indicatorColor:
-                    MyColors.primaryColorDark, // Warna garis bawah tab aktif
-                labelColor: MyColors.primaryColorDark, // Warna teks tab aktif
-                unselectedLabelColor: Colors.grey, // Warna teks tab tidak aktif
+                indicatorColor: MyColors.primaryColorDark,
+                labelColor: MyColors.primaryColorDark,
+                unselectedLabelColor: Colors.grey,
               ),
             ),
             body: TabBarView(children: [
@@ -79,9 +78,7 @@ class AllArticleScreen extends StatelessWidget {
                                             color: MyColors.primaryColorDark)),
                                   ],
                                 ),
-                                SizedBox(
-                                  height: 16,
-                                ),
+                                SizedBox(height: 16),
                                 const Text(
                                   "Baca berbagai bacaan menarik tentang pertanian di Agrolyn Artikel",
                                   maxLines: 3,
@@ -106,146 +103,146 @@ class AllArticleScreen extends StatelessWidget {
                         ? Padding(
                             padding: const EdgeInsets.only(right: 8, left: 8),
                             child: ListView.builder(
-                                shrinkWrap: true,
-                                physics: const NeverScrollableScrollPhysics(),
-                                itemCount: value.articles.length,
-                                itemBuilder: (context, index) {
-                                  var article = value.articles[
-                                      index]; // Mengambil artikel yang dipilih
-                                  return InkWell(
-                                      onTap: () {
-                                        pushWithoutNavBar(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => DetailArticle(
-                                              article:
-                                                  article, // Mengirim artikel yang dipilih ke halaman detail
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                      child: Container(
-                                        padding: const EdgeInsets.all(12.0),
-                                        margin: const EdgeInsets.only(
-                                            bottom:
-                                                8), // Memberikan sedikit jarak antar artikel
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: value.articles.length,
+                              itemBuilder: (context, index) {
+                                var article = value.articles[index];
+                                return InkWell(
+                                  key: ValueKey(article[
+                                      'title']), // Key unik berdasarkan judul artikel
+                                  onTap: () {
+                                    pushWithNavBar(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            DetailArticle(article: article),
+                                      ),
+                                    );
+                                  },
+                                  child: Container(
+                                    padding: const EdgeInsets.all(12.0),
+                                    margin: const EdgeInsets.only(bottom: 8),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(8),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.1),
+                                          blurRadius: 6,
+                                          spreadRadius: 2,
+                                          offset: const Offset(0, 2),
+                                        ),
+                                      ],
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        ClipRRect(
                                           borderRadius:
                                               BorderRadius.circular(8),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color:
-                                                  Colors.black.withOpacity(0.1),
-                                              blurRadius: 6,
-                                              spreadRadius: 2,
-                                              offset: const Offset(0, 2),
-                                            ),
-                                          ],
+                                          child: Image.network(
+                                            article['thumbnail'],
+                                            height: 100,
+                                            width: 70,
+                                            fit: BoxFit.cover,
+                                          ),
                                         ),
-                                        child: Row(
-                                          children: [
-                                            // Gambar thumbnail
-                                            ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                              child: Image.network(
-                                                article['thumbnail'],
-                                                height: 100,
-                                                width: 70,
-                                                fit: BoxFit.cover,
-                                              ),
-                                            ),
-                                            const SizedBox(width: 12),
-                                            // Kolom untuk teks (kategori, judul, waktu)
-                                            Expanded(
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
+                                        const SizedBox(width: 12),
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Row(
                                                 children: [
-                                                  Row(
-                                                    children: [
-                                                      const Icon(
-                                                          Icons
-                                                              .location_on_outlined,
-                                                          size: 11,
-                                                          color: Colors.grey),
-                                                      const SizedBox(width: 4),
-                                                      Text(
-                                                        "${article['location']}",
-                                                        style: TextStyle(
-                                                          fontSize: 12,
-                                                          color: Colors.grey,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
-                                                      ),
-                                                    ],
+                                                  const Icon(
+                                                    Icons.location_on_outlined,
+                                                    size: 11,
+                                                    color: Colors.grey,
                                                   ),
-                                                  const SizedBox(height: 2),
+                                                  const SizedBox(width: 4),
                                                   Text(
-                                                    "${article['title']}",
-                                                    style: TextStyle(
-                                                      fontSize: 16,
+                                                    "${article['location']}",
+                                                    style: const TextStyle(
+                                                      fontSize: 12,
+                                                      color: Colors.grey,
                                                       fontWeight:
                                                           FontWeight.bold,
                                                     ),
-                                                    maxLines: 2,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                  ),
-                                                  Text(
-                                                    "${article['description']}",
-                                                    style: TextStyle(
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.normal,
-                                                    ),
-                                                    maxLines: 2,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                  ),
-                                                  const SizedBox(height: 4),
-                                                  Row(
-                                                    children: [
-                                                      const Icon(
-                                                          Icons
-                                                              .calendar_month_outlined,
-                                                          size: 11,
-                                                          color: Colors.grey),
-                                                      const SizedBox(width: 4),
-                                                      FutureBuilder(
-                                                        future: formatRelativeTime(
-                                                            article[
-                                                                "released_date"]),
-                                                        builder: (context,
-                                                            snapshot) {
-                                                          if (snapshot
-                                                              .hasData) {
-                                                            return Text(
-                                                              snapshot.data
-                                                                  .toString(),
-                                                              style: TextStyle(
-                                                                fontSize: 12,
-                                                                color:
-                                                                    Colors.grey,
-                                                              ),
-                                                            );
-                                                          } else {
-                                                            return const CircularProgressIndicator(); // or some other loading indicator
-                                                          }
-                                                        },
-                                                      )
-                                                    ],
                                                   ),
                                                 ],
                                               ),
-                                            ),
-                                          ],
+                                              const SizedBox(height: 2),
+                                              Text(
+                                                "${article['title']}",
+                                                style: const TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                                maxLines: 2,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                              Text(
+                                                "${article['description']}",
+                                                style: const TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.normal,
+                                                ),
+                                                maxLines: 2,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                              const SizedBox(height: 4),
+                                              Row(
+                                                children: [
+                                                  const Icon(
+                                                    Icons
+                                                        .calendar_month_outlined,
+                                                    size: 11,
+                                                    color: Colors.grey,
+                                                  ),
+                                                  const SizedBox(width: 4),
+                                                  FutureBuilder(
+                                                    future: formatRelativeTime(
+                                                        article[
+                                                            "released_date"]),
+                                                    builder:
+                                                        (context, snapshot) {
+                                                      if (snapshot
+                                                              .connectionState ==
+                                                          ConnectionState
+                                                              .waiting) {
+                                                        return const CircularProgressIndicator(); // Menampilkan loading saat data belum ada
+                                                      } else if (snapshot
+                                                          .hasError) {
+                                                        return Text(
+                                                            "Error: ${snapshot.error}");
+                                                      } else if (snapshot
+                                                          .hasData) {
+                                                        return Text(
+                                                          snapshot.data
+                                                              .toString(),
+                                                          style:
+                                                              const TextStyle(
+                                                                  fontSize: 12,
+                                                                  color: Colors
+                                                                      .grey),
+                                                        );
+                                                      }
+                                                      return const Text(
+                                                          "No data available");
+                                                    },
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
                                         ),
-                                      ));
-                                }),
-                          )
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
+                            ))
                         : const Center(
                             child: Text("No articles available"),
                           ),
@@ -265,9 +262,7 @@ class AllArticleScreen extends StatelessWidget {
                             width: 200,
                             child: Lottie.asset(ImageAssets.videos),
                           ),
-                          SizedBox(
-                            width: 8,
-                          ),
+                          SizedBox(width: 8),
                           Expanded(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -287,9 +282,7 @@ class AllArticleScreen extends StatelessWidget {
                                             color: MyColors.primaryColorDark)),
                                   ],
                                 ),
-                                SizedBox(
-                                  height: 16,
-                                ),
+                                SizedBox(height: 16),
                                 const Text(
                                   "Tonton berbagai tontonan edukasi menarik tentang pertanian di Agrolyn Video Edukasi",
                                   maxLines: 3,
@@ -315,8 +308,7 @@ class AllArticleScreen extends StatelessWidget {
                           final video = value.videos[index];
 
                           return Container(
-                            margin: const EdgeInsets.only(
-                                bottom: 8), // Atur jarak antar video
+                            margin: const EdgeInsets.only(bottom: 8),
                             decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(16),
@@ -332,7 +324,6 @@ class AllArticleScreen extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                // Thumbnail video
                                 ClipRRect(
                                   borderRadius: const BorderRadius.only(
                                     topLeft: Radius.circular(16),
@@ -351,7 +342,6 @@ class AllArticleScreen extends StatelessWidget {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      // Judul video
                                       Text(
                                         video['title'],
                                         maxLines: 1,
@@ -362,7 +352,6 @@ class AllArticleScreen extends StatelessWidget {
                                         ),
                                       ),
                                       const SizedBox(height: 4),
-                                      // Deskripsi video
                                       Text(
                                         video['description'],
                                         maxLines: 2,
@@ -373,7 +362,6 @@ class AllArticleScreen extends StatelessWidget {
                                         ),
                                       ),
                                       const SizedBox(height: 8),
-                                      // Tombol lainnya
                                       InkWell(
                                         onTap: () {
                                           showVideoDialog(
@@ -384,13 +372,11 @@ class AllArticleScreen extends StatelessWidget {
                                         child: Container(
                                           height: 40,
                                           width: double.infinity,
-                                          alignment: Alignment
-                                              .center, // Posisikan teks di tengah
+                                          alignment: Alignment.center,
                                           decoration: BoxDecoration(
-                                            color: MyColors
-                                                .primaryColorDark, // Warna tombol
-                                            borderRadius: BorderRadius.circular(
-                                                8), // Sudut melengkung
+                                            color: MyColors.primaryColorDark,
+                                            borderRadius:
+                                                BorderRadius.circular(8),
                                             boxShadow: [
                                               BoxShadow(
                                                 color: Colors.black
@@ -404,7 +390,7 @@ class AllArticleScreen extends StatelessWidget {
                                             "Lihat",
                                             style: TextStyle(
                                               fontWeight: FontWeight.bold,
-                                              color: Colors.white, // Warna teks
+                                              color: Colors.white,
                                               fontSize: 14,
                                             ),
                                           ),
@@ -421,7 +407,7 @@ class AllArticleScreen extends StatelessWidget {
                     )
                   ],
                 ),
-              )
+              ),
             ]),
           ),
         ),

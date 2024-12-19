@@ -85,6 +85,7 @@ class RegisterScreen extends StatelessWidget {
                             children: [
                               const SizedBox(height: 8),
                               TextFormField(
+                                key: const Key('name'),
                                 controller: value.nameController,
                                 decoration: InputDecoration(
                                   labelText: 'Nama',
@@ -109,6 +110,7 @@ class RegisterScreen extends StatelessWidget {
                             children: [
                               const SizedBox(height: 8),
                               TextFormField(
+                                key: const Key('email'),
                                 controller: value.emailController,
                                 decoration: InputDecoration(
                                   labelText: 'Email',
@@ -133,6 +135,7 @@ class RegisterScreen extends StatelessWidget {
                             children: [
                               const SizedBox(height: 8),
                               TextFormField(
+                                key: const Key('phone'),
                                 controller: value.phoneController,
                                 decoration: InputDecoration(
                                   labelText: 'Nomor Hp',
@@ -158,6 +161,7 @@ class RegisterScreen extends StatelessWidget {
                             children: [
                               const SizedBox(height: 8),
                               TextFormField(
+                                key: const Key('address'),
                                 controller: value.addressController,
                                 decoration: InputDecoration(
                                   labelText: 'Alamat',
@@ -182,6 +186,7 @@ class RegisterScreen extends StatelessWidget {
                             children: [
                               const SizedBox(height: 8),
                               TextFormField(
+                                key: const Key('password'),
                                 controller: value.passwordController,
                                 obscureText: true,
                                 decoration: InputDecoration(
@@ -207,6 +212,7 @@ class RegisterScreen extends StatelessWidget {
                             children: [
                               const SizedBox(height: 8),
                               TextFormField(
+                                key: const Key('retype_password'),
                                 controller: value.retypePasswordController,
                                 obscureText: true,
                                 decoration: InputDecoration(
@@ -227,10 +233,13 @@ class RegisterScreen extends StatelessWidget {
                           const SizedBox(height: 16),
 
                           // Section: Sign Up Button
+                          // Section: Sign Up Button
                           SizedBox(
                             width: double.infinity,
                             height: 56,
                             child: ElevatedButton(
+                              key: const Key(
+                                  'register_button'), // Tetapkan kunci di sini
                               onPressed: () async {
                                 value.setLoading(true);
 
