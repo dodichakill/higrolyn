@@ -35,11 +35,9 @@ class Profile extends StatelessWidget {
                           width: double.infinity,
                           height: 168,
                           child: Padding(
-                            padding: const EdgeInsets.only(
-                                top: 8, bottom: 16, left: 16, right: 16),
+                            padding: const EdgeInsets.all(20.0),
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 FutureBuilder(
                                     future: SharedPreferences.getInstance(),
@@ -58,122 +56,142 @@ class Profile extends StatelessWidget {
                                                 '';
                                         String roleId =
                                             prefs.getString('roles_id') ?? '';
-                                        return Row(children: [
-                                          Row(
-                                            children: [
-                                              ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(16),
-                                                child: Image.network(
-                                                  imgProfile,
-                                                  height: 70,
-                                                  width: 70,
-                                                  errorBuilder: (context, error,
-                                                      stackTrace) {
-                                                    return Image.asset(
-                                                      ImageAssets.logo,
+                                        return Row(
+                                          children: [
+                                            Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  padding:
+                                                      const EdgeInsets.all(4),
+                                                  decoration:
+                                                      const BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                16)),
+                                                  ),
+                                                  child: ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            16),
+                                                    child: Image.network(
+                                                      imgProfile,
                                                       height: 70,
                                                       width: 70,
-                                                    );
-                                                  },
+                                                      fit: BoxFit.cover,
+                                                      errorBuilder: (context,
+                                                          error, stackTrace) {
+                                                        return Image.asset(
+                                                          ImageAssets.logo,
+                                                          height: 70,
+                                                          width: 70,
+                                                        );
+                                                      },
+                                                    ),
+                                                  ),
                                                 ),
-                                              ),
-                                              const SizedBox(
-                                                width: 12,
-                                              ),
-                                              Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    name,
-                                                    style: const TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 18,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
+                                                const SizedBox(height: 4),
+                                                Container(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(
+                                                      horizontal: 10,
+                                                      vertical: 8),
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.green[700],
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            16),
                                                   ),
-                                                  const SizedBox(
-                                                    height: 4,
-                                                  ),
-                                                  Text(
-                                                    email,
-                                                    style: const TextStyle(
-                                                      color: Colors.white,
-                                                      fontWeight:
-                                                          FontWeight.normal,
-                                                      fontSize: 12,
-                                                    ),
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 4,
-                                                  ),
-                                                  Row(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.min,
                                                     children: [
                                                       const Icon(
-                                                        Icons.location_on,
+                                                        Icons.person,
                                                         color: Colors.white,
                                                         size: 14,
                                                       ),
                                                       const SizedBox(width: 4),
                                                       Text(
-                                                        address,
+                                                        roleId == "2"
+                                                            ? "Petani"
+                                                            : "Umum",
                                                         style: const TextStyle(
                                                           color: Colors.white,
-                                                          fontWeight:
-                                                              FontWeight.normal,
                                                           fontSize: 12,
+                                                          fontWeight:
+                                                              FontWeight.bold,
                                                         ),
                                                       ),
                                                     ],
                                                   ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                          const SizedBox(
-                                            width: 20,
-                                          ),
-                                          Container(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 10, vertical: 8),
-                                            decoration: BoxDecoration(
-                                              color: Colors.green[700],
-                                              borderRadius:
-                                                  BorderRadius.circular(16),
+                                                )
+                                              ],
                                             ),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.min,
+                                            const SizedBox(
+                                              width: 16,
+                                            ),
+                                            Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               children: [
-                                                const Icon(
-                                                  Icons.person,
-                                                  color: Colors.white,
-                                                  size: 14,
-                                                ),
-                                                const SizedBox(width: 4),
                                                 Text(
-                                                  roleId == "2"
-                                                      ? "Petani"
-                                                      : "Umum",
+                                                  name,
                                                   style: const TextStyle(
                                                     color: Colors.white,
-                                                    fontSize: 12,
+                                                    fontSize: 22,
                                                     fontWeight: FontWeight.bold,
                                                   ),
                                                 ),
+                                                const SizedBox(
+                                                  height: 4,
+                                                ),
+                                                Text(
+                                                  email,
+                                                  style: const TextStyle(
+                                                    color: Colors.white,
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                    fontSize: 16,
+                                                  ),
+                                                ),
+                                                const SizedBox(
+                                                  height: 4,
+                                                ),
+                                                Row(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    const Icon(
+                                                      Icons.location_on,
+                                                      color: Colors.white,
+                                                      size: 16,
+                                                    ),
+                                                    const SizedBox(width: 4),
+                                                    Text(
+                                                      address,
+                                                      style: const TextStyle(
+                                                        color: Colors.white,
+                                                        fontWeight:
+                                                            FontWeight.normal,
+                                                        fontSize: 16,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
                                               ],
                                             ),
-                                          )
-                                        ]);
+                                          ],
+                                        );
                                       } else {
                                         return const CircularProgressIndicator();
                                       }
@@ -204,7 +222,7 @@ class Profile extends StatelessWidget {
                                 pushWithoutNavBar(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => ReviewScreen(),
+                                    builder: (context) => const ReviewScreen(),
                                   ),
                                 );
                               },

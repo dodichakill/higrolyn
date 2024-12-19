@@ -28,10 +28,13 @@ class AuthService {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
     };
+    // _dio.options.followRedirects = true;
+    // _dio.options.validateStatus = (status) => true;
   }
 
   // Fungsi untuk login
-  Future<bool> login(context, String email, String password) async {
+  Future<bool> login(
+      BuildContext context, String email, String password) async {
     try {
       final response = await _dio.post(
         "/login/",
@@ -120,17 +123,13 @@ class AuthService {
   }
 
   // edit profile
-  Future<bool> editProfile(
-      context, String name, String phoneNumber, String address) async {
+  Future<bool> editProfile(context, FormData formData) async {
+    print(formData.fields);
     try {
       final token = await getToken();
       final response = await _dio.put(
         "/edit-profile/",
-        data: {
-          "name": name.toString(),
-          "phone_number": phoneNumber.toString(),
-          "address": address.toString(),
-        },
+        data: formData,
         options: Options(headers: {
           'Authorization': 'Bearer $token',
         }),
@@ -138,9 +137,9 @@ class AuthService {
       // print(response);
       if (response.statusCode == 200) {
         SharedPreferences prefs = await SharedPreferences.getInstance();
-        await prefs.setString('name', name);
-        await prefs.setString('address', address);
-        await prefs.setString('phone_number', phoneNumber);
+        await prefs.setString('name', formData.fields[0].value);
+        await prefs.setString('address', formData.fields[1].value);
+        await prefs.setString('phone_number', formData.fields[2].value);
         PersistentTabController profile =
             PersistentTabController(initialIndex: 4);
 
@@ -225,6 +224,47 @@ class AuthService {
         showCustomSnackbar(context, "Gagal Logout",
             "Logout gagal, silahkan dicoba lagi", ContentType.failure);
       }
+    }
+  }
+
+  // reset password
+  Future<bool> forgotPassword(context, String email) async {
+    print(email);
+    try {
+      final response = await _dio.post(
+        "/forgot_password/",
+        data: {
+          "email": email.toString(),
+        },
+        options: Options(headers: {
+          'Content-Type': 'application/json',
+        }),
+      );
+      print(response);
+      if (response.statusCode == 200) {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const LoginScreen()));
+        showCustomSnackbar(
+            context,
+            "Permintaan Berhasil",
+            "Permintaan Reset kata sandi telah dikirimkan ke alamat email anda",
+            ContentType.success);
+        print(response.data);
+        return true;
+      }
+      return false;
+    } on DioException catch (e) {
+      print("error dio: $e");
+      showCustomSnackbar(
+          context,
+          "Permintaan Gagal",
+          "Gagal Mengirimkan Permintaan Reset kata sandi, silahkan coba lagi",
+          ContentType.failure);
+
+      return false;
+    } catch (e) {
+      print("error : $e");
+      return false;
     }
   }
 }

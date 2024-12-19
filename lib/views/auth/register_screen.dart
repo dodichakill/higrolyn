@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:ui';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({super.key});
@@ -21,318 +22,357 @@ class RegisterScreen extends StatelessWidget {
             children: [
               Positioned.fill(
                 child: IgnorePointer(
-                  child: Lottie.asset(
-                    ImageAssets.backgorundAnimation1,
-                    fit: BoxFit.cover,
-                  ),
+                  child: Image.asset(ImageAssets.bgSore,
+                      fit: BoxFit.cover, height: double.infinity),
                 ),
               ),
               Form(
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        top: 32, right: 16, left: 16, bottom: 16),
-                    child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Center(
-                            child: Column(
-                              children: [
-                                const SizedBox(height: 16),
-                                Image.asset(
-                                  ImageAssets.logo,
-                                  height: 192,
-                                  width: 192,
-                                ),
-                                const SizedBox(height: 16),
-                                const Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Daftar',
-                                      style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white),
-                                    ),
-                                    SizedBox(
-                                      width: 4,
-                                    ),
-                                    Text(
-                                      'Agrolyn',
-                                      style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
-                                          color: MyColors.primaryColor),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 8),
-                                const Text(
-                                  'Daftar Akun Untuk Mengakses Aplikasi',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ],
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Center(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: 20.0, sigmaY: 20.0),
+                        child: Container(
+                          height: MediaQuery.of(context).size.height - 80,
+                          decoration: BoxDecoration(
+                            color: Colors.white
+                                .withOpacity(0.2), // Semi-transparent color
+                            borderRadius: BorderRadius.circular(20.0),
+                            border: Border.all(
+                              color:
+                                  Colors.white.withOpacity(0.4), // Border color
+                              width: 1.5,
                             ),
                           ),
-                          const SizedBox(height: 32),
-
-                          // Section: Name Field
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const SizedBox(height: 8),
-                              TextFormField(
-                                key: const Key('name'),
-                                controller: value.nameController,
-                                decoration: InputDecoration(
-                                  labelText: 'Nama',
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(16),
-                                  ),
-                                ),
-                                validator: (e) {
-                                  if (e!.isEmpty) {
-                                    return "Nama Tidak boleh kosong";
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 16),
-
-                          // Section: Email Field
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const SizedBox(height: 8),
-                              TextFormField(
-                                key: const Key('email'),
-                                controller: value.emailController,
-                                decoration: InputDecoration(
-                                  labelText: 'Email',
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(16),
-                                  ),
-                                ),
-                                validator: (e) {
-                                  if (e!.isEmpty) {
-                                    return "Email Tidak boleh kosong";
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ],
-                          ),
-
-                          const SizedBox(height: 16),
-                          // Section: Phone Number Field
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const SizedBox(height: 8),
-                              TextFormField(
-                                key: const Key('phone'),
-                                controller: value.phoneController,
-                                decoration: InputDecoration(
-                                  labelText: 'Nomor Hp',
-                                  prefix: const Text('+62 '),
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(16),
-                                  ),
-                                ),
-                                validator: (e) {
-                                  if (e!.isEmpty) {
-                                    return "Nomor HP Tidak boleh kosong";
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 8),
-
-                          // Section: Address Field
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const SizedBox(height: 8),
-                              TextFormField(
-                                key: const Key('address'),
-                                controller: value.addressController,
-                                decoration: InputDecoration(
-                                  labelText: 'Alamat',
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(16),
-                                  ),
-                                ),
-                                validator: (e) {
-                                  if (e!.isEmpty) {
-                                    return "Alamat Tidak boleh kosong";
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 8),
-
-                          // Section: Password Field
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const SizedBox(height: 8),
-                              TextFormField(
-                                key: const Key('password'),
-                                controller: value.passwordController,
-                                obscureText: true,
-                                decoration: InputDecoration(
-                                  labelText: 'Password',
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(16),
-                                  ),
-                                ),
-                                validator: (e) {
-                                  if (e!.isEmpty) {
-                                    return "Password Tidak boleh kosong";
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 16),
-
-                          // Section: Confirm Password Field
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const SizedBox(height: 8),
-                              TextFormField(
-                                key: const Key('retype_password'),
-                                controller: value.retypePasswordController,
-                                obscureText: true,
-                                decoration: InputDecoration(
-                                  labelText: 'Konfirmasi Password',
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(16),
-                                  ),
-                                ),
-                                validator: (e) {
-                                  if (e!.isEmpty) {
-                                    return "Konfirmasi Password Tidak boleh kosong";
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 16),
-
-                          // Section: Sign Up Button
-                          // Section: Sign Up Button
-                          SizedBox(
-                            width: double.infinity,
-                            height: 56,
-                            child: ElevatedButton(
-                              key: const Key(
-                                  'register_button'), // Tetapkan kunci di sini
-                              onPressed: () async {
-                                value.setLoading(true);
-
-                                SharedPreferences prefs =
-                                    await SharedPreferences.getInstance();
-                                String? id = prefs.getString('role_choice');
-                                print(
-                                    "${int.parse(id ?? '0')} ${value.nameController.text} ${value.emailController.text} ${value.phoneController.text} ${value.addressController.text} ${value.passwordController.text}");
-                                // if (value.keyfrom.currentState!.validate()) {
-                                AuthService()
-                                    .register(
-                                        context,
-                                        int.parse(id!),
-                                        value.nameController.text,
-                                        value.emailController.text,
-                                        value.phoneController.text,
-                                        value.addressController.text,
-                                        value.passwordController.text)
-                                    .whenComplete(
-                                        () => value.setLoading(false));
-                                // }
-                              },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.green,
-                              ),
-                              child: value.isLoading
-                                  ? const CircularProgressIndicator(
-                                      color: Colors.white,
-                                    )
-                                  : const Text(
-                                      'Daftar',
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                            ),
-                          ),
-                          const SizedBox(height: 16),
-
-                          // Section: Register Option
-                          Center(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Text(
-                                  'Sudah Punya Akun ?',
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const LoginScreen()),
-                                    );
-                                  },
-                                  child: const Text(
-                                    'Masuk',
-                                    style: TextStyle(
-                                      color: Colors.green,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-
-                          InkWell(
-                            onTap: () {},
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 16, vertical: 16),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(16),
-                                color: Colors.white,
-                              ),
-                              child: Stack(
+                          child: SingleChildScrollView(
+                            child: Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Image.asset(
-                                    ImageAssets.logoGoogle,
-                                    height: 24,
+                                  Center(
+                                    child: Column(
+                                      children: [
+                                        const SizedBox(height: 16),
+                                        Image.asset(
+                                          ImageAssets.logo,
+                                          height: 192,
+                                          width: 192,
+                                        ),
+                                        const SizedBox(height: 16),
+                                        const Text(
+                                          'Daftar Akun',
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white),
+                                        ),
+                                        const SizedBox(height: 8),
+                                        const Text(
+                                          'Daftar Akun Untuk Mengakses Aplikasi',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                  const Center(
-                                    child:
-                                        Text("Daftar Menggunakan Akun Google"),
-                                  )
+                                  const SizedBox(height: 32),
+
+                                  // Section: Name Field
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const SizedBox(height: 8),
+                                      TextFormField(
+                                        controller: value.nameController,
+                                        decoration: InputDecoration(
+                                          labelText: 'Nama',
+                                          labelStyle: const TextStyle(
+                                              color: Colors
+                                                  .white), // Warna teks label
+                                          enabledBorder: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(16),
+                                            borderSide: const BorderSide(
+                                                color: Colors
+                                                    .white), // Border saat tidak fokus
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(16),
+                                            borderSide: const BorderSide(
+                                                color: Colors
+                                                    .white), // Border saat fokus
+                                          ),
+                                        ),
+                                        style: const TextStyle(
+                                            color: Colors.white),
+                                        validator: (e) {
+                                          if (e!.isEmpty) {
+                                            return "Nama Tidak boleh kosong";
+                                          }
+                                          return null;
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 16),
+
+                                  // Section: Email Field
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const SizedBox(height: 8),
+                                      TextFormField(
+                                        controller: value.emailController,
+                                        decoration: InputDecoration(
+                                          labelText: 'Email',
+                                          labelStyle: const TextStyle(
+                                              color: Colors
+                                                  .white), // Warna teks label
+                                          enabledBorder: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(16),
+                                            borderSide: const BorderSide(
+                                                color: Colors
+                                                    .white), // Border saat tidak fokus
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(16),
+                                            borderSide: const BorderSide(
+                                                color: Colors
+                                                    .white), // Border saat fokus
+                                          ),
+                                        ),
+                                        style: const TextStyle(
+                                            color: Colors.white),
+                                        validator: (e) {
+                                          if (e!.isEmpty) {
+                                            return "Email Tidak boleh kosong";
+                                          }
+                                          return null;
+                                        },
+                                      ),
+                                    ],
+                                  ),
+
+                                  const SizedBox(height: 16),
+                                  // Section: Phone Number Field
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const SizedBox(height: 8),
+                                      TextFormField(
+                                        controller: value.phoneController,
+                                        decoration: InputDecoration(
+                                          labelText: 'Nomor Hp',
+                                          prefix: const Text(
+                                            '+62 ',
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          ),
+                                          labelStyle: const TextStyle(
+                                              color: Colors
+                                                  .white), // Warna teks label
+                                          enabledBorder: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(16),
+                                            borderSide: const BorderSide(
+                                                color: Colors
+                                                    .white), // Border saat tidak fokus
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(16),
+                                            borderSide: const BorderSide(
+                                                color: Colors
+                                                    .white), // Border saat fokus
+                                          ),
+                                        ),
+                                        style: const TextStyle(
+                                            color: Colors.white),
+                                        validator: (e) {
+                                          if (e!.isEmpty) {
+                                            return "Nomor HP Tidak boleh kosong";
+                                          }
+                                          return null;
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 8),
+
+                                  // Section: Address Field
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const SizedBox(height: 8),
+                                      TextFormField(
+                                        controller: value.addressController,
+                                        decoration: InputDecoration(
+                                          labelText: 'Alamat',
+                                          labelStyle: const TextStyle(
+                                              color: Colors
+                                                  .white), // Warna teks label
+                                          enabledBorder: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(16),
+                                            borderSide: const BorderSide(
+                                                color: Colors
+                                                    .white), // Border saat tidak fokus
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(16),
+                                            borderSide: const BorderSide(
+                                                color: Colors
+                                                    .white), // Border saat fokus
+                                          ),
+                                        ),
+                                        style: const TextStyle(
+                                            color: Colors.white),
+                                        validator: (e) {
+                                          if (e!.isEmpty) {
+                                            return "Alamat Tidak boleh kosong";
+                                          }
+                                          return null;
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 16),
+
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const SizedBox(height: 8),
+                                      TextFormField(
+                                        controller: value.passwordController,
+                                        obscureText: true,
+                                        decoration: InputDecoration(
+                                          labelText: 'Kata Sandi',
+                                          labelStyle: const TextStyle(
+                                              color: Colors
+                                                  .white), // Warna teks label
+                                          enabledBorder: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(16),
+                                            borderSide: const BorderSide(
+                                                color: Colors
+                                                    .white), // Border saat tidak fokus
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(16),
+                                            borderSide: const BorderSide(
+                                                color: Colors
+                                                    .white), // Border saat fokus
+                                          ),
+                                        ),
+                                        style: const TextStyle(
+                                            color: Colors
+                                                .white), // Warna teks input
+                                        validator: (e) {
+                                          if (e!.isEmpty) {
+                                            return "Kata Sandi Tidak boleh kosong";
+                                          }
+                                          return null;
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 16),
+
+                                  // Section: Sign Up Button
+                                  SizedBox(
+                                    width: double.infinity,
+                                    height: 56,
+                                    child: ElevatedButton(
+                                      onPressed: () async {
+                                        value.setLoading(true);
+
+                                        SharedPreferences prefs =
+                                            await SharedPreferences
+                                                .getInstance();
+                                        String? id =
+                                            prefs.getString('role_choice');
+                                        print(
+                                            "${int.parse(id ?? '0')} ${value.nameController.text} ${value.emailController.text} ${value.phoneController.text} ${value.addressController.text} ${value.passwordController.text}");
+                                        // if (value.keyfrom.currentState!
+                                        //     .validate()) {
+                                        AuthService()
+                                            .register(
+                                                context,
+                                                int.parse(id!),
+                                                value.nameController.text,
+                                                value.emailController.text,
+                                                value.phoneController.text,
+                                                value.addressController.text,
+                                                value.passwordController.text)
+                                            .whenComplete(
+                                                () => value.setLoading(false));
+                                        // }
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.green,
+                                      ),
+                                      child: value.isLoading
+                                          ? const CircularProgressIndicator(
+                                              color: Colors.white,
+                                            )
+                                          : const Text(
+                                              'Daftar',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 16),
+
+                                  // Section: Register Option
+                                  Center(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        const Text(
+                                          'Sudah Punya Akun ?',
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const LoginScreen()),
+                                            );
+                                          },
+                                          child: const Text(
+                                            'Masuk',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),
-                          )
-                        ],
+                          ),
+                        ),
                       ),
                     ),
                   ),
