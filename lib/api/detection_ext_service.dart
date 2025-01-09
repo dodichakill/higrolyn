@@ -15,7 +15,7 @@ class DetectionExtService {
   final Dio _dio = Dio();
 
   DetectionExtService() {
-    _dio.options.baseUrl = "http://194.31.53.102:5025";
+    _dio.options.baseUrl = "https://linggashop.my.id/disease-predict/";
     _dio.options.headers = {
       'Accept': 'application/json',
     };
@@ -28,9 +28,9 @@ class DetectionExtService {
     try {
       final Response response;
       if (type == 'Jagung') {
-        response = await _dio.post("/corn-disease-predict", data: formData);
+        response = await _dio.post("corn", data: formData);
       } else {
-        response = await _dio.post("/rice-disease-predict", data: formData);
+        response = await _dio.post("rice", data: formData);
       }
 
       // print(response);

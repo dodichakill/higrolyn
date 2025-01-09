@@ -1,56 +1,92 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
-import 'package:agrolyn/models/chat_new_model.dart';
-import 'package:flutter_gemini/flutter_gemini.dart';
+import 'package:agrolyn/api/chatbot_service.dart';
 
 class ChatbotNotifier extends ChangeNotifier {
   final BuildContext context;
   TextEditingController chat = TextEditingController();
-  final Gemini gemini = Gemini.instance;
-  List<ChatNewModel> list = [];
+  TextEditingController chatGroq = TextEditingController();
+  List<Map<String, dynamic>> list = [];
+  List<Map<String, dynamic>> listGroq = [];
+  bool _isLoading = false;
+
+  bool get isLoading => _isLoading;
 
   ChatbotNotifier({required this.context});
 
-  void submit(String value) {
-    var newChat = ChatNewModel(
-      id: list.isEmpty ? 1 : list.last.id + 1,
-      posisi: "kanan",
-      chat: value,
-      createdDate: DateTime.now().toString(),
-      type: "text",
-      status: "receive",
-    );
-
-    list.insert(0, newChat);
-    chat.clear();
+  void setLoading(bool value) {
+    _isLoading = value;
     notifyListeners();
-
-    gemini.streamGenerateContent(newChat.chat).listen((e) {
-      var response = ChatNewModel(
-        id: list.first.id + 1,
-        posisi: "kiri",
-        chat:
-            e.content!.parts?.fold("", (prev, part) => "$prev ${part.text}") ??
-                "",
-        createdDate: DateTime.now().toString(),
-        type: "text",
-        status: "receive",
-      );
-
-      list.insert(0, response);
-      notifyListeners();
-    });
   }
 
-  void getData() async {
-    Dio dio = Dio();
-    final response = await dio.get("https://tegaldev.metimes.id/chat-sample");
-    final data = jsonDecode(response.data);
+  void submit(String value) async {
+    try {
+      setLoading(true);
+      print('Submitting prompt: $value'); // Log prompt yang dikirim
+      // Kirim prompt ke API menggunakan ChatbotService
+      var response = await ChatbotService().fetchChatbotData({
+        "prompt": value,
+      });
 
-    list = [
-      for (Map<String, dynamic> i in data['data']) ChatNewModel.fromJson(i)
-    ];
-    notifyListeners();
+      print('Received response: $response'); // Log respons yang diterima
+
+      // Menambahkan prompt pengguna ke dalam list
+      var userMessage = {
+        "message": value,
+        "res_answer": "kanan", // Posisi pengguna (kanan)
+      };
+
+      list.insert(0, userMessage);
+
+      // Menambahkan respons chatbot ke dalam list
+      var chatbotResponse = {
+        "message": response['res_answer'], // Tampilkan jawaban dari chatbot
+        "res_answer": "kiri", // Posisi chatbot (kiri)
+      };
+
+      list.insert(0, chatbotResponse);
+      chat.clear();
+      setLoading(false);
+      notifyListeners();
+    } catch (e) {
+      print('Error in submit: $e');
+      setLoading(false);
+      // Tangani kesalahan dengan lebih baik, misalnya dengan menampilkan pesan kesalahan kepada pengguna
+    }
+  }
+
+  void submitGroq(String value) async {
+    try {
+      setLoading(true);
+      print('Submitting prompt: $value'); // Log prompt yang dikirim
+      // Kirim prompt ke API menggunakan ChatbotService
+      var response = await ChatbotService().fetchChatbotDataGroq({
+        "prompt": value,
+      });
+
+      print('Received response: $response'); // Log respons yang diterima
+
+      // Menambahkan prompt pengguna ke dalam list
+      var userMessage = {
+        "message": value,
+        "res_answer": "kanan", // Posisi pengguna (kanan)
+      };
+
+      listGroq.insert(0, userMessage);
+
+      // Menambahkan respons chatbot ke dalam list
+      var chatbotResponse = {
+        "message": response['res_answer'], // Tampilkan jawaban dari chatbot
+        "res_answer": "kiri", // Posisi chatbot (kiri)
+      };
+
+      listGroq.insert(0, chatbotResponse);
+      chatGroq.clear();
+      setLoading(false);
+      notifyListeners();
+    } catch (e) {
+      print('Error in submit: $e');
+      setLoading(false);
+      // Tangani kesalahan dengan lebih baik, misalnya dengan menampilkan pesan kesalahan kepada pengguna
+    }
   }
 }

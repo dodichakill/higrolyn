@@ -52,4 +52,11 @@ class ImageAssets {
   static String forgot = "$root/forgot.webp";
   static String bgPagi = "$root/bg-p.webp";
   static String bgSore = "$root/bg-s.webp";
+  static String bni = "$root/BBNI.JK-69fac82a.png";
+  static String gopay = "$root/download (2).png";
+  static String bca = "$root/images (5).png";
+  static String bri = "$root/Logo_Bank_Rakyat_Indonesia.svg";
+  static String meta = "$root/1_BMalqlcJIFe50hidF4FnqQ.png";
+  static String groq = "$root/groq-logo.png";
+  static String notFound404 = "$lotties/404.json";
 }
