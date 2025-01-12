@@ -194,4 +194,52 @@ class StoreNotifier extends ChangeNotifier {
     notifyListeners();
     return result;
   }
+
+  Future<void> editProduct(
+      BuildContext context,
+      int id,
+      String nameProduct,
+      String descProduct,
+      int price,
+      int stock,
+      String categoryIdProduct,
+      File imageProduct) async {
+    try {
+      final formData = FormData.fromMap({
+        "product_name": nameProduct,
+        "desc_product": descProduct,
+        "price": price,
+        "stock": stock,
+        "product_categories_id": categoryIdProduct,
+        "img_product": await MultipartFile.fromFile(imageProduct.path),
+      });
+
+      print("ID Produk: $id");
+      print("Form Data: $formData");
+
+      final result = await StoreService().updateProduct(
+          context,
+          id,
+          nameProduct,
+          descProduct,
+          price,
+          stock,
+          categoryIdProduct,
+          imageProduct);
+      if (result == "Produk berhasil diubah") {
+        Navigator.pop(context, true);
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Produk berhasil diubah")),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Produk gagal diubah: $result")),
+        );
+      }
+    } catch (error) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Error: $error")),
+      );
+    }
+  }
 }

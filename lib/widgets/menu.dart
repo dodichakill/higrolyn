@@ -31,7 +31,7 @@ class Menu extends StatelessWidget {
             ),
           ),
           PersistentTabConfig(
-            screen: const Store(),
+            screen: Store(),
             item: ItemConfig(
               activeForegroundColor: Colors.green,
               icon: const Icon(Icons.store),

@@ -12,7 +12,8 @@ import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:provider/provider.dart';
 
 class Store extends StatelessWidget {
-  const Store({super.key});
+  Map<String, dynamic> product = {};
+  Store({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -323,7 +324,8 @@ class Store extends StatelessWidget {
                                                     MaterialPageRoute(
                                                       builder: (context) =>
                                                           EditProduct(
-                                                              product: product),
+                                                        product: product,
+                                                      ),
                                                     ),
                                                   );
                                                 },

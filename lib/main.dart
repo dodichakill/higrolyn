@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 
 void main() async {
-  Gemini.init(apiKey: "AIzaSyCA40wBU3zgPyr3bYc9zP3WMWb53HsyoWM");
-  WidgetsFlutterBinding.ensureInitialized();
+  // Gemini.init(apiKey: "AIzaSyCA40wBU3zgPyr3bYc9zP3WMWb53HsyoWM");
+  // WidgetsFlutterBinding.ensureInitialized();
 
   runApp(const MyApp());
 }

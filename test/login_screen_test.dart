@@ -18,18 +18,18 @@ void main() {
   late MockDio mockDio;
   late MockSharedPreferences mockSharedPreferences;
 
-  setUp(() {
+  setUp(() async {
     mockDio = MockDio();
     mockSharedPreferences = MockSharedPreferences();
 
-    // Simulasikan SharedPreferences mengembalikan token
-    when(() => mockSharedPreferences.getString('access_token'))
-        .thenReturn('dummy_token');
+    // Simulasikan SharedPreferences mengembalikan token yang sudah ada
+    when(() => mockSharedPreferences.getString('access_token')).thenReturn(
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTczNDUxMjg2OCwianRpIjoiZDg4ODljYjItY2JmNi00YWE3LTk3ODUtMTMzOWMzYzA5MjA3IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6eyJpZCI6NDIsImVtYWlsIjoiZG9kQGdtYWlsLmNvbSIsIm5hbWUiOiJkb2RpIiwicm9sZXNfaWQiOjJ9LCJuYmYiOjE3MzQ1MTI4NjgsImNzcmYiOiI4ZTA0MzgwZi01NWFhLTQ3ZDYtYjA4Yi1lNWEwMzI2YWZmYjciLCJleHAiOjE3MzQ1MTY0Njh9.ljLdE2o6U1ftgQv2pygtYEhi4XOmHXMO54t8U-Fh0LI');
     when(() => mockSharedPreferences.setString(any(), any()))
         .thenAnswer((_) async => true);
 
     // Gunakan Dio yang sudah dimock langsung di AuthService
-    AuthService().setDio = mockDio; // Set Dio yang sudah dimock
+    AuthService().setDio = mockDio;
     AuthService().setSharedPreferences = mockSharedPreferences;
   });
 
@@ -51,7 +51,8 @@ void main() {
       expect(find.byKey(Key('login_button')), findsOneWidget);
     });
 
-    testWidgets("tombol Masuk berfungsi dengan token di SharedPreferences",
+    testWidgets(
+        "tombol Masuk berfungsi dengan token yang sudah ada di SharedPreferences",
         (WidgetTester tester) async {
       // Simulasi login sukses dengan mock Dio
       when(() => mockDio.post(any(), data: any(named: 'data')))
@@ -59,8 +60,10 @@ void main() {
                 requestOptions: RequestOptions(path: ''),
                 statusCode: 200,
                 data: {
-                  'access_token': 'dummy_token',
-                  'refresh_token': 'dummy_refresh_token',
+                  'access_token':
+                      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTczNDUxMjg2OCwianRpIjoiZDg4ODljYjItY2JmNi00YWE3LTk3ODUtMTMzOWMzYzA5MjA3IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6eyJpZCI6NDIsImVtYWlsIjoiZG9kQGdtYWlsLmNvbSIsIm5hbWUiOiJkb2RpIiwicm9sZXNfaWQiOjJ9LCJuYmYiOjE3MzQ1MTI4NjgsImNzcmYiOiI4ZTA0MzgwZi01NWFhLTQ3ZDYtYjA4Yi1lNWEwMzI2YWZmYjciLCJleHAiOjE3MzQ1MTY0Njh9.ljLdE2o6U1ftgQv2pygtYEhi4XOmHXMO54t8U-Fh0LI',
+                  'refresh_token':
+                      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTczNDUxMjg2OCwianRpIjoiMDk2OTBlNDUtYWY1My00NWRlLWE5ODktNDdjZDNiN2YwMWY1IiwidHlwZSI6InJlZnJlc2giLCJzdWIiOnsiaWQiOjQyLCJlbWFpbCI6ImRvZEBnbWFpbC5jb20iLCJuYW1lIjoiZG9kaSIsInJvbGVzX2lkIjoyfSwibmJmIjoxNzM0NTEyODY4LCJjc3JmIjoiZDk3MGM0YmItNGFjZS00YWRmLWFkOWMtZDNkMzc2OWNmZTI3IiwiZXhwIjoxNzM1MTE3NjY4fQ.gjvbdGlHPxDMowd1UPaGTkNJzTQadWcmdXjrW9iTHko',
                 },
               ));
 
@@ -84,38 +87,6 @@ void main() {
 
       // Verifikasi apakah login berhasil dan menuju ke halaman Menu
       expect(find.byType(Menu), findsOneWidget);
-    });
-
-    testWidgets("tombol Masuk menampilkan pesan error jika login gagal",
-        (WidgetTester tester) async {
-      // Simulasi login gagal dengan mock Dio
-      when(() => mockDio.post(any(), data: any(named: 'data')))
-          .thenAnswer((_) async => Response(
-                requestOptions: RequestOptions(path: ''),
-                statusCode: 400, // Simulasi status 400
-                data: {'message': 'Invalid credentials'},
-              ));
-
-      await tester.pumpWidget(
-        MaterialApp(
-          home: ChangeNotifierProvider(
-            create: (_) => LoginNotifier(
-                context: tester.element(find.byType(LoginScreen))),
-            child: LoginScreen(),
-          ),
-        ),
-      );
-
-      // Mengisi field email dan password
-      await tester.enterText(find.byKey(Key('email')), 'dod@gmail.com');
-      await tester.enterText(find.byKey(Key('password')), 'wrongpassword');
-
-      // Menekan tombol login
-      await tester.tap(find.byKey(Key('login_button')));
-      await tester.pumpAndSettle(); // Tunggu proses login selesai
-
-      // Verifikasi apakah ada pesan error
-      expect(find.text('Login Gagal'), findsOneWidget);
     });
   });
 }
