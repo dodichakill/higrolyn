@@ -7,8 +7,10 @@ import 'package:agrolyn/views/chatbot/chatbot.dart';
 import 'package:agrolyn/views/farmer/home/detail_article.dart';
 import 'package:agrolyn/widgets/all_article_screen.dart';
 import 'package:agrolyn/widgets/data_not_found.dart';
+import 'package:agrolyn/widgets/no_found_custom.dart';
 import 'package:agrolyn/widgets/video_player_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:provider/provider.dart';
@@ -61,25 +63,30 @@ class HomePage extends StatelessWidget {
                                         height: 32,
                                         width: 32,
                                       ),
-                                      Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          const SizedBox(width: 8),
-                                          const Icon(
-                                            Icons.location_on,
-                                            color: Colors.white,
-                                            size: 16,
-                                          ),
-                                          const SizedBox(width: 4),
-                                          const Text(
-                                            "Tegal, Jawa Tengah",
-                                            style: TextStyle(
+                                      Flexible(
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            const SizedBox(width: 8),
+                                            const Icon(
+                                              Icons.location_on,
                                               color: Colors.white,
-                                              fontWeight: FontWeight.normal,
-                                              fontSize: 16,
+                                              size: 16,
                                             ),
-                                          ),
-                                        ],
+                                            const SizedBox(width: 4),
+                                            const Flexible(
+                                              child: Text(
+                                                "Tegal, Jawa Tengah",
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.normal,
+                                                  fontSize: 16,
+                                                ),
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                       const Icon(
                                         Icons.shopping_cart_outlined,
@@ -88,38 +95,44 @@ class HomePage extends StatelessWidget {
                                       ),
                                     ],
                                   ),
+                                  const SizedBox(height: 8),
                                   Row(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          const Text(
-                                            "Selamat Datang Di Agrolyn",
-                                            maxLines: 2,
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 24,
-                                              fontWeight: FontWeight.bold,
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            const Text(
+                                              "Selamat Datang Di Agrolyn",
+                                              maxLines: 2,
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.bold,
+                                              ),
                                             ),
-                                          ),
-                                          const Text(
-                                            "Solusi Cerdas Pertanian Masa Depan",
-                                            maxLines: 2,
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.normal,
+                                            const Text(
+                                              "Solusi Cerdas Pertanian Masa Depan",
+                                              maxLines: 2,
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.normal,
+                                              ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
-                                      Lottie.asset(ImageAssets.videos,
-                                          height: 92, width: 92),
+                                      Lottie.asset(
+                                        ImageAssets.videos,
+                                        height: 92,
+                                        width: 92,
+                                      ),
                                     ],
                                   ),
                                 ],
@@ -248,6 +261,273 @@ class HomePage extends StatelessWidget {
                                                         fit: BoxFit.fill,
                                                       ),
                                               ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(8),
+                                border: Border.all(color: Color(0x20000000))),
+                            margin: EdgeInsets.fromLTRB(10, 8, 10, 16),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  // Title Section
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Center(
+                                      child: const Text(
+                                        "Kalkulator panen dan penghasilan Petani",
+                                        maxLines: 2,
+                                        style: TextStyle(
+                                          color: MyColors.primaryColorDark,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  // Form Fields
+                                  Form(
+                                    key: value.keyForm,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(16),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          // Dropdown for plant selection
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                bottom: 16),
+                                            child: DropdownButton<String>(
+                                              value: value.selectedPlant.isEmpty
+                                                  ? null
+                                                  : value.selectedPlant,
+                                              onChanged: (String? newValue) {
+                                                if (newValue != null) {
+                                                  value
+                                                      .setChangePlant(newValue);
+                                                }
+                                              },
+                                              items: <String>[
+                                                'corn',
+                                                'rice'
+                                              ].map<DropdownMenuItem<String>>(
+                                                  (String value) {
+                                                String displayText;
+                                                switch (value) {
+                                                  case 'corn':
+                                                    displayText = 'Jagung';
+                                                    break;
+                                                  case 'rice':
+                                                    displayText = 'Beras';
+                                                    break;
+                                                  default:
+                                                    displayText = value;
+                                                }
+                                                return DropdownMenuItem<String>(
+                                                  value: value,
+                                                  child: Text(displayText),
+                                                );
+                                              }).toList(),
+                                            ),
+                                          ),
+                                          // Input for price per kilogram
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                bottom: 16),
+                                            child: TextFormField(
+                                              controller:
+                                                  value.hargaPerKgController,
+                                              decoration: InputDecoration(
+                                                labelText: 'Harga Per Kg',
+                                                border: OutlineInputBorder(),
+                                              ),
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              validator: (value) {
+                                                if (value == null ||
+                                                    value.isEmpty) {
+                                                  return 'Masukkan harga per kg';
+                                                }
+                                                if (double.tryParse(value) ==
+                                                    null) {
+                                                  return 'Masukkan angka yang valid';
+                                                }
+                                                return null;
+                                              },
+                                            ),
+                                          ),
+                                          // Input for field area
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                bottom: 16),
+                                            child: TextFormField(
+                                              controller:
+                                                  value.luasSawahController,
+                                              decoration: InputDecoration(
+                                                labelText: 'Luas Sawah (m²)',
+                                                border: OutlineInputBorder(),
+                                              ),
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              validator: (value) {
+                                                if (value == null ||
+                                                    value.isEmpty) {
+                                                  return 'Masukkan luas sawah';
+                                                }
+                                                if (double.tryParse(value) ==
+                                                    null) {
+                                                  return 'Masukkan angka yang valid';
+                                                }
+                                                return null;
+                                              },
+                                            ),
+                                          ),
+                                          // Input for planting date using showDatePicker
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                bottom: 16),
+                                            child: GestureDetector(
+                                              onTap: () async {
+                                                DateTime? pickedDate =
+                                                    await showDatePicker(
+                                                  context: context,
+                                                  initialDate:
+                                                      value.tanggalTanam,
+                                                  firstDate: DateTime(2000),
+                                                  lastDate: DateTime(2101),
+                                                );
+                                                if (pickedDate != null &&
+                                                    pickedDate !=
+                                                        value.tanggalTanam) {
+                                                  value.setUpdateTanggalTanam(
+                                                      pickedDate);
+                                                }
+                                              },
+                                              child: AbsorbPointer(
+                                                child: TextFormField(
+                                                  controller:
+                                                      TextEditingController(
+                                                    text: DateFormat(
+                                                            'yyyy-MM-dd')
+                                                        .format(
+                                                            value.tanggalTanam),
+                                                  ),
+                                                  decoration: InputDecoration(
+                                                    labelText: 'Tanggal Tanam',
+                                                    border:
+                                                        OutlineInputBorder(),
+                                                  ),
+                                                  readOnly:
+                                                      true, // Cannot type, only tap
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          // Button to submit the form
+                                          InkWell(
+                                            onTap: () async {
+                                              await value.submit();
+                                            },
+                                            child: Container(
+                                              height: 40,
+                                              width: double.infinity,
+                                              alignment: Alignment
+                                                  .center, // Posisikan teks di tengah
+                                              decoration: BoxDecoration(
+                                                color:
+                                                    MyColors.primaryColorDark,
+                                                borderRadius:
+                                                    BorderRadius.circular(8),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    color: Colors.black
+                                                        .withOpacity(0.2),
+                                                    offset: const Offset(0, 4),
+                                                    blurRadius: 8,
+                                                  ),
+                                                ],
+                                              ),
+                                              child: const Text(
+                                                "Hitung",
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.white),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                left: 8, bottom: 8, right: 8),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: MyColors.primaryColorDark,
+                                borderRadius: BorderRadius.circular(8),
+                                border: Border.all(color: Color(0x20000000)),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(16),
+                                child: Column(
+                                  children: [
+                                    Center(
+                                      child: Text(
+                                        'Hasil Perhitungan',
+                                        style: TextStyle(
+                                          fontSize: 24,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(height: 16),
+                                    value.harvestData.isNotEmpty
+                                        ? Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              _buildResultRow(
+                                                  'Jenis Tanaman:',
+                                                  value.selectedPlant == 'corn'
+                                                      ? 'Jagung'
+                                                      : 'Beras'),
+                                              _buildResultRow('Harga Per Kg:',
+                                                  'Rp. ${value.hargaPerKg} /Kg'),
+                                              _buildResultRow('Luas Sawah:',
+                                                  '${value.luasSawah} m²'),
+                                              _buildResultRow(
+                                                  'Tanggal Tanam:',
+                                                  DateFormat('yyyy-MM-dd')
+                                                      .format(
+                                                          value.tanggalTanam)),
+                                              const SizedBox(height: 16),
+                                              ...value.harvestData
+                                                  .map((data) =>
+                                                      _buildHarvestData(data))
+                                                  .toList(),
+                                            ],
+                                          )
+                                        : NoFoundCustomWhite(
+                                            message:
+                                                'Hasil perhitungan tidak ditemukan',
+                                            subMessage:
+                                                'Lakukan perhitungan dengan mengisi form terlebih dahulu',
+                                          ),
                                   ],
                                 ),
                               ),
@@ -1015,4 +1295,40 @@ class HomePage extends StatelessWidget {
       }),
     );
   }
+}
+
+Widget _buildResultRow(String label, String value) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 4),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          label,
+          style: TextStyle(fontSize: 16, color: Colors.white),
+        ),
+        Text(
+          value,
+          style: TextStyle(
+              fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildHarvestData(Map<String, dynamic> data) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      const Divider(color: Colors.white54),
+      _buildResultRow('Sisa Hari:', '${data['sisa_hari']} Hari'),
+      _buildResultRow('Tanggal Panen:', '${data['tanggal_panen']}'),
+      _buildResultRow(
+          'Total Harga Rupiah:', 'Rp.${data['total_harga_rupiah']}'),
+      _buildResultRow(
+          'Total Hasil (Kg):', '${data['total_hasil_kilogram']} Kg'),
+      _buildResultRow('Total Hasil (Ton):', '${data['total_hasil_ton']} Ton'),
+    ],
+  );
 }
