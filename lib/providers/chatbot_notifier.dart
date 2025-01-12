@@ -47,6 +47,7 @@ class ChatbotNotifier extends ChangeNotifier {
     Dio dio = Dio();
     final response = await dio.get("https://tegaldev.metimes.id/chat-sample");
     final data = jsonDecode(response.data);
+    print(data);
 
     list = [
       for (Map<String, dynamic> i in data['data']) ChatNewModel.fromJson(i)
