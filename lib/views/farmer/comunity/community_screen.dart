@@ -90,73 +90,90 @@ class CommunityScreen extends StatelessWidget {
                             ),
                             Row(
                               children: [
-                                Row(
-                                  children: [
-                                    InkWell(
-                                      onTap: () => value.showFilterQuestion(),
-                                      child: Container(
-                                        height: 48,
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 16,
-                                        ),
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(16),
-                                          border: Border.all(
+                                Expanded(
+                                  child: InkWell(
+                                    onTap: () => value.showFilterQuestion(),
+                                    child: Container(
+                                      height: 48,
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 16),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(16),
+                                        border: Border.all(
+                                            color: MyColors.primaryColorDark),
+                                        color: Colors.white,
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          const Icon(
+                                            Icons.filter_alt_rounded,
                                             color: MyColors.primaryColorDark,
+                                            size: 28,
                                           ),
-                                          color: Colors.white,
-                                        ),
-                                        child: const Row(
-                                          children: [
-                                            Icon(
-                                              Icons.filter_alt_rounded,
-                                              color: MyColors.primaryColorDark,
-                                              size: 28,
-                                            ),
-                                            SizedBox(width: 8),
-                                            Text(
+                                          const SizedBox(width: 8),
+                                          const Flexible(
+                                            child: Text(
                                               "Filter Diskusi",
                                               style: TextStyle(
-                                                  fontSize: 16,
-                                                  color: MyColors
-                                                      .primaryColorDark),
-                                            )
-                                          ],
-                                        ),
+                                                fontSize: 16,
+                                                color:
+                                                    MyColors.primaryColorDark,
+                                              ),
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                  ],
+                                  ),
                                 ),
-                                const Spacer(),
-                                // Add Question
-                                InkWell(
-                                  onTap: () => addQuestion(value),
-                                  child: Container(
-                                    height: 48,
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 16,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(16),
-                                      color: MyColors.primaryColorDark,
-                                    ),
-                                    child: const Row(
-                                      children: [
-                                        Icon(
-                                          Icons.add_circle,
-                                          color: Colors.white,
-                                          size: 28,
-                                        ),
-                                        SizedBox(width: 8),
-                                        Text(
-                                          "Buat Diskusi Baru",
-                                          style: TextStyle(
-                                              fontSize: 16,
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold),
-                                        )
-                                      ],
+                                const SizedBox(
+                                    width:
+                                        8), // Add some space between the buttons
+
+                                Expanded(
+                                  child: InkWell(
+                                    onTap: () => addQuestion(value),
+                                    child: Container(
+                                      height: 48,
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 16),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(16),
+                                        border: Border.all(
+                                            color: MyColors.primaryColorDark),
+                                        color: MyColors.primaryColorDark,
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          const Icon(
+                                            Icons.add_circle,
+                                            color: Colors.white,
+                                            size: 28,
+                                          ),
+                                          const SizedBox(width: 8),
+                                          const Flexible(
+                                            child: Text(
+                                              "Buat Diskusi",
+                                              maxLines: 2,
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),

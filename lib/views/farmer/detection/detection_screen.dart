@@ -55,34 +55,39 @@ class DetectionScreen extends StatelessWidget {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(16.0),
-                      child: Container(
-                          width: double.maxFinite - 50,
+                      child: InkWell(
+                        onTap: () {
+                          pushWithoutNavBar(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => HistoryScanScreen()));
+                        },
+                        child: Container(
                           height: 55,
+                          width: double.infinity,
+                          alignment:
+                              Alignment.center, // Posisikan teks di tengah
                           decoration: BoxDecoration(
-                            color: MyColors.secondaryColorDark,
+                            color: MyColors.primaryColorDark,
                             borderRadius: BorderRadius.circular(8),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.2),
+                                offset: const Offset(0, 4),
+                                blurRadius: 8,
+                              ),
+                            ],
                           ),
-                          child: InkWell(
-                              onTap: () {
-                                pushWithoutNavBar(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            HistoryScanScreen()));
-                              },
-                              child: const Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(Icons.history, color: Colors.white),
-                                  SizedBox(width: 12),
-                                  Text("Lihat Riwayat Scan Tanaman",
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w600,
-                                          color: Colors.white))
-                                ],
-                              ))),
-                    )
+                          child: const Text(
+                            "Lihat Riwayat Scan Tanaman",
+                            style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    ),
                   ]),
                 ),
               )),

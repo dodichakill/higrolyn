@@ -59,4 +59,6 @@ class ImageAssets {
   static String meta = "$root/1_BMalqlcJIFe50hidF4FnqQ.png";
   static String groq = "$root/groq-logo.png";
   static String notFound404 = "$lotties/404.json";
+  static String notFound404baru = "$lotties/Animation - 1736582405931.json";
+  static String questionTandaTanya = "$lotties/Animation - 1736782445931.json";
 }

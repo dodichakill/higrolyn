@@ -3,6 +3,7 @@ import 'package:agrolyn/providers/detection_notifier.dart';
 import 'package:agrolyn/utils/assets_path.dart';
 import 'package:agrolyn/views/farmer/detection/card_history.dart';
 import 'package:agrolyn/widgets/menu.dart';
+import 'package:agrolyn/widgets/no_found_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:provider/provider.dart';
@@ -86,22 +87,13 @@ class HistoryScanScreen extends StatelessWidget {
                                         history: value.resultHistories[index],
                                       );
                                     })
-                                : Column(
-                                    children: [
-                                      ClipRRect(
-                                        borderRadius: BorderRadius.circular(16),
-                                        child: Image.asset(ImageAssets.noScan),
-                                      ),
-                                      const SizedBox(height: 20),
-                                      const Center(
-                                          child: Text(
-                                        "Belum ada riwayat scan tanaman",
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            color: Colors.black87),
-                                      )),
-                                    ],
-                                  ),
+                                : Center(
+                                    child: NoFoundCustom(
+                                      message: 'Hasil deteksi tidak ditemukan',
+                                      subMessage:
+                                          'Anda belum pernah melakukan deteksi penyakit tanaman',
+                                    ),
+                                  )
                           ],
                         ),
                       ),

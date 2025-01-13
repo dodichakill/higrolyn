@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:agrolyn/providers/community_notifer.dart';
 import 'package:agrolyn/utils/inter_prefs.dart';
 import 'package:agrolyn/views/farmer/comunity/card_answer.dart';
@@ -97,16 +99,20 @@ class DetailCommunityScreen extends StatelessWidget {
                               // Tombol "Kembali Ke Halaman Utama Komunitas"
                               Positioned(
                                 top: 20,
-                                left: 0,
-                                right: 0,
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 16),
-                                  child: SizedBox(
-                                      width: 44,
-                                      height: 44,
-                                      child: InkWell(
-                                        onTap: () async {
+                                left: 16,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(16),
+                                  child: BackdropFilter(
+                                    filter: ImageFilter.blur(
+                                        sigmaX: 10, sigmaY: 10),
+                                    child: Container(
+                                      padding: EdgeInsets.all(8),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white.withOpacity(0.4),
+                                        borderRadius: BorderRadius.circular(16),
+                                      ),
+                                      child: IconButton(
+                                        onPressed: () async {
                                           await InterPrefs.init();
                                           InterPrefs.setPrefs(
                                               "filterBy", "semua");
@@ -120,33 +126,14 @@ class DetailCommunityScreen extends StatelessWidget {
                                                   builder: (context) =>
                                                       Menu(page: page)));
                                         },
-                                        child: Container(
-                                            decoration: BoxDecoration(
-                                              color: Colors.black38,
-                                              borderRadius:
-                                                  BorderRadius.circular(40),
-                                              border: Border.all(
-                                                  color: Colors.grey),
-                                            ),
-                                            child: const Row(
-                                              children: [
-                                                SizedBox(
-                                                  width: 15,
-                                                ),
-                                                Icon(
-                                                  Icons.arrow_back_ios,
-                                                  color: Colors.white,
-                                                ),
-                                                Text(
-                                                  "Kembali Ke Halaman Utama Komunitas",
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                )
-                                              ],
-                                            )),
-                                      )),
+                                        icon: Icon(
+                                          Icons.arrow_back,
+                                          size: 24,
+                                          color: Colors.black87,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               )
                             ],
