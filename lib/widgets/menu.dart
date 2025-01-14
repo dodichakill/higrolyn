@@ -19,11 +19,14 @@ class Menu extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: PersistentTabView(
+        key: const Key('menu'),
         controller: _controller,
         backgroundColor: Colors.white,
         tabs: [
           PersistentTabConfig(
-            screen: HomePage(),
+            screen: HomePage(
+              key: const Key('menu'),
+            ),
             item: ItemConfig(
               activeForegroundColor: Colors.green,
               icon: const Icon(Icons.home),

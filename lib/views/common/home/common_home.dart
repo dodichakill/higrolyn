@@ -210,7 +210,7 @@ class CommonHome extends StatelessWidget {
                               const EdgeInsets.only(left: 8, right: 8, top: 8),
                           child: SizedBox(
                             height:
-                                268, // Memberi tinggi tetap untuk ListView agar layout rapi
+                                314, // Memberi tinggi tetap untuk ListView agar layout rapi
                             child: value.isLoading
                                 ? CircularProgressIndicator() // Tampilkan indikator loading saat isLoading
                                 : value.products.isNotEmpty
@@ -294,6 +294,57 @@ class CommonHome extends StatelessWidget {
                                                         ),
                                                       ),
                                                     ],
+                                                  ),
+                                                  SizedBox(
+                                                    height: 8,
+                                                  ),
+                                                  InkWell(
+                                                    onTap: () {
+                                                      pushWithoutNavBar(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              DetailCommonStore(
+                                                                  product:
+                                                                      product),
+                                                        ),
+                                                      );
+                                                    },
+                                                    child: Container(
+                                                      height: 40,
+                                                      width:
+                                                          120, // Lebar tetap untuk tombol
+                                                      alignment: Alignment
+                                                          .center, // Posisikan teks di tengah
+                                                      decoration: BoxDecoration(
+                                                        color: MyColors
+                                                            .primaryColorDark, // Warna tombol
+                                                        borderRadius:
+                                                            BorderRadius.circular(
+                                                                8), // Sudut melengkung
+                                                        boxShadow: [
+                                                          BoxShadow(
+                                                            color: Colors.black
+                                                                .withOpacity(
+                                                                    0.2),
+                                                            offset:
+                                                                const Offset(
+                                                                    0, 4),
+                                                            blurRadius: 8,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      child: const Text(
+                                                        "Lihat",
+                                                        style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Colors
+                                                              .white, // Warna teks
+                                                          fontSize: 14,
+                                                        ),
+                                                      ),
+                                                    ),
                                                   ),
                                                 ],
                                               ),

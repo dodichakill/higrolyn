@@ -165,6 +165,7 @@ class ReviewScreen extends StatelessWidget {
                             children: [
                               const SizedBox(height: 8),
                               TextFormField(
+                                key: const Key('reviewTextField'),
                                 controller: value.reviewController,
                                 decoration: InputDecoration(
                                   labelText: 'Ulasan',

@@ -63,11 +63,15 @@ class AuthService {
             context,
             MaterialPageRoute(builder: (context) => Menu()),
           );
+          showCustomSnackbar(context, "Login Berhasil",
+              "Selamat datang di Agrolyn", ContentType.success);
         } else {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => CommonMenu()),
           );
+          showCustomSnackbar(context, "Login Berhasil",
+              "Selamat datang di Agrolyn", ContentType.success);
         }
 
         return true;

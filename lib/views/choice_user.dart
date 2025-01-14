@@ -92,56 +92,85 @@ class ChoiceUser extends StatelessWidget {
                               const SizedBox(
                                   height: 16), // Jarak antara gambar dan teks
                               Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 16.0),
-                                child: ElevatedButton(
-                                    onPressed: () async {
-                                      SharedPreferences prefs =
-                                          await SharedPreferences.getInstance();
+                                padding: const EdgeInsets.only(
+                                    left: 8.0, right: 8.0, top: 8.0),
+                                child: InkWell(
+                                  onTap: () async {
+                                    SharedPreferences prefs =
+                                        await SharedPreferences.getInstance();
 
-                                      await prefs.setString(
-                                          'role_choice', 2.toString());
-                                      Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const RegisterScreen()),
-                                      );
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                        minimumSize: const Size.fromHeight(50),
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(16))),
+                                    await prefs.setString(
+                                        'role_choice', 2.toString());
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const RegisterScreen()),
+                                    );
+                                  },
+                                  child: Container(
+                                    height: 45,
+                                    width: double.infinity,
+                                    alignment: Alignment
+                                        .center, // Posisikan teks di tengah
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(8),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.2),
+                                          offset: const Offset(0, 4),
+                                          blurRadius: 8,
+                                        ),
+                                      ],
+                                    ),
                                     child: const Text(
                                       "Daftar",
-                                      style: TextStyle(color: Colors.black),
-                                    )),
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                          color: MyColors.primaryColorDark),
+                                    ),
+                                  ),
+                                ),
                               ),
-                              const SizedBox(
-                                height: 8,
-                              ),
+
                               Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 16.0),
-                                child: ElevatedButton(
-                                    onPressed: () {
-                                      Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const LoginScreen()),
-                                      );
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                        minimumSize: const Size.fromHeight(50),
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(16))),
+                                padding: const EdgeInsets.all(8.0),
+                                child: InkWell(
+                                  onTap: () {
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const LoginScreen()),
+                                    );
+                                  },
+                                  child: Container(
+                                    height: 45,
+                                    width: double.infinity,
+                                    alignment: Alignment
+                                        .center, // Posisikan teks di tengah
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(8),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.2),
+                                          offset: const Offset(0, 4),
+                                          blurRadius: 8,
+                                        ),
+                                      ],
+                                    ),
                                     child: const Text(
                                       "Masuk",
-                                      style: TextStyle(color: Colors.black),
-                                    )),
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                          color: MyColors.primaryColorDark),
+                                    ),
+                                  ),
+                                ),
                               ),
                               const SizedBox(
                                 height: 16,
@@ -191,54 +220,85 @@ class ChoiceUser extends StatelessWidget {
                               const SizedBox(
                                   height: 16), // Jarak antara gambar dan teks
                               Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 16.0),
-                                child: ElevatedButton(
-                                    onPressed: () async {
-                                      SharedPreferences prefs =
-                                          await SharedPreferences.getInstance();
+                                padding: const EdgeInsets.only(
+                                    left: 8.0, right: 8.0, top: 8.0),
+                                child: InkWell(
+                                  onTap: () async {
+                                    SharedPreferences prefs =
+                                        await SharedPreferences.getInstance();
 
-                                      await prefs.setString(
-                                          'role_choice', 3.toString());
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const RegisterScreen()),
-                                      );
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                        minimumSize: const Size.fromHeight(50),
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(16))),
+                                    await prefs.setString(
+                                        'role_choice', 3.toString());
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const RegisterScreen()),
+                                    );
+                                  },
+                                  child: Container(
+                                    height: 45,
+                                    width: double.infinity,
+                                    alignment: Alignment
+                                        .center, // Posisikan teks di tengah
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(8),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.2),
+                                          offset: const Offset(0, 4),
+                                          blurRadius: 8,
+                                        ),
+                                      ],
+                                    ),
                                     child: const Text(
                                       "Daftar",
-                                      style: TextStyle(color: Colors.black),
-                                    )),
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                          color: MyColors.primaryColorDark),
+                                    ),
+                                  ),
+                                ),
                               ),
-                              const SizedBox(height: 8),
+
                               Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 16.0),
-                                child: ElevatedButton(
-                                    onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const LoginScreen()),
-                                      );
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                        minimumSize: const Size.fromHeight(50),
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(16))),
+                                padding: const EdgeInsets.all(8.0),
+                                child: InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const LoginScreen()),
+                                    );
+                                  },
+                                  child: Container(
+                                    height: 45,
+                                    width: double.infinity,
+                                    alignment: Alignment
+                                        .center, // Posisikan teks di tengah
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(8),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.2),
+                                          offset: const Offset(0, 4),
+                                          blurRadius: 8,
+                                        ),
+                                      ],
+                                    ),
                                     child: const Text(
                                       "Masuk",
-                                      style: TextStyle(color: Colors.black),
-                                    )),
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                          color: MyColors.primaryColorDark),
+                                    ),
+                                  ),
+                                ),
                               ),
                               const SizedBox(height: 16),
                             ],
