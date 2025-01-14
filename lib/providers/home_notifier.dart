@@ -39,6 +39,11 @@ class HomeNotifier extends ChangeNotifier {
   final ArticleService _articleService = ArticleService();
   List articles = [];
 
+  void setArticles(List<dynamic> articles) {
+    articles = articles;
+    notifyListeners();
+  }
+
   void fetchArticles() async {
     articles = await _articleService.getArticles();
     notifyListeners();
