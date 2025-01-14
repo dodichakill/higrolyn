@@ -30,6 +30,7 @@ class _RatingStarsState extends State<RatingStars> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: List.generate(5, (index) {
         return IconButton(
+          key: Key('star_$index'), // Key unik untuk setiap bintang
           icon: Icon(
             Icons.star,
             size: 40,

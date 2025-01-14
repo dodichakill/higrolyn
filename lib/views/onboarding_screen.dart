@@ -18,12 +18,16 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     return OnBoardingSlider(
       finishButtonText: 'Mulai',
       onFinish: () async {
+        print("Navigasi ke ChoiceUser");
         SharedPreferences prefs = await SharedPreferences.getInstance();
         await prefs.setBool('isOnboarded', true);
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => const ChoiceUser(),
+            builder: (context) {
+              print("Membangun ChoiceUser");
+              return const ChoiceUser();
+            },
           ),
         );
       },
@@ -108,7 +112,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               SizedBox(
-                height: 300,
+                height: 480,
               ),
               Text(
                 'Sayur & Buah yang Fresh',
@@ -123,7 +127,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 height: 20,
               ),
               Text(
-                'Beli hasil olahan/sayur & buah fresh langsung dari petani',
+                'Beli olahan, sayur & buah yang fresh dari petani lokal',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,

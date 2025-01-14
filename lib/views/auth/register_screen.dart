@@ -87,6 +87,7 @@ class RegisterScreen extends StatelessWidget {
                                     children: [
                                       const SizedBox(height: 8),
                                       TextFormField(
+                                        key: const Key('Nama'),
                                         controller: value.nameController,
                                         decoration: InputDecoration(
                                           labelText: 'Nama',
@@ -128,6 +129,7 @@ class RegisterScreen extends StatelessWidget {
                                     children: [
                                       const SizedBox(height: 8),
                                       TextFormField(
+                                        key: const Key('Email'),
                                         controller: value.emailController,
                                         decoration: InputDecoration(
                                           labelText: 'Email',
@@ -169,6 +171,7 @@ class RegisterScreen extends StatelessWidget {
                                     children: [
                                       const SizedBox(height: 8),
                                       TextFormField(
+                                        key: const Key('Nomor Hp'),
                                         controller: value.phoneController,
                                         decoration: InputDecoration(
                                           labelText: 'Nomor Hp',
@@ -215,6 +218,7 @@ class RegisterScreen extends StatelessWidget {
                                     children: [
                                       const SizedBox(height: 8),
                                       TextFormField(
+                                        key: const Key('Alamat'),
                                         controller: value.addressController,
                                         decoration: InputDecoration(
                                           labelText: 'Alamat',
@@ -255,6 +259,7 @@ class RegisterScreen extends StatelessWidget {
                                     children: [
                                       const SizedBox(height: 8),
                                       TextFormField(
+                                        key: const Key('Kata Sandi'),
                                         controller: value.passwordController,
                                         obscureText: value
                                             .isObscure, // Menyembunyikan input password
@@ -307,8 +312,18 @@ class RegisterScreen extends StatelessWidget {
                                     width: double.infinity,
                                     height: 56,
                                     child: ElevatedButton(
+                                      key: const Key('registerButton'),
                                       onPressed: () async {
                                         value.setLoading(true);
+                                        //kalo testpake ini
+                                        // SharedPreferences prefs =
+                                        //     await SharedPreferences
+                                        //         .getInstance();
+                                        // String? id = prefs
+                                        //         .getString('role_choice') ??
+                                        //     '2'; // Menyediakan nilai default '2'
+                                        // print(
+                                        //     "${int.parse(id)} ${value.nameController.text} ${value.emailController.text} ${value.phoneController.text} ${value.addressController.text} ${value.passwordController.text}");
 
                                         SharedPreferences prefs =
                                             await SharedPreferences

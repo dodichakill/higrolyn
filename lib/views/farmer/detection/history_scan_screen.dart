@@ -47,7 +47,7 @@ class HistoryScanScreen extends StatelessWidget {
                   body: SafeArea(
                     child: SingleChildScrollView(
                       child: Padding(
-                        padding: const EdgeInsets.all(16),
+                        padding: const EdgeInsets.all(8),
                         child: Column(
                           children: [
                             InkWell(

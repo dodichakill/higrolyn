@@ -35,8 +35,10 @@ class HomePage extends StatelessWidget {
         final weather = value.weathers.isNotEmpty ? value.weathers.first : null;
 
         return SafeArea(
+          key: const Key('homePageMainWidget'),
           bottom: false,
           child: Scaffold(
+            key: const Key('homePageMainWidget'),
             body: Stack(
               children: [
                 SingleChildScrollView(
@@ -173,6 +175,7 @@ class HomePage extends StatelessWidget {
                                             height: 8,
                                           ),
                                           InkWell(
+                                            key: const Key('selengkapnya'),
                                             onTap: () {
                                               Navigator.push(
                                                 context,
