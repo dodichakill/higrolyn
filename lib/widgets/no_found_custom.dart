@@ -30,7 +30,7 @@ class NoFoundCustom extends StatelessWidget {
               const SizedBox(height: 16),
               // Pesan Utama
               Text(message,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 44,
                       color: Color(0xFF4A4A4A),
                       height: 1.2,
@@ -39,7 +39,7 @@ class NoFoundCustom extends StatelessWidget {
               // Sub Pesan
               Text(
                 subMessage,
-                style: TextStyle(
+                style: const TextStyle(
                     fontSize: 16,
                     color: Color(0xFF4A4A4A),
                     height: 1.5,
@@ -73,25 +73,25 @@ class NoFoundCustomWhite extends StatelessWidget {
             children: [
               // Gambar (bisa menggunakan image asset atau lottie animation)
               Lottie.asset(
-                ImageAssets.cloudy,
+                ImageAssets.error,
                 width: 222,
                 height: 222,
               ),
               const SizedBox(height: 16),
               // Pesan Utama
               Text(message,
-                  style: TextStyle(
-                      fontSize: 44,
-                      color: Color(0xFF4A4A4A),
+                  style: const TextStyle(
+                      fontSize: 20,
+                      color: Colors.white,
                       height: 1.2,
                       fontFamily: "Google Sans")),
               const SizedBox(height: 8),
               // Sub Pesan
               Text(
                 subMessage,
-                style: TextStyle(
+                style: const TextStyle(
                     fontSize: 16,
-                    color: Color(0xFF4A4A4A),
+                    color: Colors.white,
                     height: 1.5,
                     fontFamily: "Roboto"),
                 textAlign: TextAlign.center,

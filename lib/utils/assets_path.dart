@@ -34,6 +34,7 @@ class ImageAssets {
   static String cloud = "$lotties/cloud.json";
   static String cloudy = "$lotties/cloudy.json";
   static String backgorundAnimation = "$lotties/Animation.json";
+  static String error = "$lotties/error.json";
   static String backgorundAnimation1 = "$lotties/Animation1.json";
   static String vegetables = "$lotties/vegetables.json";
   static String chef = "$lotties/Chef.json";

@@ -4,6 +4,7 @@ import 'package:agrolyn/shared/constants.dart';
 import 'package:agrolyn/utils/assets_path.dart';
 import 'package:agrolyn/utils/date.dart';
 import 'package:agrolyn/views/chatbot/chatbot.dart';
+import 'package:agrolyn/views/farmer/detection/detection_scan_screen.dart';
 import 'package:agrolyn/views/farmer/home/detail_article.dart';
 import 'package:agrolyn/widgets/all_article_screen.dart';
 import 'package:agrolyn/widgets/data_not_found.dart';
@@ -14,6 +15,7 @@ import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key}) {
@@ -63,18 +65,18 @@ class HomePage extends StatelessWidget {
                                         height: 32,
                                         width: 32,
                                       ),
-                                      Flexible(
+                                      const Flexible(
                                         child: Row(
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
-                                            const SizedBox(width: 8),
-                                            const Icon(
+                                            SizedBox(width: 8),
+                                            Icon(
                                               Icons.location_on,
                                               color: Colors.white,
                                               size: 16,
                                             ),
-                                            const SizedBox(width: 4),
-                                            const Flexible(
+                                            SizedBox(width: 4),
+                                            Flexible(
                                               child: Text(
                                                 "Tegal, Jawa Tengah",
                                                 style: TextStyle(
@@ -102,12 +104,12 @@ class HomePage extends StatelessWidget {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Expanded(
+                                      const Expanded(
                                         child: Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            const Text(
+                                            Text(
                                               "Selamat Datang Di Agrolyn",
                                               maxLines: 2,
                                               style: TextStyle(
@@ -116,7 +118,7 @@ class HomePage extends StatelessWidget {
                                                 fontWeight: FontWeight.bold,
                                               ),
                                             ),
-                                            const Text(
+                                            Text(
                                               "Solusi Cerdas Pertanian Masa Depan",
                                               maxLines: 2,
                                               style: TextStyle(
@@ -172,7 +174,7 @@ class HomePage extends StatelessWidget {
                                               fontWeight: FontWeight.bold,
                                             ),
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 8,
                                           ),
                                           InkWell(
@@ -211,8 +213,8 @@ class HomePage extends StatelessWidget {
                                               ),
                                             ),
                                           ),
-                                          Padding(
-                                            padding: const EdgeInsets.symmetric(
+                                          const Padding(
+                                            padding: EdgeInsets.symmetric(
                                                 vertical: 8),
                                             child: Divider(
                                               thickness: 3,
@@ -224,7 +226,7 @@ class HomePage extends StatelessWidget {
                                                 ? "Suhu saat ini ${weather['temp']}°C"
                                                 : "Suhu saat ini tidak tersedia",
                                             maxLines: 3,
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                               color: Colors.white,
                                               fontSize: 16,
                                               fontWeight: FontWeight.bold,
@@ -233,13 +235,13 @@ class HomePage extends StatelessWidget {
                                         ],
                                       ),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 16,
                                     ),
                                     // Animasi Lottie
                                     // Animasi Lottie
                                     value.isLoading
-                                        ? CircularProgressIndicator() // Tampilkan indikator loading saat isLoading
+                                        ? const CircularProgressIndicator() // Tampilkan indikator loading saat isLoading
                                         : weather == null
                                             ? DataNotFound(
                                                 title: "Data Tidak Ditemukan",
@@ -270,8 +272,9 @@ class HomePage extends StatelessWidget {
                             decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(8),
-                                border: Border.all(color: Color(0x20000000))),
-                            margin: EdgeInsets.fromLTRB(10, 8, 10, 16),
+                                border:
+                                    Border.all(color: const Color(0x20000000))),
+                            margin: const EdgeInsets.fromLTRB(10, 8, 10, 16),
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Column(
@@ -279,10 +282,10 @@ class HomePage extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   // Title Section
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
+                                  const Padding(
+                                    padding: EdgeInsets.all(8.0),
                                     child: Center(
-                                      child: const Text(
+                                      child: Text(
                                         "Kalkulator panen dan penghasilan Petani",
                                         maxLines: 2,
                                         style: TextStyle(
@@ -346,7 +349,7 @@ class HomePage extends StatelessWidget {
                                             child: TextFormField(
                                               controller:
                                                   value.hargaPerKgController,
-                                              decoration: InputDecoration(
+                                              decoration: const InputDecoration(
                                                 labelText: 'Harga Per Kg',
                                                 border: OutlineInputBorder(),
                                               ),
@@ -372,7 +375,7 @@ class HomePage extends StatelessWidget {
                                             child: TextFormField(
                                               controller:
                                                   value.luasSawahController,
-                                              decoration: InputDecoration(
+                                              decoration: const InputDecoration(
                                                 labelText: 'Luas Sawah (m²)',
                                                 border: OutlineInputBorder(),
                                               ),
@@ -421,7 +424,8 @@ class HomePage extends StatelessWidget {
                                                         .format(
                                                             value.tanggalTanam),
                                                   ),
-                                                  decoration: InputDecoration(
+                                                  decoration:
+                                                      const InputDecoration(
                                                     labelText: 'Tanggal Tanam',
                                                     border:
                                                         OutlineInputBorder(),
@@ -479,13 +483,14 @@ class HomePage extends StatelessWidget {
                               decoration: BoxDecoration(
                                 color: MyColors.primaryColorDark,
                                 borderRadius: BorderRadius.circular(8),
-                                border: Border.all(color: Color(0x20000000)),
+                                border:
+                                    Border.all(color: const Color(0x20000000)),
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.all(16),
                                 child: Column(
                                   children: [
-                                    Center(
+                                    const Center(
                                       child: Text(
                                         'Hasil Perhitungan',
                                         style: TextStyle(
@@ -516,13 +521,11 @@ class HomePage extends StatelessWidget {
                                                       .format(
                                                           value.tanggalTanam)),
                                               const SizedBox(height: 16),
-                                              ...value.harvestData
-                                                  .map((data) =>
-                                                      _buildHarvestData(data))
-                                                  .toList(),
+                                              ...value.harvestData.map((data) =>
+                                                  _buildHarvestData(data)),
                                             ],
                                           )
-                                        : NoFoundCustomWhite(
+                                        : const NoFoundCustomWhite(
                                             message:
                                                 'Hasil perhitungan tidak ditemukan',
                                             subMessage:
@@ -583,7 +586,7 @@ class HomePage extends StatelessWidget {
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 8,
                           ),
                           Padding(
@@ -591,7 +594,7 @@ class HomePage extends StatelessWidget {
                               horizontal: 8,
                             ),
                             child: value.isLoading
-                                ? CircularProgressIndicator() // Tampilkan indikator loading saat isLoading
+                                ? const CircularProgressIndicator() // Tampilkan indikator loading saat isLoading
                                 : value.articles.isNotEmpty
                                     ? Padding(
                                         padding: const EdgeInsets.only(
@@ -677,7 +680,7 @@ class HomePage extends StatelessWidget {
                                                                   Text(
                                                                     "${article['location']}",
                                                                     style:
-                                                                        TextStyle(
+                                                                        const TextStyle(
                                                                       fontSize:
                                                                           12,
                                                                       color: Colors
@@ -694,7 +697,7 @@ class HomePage extends StatelessWidget {
                                                               Text(
                                                                 "${article['title']}",
                                                                 style:
-                                                                    TextStyle(
+                                                                    const TextStyle(
                                                                   fontSize: 16,
                                                                   fontWeight:
                                                                       FontWeight
@@ -708,7 +711,7 @@ class HomePage extends StatelessWidget {
                                                               Text(
                                                                 "${article['description']}",
                                                                 style:
-                                                                    TextStyle(
+                                                                    const TextStyle(
                                                                   fontSize: 14,
                                                                   fontWeight:
                                                                       FontWeight
@@ -745,7 +748,7 @@ class HomePage extends StatelessWidget {
                                                                               .data
                                                                               .toString(),
                                                                           style:
-                                                                              TextStyle(
+                                                                              const TextStyle(
                                                                             fontSize:
                                                                                 12,
                                                                             color:
@@ -821,7 +824,7 @@ class HomePage extends StatelessWidget {
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 8,
                           ),
                           Padding(
@@ -829,7 +832,7 @@ class HomePage extends StatelessWidget {
                               horizontal: 8,
                             ),
                             child: value.isLoading
-                                ? CircularProgressIndicator()
+                                ? const CircularProgressIndicator()
                                 : value.videos.isNotEmpty
                                     ? ListView.builder(
                                         shrinkWrap: true,
@@ -1005,44 +1008,54 @@ class HomePage extends StatelessWidget {
                                     width: 1.5, // Lebar border yang pas
                                   ),
                                 ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment
-                                      .start, // Rata kiri untuk elemen pertama
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Image.asset(
-                                      ImageAssets.logoPadi,
-                                      height: 32,
-                                      width: 32,
-                                    ),
-                                    const SizedBox(
-                                        width:
-                                            12), // Ruang antara gambar dan teks
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "Padi",
-                                          style: TextStyle(
-                                            fontSize: 18,
-                                            color: Colors.black,
-                                            fontWeight: FontWeight
-                                                .w600, // Font lebih tebal
+                                child: InkWell(
+                                  onTap: () async {
+                                    SharedPreferences prefs =
+                                        await SharedPreferences.getInstance();
+                                    prefs.setString('scan_type', "Padi");
+                                    pushScreenWithoutNavBar(
+                                        context, const DetectionScanScreen());
+                                  },
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment
+                                        .start, // Rata kiri untuk elemen pertama
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Image.asset(
+                                        ImageAssets.logoPadi,
+                                        height: 32,
+                                        width: 32,
+                                      ),
+                                      const SizedBox(
+                                          width:
+                                              12), // Ruang antara gambar dan teks
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          const Text(
+                                            "Padi",
+                                            style: TextStyle(
+                                              fontSize: 18,
+                                              color: Colors.black,
+                                              fontWeight: FontWeight
+                                                  .w600, // Font lebih tebal
+                                            ),
                                           ),
-                                        ),
-                                        Text(
-                                          "Augmented Reality",
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            color: Colors.black.withOpacity(
-                                                0.7), // Warna lebih lembut
-                                            fontWeight: FontWeight.normal,
+                                          Text(
+                                            "Deteksi Penyakit",
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                              color: Colors.black.withOpacity(
+                                                  0.7), // Warna lebih lembut
+                                              fontWeight: FontWeight.normal,
+                                            ),
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                               const SizedBox(
@@ -1072,44 +1085,54 @@ class HomePage extends StatelessWidget {
                                     width: 1.5, // Lebar border yang pas
                                   ),
                                 ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment
-                                      .start, // Rata kiri untuk elemen pertama
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Image.asset(
-                                      ImageAssets.logoJagung,
-                                      height: 32,
-                                      width: 32,
-                                    ),
-                                    const SizedBox(
-                                        width:
-                                            12), // Ruang antara gambar dan teks
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "Jagung",
-                                          style: TextStyle(
-                                            fontSize: 18,
-                                            color: Colors.black,
-                                            fontWeight: FontWeight
-                                                .w600, // Font lebih tebal
+                                child: InkWell(
+                                  onTap: () async {
+                                    SharedPreferences prefs =
+                                        await SharedPreferences.getInstance();
+                                    prefs.setString('scan_type', "Jagung");
+                                    pushScreenWithoutNavBar(
+                                        context, const DetectionScanScreen());
+                                  },
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment
+                                        .start, // Rata kiri untuk elemen pertama
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Image.asset(
+                                        ImageAssets.logoJagung,
+                                        height: 32,
+                                        width: 32,
+                                      ),
+                                      const SizedBox(
+                                          width:
+                                              12), // Ruang antara gambar dan teks
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          const Text(
+                                            "Jagung",
+                                            style: TextStyle(
+                                              fontSize: 18,
+                                              color: Colors.black,
+                                              fontWeight: FontWeight
+                                                  .w600, // Font lebih tebal
+                                            ),
                                           ),
-                                        ),
-                                        Text(
-                                          "Augmented Reality",
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            color: Colors.black.withOpacity(
-                                                0.7), // Warna lebih lembut
-                                            fontWeight: FontWeight.normal,
+                                          Text(
+                                            "Deteksi Penyakit",
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                              color: Colors.black.withOpacity(
+                                                  0.7), // Warna lebih lembut
+                                              fontWeight: FontWeight.normal,
+                                            ),
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                               const SizedBox(
@@ -1156,7 +1179,7 @@ class HomePage extends StatelessWidget {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text(
+                                        const Text(
                                           "Cabai",
                                           style: TextStyle(
                                             fontSize: 18,
@@ -1166,7 +1189,7 @@ class HomePage extends StatelessWidget {
                                           ),
                                         ),
                                         Text(
-                                          "Augmented Reality",
+                                          "Deteksi Penyakit",
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Colors.black.withOpacity(
@@ -1223,7 +1246,7 @@ class HomePage extends StatelessWidget {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text(
+                                        const Text(
                                           "Tomat",
                                           style: TextStyle(
                                             fontSize: 18,
@@ -1233,7 +1256,7 @@ class HomePage extends StatelessWidget {
                                           ),
                                         ),
                                         Text(
-                                          "Augmented Reality",
+                                          "Deteksi Penyakit",
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: Colors.black.withOpacity(
@@ -1305,11 +1328,11 @@ Widget _buildResultRow(String label, String value) {
       children: [
         Text(
           label,
-          style: TextStyle(fontSize: 16, color: Colors.white),
+          style: const TextStyle(fontSize: 16, color: Colors.white),
         ),
         Text(
           value,
-          style: TextStyle(
+          style: const TextStyle(
               fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold),
         ),
       ],
