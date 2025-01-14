@@ -492,11 +492,11 @@ class HomePage extends StatelessWidget {
                                   children: [
                                     const Center(
                                       child: Text(
-                                        'Hasil Perhitungan',
+                                        'Hasil Perhitungan Panen dan Profit',
                                         style: TextStyle(
-                                          fontSize: 24,
-                                          fontWeight: FontWeight.bold,
                                           color: Colors.white,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
                                         ),
                                       ),
                                     ),
@@ -771,7 +771,11 @@ class HomePage extends StatelessWidget {
                                             }),
                                       )
                                     : const Center(
-                                        child: Text("No articles available"),
+                                        child: NoFoundCustomWhite(
+                                          message: 'Artikel tidak ditemukan',
+                                          subMessage:
+                                              'Tidak ada artikel yang tersedia',
+                                        ),
                                       ),
                           ),
                           Padding(
@@ -970,7 +974,11 @@ class HomePage extends StatelessWidget {
                                         },
                                       )
                                     : const Center(
-                                        child: Text("No videos available"),
+                                        child: NoFoundCustomWhite(
+                                          message: 'Video tidak ditemukan',
+                                          subMessage:
+                                              'Video edukasi tidak tersedia',
+                                        ),
                                       ),
                           ),
                         ],

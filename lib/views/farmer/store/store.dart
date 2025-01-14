@@ -453,23 +453,29 @@ class Store extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Row(
-                              children: [
-                                Image.asset(
-                                  ImageAssets.logo,
-                                  height: 32,
-                                  width: 32,
-                                ),
-                                const SizedBox(width: 8),
-                                const Text(
-                                  "Ayo mulai jadi mitra kami",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
+                            Flexible(
+                              child: Row(
+                                children: [
+                                  Image.asset(
+                                    ImageAssets.logo,
+                                    height: 32,
+                                    width: 32,
                                   ),
-                                ),
-                              ],
+                                  const SizedBox(width: 8),
+                                  const Flexible(
+                                    child: Text(
+                                      "Ayo mulai jadi mitra kami",
+                                      maxLines: 2,
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                             InkWell(
                               onTap: () async {

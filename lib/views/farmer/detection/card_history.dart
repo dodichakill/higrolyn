@@ -75,7 +75,7 @@ class CardHistory extends StatelessWidget {
                   child: Container(
                     padding: const EdgeInsets.all(2),
                     decoration: const BoxDecoration(
-                        color: MyColors.secondaryColorDark,
+                        color: MyColors.primaryColorDark,
                         borderRadius: BorderRadius.only(
                           bottomLeft: Radius.circular(16),
                           topRight: Radius.circular(16),

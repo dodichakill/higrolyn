@@ -23,17 +23,18 @@ class NoFoundCustom extends StatelessWidget {
             children: [
               // Gambar (bisa menggunakan image asset atau lottie animation)
               Lottie.asset(
-                ImageAssets.cloudy,
+                ImageAssets.notFound404baru,
                 width: 222,
                 height: 222,
               ),
               const SizedBox(height: 16),
               // Pesan Utama
               Text(message,
-                  style: const TextStyle(
-                      fontSize: 44,
+                  style: TextStyle(
+                      fontSize: 20,
                       color: Color(0xFF4A4A4A),
                       height: 1.2,
+                      fontWeight: FontWeight.bold,
                       fontFamily: "Google Sans")),
               const SizedBox(height: 8),
               // Sub Pesan
@@ -80,8 +81,9 @@ class NoFoundCustomWhite extends StatelessWidget {
               const SizedBox(height: 16),
               // Pesan Utama
               Text(message,
-                  style: const TextStyle(
+                  style: TextStyle(
                       fontSize: 20,
+                      fontWeight: FontWeight.bold,
                       color: Colors.white,
                       height: 1.2,
                       fontFamily: "Google Sans")),

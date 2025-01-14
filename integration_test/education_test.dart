@@ -12,7 +12,7 @@ void main() {
 
     // URL artikel
     const articlesUrl =
-        'https://apiv1.agrolyn.online/articles/'; // Ganti dengan URL artikel yang benar
+        'https://apiv1.agrolyn.on1line/articles/'; // Ganti dengan URL artikel yang benar
 
     // Isi token manual di sini
     final token =
