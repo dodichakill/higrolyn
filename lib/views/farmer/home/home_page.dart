@@ -90,11 +90,6 @@ class HomePage extends StatelessWidget {
                                           ],
                                         ),
                                       ),
-                                      const Icon(
-                                        Icons.shopping_cart_outlined,
-                                        color: Colors.white,
-                                        size: 32,
-                                      ),
                                     ],
                                   ),
                                   const SizedBox(height: 8),

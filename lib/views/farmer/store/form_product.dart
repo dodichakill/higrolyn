@@ -4,10 +4,12 @@ import 'package:agrolyn/api/store_service.dart';
 import 'package:agrolyn/providers/store_notifier.dart';
 import 'package:agrolyn/shared/constants.dart';
 import 'package:agrolyn/shared/custom_snackbar.dart';
+import 'package:agrolyn/views/farmer/store/store.dart';
 import 'package:agrolyn/widgets/dropdown_category_store.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:provider/provider.dart';
 
 class FormProduct extends StatelessWidget {
@@ -18,7 +20,7 @@ class FormProduct extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => StoreNotifier(context: context),
       child: Consumer<StoreNotifier>(builder: (context, value, child) {
-        Future<void> _submitForm(BuildContext context) async {
+        Future<void> submitForm(BuildContext context) async {
           if (value.keyfrom.currentState!.validate() &&
               value.imageProduct != null) {
             value.setLoading(true);
@@ -40,22 +42,23 @@ class FormProduct extends StatelessWidget {
                 "img_product":
                     await MultipartFile.fromFile(value.imageProduct!.path),
               });
-              await StoreService().fetchNewProduct(formData).then((result) {
+              StoreService().fetchNewProduct(formData).then((result) {
                 value.setLoading(false);
                 if (result == "Produk berhasil ditambahkan") {
-                  Navigator.pop(context, true);
                   showCustomSnackbar(context, "Berhasil Ditambahkan",
                       "Produk Berhasil Di tambahkan", ContentType.success);
                 } else {
                   showCustomSnackbar(context, "Berhasil ditambahkan",
                       "Produk Berhasil Ditambahkan", ContentType.success);
-                  Navigator.pop(context, true);
                 }
               }).catchError((error) {
                 value.setLoading(false);
                 showCustomSnackbar(context, "Error",
                     "Terjadi kesalahan: $error", ContentType.failure);
                 print("Error: $error");
+              }).whenComplete(() {
+                pushWithNavBar(
+                    context, MaterialPageRoute(builder: (context) => Store()));
               });
             } else {
               value.setLoading(false);
@@ -93,8 +96,8 @@ class FormProduct extends StatelessWidget {
                                 onPressed: () {
                                   Navigator.pop(context);
                                 },
-                                icon: Icon(Icons.arrow_back)),
-                            Text(
+                                icon: const Icon(Icons.arrow_back)),
+                            const Text(
                               'Manajemen Produk',
                               style: TextStyle(
                                   fontSize: 20,
@@ -207,10 +210,10 @@ class FormProduct extends StatelessWidget {
                             ],
                           ),
                           const SizedBox(height: 16),
-                          Column(
+                          const Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const SizedBox(height: 8),
+                              SizedBox(height: 8),
                               DropdownCategoryStore()
                             ],
                           ),
@@ -240,14 +243,14 @@ class FormProduct extends StatelessWidget {
                           ),
                           const SizedBox(height: 16),
                           ElevatedButton(
-                            onPressed: () => _submitForm(context),
+                            onPressed: () => submitForm(context),
                             style: ButtonStyle(
                                 backgroundColor: WidgetStateProperty.all(
                                     MyColors.primaryColorDark),
                                 foregroundColor:
                                     WidgetStateProperty.all(Colors.white),
-                                minimumSize:
-                                    WidgetStateProperty.all(Size(180, 40))),
+                                minimumSize: WidgetStateProperty.all(
+                                    const Size(180, 40))),
                             child: const Text('Simpan'),
                           ),
                         ],

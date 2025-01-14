@@ -103,19 +103,19 @@ class CommunityScreen extends StatelessWidget {
                                             color: MyColors.primaryColorDark),
                                         color: Colors.white,
                                       ),
-                                      child: Row(
+                                      child: const Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         crossAxisAlignment:
                                             CrossAxisAlignment.center,
                                         children: [
-                                          const Icon(
+                                          Icon(
                                             Icons.filter_alt_rounded,
                                             color: MyColors.primaryColorDark,
                                             size: 28,
                                           ),
-                                          const SizedBox(width: 8),
-                                          const Flexible(
+                                          SizedBox(width: 8),
+                                          Flexible(
                                             child: Text(
                                               "Filter Diskusi",
                                               style: TextStyle(
@@ -148,19 +148,19 @@ class CommunityScreen extends StatelessWidget {
                                             color: MyColors.primaryColorDark),
                                         color: MyColors.primaryColorDark,
                                       ),
-                                      child: Row(
+                                      child: const Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         crossAxisAlignment:
                                             CrossAxisAlignment.center,
                                         children: [
-                                          const Icon(
+                                          Icon(
                                             Icons.add_circle,
                                             color: Colors.white,
                                             size: 28,
                                           ),
-                                          const SizedBox(width: 8),
-                                          const Flexible(
+                                          SizedBox(width: 8),
+                                          Flexible(
                                             child: Text(
                                               "Buat Diskusi",
                                               maxLines: 2,

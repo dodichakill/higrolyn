@@ -256,7 +256,8 @@ class RegisterScreen extends StatelessWidget {
                                       const SizedBox(height: 8),
                                       TextFormField(
                                         controller: value.passwordController,
-                                        obscureText: true,
+                                        obscureText: value
+                                            .isObscure, // Menyembunyikan input password
                                         decoration: InputDecoration(
                                           labelText: 'Kata Sandi',
                                           labelStyle: const TextStyle(
@@ -276,15 +277,25 @@ class RegisterScreen extends StatelessWidget {
                                                 color: Colors
                                                     .white), // Border saat fokus
                                           ),
+                                          suffixIcon: IconButton(
+                                            onPressed: () {
+                                              value.toggleObscure();
+                                            },
+                                            icon: Icon(
+                                              value.isObscure
+                                                  ? Icons.visibility_off
+                                                  : Icons.visibility,
+                                              color: Colors.white,
+                                            ),
+                                          ),
                                         ),
                                         style: const TextStyle(
-                                            color: Colors
-                                                .white), // Warna teks input
+                                            color: Colors.white),
                                         validator: (e) {
                                           if (e!.isEmpty) {
-                                            return "Kata Sandi Tidak boleh kosong";
+                                            return "Password Tidak Boleh Kosong";
                                           }
-                                          return null;
+                                          return null; // Mengembalikan null jika valid
                                         },
                                       ),
                                     ],

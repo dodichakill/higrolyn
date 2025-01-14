@@ -59,13 +59,14 @@ class Store extends StatelessWidget {
                                         ),
                                         child: TextField(
                                           onChanged: (query) {
-                                            // Memanggil searchProduct di StoreNotifier dengan query yang dimasukkan
-                                            context
-                                                .read<StoreNotifier>()
-                                                .searchProduct(query);
+                                            if (query.length > 2) {
+                                              value.searchProduct(query);
+                                            } else {
+                                              value.fetchProduct();
+                                            }
                                           },
-                                          decoration: InputDecoration(
-                                            hintText: "Search...",
+                                          decoration: const InputDecoration(
+                                            hintText: "Cari produk...",
                                             hintStyle:
                                                 TextStyle(color: Colors.grey),
                                             prefixIcon: Icon(Icons.search,
@@ -188,13 +189,13 @@ class Store extends StatelessWidget {
                                                     // Judul
                                                     Text(
                                                       "${product['product_name']}",
-                                                      style: TextStyle(
+                                                      style: const TextStyle(
                                                         fontSize: 16,
                                                         fontWeight:
                                                             FontWeight.bold,
                                                       ),
                                                     ),
-                                                    SizedBox(
+                                                    const SizedBox(
                                                       height: 2,
                                                     ),
                                                     Text(
@@ -208,7 +209,7 @@ class Store extends StatelessWidget {
                                                               FontWeight.normal,
                                                           color: Colors.black),
                                                     ),
-                                                    SizedBox(
+                                                    const SizedBox(
                                                       height: 2,
                                                     ),
                                                     Text(
@@ -243,7 +244,13 @@ class Store extends StatelessWidget {
                                                             const SizedBox(
                                                                 width: 4),
                                                             Text(
-                                                              "${product['product_categories_id'] == 1 ? 'Mentah' : (product['product_categories_id'] == 2 ? 'Olahan' : 'Lainnya')}",
+                                                              product['product_categories_id'] ==
+                                                                      1
+                                                                  ? 'Mentah'
+                                                                  : (product['product_categories_id'] ==
+                                                                          2
+                                                                      ? 'Olahan'
+                                                                      : 'Lainnya'),
                                                               style:
                                                                   const TextStyle(
                                                                 fontSize: 12,
@@ -260,7 +267,7 @@ class Store extends StatelessWidget {
                                               ),
                                             ],
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 8,
                                           ),
                                           Row(
@@ -369,13 +376,45 @@ class Store extends StatelessWidget {
                                               // Menampilkan data pada sisi kanan
                                               InkWell(
                                                 onTap: () {
-                                                  value.deleteProduct(
-                                                      product['id']);
-                                                  showCustomSnackbar(
-                                                      context,
-                                                      "Berhasil dihapus",
-                                                      "Produk Berhasil dihapus",
-                                                      ContentType.success);
+                                                  showDialog(
+                                                      context: context,
+                                                      builder: (context) {
+                                                        return AlertDialog(
+                                                          title: const Text(
+                                                              'Konfirmasi'),
+                                                          content: const Text(
+                                                              'Apakah Anda yakin ingin menghapus produk ini?'),
+                                                          actions: [
+                                                            TextButton(
+                                                              child: const Text(
+                                                                  'Batal'),
+                                                              onPressed: () {
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop();
+                                                              },
+                                                            ),
+                                                            TextButton(
+                                                              child: const Text(
+                                                                  'Hapus'),
+                                                              onPressed: () {
+                                                                value.deleteProduct(
+                                                                    product[
+                                                                        'id']);
+                                                                showCustomSnackbar(
+                                                                    context,
+                                                                    "Berhasil dihapus",
+                                                                    "Produk Berhasil dihapus",
+                                                                    ContentType
+                                                                        .success);
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop();
+                                                              },
+                                                            ),
+                                                          ],
+                                                        );
+                                                      });
                                                 },
                                                 child: Container(
                                                   height: 40,
@@ -479,21 +518,12 @@ class Store extends StatelessWidget {
                             ),
                             InkWell(
                               onTap: () async {
-                                final result = await pushWithoutNavBar(
+                                await pushWithoutNavBar(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => FormProduct(),
+                                    builder: (context) => const FormProduct(),
                                   ),
                                 );
-                                if (result == true) {
-                                  // Refresh data jika berhasil menambah resep
-                                  value.fetchProduct();
-                                }
-                                showCustomSnackbar(
-                                    context,
-                                    "Berhasil ditambahkan",
-                                    "Produk Berhasil Ditambahkan",
-                                    ContentType.success);
                               },
                               child: Container(
                                 height: 40,

@@ -151,8 +151,8 @@ class LoginScreen extends StatelessWidget {
                                       const SizedBox(height: 8),
                                       TextFormField(
                                         controller: value.passwordController,
-                                        obscureText:
-                                            true, // Menyembunyikan input password
+                                        obscureText: value
+                                            .isObscure, // Menyembunyikan input password
                                         decoration: InputDecoration(
                                           labelText: 'Kata Sandi',
                                           labelStyle: const TextStyle(
@@ -171,6 +171,17 @@ class LoginScreen extends StatelessWidget {
                                             borderSide: const BorderSide(
                                                 color: Colors
                                                     .white), // Border saat fokus
+                                          ),
+                                          suffixIcon: IconButton(
+                                            onPressed: () {
+                                              value.toggleObscure();
+                                            },
+                                            icon: Icon(
+                                              value.isObscure
+                                                  ? Icons.visibility_off
+                                                  : Icons.visibility,
+                                              color: Colors.white,
+                                            ),
                                           ),
                                         ),
                                         style: const TextStyle(

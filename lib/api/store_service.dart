@@ -7,7 +7,6 @@ import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class StoreService {
   final Dio _dio = Dio();
@@ -198,11 +197,12 @@ class StoreService {
     final token = await AuthService().getToken();
     try {
       final response = await _dio.get(
-          'https://apiv1.agrolyn.online/ecommerce/products/search/?query=$keyword/',
+          'https://apiv1.agrolyn.online/ecommerce/products/search/?query=$keyword',
           options: Options(headers: {
             'Authorization': 'Bearer $token',
           }));
       if (response.statusCode == 200) {
+        print(response.data['data']);
         return response.data['data']; // Mengembalikan semua produk
       } else {
         print("Produk tidak ditemukan");

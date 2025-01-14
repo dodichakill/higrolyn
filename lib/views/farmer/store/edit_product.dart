@@ -11,70 +11,46 @@ import 'package:dio/dio.dart';
 
 class EditProduct extends StatelessWidget {
   final Map<String, dynamic> product;
-  const EditProduct({super.key, required this.product});
+  EditProduct({super.key, required this.product}) {
+    print(product);
+  }
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => StoreNotifier(context: context),
       child: Consumer<StoreNotifier>(builder: (context, value, child) {
-        Future<void> loadProduct() async {
-          value.nameEditingController.text = product['name'].toString();
-          value.descEditingController.text = product['description'].toString();
-          value.priceEditingController.text = product['price'].toString();
-          value.stockEditingController.text = product['stock'].toString();
-          value.categoryProductController.text =
-              product['category']['name'].toString();
-          value.setImageProductDefault(product['image']);
-        }
-
         Future<void> saveProduk() async {
           if (value.keyfrom.currentState?.validate() ?? false) {
             value.setLoading(true);
-
-            // Retrieve data from the form to send to API
-            String name = value.nameEditingController.text;
-            String desc = value.descEditingController.text;
-            int price = int.tryParse(value.priceEditingController.text) ?? 0;
-            int stock = int.tryParse(value.stockEditingController.text) ?? 0;
-            String category = value.categoryProductController.text;
-
-            // Log data that will be sent
-            print("Name: $name");
-            print("Description: $desc");
-            print("Price: $price");
-            print("Stock: $stock");
-            print("Category: $category");
-            print(
-                "Image Path: ${value.imageProduct?.path ?? 'No image selected'}");
+            value.notifyListeners();
 
             // Send data to the API
-            final res = await StoreService().updateProduct(
+            final res = await StoreService()
+                .updateProduct(
               context,
               product['id'],
-              name,
-              desc,
-              price,
-              stock,
-              category,
+              value.nameProduct,
+              value.descProduct,
+              value.priceProduct,
+              value.stockProduct,
+              value.categoryIdProduct.toString(),
               value.imageProduct != null
                   ? File(value.imageProduct!.path)
                   : File(''), // For the image file
-            );
-
-            if (res == true) {
+            )
+                .whenComplete(() {
               value.setLoading(false);
-            } else {
-              value.setLoading(false);
-            }
+              value.notifyListeners();
+            });
           }
         }
 
         return Scaffold(
           appBar: AppBar(
-            title: Text('Edit Produk'),
+            title: const Text('Edit Produk'),
             leading: IconButton(
-              icon: Icon(Icons.arrow_back),
+              icon: const Icon(Icons.arrow_back),
               onPressed: () => Navigator.pop(context),
             ),
           ),
@@ -90,19 +66,21 @@ class EditProduct extends StatelessWidget {
                     child: Column(
                       children: [
                         TextFormField(
-                          controller: value.nameEditingController,
-                          decoration: InputDecoration(
+                          initialValue: product['product_name'],
+                          decoration: const InputDecoration(
                             labelText: "Nama produk",
                           ),
+                          onChanged: (e) => value.setNameProduct(e),
                           validator: (e) => e!.isEmpty
                               ? "Nama produk tidak boleh kosong"
                               : null,
                         ),
                         const SizedBox(height: 16),
                         TextFormField(
-                          controller: value.descEditingController,
-                          decoration:
-                              InputDecoration(labelText: "Deskripsi produk"),
+                          initialValue: product['desc_product'],
+                          decoration: const InputDecoration(
+                              labelText: "Deskripsi produk"),
+                          onChanged: (e) => value.setDescProduct(e),
                           validator: (e) => e!.isEmpty
                               ? "Deskripsi produk tidak boleh kosong"
                               : null,
@@ -110,9 +88,10 @@ class EditProduct extends StatelessWidget {
                         const SizedBox(height: 16),
                         TextFormField(
                           keyboardType: TextInputType.number,
-                          controller: value.priceEditingController,
+                          initialValue: product['price'].toString(),
+                          onChanged: (e) => value.setPriceProduct(int.parse(e)),
                           decoration:
-                              InputDecoration(labelText: "Harga produk"),
+                              const InputDecoration(labelText: "Harga produk"),
                           validator: (e) => e!.isEmpty
                               ? "Harga produk tidak boleh kosong"
                               : null,
@@ -120,8 +99,9 @@ class EditProduct extends StatelessWidget {
                         const SizedBox(height: 16),
                         TextFormField(
                           keyboardType: TextInputType.number,
-                          controller: value.stockEditingController,
-                          decoration: InputDecoration(
+                          initialValue: product['stock'].toString(),
+                          onChanged: (e) => value.setStockProduct(int.parse(e)),
+                          decoration: const InputDecoration(
                             labelText: "Stok produk",
                           ),
                           validator: (e) => e!.isEmpty
@@ -129,43 +109,54 @@ class EditProduct extends StatelessWidget {
                               : null,
                         ),
                         const SizedBox(height: 16),
-                        DropdownCategoryStore(),
+                        const DropdownCategoryStore(),
                         const SizedBox(height: 16),
                         GestureDetector(
                           onTap: () => value.pickImage(context),
-                          child: value.imageProduct == null
-                              ? Container(
-                                  height: 150,
-                                  width: double.infinity,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(16),
-                                    color: Colors.grey[300],
-                                  ),
-                                  child: Icon(Icons.add_a_photo,
-                                      color: Colors.grey[500]),
-                                )
-                              : ClipRRect(
+                          child: value.imageProduct != null
+                              ? ClipRRect(
                                   borderRadius: BorderRadius.circular(16),
                                   child: Image.file(value.imageProduct!,
                                       height: 150,
                                       width: double.infinity,
                                       fit: BoxFit.cover),
-                                ),
+                                )
+                              : product['img_product'] != null
+                                  ? ClipRRect(
+                                      borderRadius: BorderRadius.circular(16),
+                                      child: Image.network(
+                                        product['img_product'],
+                                        height: 150,
+                                        width: double.infinity,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    )
+                                  : Container(
+                                      height: 150,
+                                      width: double.infinity,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(16),
+                                        color: Colors.grey[300],
+                                      ),
+                                      child: Icon(Icons.add_a_photo,
+                                          color: Colors.grey[500]),
+                                    ),
                         ),
                         const SizedBox(height: 16),
                         ElevatedButton(
                           onPressed: () => saveProduk(),
                           style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(
+                            backgroundColor: WidgetStateProperty.all(
                                 MyColors.primaryColorDark),
                             foregroundColor:
-                                MaterialStateProperty.all(Colors.white),
+                                WidgetStateProperty.all(Colors.white),
                             minimumSize:
-                                MaterialStateProperty.all(Size(180, 40)),
+                                WidgetStateProperty.all(const Size(180, 40)),
                           ),
                           child: value.isLoading
-                              ? CircularProgressIndicator(color: Colors.white)
-                              : Text('Simpan'),
+                              ? const CircularProgressIndicator(
+                                  color: Colors.white)
+                              : const Text('Simpan'),
                         ),
                       ],
                     ),

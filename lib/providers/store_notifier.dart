@@ -1,12 +1,10 @@
 import 'dart:io';
 
 import 'package:agrolyn/api/store_service.dart';
-import 'package:agrolyn/shared/custom_snackbar.dart';
-import 'package:agrolyn/views/farmer/store/store.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// Enum untuk kategori produk
 enum ProductCategory { Mentah, Olahan, Lainnya }
@@ -16,7 +14,6 @@ class StoreNotifier extends ChangeNotifier {
 
   StoreNotifier({required this.context}) {
     fetchProduct();
-    searchProduct('');
   }
 
   final keyfrom = GlobalKey<FormState>();
@@ -173,9 +170,6 @@ class StoreNotifier extends ChangeNotifier {
     setDeleting(true);
     try {
       await _storeService.deleteProduct(id);
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Produk berhasil dihapus")),
-      );
       fetchProduct();
     } catch (e) {
       print("Error: $e");
@@ -189,10 +183,15 @@ class StoreNotifier extends ChangeNotifier {
 
   Future<List> searchProduct(String value) async {
     var result = await _storeService.fetchSearchProduct(value);
-    print(result);
-    product = result;
+    final prefs = await SharedPreferences.getInstance();
+    final userId = prefs.getString('id');
+    print(userId);
+    products = result
+        .where((element) => element['users_id'].toString() == userId)
+        .toList();
+    print(products);
     notifyListeners();
-    return result;
+    return products;
   }
 
   Future<void> editProduct(
@@ -241,5 +240,10 @@ class StoreNotifier extends ChangeNotifier {
         SnackBar(content: Text("Error: $error")),
       );
     }
+  }
+
+  @override
+  void notifyListeners() {
+    super.notifyListeners();
   }
 }

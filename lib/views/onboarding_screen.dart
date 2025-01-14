@@ -13,21 +13,6 @@ class OnboardingScreen extends StatefulWidget {
 }
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
-  // @override
-  // void initState() async {
-  //   // TODO: implement initState
-  //   super.initState();
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   if (prefs.getBool('isOnboarded') == true) {
-  //     Navigator.pushReplacement(
-  //       context,
-  //       MaterialPageRoute(
-  //         builder: (context) => const ChoiceUser(),
-  //       ),
-  //     );
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     return OnBoardingSlider(
@@ -138,10 +123,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 height: 20,
               ),
               Text(
-                'Kamu bisa membeli hasil olahan / sayur & buah yang fresh langsung dari petani',
+                'Beli hasil olahan/sayur & buah fresh langsung dari petani',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: Colors.white70,
+                  color: Colors.white,
                   fontSize: 18.0,
                   fontWeight: FontWeight.w600,
                 ),
@@ -176,7 +161,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 'Ketahui Penyakitnya dan Temukan Solusi terbaiknya di sini',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: Colors.white70,
+                  color: Colors.white,
                   fontSize: 18.0,
                   fontWeight: FontWeight.w600,
                 ),
@@ -211,7 +196,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 'Kamu bisa saling berdiskusi dengan para petani lainnya di sini',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: Colors.white70,
+                  color: Colors.white,
                   fontSize: 18.0,
                   fontWeight: FontWeight.w600,
                 ),
@@ -246,7 +231,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 'Kamu juga bisa berdiskusi dengan chatbot tentang informasi pertanian',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: Colors.white70,
+                  color: Colors.white,
                   fontSize: 18.0,
                   fontWeight: FontWeight.w600,
                 ),
@@ -281,7 +266,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 'Tingkatkan Literasimu melalui artikel dan video edukasi pertanian',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: Colors.white70,
+                  color: Colors.white,
                   fontSize: 18.0,
                   fontWeight: FontWeight.w600,
                 ),
@@ -316,7 +301,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 'Mulai Eksplorasi sekarang juga di Agrolyn: solusi cerdas pertanian masa depan',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: Colors.white70,
+                  color: Colors.white,
                   fontSize: 18.0,
                   fontWeight: FontWeight.w600,
                 ),

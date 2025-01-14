@@ -203,6 +203,8 @@ class AuthService {
   Future<void> logout(context) async {
     // buatkan code untuk logout dengan endpoint /logout dan menambahkan token bernama 'access_token' di header
     final token = await getToken();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
     print("Token: $token");
     if (token != null) {
       try {
@@ -214,15 +216,15 @@ class AuthService {
         );
 
         if (res.statusCode == 200) {
-          SharedPreferences prefs = await SharedPreferences.getInstance();
-          await prefs.remove('access_token');
           pushReplacementWithoutNavBar(context,
               MaterialPageRoute(builder: (context) => const LoginScreen()));
         }
       } on DioException catch (e) {
         print("Register error: ${e.response?.data['message']}");
-        showCustomSnackbar(context, "Gagal Logout",
-            "Logout gagal, silahkan dicoba lagi", ContentType.failure);
+      } finally {
+        await prefs.remove('access_token');
+        pushReplacementWithoutNavBar(context,
+            MaterialPageRoute(builder: (context) => const LoginScreen()));
       }
     }
   }

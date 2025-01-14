@@ -39,7 +39,7 @@ class DetailCommonStore extends StatelessWidget {
                           child: BackdropFilter(
                             filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
                             child: Container(
-                              padding: EdgeInsets.all(8),
+                              padding: const EdgeInsets.all(8),
                               decoration: BoxDecoration(
                                 color: Colors.white.withOpacity(0.4),
                                 borderRadius: BorderRadius.circular(16),
@@ -48,7 +48,7 @@ class DetailCommonStore extends StatelessWidget {
                                 onPressed: () {
                                   Navigator.pop(context);
                                 },
-                                icon: Icon(
+                                icon: const Icon(
                                   Icons.arrow_back,
                                   size: 24,
                                   color: Colors.black87,
@@ -70,10 +70,10 @@ class DetailCommonStore extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Container(
-                    padding: EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
                       color: Colors.white.withOpacity(0.75),
-                      borderRadius: BorderRadius.only(
+                      borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(24),
                         topRight: Radius.circular(24),
                       ),
@@ -89,7 +89,7 @@ class DetailCommonStore extends StatelessWidget {
                             children: [
                               Text(
                                 "${product['product_name']}",
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 24,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -101,7 +101,11 @@ class DetailCommonStore extends StatelessWidget {
                                       size: 14, color: Colors.grey),
                                   const SizedBox(width: 4),
                                   Text(
-                                    "${product['product_categories_id'] == 1 ? 'Mentah' : (product['product_categories_id'] == 2 ? 'Olahan' : 'Lainnya')}",
+                                    product['product_categories_id'] == 1
+                                        ? 'Mentah'
+                                        : (product['product_categories_id'] == 2
+                                            ? 'Olahan'
+                                            : 'Lainnya'),
                                     style: const TextStyle(
                                       fontSize: 12,
                                       color: Colors.grey,
@@ -111,7 +115,7 @@ class DetailCommonStore extends StatelessWidget {
                               ),
                             ],
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 4,
                           ),
                           Text(
@@ -122,16 +126,16 @@ class DetailCommonStore extends StatelessWidget {
                               color: Colors.green,
                             ),
                           ),
-                          SizedBox(height: 16),
+                          const SizedBox(height: 16),
                           // Petunjuk (instructions)
-                          Text(
+                          const Text(
                             'Deskripsi',
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          SizedBox(height: 8),
+                          const SizedBox(height: 8),
                           Text(
                             "${product['desc_product']}",
                             maxLines: 2,
@@ -141,16 +145,16 @@ class DetailCommonStore extends StatelessWidget {
                                 fontSize: 14,
                                 color: Colors.black),
                           ),
-                          SizedBox(height: 16),
+                          const SizedBox(height: 16),
                           // Bahan-bahan (ingredients)
-                          Text(
+                          const Text(
                             'Terjual',
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          SizedBox(height: 8),
+                          const SizedBox(height: 8),
                           Text(
                             "Total ${product['sold']} terjual",
                             maxLines: 2,
@@ -160,7 +164,7 @@ class DetailCommonStore extends StatelessWidget {
                                 fontSize: 14,
                                 color: Colors.black),
                           ),
-                          SizedBox(height: 16),
+                          const SizedBox(height: 16),
                           // Bahan-bahan (ingredients)
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.end,
@@ -168,14 +172,14 @@ class DetailCommonStore extends StatelessWidget {
                             children: [
                               Column(
                                 children: [
-                                  Text(
+                                  const Text(
                                     'Stock Barang',
                                     style: TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  SizedBox(height: 8),
+                                  const SizedBox(height: 8),
                                   Text(
                                     "${product['stock']} stok di gudang",
                                     maxLines: 2,
@@ -197,7 +201,7 @@ class DetailCommonStore extends StatelessWidget {
                                         borderRadius: BorderRadius.circular(
                                             12), // Sudut melengkung
                                       ),
-                                      child: Container(
+                                      child: SizedBox(
                                         width:
                                             350, // Menentukan lebar popup (ubah sesuai kebutuhan)
                                         height:
@@ -224,9 +228,10 @@ class DetailCommonStore extends StatelessWidget {
                                               );
                                             },
                                             scrollPhysics:
-                                                BouncingScrollPhysics(),
-                                            backgroundDecoration: BoxDecoration(
-                                                color: Colors.white),
+                                                const BouncingScrollPhysics(),
+                                            backgroundDecoration:
+                                                const BoxDecoration(
+                                                    color: Colors.white),
                                             pageController: PageController(),
                                           ),
                                         ),
@@ -264,7 +269,7 @@ class DetailCommonStore extends StatelessWidget {
                               )
                             ],
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 16,
                           ),
                           // Gambar dengan Zoom & Swipe Gallery
@@ -278,37 +283,42 @@ class DetailCommonStore extends StatelessWidget {
                             ),
                           ),
 
-                          SizedBox(height: 24),
+                          const SizedBox(height: 24),
                           // Tombol hijau
-                          SizedBox(
-                            width: double.infinity,
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.green,
-                                padding: EdgeInsets.symmetric(vertical: 16),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                              ),
-                              onPressed: () {
-                                pushWithoutNavBar(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => DetailTransaction(),
+                          value.role == "3"
+                              ? SizedBox(
+                                  width: double.infinity,
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.green,
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 16),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(16),
+                                      ),
+                                    ),
+                                    onPressed: () {
+                                      pushWithoutNavBar(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const DetailTransaction(),
+                                        ),
+                                      );
+                                    },
+                                    child: const Text(
+                                      'Beli Sekarang',
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
                                   ),
-                                );
-                              },
-                              child: Text(
-                                'Beli Sekarang',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
+                                )
+                              : const SizedBox(),
+
+                          const SizedBox(
                             height: 16,
                           ),
                         ],
@@ -327,7 +337,7 @@ class DetailCommonStore extends StatelessWidget {
 
 class PhotoViewGalleryPage extends StatelessWidget {
   final List<String> imageUrls;
-  PhotoViewGalleryPage({required this.imageUrls});
+  const PhotoViewGalleryPage({super.key, required this.imageUrls});
 
   @override
   Widget build(BuildContext context) {
@@ -340,8 +350,8 @@ class PhotoViewGalleryPage extends StatelessWidget {
             maxScale: PhotoViewComputedScale.covered * 2,
           );
         }).toList(),
-        scrollPhysics: BouncingScrollPhysics(),
-        backgroundDecoration: BoxDecoration(
+        scrollPhysics: const BouncingScrollPhysics(),
+        backgroundDecoration: const BoxDecoration(
           color: Colors.white,
         ),
         enableRotation: true,
