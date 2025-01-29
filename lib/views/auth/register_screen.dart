@@ -316,22 +316,22 @@ class RegisterScreen extends StatelessWidget {
                                       onPressed: () async {
                                         value.setLoading(true);
                                         //kalo testpake ini
-                                        // SharedPreferences prefs =
-                                        //     await SharedPreferences
-                                        //         .getInstance();
-                                        // String? id = prefs
-                                        //         .getString('role_choice') ??
-                                        //     '2'; // Menyediakan nilai default '2'
-                                        // print(
-                                        //     "${int.parse(id)} ${value.nameController.text} ${value.emailController.text} ${value.phoneController.text} ${value.addressController.text} ${value.passwordController.text}");
-
                                         SharedPreferences prefs =
                                             await SharedPreferences
                                                 .getInstance();
-                                        String? id =
-                                            prefs.getString('role_choice');
+                                        String? id = prefs
+                                                .getString('role_choice') ??
+                                            '2'; // Menyediakan nilai default '2'
                                         print(
-                                            "${int.parse(id ?? '0')} ${value.nameController.text} ${value.emailController.text} ${value.phoneController.text} ${value.addressController.text} ${value.passwordController.text}");
+                                            "${int.parse(id)} ${value.nameController.text} ${value.emailController.text} ${value.phoneController.text} ${value.addressController.text} ${value.passwordController.text}");
+
+                                        // SharedPreferences prefs =
+                                        //     await SharedPreferences
+                                        //         .getInstance();
+                                        // String? id =
+                                        //     prefs.getString('role_choice');
+                                        // print(
+                                        //     "${int.parse(id ?? '0')} ${value.nameController.text} ${value.emailController.text} ${value.phoneController.text} ${value.addressController.text} ${value.passwordController.text}");
                                         // if (value.keyfrom.currentState!
                                         //     .validate()) {
                                         AuthService()

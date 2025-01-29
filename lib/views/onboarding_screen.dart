@@ -112,7 +112,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               SizedBox(
-                height: 480,
+                height: 250,
               ),
               Text(
                 'Sayur & Buah yang Fresh',

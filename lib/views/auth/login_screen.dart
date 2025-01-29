@@ -21,7 +21,7 @@ class LoginScreen extends StatelessWidget {
           body: Stack(
             children: [
               Image.asset(
-                ImageAssets.bgPagi, // Path animasi Anda
+                ImageAssets.bgMalam, // Path animasi Anda
                 width: double.infinity, // Lebar penuh
                 height: double.infinity, // Tinggi penuh
                 fit: BoxFit.cover, // Menyesuaikan animasi agar memenuhi area
@@ -67,28 +67,12 @@ class LoginScreen extends StatelessWidget {
                                         const SizedBox(
                                           height: 16,
                                         ),
-                                        const Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              'Masuk',
-                                              style: TextStyle(
-                                                  fontSize: 20,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.white),
-                                            ),
-                                            SizedBox(
-                                              width: 4,
-                                            ),
-                                            Text(
-                                              'Agrolyn',
-                                              style: TextStyle(
-                                                  fontSize: 20,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: MyColors.primaryColor),
-                                            ),
-                                          ],
+                                        const Text(
+                                          'Masuk Agrolyn',
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white),
                                         ),
                                         const SizedBox(height: 8),
                                         const Text(

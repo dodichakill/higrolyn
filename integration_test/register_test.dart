@@ -17,9 +17,9 @@ void main() {
       // Isi semua field
       await tester.enterText(find.byKey(const Key('Nama')), 'Faisal Arrahman');
       await tester.enterText(
-          find.byKey(const Key('Email')), 'faissaal@tegal.dev');
+          find.byKey(const Key('Email')), 'faissaal@tegall.dev');
       await tester.enterText(
-          find.byKey(const Key('Nomor Hp')), '+6285183360981');
+          find.byKey(const Key('Nomor Hp')), '+6285183360982');
       await tester.enterText(find.byKey(const Key('Alamat')), 'Kaladawa');
       await tester.enterText(find.byKey(const Key('Kata Sandi')), 'faisal123');
 

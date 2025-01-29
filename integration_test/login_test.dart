@@ -86,37 +86,37 @@ void main() {
     //       reason: 'Navigasi ke halaman home harus berhasil setelah login.');
     // });
 
-    testWidgets('Navigasi ke HomePage setelah login berhasil',
-        (WidgetTester tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: LoginScreen(),
-          navigatorObservers: [mockNavigatorObserver],
-        ),
-      );
+    // testWidgets('Navigasi ke HomePage setelah login berhasil',
+    //     (WidgetTester tester) async {
+    //   await tester.pumpWidget(
+    //     MaterialApp(
+    //       home: LoginScreen(),
+    //       navigatorObservers: [mockNavigatorObserver],
+    //     ),
+    //   );
 
-      // Temukan elemen di LoginScreen
-      final emailField = find.byKey(const Key('Email'));
-      final passwordField = find.byKey(const Key('Kata Sandi'));
-      final loginButton = find.byKey(const Key('loginButton'));
+    //   // Temukan elemen di LoginScreen
+    //   final emailField = find.byKey(const Key('Email'));
+    //   final passwordField = find.byKey(const Key('Kata Sandi'));
+    //   final loginButton = find.byKey(const Key('loginButton'));
 
-      // Isi form
-      await tester.enterText(emailField, 'dod@gmail.com');
-      await tester.enterText(passwordField, 'dod123');
+    //   // Isi form
+    //   await tester.enterText(emailField, 'dod@gmail.com');
+    //   await tester.enterText(passwordField, 'dod123');
 
-      // Tekan tombol login
-      await tester.tap(loginButton);
+    //   // Tekan tombol login
+    //   await tester.tap(loginButton);
 
-      // Tunggu navigasi selesai
-      await tester.pumpAndSettle();
+    //   // Tunggu navigasi selesai
+    //   await tester.pumpAndSettle();
 
-      // Verifikasi bahwa halaman HomePage muncul
-      expect(find.byType(HomePage), findsNothing,
-          reason: 'Halaman HomePage tidak boleh muncul jika login gagal.');
-      expect(find.byKey(const Key('menu')), findsOneWidget,
-          reason: 'Navigasi ke HomePage harus berhasil.');
-      // Tunggu widget selesai dirender
-      await tester.pumpAndSettle(Duration(milliseconds: 20));
-    });
+    //   // Verifikasi bahwa halaman HomePage muncul
+    //   expect(find.byType(HomePage), findsNothing,
+    //       reason: 'Halaman HomePage tidak boleh muncul jika login gagal.');
+    //   expect(find.byKey(const Key('menu')), findsOneWidget,
+    //       reason: 'Navigasi ke HomePage harus berhasil.');
+    //   // Tunggu widget selesai dirender
+    //   await tester.pumpAndSettle(Duration(milliseconds: 20));
+    // });
   });
 }

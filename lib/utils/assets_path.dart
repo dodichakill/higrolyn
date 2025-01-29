@@ -52,6 +52,7 @@ class ImageAssets {
   static String imgFilter = "$root/filter.webp";
   static String forgot = "$root/forgot.webp";
   static String bgPagi = "$root/bg-p.webp";
+  static String bgMalam = "$root/bgMalam.webp";
   static String bgSore = "$root/bg-s.webp";
   static String bni = "$root/BBNI.JK-69fac82a.png";
   static String gopay = "$root/download (2).png";
