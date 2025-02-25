@@ -6,6 +6,7 @@ import 'package:agrolyn/utils/date.dart';
 import 'package:agrolyn/views/chatbot/chatbot.dart';
 import 'package:agrolyn/views/farmer/detection/detection_scan_screen.dart';
 import 'package:agrolyn/views/farmer/home/detail_article.dart';
+import 'package:agrolyn/views/farmer/olahans/category_olahan_page.dart';
 import 'package:agrolyn/widgets/all_article_screen.dart';
 import 'package:agrolyn/widgets/data_not_found.dart';
 import 'package:agrolyn/widgets/no_found_custom.dart';
@@ -261,6 +262,102 @@ class HomePage extends StatelessWidget {
                                                         fit: BoxFit.fill,
                                                       ),
                                               ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              height: 226,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                color: MyColors.primaryColorDark,
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 32, right: 8, top: 8, bottom: 8),
+                                child: Row(
+                                  children: [
+                                    SizedBox(
+                                        height: 192,
+                                        width: 192,
+                                        child: Image.asset(
+                                          ImageAssets.piring1,
+                                          fit: BoxFit.fill,
+                                        )),
+                                    SizedBox(
+                                      width: 16,
+                                    ),
+                                    Expanded(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          const Text(
+                                            "Buat ide usaha kamu menarik di Agrolyn Resep",
+                                            maxLines: 3,
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 8,
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                0, 0, 8, 0),
+                                            child: InkWell(
+                                              key: const Key('selengkapnya'),
+                                              onTap: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          const CategoryOlahanPage(
+                                                            idCat: 0,
+                                                          )),
+                                                );
+                                              },
+                                              child: Container(
+                                                height: 40,
+                                                width: double.infinity,
+                                                alignment: Alignment
+                                                    .center, // Posisikan teks di tengah
+                                                decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: Colors.black
+                                                          .withOpacity(0.2),
+                                                      offset:
+                                                          const Offset(0, 4),
+                                                      blurRadius: 8,
+                                                    ),
+                                                  ],
+                                                ),
+                                                child: const Text(
+                                                  "Selengkapnya",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: MyColors
+                                                          .primaryColorDark),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ),
@@ -531,6 +628,16 @@ class HomePage extends StatelessWidget {
                                           ),
                                   ],
                                 ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 8),
+                            child: SingleChildScrollView(
+                              scrollDirection:
+                                  Axis.horizontal, // Mengatur scroll horizontal
+                              child: Row(
+                                children: [],
                               ),
                             ),
                           ),
