@@ -55,12 +55,6 @@ class DetectionResultScreen extends StatelessWidget {
                                   ),
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(16),
-                                    // child: Image.network(
-                                    //   value.resultPrediction['prediction']["img_detection"]!,
-                                    //   width: double.infinity,
-                                    //   height: 180,
-                                    //   fit: BoxFit.cover,
-                                    // ),
                                     child: value.resultPrediction[
                                                 "img_detection"] !=
                                             null
