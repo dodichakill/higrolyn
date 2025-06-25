@@ -8,7 +8,7 @@ class VideoService {
     final token = await AuthService().getToken();
     try {
       final response =
-          await _dio.get('https://apiv1.agrolyn.online/video-education/',
+          await _dio.get('https://apiv1.agrolyn.my.id/video-education/',
               options: Options(headers: {
                 'Authorization': 'Bearer $token',
               }));

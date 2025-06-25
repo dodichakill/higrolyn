@@ -13,7 +13,7 @@ class DetectionService {
   final Dio _dio = Dio();
 
   DetectionService() {
-    _dio.options.baseUrl = "https://apiv1.agrolyn.online";
+    _dio.options.baseUrl = "https://apiv1.agrolyn.my.id";
     _dio.options.headers = {
       'Content-Type': 'application/json',
       'Accept': 'application/json',

@@ -10,7 +10,7 @@ class OlahanService {
     final token = await AuthService().getToken();
     try {
       final response = await _dio.get(
-        'https://apiv1.agrolyn.online/recommendation-categories/',
+        'https://apiv1.agrolyn.my.id/recommendation-categories/',
         options: Options(headers: {
           'Authorization': 'Bearer $token',
         }),
@@ -34,7 +34,7 @@ class OlahanService {
     final token = await AuthService().getToken();
     try {
       final response = await _dio.get(
-        'https://apiv1.agrolyn.online/recommendations/$idCat/',
+        'https://apiv1.agrolyn.my.id/recommendations/$idCat/',
         options: Options(headers: {
           'Authorization': 'Bearer $token',
           'content-type': 'application/json',
@@ -58,7 +58,7 @@ class OlahanService {
     final token = await AuthService().getToken();
     try {
       final response = await _dio.get(
-        'https://apiv1.agrolyn.online/recommendations/details/$id/',
+        'https://apiv1.agrolyn.my.id/recommendations/details/$id/',
         options: Options(headers: {
           'Authorization': 'Bearer $token',
           'content-type': 'application/json',

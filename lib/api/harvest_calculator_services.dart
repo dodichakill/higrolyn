@@ -12,7 +12,7 @@ class HarvestCalculatorService {
       throw Exception("Token tidak ditemukan");
     }
 
-    String url = 'https://apiv1.agrolyn.online/harvest-calculator/$plantType/';
+    String url = 'https://apiv1.agrolyn.my.id/harvest-calculator/$plantType/';
 
     try {
       print("Data: $data");

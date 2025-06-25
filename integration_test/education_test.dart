@@ -16,8 +16,8 @@ void main() {
       final mockNavigatorObserver = MockNavigatorObserver();
 
       // URL dan token
-      const loginUrl = 'https://apiv1.agrolyn.online/login/';
-      const articlesUrl = 'https://apiv1.agrolyn.online/articles/';
+      const loginUrl = 'https://apiv1.agrolyn.my.id/login/';
+      const articlesUrl = 'https://apiv1.agrolyn.my.id/articles/';
       const email = 'faisal@tegal.dev'; // Ganti dengan email yang valid
       const password = 'faisal123'; // Ganti dengan password yang valid
 

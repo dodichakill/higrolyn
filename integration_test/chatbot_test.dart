@@ -11,7 +11,7 @@ void main() {
     final dio = Dio();
 
     // URL dan token
-    const articlesUrl = 'https://apiv1.agrolyn.online/articles/';
+    const articlesUrl = 'https://apiv1.agrolyn.my.id/articles/';
     const token =
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTczNjg1NjU4OCwianRpIjoiYWNiZjFmNzctZjY0Yy00Y2YwLTgzNmQtNzU4ZjIyZTZkYmRmIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6eyJpZCI6NTEsImVtYWlsIjoiZmFpc2FsQHRlZ2FsLmRldiIsIm5hbWUiOiJmYWlzYWwiLCJyb2xlc19pZCI6Mn0sIm5iZiI6MTczNjg1NjU4OCwiY3NyZiI6IjdmYTQ2ODNiLTliZGEtNGIwMC04YjQ1LWY0Y2E1N2Q1NWU2MCIsImV4cCI6MTczNzExNTc4OH0.QVvysUYncAA1Q2DtU2vssuvShK1WMaoiCLZD6cKQul8'; // Ganti dengan token yang valid
 
