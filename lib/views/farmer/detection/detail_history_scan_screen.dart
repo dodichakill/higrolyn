@@ -89,7 +89,7 @@ class DetailHistoryScanScreen extends StatelessWidget {
                                           borderRadius:
                                               BorderRadius.circular(16),
                                           child: Image.network(
-                                            "https://agrolyn.online/static/uploads/${value.detailHistoryResult['image_detection']}",
+                                            "${value.detailHistoryResult['image_detection']}",
                                             width: double.infinity,
                                             height: 200,
                                             fit: BoxFit.cover,

@@ -129,32 +129,6 @@ class CommonStore extends StatelessWidget {
                               ),
                             ),
                           ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          Container(
-                            width: double.infinity,
-                            padding: const EdgeInsets.symmetric(horizontal: 8),
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.grey),
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: const Row(
-                              children: [
-                                Icon(Icons.search, color: Colors.grey),
-                                SizedBox(width: 8),
-                                Expanded(
-                                  child: TextField(
-                                    decoration: InputDecoration(
-                                      border: InputBorder.none,
-                                      hintText: 'Cari barang disini',
-                                      hintStyle: TextStyle(color: Colors.grey),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
                           SizedBox(
                             child: value.products.isNotEmpty
                                 ? ListView.builder(

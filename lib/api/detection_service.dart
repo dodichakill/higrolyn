@@ -40,8 +40,14 @@ class DetectionService {
             options: Options(headers: {
               'Authorization': 'Bearer $token',
             }));
-      } else {
+      } else if (type == 'Padi') {
         response = await _dio.post("/rice-disease-predict/$disease/",
+            data: formData,
+            options: Options(headers: {
+              'Authorization': 'Bearer $token',
+            }));
+      } else {
+        response = await _dio.post("/tomato-disease-predict/$disease/",
             data: formData,
             options: Options(headers: {
               'Authorization': 'Bearer $token',

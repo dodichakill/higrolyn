@@ -70,8 +70,10 @@ class CommunityNotifer extends ChangeNotifier {
       prefs.setInt('category_id', 1);
     } else if (value == "Padi") {
       prefs.setInt('category_id', 2);
-    } else {
+    } else if (value == "Tomat") {
       prefs.setInt('category_id', 3);
+    } else {
+      prefs.setInt('category_id', 4);
     }
     notifyListeners();
   }
@@ -331,6 +333,14 @@ class CommunityNotifer extends ChangeNotifier {
                                 await InterPrefs.init();
                                 InterPrefs.setPrefs("filterBy", "padi");
                                 print("filter berdasarkan : padi");
+                                notifyListeners();
+                              }),
+                          ItemFilter(
+                              name: "Tomat",
+                              onTap: () async {
+                                await InterPrefs.init();
+                                InterPrefs.setPrefs("filterBy", "tomat");
+                                print("filter berdasarkan : tomat");
                                 notifyListeners();
                               }),
                         ],

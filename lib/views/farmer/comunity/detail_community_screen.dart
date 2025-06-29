@@ -154,7 +154,9 @@ class DetailCommunityScreen extends StatelessWidget {
                           ? 1
                           : dataQuestion["question_type"] == "padi"
                               ? 2
-                              : 3,
+                              : dataQuestion["question_type"] == "tomat"
+                                  ? 3
+                                  : 4,
                     )
                   ]),
                 ));

@@ -11,7 +11,7 @@ class DropdownCategory extends StatefulWidget {
 
 class _DropdownCategoryState extends State<DropdownCategory> {
   String _selectedCategory = 'Jagung';
-  final List<String> _categories = ['Jagung', 'Padi', 'Umum'];
+  final List<String> _categories = ['Jagung', 'Padi', 'Tomat', 'Umum'];
 
   @override
   Widget build(BuildContext context) {

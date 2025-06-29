@@ -77,7 +77,7 @@ class AboutScreen extends StatelessWidget {
                   onPressed: () {
                     final Uri emailLaunchUri = Uri(
                       scheme: 'mailto',
-                      path: 'customersupport@agrolyn.online',
+                      path: 'customersupport@agrolyn.my.id',
                       queryParameters: {
                         'subject': 'Kendala',
                       },

@@ -114,96 +114,115 @@ class CommonOrder extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Image.asset(
-                                  ImageAssets.jagung,
-                                  height: 96,
-                                  width: 96,
+                                Expanded(
+                                  flex: 2,
+                                  child: Image.asset(
+                                    ImageAssets.jagung,
+                                    height: 96,
+                                    width: 96,
+                                  ),
                                 ),
                                 SizedBox(
                                   width: 16,
                                 ),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Total Barang',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 14),
-                                    ),
-                                    Text(
-                                      '3 Jagung',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.normal,
-                                          fontSize: 12,
-                                          color: Colors.grey),
-                                    )
-                                  ],
-                                ),
-                                SizedBox(
-                                  width: 16,
-                                ),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Total Harga',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 14),
-                                    ),
-                                    Text(
-                                      'Rp 30.000',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.normal,
-                                          fontSize: 12,
-                                          color: Colors.grey),
-                                    )
-                                  ],
-                                ),
-                                SizedBox(
-                                  width: 16,
-                                ),
-                                Column(
-                                  children: [
-                                    Container(
-                                      height: 40,
-                                      width: 96, // Lebar tetap untuk tombol
-                                      alignment: Alignment
-                                          .center, // Posisikan teks di tengah
-                                      decoration: BoxDecoration(
-                                        color: Colors.black45, // Warna tombol
-                                        borderRadius: BorderRadius.circular(
-                                            8), // Sudut melengkung
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color:
-                                                Colors.black.withOpacity(0.2),
-                                            offset: const Offset(0, 4),
-                                            blurRadius: 8,
-                                          ),
-                                        ],
-                                      ),
-                                      child: Text(
-                                        "Diproses",
+                                Expanded(
+                                  flex: 1,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Total Barang',
                                         style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.grey[200], // Warna teks
-                                          fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 14),
+                                      ),
+                                      Text(
+                                        '3 Jagung',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.normal,
+                                            fontSize: 12,
+                                            color: Colors.grey),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 8,
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Total Harga',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 14),
+                                      ),
+                                      Text(
+                                        'Rp 30.000',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.normal,
+                                            fontSize: 12,
+                                            color: Colors.grey),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 16,
+                                ),
+                                Expanded(
+                                  flex: 2,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        height: 40,
+                                        width: 96, // Lebar tetap untuk tombol
+                                        alignment: Alignment
+                                            .center, // Posisikan teks di tengah
+                                        decoration: BoxDecoration(
+                                          color: Colors.black45, // Warna tombol
+                                          borderRadius: BorderRadius.circular(
+                                              8), // Sudut melengkung
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color:
+                                                  Colors.black.withOpacity(0.2),
+                                              offset: const Offset(0, 4),
+                                              blurRadius: 8,
+                                            ),
+                                          ],
+                                        ),
+                                        child: Text(
+                                          "Diproses",
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color:
+                                                Colors.grey[200], // Warna teks
+                                            fontSize: 14,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    SizedBox(
-                                      height: 4,
-                                    ),
-                                    Text(
-                                      '23 0ktober 2004',
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.normal,
-                                          color: Colors.grey),
-                                    ),
-                                  ],
+                                      SizedBox(
+                                        height: 4,
+                                      ),
+                                      Text(
+                                        '23 0ktober 2004',
+                                        style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.normal,
+                                            color: Colors.grey),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),
@@ -265,72 +284,88 @@ class CommonOrder extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Image.asset(
-                                  ImageAssets.jagung,
-                                  height: 96,
-                                  width: 96,
+                                Expanded(
+                                  flex: 2,
+                                  child: Image.asset(
+                                    ImageAssets.jagung,
+                                    height: 96,
+                                    width: 96,
+                                  ),
                                 ),
                                 SizedBox(
                                   width: 16,
                                 ),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Total Barang',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 14),
-                                    ),
-                                    Text(
-                                      '3 Jagung',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.normal,
-                                          fontSize: 12,
-                                          color: Colors.grey),
-                                    )
-                                  ],
+                                Expanded(
+                                  flex: 1,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Total Barang',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 14),
+                                      ),
+                                      Text(
+                                        '3 Jagung',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.normal,
+                                            fontSize: 12,
+                                            color: Colors.grey),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 8,
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Total Harga',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 14),
+                                      ),
+                                      Text(
+                                        'Rp 30.000',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.normal,
+                                            fontSize: 12,
+                                            color: Colors.grey),
+                                      )
+                                    ],
+                                  ),
                                 ),
                                 SizedBox(
                                   width: 16,
                                 ),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Total Harga',
+                                Expanded(
+                                  flex: 2,
+                                  child: Container(
+                                    height: 40,
+                                    width: 96, // Lebar tetap untuk tombol
+                                    alignment: Alignment
+                                        .center, // Posisikan teks di tengah
+                                    decoration: BoxDecoration(
+                                        color: Colors.white, // Warna tombol
+                                        borderRadius: BorderRadius.circular(
+                                            8), // Sudut melengkung
+                                        border: Border.all(color: Colors.grey)),
+                                    child: Text(
+                                      "Dikirim",
                                       style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 14),
-                                    ),
-                                    Text(
-                                      'Rp 30.000',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.normal,
-                                          fontSize: 12,
-                                          color: Colors.grey),
-                                    )
-                                  ],
-                                ),
-                                SizedBox(
-                                  width: 16,
-                                ),
-                                Container(
-                                  height: 40,
-                                  width: 96, // Lebar tetap untuk tombol
-                                  alignment: Alignment
-                                      .center, // Posisikan teks di tengah
-                                  decoration: BoxDecoration(
-                                      color: Colors.white, // Warna tombol
-                                      borderRadius: BorderRadius.circular(
-                                          8), // Sudut melengkung
-                                      border: Border.all(color: Colors.grey)),
-                                  child: Text(
-                                    "Dikirim",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.grey, // Warna teks
-                                      fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.grey, // Warna teks
+                                        fontSize: 14,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -397,97 +432,116 @@ class CommonOrder extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Image.asset(
-                                  ImageAssets.jagung,
-                                  height: 96,
-                                  width: 96,
+                                Expanded(
+                                  flex: 2,
+                                  child: Image.asset(
+                                    ImageAssets.jagung,
+                                    height: 96,
+                                    width: 96,
+                                  ),
                                 ),
                                 SizedBox(
                                   width: 16,
                                 ),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Total Barang',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 14),
-                                    ),
-                                    Text(
-                                      '3 Jagung',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.normal,
-                                          fontSize: 12,
-                                          color: Colors.grey),
-                                    )
-                                  ],
-                                ),
-                                SizedBox(
-                                  width: 16,
-                                ),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Total Harga',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 14),
-                                    ),
-                                    Text(
-                                      'Rp 30.000',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.normal,
-                                          fontSize: 12,
-                                          color: Colors.grey),
-                                    )
-                                  ],
-                                ),
-                                SizedBox(
-                                  width: 16,
-                                ),
-                                Column(
-                                  children: [
-                                    Container(
-                                      height: 40,
-                                      width: 96, // Lebar tetap untuk tombol
-                                      alignment: Alignment
-                                          .center, // Posisikan teks di tengah
-                                      decoration: BoxDecoration(
-                                        color: MyColors
-                                            .primaryColorDark, // Warna tombol
-                                        borderRadius: BorderRadius.circular(
-                                            8), // Sudut melengkung
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color:
-                                                Colors.black.withOpacity(0.2),
-                                            offset: const Offset(0, 4),
-                                            blurRadius: 8,
-                                          ),
-                                        ],
-                                      ),
-                                      child: Text(
-                                        "Diterima",
+                                Expanded(
+                                  flex: 1,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Total Barang',
                                         style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.grey[200], // Warna teks
-                                          fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 14),
+                                      ),
+                                      Text(
+                                        '3 Jagung',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.normal,
+                                            fontSize: 12,
+                                            color: Colors.grey),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 8,
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Total Harga',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 14),
+                                      ),
+                                      Text(
+                                        'Rp 30.000',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.normal,
+                                            fontSize: 12,
+                                            color: Colors.grey),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 16,
+                                ),
+                                Expanded(
+                                  flex: 2,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Container(
+                                        height: 40,
+                                        width: 96, // Lebar tetap untuk tombol
+                                        alignment: Alignment
+                                            .center, // Posisikan teks di tengah
+                                        decoration: BoxDecoration(
+                                          color: MyColors
+                                              .primaryColorDark, // Warna tombol
+                                          borderRadius: BorderRadius.circular(
+                                              8), // Sudut melengkung
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color:
+                                                  Colors.black.withOpacity(0.2),
+                                              offset: const Offset(0, 4),
+                                              blurRadius: 8,
+                                            ),
+                                          ],
+                                        ),
+                                        child: Text(
+                                          "Diterima",
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color:
+                                                Colors.grey[200], // Warna teks
+                                            fontSize: 14,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    SizedBox(
-                                      height: 4,
-                                    ),
-                                    Text(
-                                      '28 0ktober 2004',
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.normal,
-                                          color: Colors.grey),
-                                    ),
-                                  ],
+                                      SizedBox(
+                                        height: 4,
+                                      ),
+                                      Text(
+                                        '28 0ktober 2004',
+                                        style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.normal,
+                                            color: Colors.grey),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),
