@@ -58,8 +58,9 @@ class DetectionResultScreen extends StatelessWidget {
                                                 "img_detection"] !=
                                             null
                                         ? Image.network(
-                                            value.resultPrediction[
-                                                "img_detection"]!,
+                                            WebUrls.staticUrlImg +
+                                                value.resultPrediction[
+                                                    "img_detection"]!,
                                             width: double.infinity,
                                             height: 180,
                                             fit: BoxFit.cover,
@@ -70,6 +71,9 @@ class DetectionResultScreen extends StatelessWidget {
                                             height: 180,
                                             fit: BoxFit.cover,
                                           ),
+                                  ),
+                                  const SizedBox(
+                                    height: 16,
                                   ),
                                   const SizedBox(
                                     height: 16,

@@ -8,3 +8,9 @@ class MyColors {
   static const Color secondaryColorLight = Color(0xFF4CD1E9);
   static const Color secondaryColorDark = Color(0xFF107D91);
 }
+
+class WebUrls {
+  static const String baseUrl = "https://agrolyn.my.id";
+  static const String apiUrl = "https://apiv1.agrolyn.my.id/";
+  static const String staticUrlImg = "$baseUrl/static/uploads/";
+}
