@@ -1,3 +1,4 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:agrolyn/api/detection_service.dart';
 import 'package:agrolyn/utils/date.dart';
@@ -39,6 +40,29 @@ class CardHistory extends StatelessWidget {
           );
         },
       );
+      // AwesomeDialog(
+      //   context: context,
+      //   dialogType: DialogType.warning,
+      //   headerAnimationLoop: false,
+      //   animType: AnimType.bottomSlide,
+      //   title: 'Hapus Riwayat',
+      //   desc: "Apakah anda yakin ingin menghapus riwayat scan tanaman ini?",
+      //   buttonsTextStyle: const TextStyle(color: Colors.white),
+      //   showCloseIcon: true,
+      //   btnCancelText: 'Batal', // Mengganti teks tombol Cancel
+      //   btnOkText: 'Hapus', // Mengganti teks tombol OK
+      //   btnOkColor: Colors.red, // Mengubah warna tombol OK menjadi merah
+      //   btnCancelColor:
+      //       Colors.grey, // Mengubah warna tombol Cancel menjadi abu-abu
+      //   btnCancelOnPress: () {
+      //     // Menutup dialog dengan aman
+      //     Navigator.of(context).maybePop();
+      //   },
+      //   btnOkOnPress: () async {
+      //     await DetectionService().fetchDeleteHistory(context, history['id']);
+      //     Navigator.of(context).pop();
+      //   },
+      // ).show();
     }
 
     return InkWell(
