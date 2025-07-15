@@ -6,6 +6,7 @@ import 'package:agrolyn/utils/date.dart';
 import 'package:agrolyn/views/chatbot/chatbot.dart';
 import 'package:agrolyn/views/farmer/detection/detection_scan_screen.dart';
 import 'package:agrolyn/views/farmer/home/detail_article.dart';
+import 'package:agrolyn/views/farmer/olahans/category_olahan_page.dart';
 import 'package:agrolyn/widgets/all_article_screen.dart';
 import 'package:agrolyn/widgets/data_not_found.dart';
 import 'package:agrolyn/widgets/no_found_custom.dart';
@@ -266,6 +267,102 @@ class HomePage extends StatelessWidget {
                               ),
                             ),
                           ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              height: 226,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                color: MyColors.primaryColorDark,
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 32, right: 8, top: 8, bottom: 8),
+                                child: Row(
+                                  children: [
+                                    SizedBox(
+                                        height: 192,
+                                        width: 192,
+                                        child: Image.asset(
+                                          ImageAssets.piring1,
+                                          fit: BoxFit.fill,
+                                        )),
+                                    SizedBox(
+                                      width: 16,
+                                    ),
+                                    Expanded(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          const Text(
+                                            "Buat ide usaha kamu menarik di Agrolyn Resep",
+                                            maxLines: 3,
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 8,
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                0, 0, 8, 0),
+                                            child: InkWell(
+                                              key: const Key('selengkapnya'),
+                                              onTap: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          const CategoryOlahanPage(
+                                                            idCat: 0,
+                                                          )),
+                                                );
+                                              },
+                                              child: Container(
+                                                height: 40,
+                                                width: double.infinity,
+                                                alignment: Alignment
+                                                    .center, // Posisikan teks di tengah
+                                                decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: Colors.black
+                                                          .withOpacity(0.2),
+                                                      offset:
+                                                          const Offset(0, 4),
+                                                      blurRadius: 8,
+                                                    ),
+                                                  ],
+                                                ),
+                                                child: const Text(
+                                                  "Selengkapnya",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: MyColors
+                                                          .primaryColorDark),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
                           Container(
                             decoration: BoxDecoration(
                                 color: Colors.white,
@@ -319,7 +416,8 @@ class HomePage extends StatelessWidget {
                                               },
                                               items: <String>[
                                                 'corn',
-                                                'rice'
+                                                'rice',
+                                                'tomato'
                                               ].map<DropdownMenuItem<String>>(
                                                   (String value) {
                                                 String displayText;
@@ -328,7 +426,10 @@ class HomePage extends StatelessWidget {
                                                     displayText = 'Jagung';
                                                     break;
                                                   case 'rice':
-                                                    displayText = 'Beras';
+                                                    displayText = 'Padi/Gabah';
+                                                    break;
+                                                  case 'tomato':
+                                                    displayText = 'Tomat';
                                                     break;
                                                   default:
                                                     displayText = value;
@@ -435,37 +536,46 @@ class HomePage extends StatelessWidget {
                                             ),
                                           ),
                                           // Button to submit the form
-                                          InkWell(
-                                            onTap: () async {
-                                              await value.submit();
-                                            },
-                                            child: Container(
-                                              height: 40,
-                                              width: double.infinity,
-                                              alignment: Alignment
-                                                  .center, // Posisikan teks di tengah
-                                              decoration: BoxDecoration(
-                                                color:
-                                                    MyColors.primaryColorDark,
-                                                borderRadius:
-                                                    BorderRadius.circular(8),
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                    color: Colors.black
-                                                        .withOpacity(0.2),
-                                                    offset: const Offset(0, 4),
-                                                    blurRadius: 8,
+
+                                          value.isLoading
+                                              ? const Center(
+                                                  child:
+                                                      CircularProgressIndicator(),
+                                                )
+                                              : InkWell(
+                                                  onTap: () async {
+                                                    await value.submit();
+                                                  },
+                                                  child: Container(
+                                                    height: 40,
+                                                    width: double.infinity,
+                                                    alignment: Alignment
+                                                        .center, // Posisikan teks di tengah
+                                                    decoration: BoxDecoration(
+                                                      color: MyColors
+                                                          .primaryColorDark,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8),
+                                                      boxShadow: [
+                                                        BoxShadow(
+                                                          color: Colors.black
+                                                              .withOpacity(0.2),
+                                                          offset: const Offset(
+                                                              0, 4),
+                                                          blurRadius: 8,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    child: const Text(
+                                                      "Hitung",
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Colors.white),
+                                                    ),
                                                   ),
-                                                ],
-                                              ),
-                                              child: const Text(
-                                                "Hitung",
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.white),
-                                              ),
-                                            ),
-                                          ),
+                                                ),
                                         ],
                                       ),
                                     ),
@@ -531,6 +641,16 @@ class HomePage extends StatelessWidget {
                                           ),
                                   ],
                                 ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 8),
+                            child: SingleChildScrollView(
+                              scrollDirection:
+                                  Axis.horizontal, // Mengatur scroll horizontal
+                              child: Row(
+                                children: [],
                               ),
                             ),
                           ),
@@ -1144,73 +1264,6 @@ class HomePage extends StatelessWidget {
                               const SizedBox(
                                 width: 8,
                               ),
-                              // Container ketiga
-                              Container(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 16,
-                                    vertical: 8), // Padding di dalam container
-                                height:
-                                    64, // Menyesuaikan tinggi supaya lebih proporsional
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(16),
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.1),
-                                      spreadRadius: 2,
-                                      blurRadius: 8,
-                                      offset: const Offset(2, 2),
-                                    )
-                                  ],
-                                  border: Border.all(
-                                    color: MyColors.primaryColorDark.withOpacity(
-                                        0.3), // Border dengan warna lebih menarik
-                                    width: 1.5, // Lebar border yang pas
-                                  ),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment
-                                      .start, // Rata kiri untuk elemen pertama
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Image.asset(
-                                      ImageAssets.chili,
-                                      height: 32,
-                                      width: 32,
-                                    ),
-                                    const SizedBox(
-                                        width:
-                                            12), // Ruang antara gambar dan teks
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        const Text(
-                                          "Cabai",
-                                          style: TextStyle(
-                                            fontSize: 18,
-                                            color: Colors.black,
-                                            fontWeight: FontWeight
-                                                .w600, // Font lebih tebal
-                                          ),
-                                        ),
-                                        Text(
-                                          "Deteksi Penyakit",
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            color: Colors.black.withOpacity(
-                                                0.7), // Warna lebih lembut
-                                            fontWeight: FontWeight.normal,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 8,
-                              ),
                               // Container keempat
                               Container(
                                 padding: const EdgeInsets.symmetric(
@@ -1235,44 +1288,54 @@ class HomePage extends StatelessWidget {
                                     width: 1.5, // Lebar border yang pas
                                   ),
                                 ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment
-                                      .start, // Rata kiri untuk elemen pertama
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Image.asset(
-                                      ImageAssets.tomato,
-                                      height: 32,
-                                      width: 32,
-                                    ),
-                                    const SizedBox(
-                                        width:
-                                            12), // Ruang antara gambar dan teks
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        const Text(
-                                          "Tomat",
-                                          style: TextStyle(
-                                            fontSize: 18,
-                                            color: Colors.black,
-                                            fontWeight: FontWeight
-                                                .w600, // Font lebih tebal
+                                child: InkWell(
+                                  onTap: () async {
+                                    SharedPreferences prefs =
+                                        await SharedPreferences.getInstance();
+                                    prefs.setString('scan_type', "Tomat");
+                                    pushScreenWithoutNavBar(
+                                        context, const DetectionScanScreen());
+                                  },
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment
+                                        .start, // Rata kiri untuk elemen pertama
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Image.asset(
+                                        ImageAssets.tomato,
+                                        height: 32,
+                                        width: 32,
+                                      ),
+                                      const SizedBox(
+                                          width:
+                                              12), // Ruang antara gambar dan teks
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          const Text(
+                                            "Tomat",
+                                            style: TextStyle(
+                                              fontSize: 18,
+                                              color: Colors.black,
+                                              fontWeight: FontWeight
+                                                  .w600, // Font lebih tebal
+                                            ),
                                           ),
-                                        ),
-                                        Text(
-                                          "Deteksi Penyakit",
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            color: Colors.black.withOpacity(
-                                                0.7), // Warna lebih lembut
-                                            fontWeight: FontWeight.normal,
+                                          Text(
+                                            "Deteksi Penyakit",
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                              color: Colors.black.withOpacity(
+                                                  0.7), // Warna lebih lembut
+                                              fontWeight: FontWeight.normal,
+                                            ),
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                               const SizedBox(

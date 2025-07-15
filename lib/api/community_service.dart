@@ -8,7 +8,7 @@ import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 class CommunityService {
   final Dio _dio = Dio();
-  String baseUrl = "https://apiv1.agrolyn.online/community";
+  String baseUrl = "https://apiv1.agrolyn.my.id/community";
 
   Future<List> getQuestions() async {
     final token = await AuthService().getToken();

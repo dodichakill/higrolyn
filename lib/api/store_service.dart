@@ -15,7 +15,7 @@ class StoreService {
     final token = await AuthService().getToken();
     try {
       final response =
-          await _dio.get('https://apiv1.agrolyn.online/ecommerce/products/',
+          await _dio.get('https://apiv1.agrolyn.my.id/ecommerce/products/',
               options: Options(headers: {
                 'Authorization': 'Bearer $token',
               }));
@@ -34,7 +34,7 @@ class StoreService {
     final token = await AuthService().getToken();
     try {
       final response =
-          await _dio.get('https://apiv1.agrolyn.online/ecommerce/products/me/',
+          await _dio.get('https://apiv1.agrolyn.my.id/ecommerce/products/me/',
               options: Options(headers: {
                 'Authorization': 'Bearer $token',
               }));
@@ -54,7 +54,7 @@ class StoreService {
     try {
       print("FormData: ${formData.fields}");
       final response = await _dio.post(
-        'https://apiv1.agrolyn.online/ecommerce/products/new-product/',
+        'https://apiv1.agrolyn.my.id/ecommerce/products/new-product/',
         data: formData,
         options: Options(headers: {
           'Authorization': 'Bearer $token',
@@ -82,7 +82,7 @@ class StoreService {
     final token = await AuthService().getToken();
     try {
       final response = await _dio.delete(
-          'https://apiv1.agrolyn.online/ecommerce/products/delete-product/$id/',
+          'https://apiv1.agrolyn.my.id/ecommerce/products/delete-product/$id/',
           options: Options(headers: {
             'Authorization': 'Bearer $token',
           }));
@@ -141,7 +141,7 @@ class StoreService {
       });
 
       final response = await _dio.put(
-        'https://apiv1.agrolyn.online/ecommerce/products/update-product/$id/',
+        'https://apiv1.agrolyn.my.id/ecommerce/products/update-product/$id/',
         data: formData,
         options: Options(headers: {
           'Authorization': 'Bearer $token',
@@ -197,7 +197,7 @@ class StoreService {
     final token = await AuthService().getToken();
     try {
       final response = await _dio.get(
-          'https://apiv1.agrolyn.online/ecommerce/products/search/?query=$keyword',
+          'https://apiv1.agrolyn.my.id/ecommerce/products/search/?query=$keyword',
           options: Options(headers: {
             'Authorization': 'Bearer $token',
           }));

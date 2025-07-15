@@ -7,7 +7,7 @@ class RecipeService {
   Future<List> getRecipes() async {
     final token = await AuthService().getToken();
     try {
-      final response = await _dio.get('https://apiv1.agrolyn.online/recipes/',
+      final response = await _dio.get('https://apiv1.agrolyn.my.id/recipes/',
           options: Options(headers: {
             'Authorization': 'Bearer $token',
           }));

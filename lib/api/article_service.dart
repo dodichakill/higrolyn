@@ -7,7 +7,7 @@ class ArticleService {
   Future<List> getArticles() async {
     final token = await AuthService().getToken();
     try {
-      final response = await _dio.get('https://apiv1.agrolyn.online/articles/',
+      final response = await _dio.get('https://apiv1.agrolyn.my.id/articles/',
           options: Options(headers: {
             'Authorization': 'Bearer $token',
           }));
@@ -26,7 +26,7 @@ class ArticleService {
     final token = await AuthService().getToken();
     try {
       final response =
-          await _dio.get('https://apiv1.agrolyn.online/articles/$articleId/',
+          await _dio.get('https://apiv1.agrolyn.my.id/articles/$articleId/',
               options: Options(headers: {
                 'Authorization': 'Bearer $token',
               }));

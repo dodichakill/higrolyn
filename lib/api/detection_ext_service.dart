@@ -7,15 +7,13 @@ import 'package:agrolyn/views/auth/login_screen.dart';
 import 'package:agrolyn/widgets/common_menu.dart';
 import 'package:agrolyn/widgets/menu.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
-import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DetectionExtService {
   final Dio _dio = Dio();
 
   DetectionExtService() {
-    _dio.options.baseUrl = "https://linggashop.my.id/disease-predict/";
+    _dio.options.baseUrl = "https://inception.agrolyn.my.id/disease-predict/";
     _dio.options.headers = {
       'Accept': 'application/json',
     };
@@ -29,8 +27,10 @@ class DetectionExtService {
       final Response response;
       if (type == 'Jagung') {
         response = await _dio.post("corn", data: formData);
-      } else {
+      } else if (type == 'Padi') {
         response = await _dio.post("rice", data: formData);
+      } else {
+        response = await _dio.post("tomato", data: formData);
       }
 
       // print(response);

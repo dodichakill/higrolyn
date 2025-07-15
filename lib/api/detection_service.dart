@@ -13,7 +13,7 @@ class DetectionService {
   final Dio _dio = Dio();
 
   DetectionService() {
-    _dio.options.baseUrl = "https://apiv1.agrolyn.online";
+    _dio.options.baseUrl = "https://apiv1.agrolyn.my.id";
     _dio.options.headers = {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
@@ -40,8 +40,14 @@ class DetectionService {
             options: Options(headers: {
               'Authorization': 'Bearer $token',
             }));
-      } else {
+      } else if (type == 'Padi') {
         response = await _dio.post("/rice-disease-predict/$disease/",
+            data: formData,
+            options: Options(headers: {
+              'Authorization': 'Bearer $token',
+            }));
+      } else {
+        response = await _dio.post("/tomato-disease-predict/$disease/",
             data: formData,
             options: Options(headers: {
               'Authorization': 'Bearer $token',

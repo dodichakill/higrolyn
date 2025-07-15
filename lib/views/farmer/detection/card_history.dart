@@ -62,7 +62,8 @@ class CardHistory extends StatelessWidget {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(16),
                     child: Image.network(
-                      "https://agrolyn.online/static/uploads/${history['image_detection']}",
+                      // Langsung gunakan history['image_detection'] karena sudah berupa URL lengkap
+                      history['image_detection'],
                       width: screenWidth,
                       height: screenWidth * 0.5,
                       fit: BoxFit.cover,

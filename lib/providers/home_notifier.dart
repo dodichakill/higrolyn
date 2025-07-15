@@ -8,7 +8,7 @@ import 'package:intl/intl.dart';
 
 class HomeNotifier extends ChangeNotifier {
   final BuildContext? context;
-  Offset chatbotPosition = const Offset(8, 700);
+  Offset chatbotPosition = const Offset(32, 500);
   final GlobalKey<FormState> keyForm = GlobalKey<FormState>();
   final TextEditingController hargaPerKgController = TextEditingController();
   final TextEditingController luasSawahController = TextEditingController();

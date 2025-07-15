@@ -11,7 +11,7 @@ class ChatbotService {
     try {
       print('Sending data: $data'); // Log data yang dikirim
       final response = await _dio.post(
-        'https://apiv1.agrolyn.online/chatbot/llama-pretrained/',
+        'https://apiv1.agrolyn.my.id/chatbot/llama-pretrained/',
         data: jsonEncode(data),
         options: Options(
           headers: {
@@ -44,7 +44,7 @@ class ChatbotService {
     try {
       print('Sending data: $data'); // Log data yang dikirim
       final response = await _dio.post(
-        'https://apiv1.agrolyn.online/chatbot/agrobot/',
+        'https://apiv1.agrolyn.my.id/chatbot/agrobot/',
         data: jsonEncode(data),
         options: Options(
           headers: {

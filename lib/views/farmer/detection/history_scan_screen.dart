@@ -1,6 +1,5 @@
 import 'package:agrolyn/api/detection_service.dart';
 import 'package:agrolyn/providers/detection_notifier.dart';
-import 'package:agrolyn/utils/assets_path.dart';
 import 'package:agrolyn/views/farmer/detection/card_history.dart';
 import 'package:agrolyn/widgets/menu.dart';
 import 'package:agrolyn/widgets/no_found_custom.dart';

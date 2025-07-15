@@ -213,20 +213,6 @@ class Profile extends StatelessWidget {
                       //   icon: Icons.notes,
                       //   name: "Syarat dan Ketentuan",
                       // ),
-                      ItemMenuProfile(
-                        icon: Icons.star,
-                        name: "Beri ulasan dan Rating",
-                        onTap: value.isReviewSubmit
-                            ? null // Nonaktifkan tombol jika ulasan sudah diberikan
-                            : () {
-                                pushWithoutNavBar(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const ReviewScreen(),
-                                  ),
-                                );
-                              },
-                      ),
                       const ItemMenuProfile(
                         icon: Icons.info_outline,
                         name: "Tentang Aplikasi",
