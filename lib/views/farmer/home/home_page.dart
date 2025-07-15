@@ -288,7 +288,7 @@ class HomePage extends StatelessWidget {
                                           ImageAssets.piring1,
                                           fit: BoxFit.fill,
                                         )),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 16,
                                     ),
                                     Expanded(
@@ -404,41 +404,57 @@ class HomePage extends StatelessWidget {
                                           Padding(
                                             padding: const EdgeInsets.only(
                                                 bottom: 16),
-                                            child: DropdownButton<String>(
-                                              value: value.selectedPlant.isEmpty
-                                                  ? null
-                                                  : value.selectedPlant,
-                                              onChanged: (String? newValue) {
-                                                if (newValue != null) {
-                                                  value
-                                                      .setChangePlant(newValue);
-                                                }
-                                              },
-                                              items: <String>[
-                                                'corn',
-                                                'rice',
-                                                'tomato'
-                                              ].map<DropdownMenuItem<String>>(
-                                                  (String value) {
-                                                String displayText;
-                                                switch (value) {
-                                                  case 'corn':
-                                                    displayText = 'Jagung';
-                                                    break;
-                                                  case 'rice':
-                                                    displayText = 'Padi/Gabah';
-                                                    break;
-                                                  case 'tomato':
-                                                    displayText = 'Tomat';
-                                                    break;
-                                                  default:
-                                                    displayText = value;
-                                                }
-                                                return DropdownMenuItem<String>(
-                                                  value: value,
-                                                  child: Text(displayText),
-                                                );
-                                              }).toList(),
+                                            child: Row(
+                                              children: [
+                                                const Text(
+                                                  "Pilih tanaman: ",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                                DropdownButton<String>(
+                                                  value: value
+                                                          .selectedPlant.isEmpty
+                                                      ? null
+                                                      : value.selectedPlant,
+                                                  onChanged:
+                                                      (String? newValue) {
+                                                    if (newValue != null) {
+                                                      value.setChangePlant(
+                                                          newValue);
+                                                    }
+                                                  },
+                                                  items: <String>[
+                                                    'corn',
+                                                    'rice',
+                                                    'tomato'
+                                                  ].map<
+                                                          DropdownMenuItem<
+                                                              String>>(
+                                                      (String value) {
+                                                    String displayText;
+                                                    switch (value) {
+                                                      case 'corn':
+                                                        displayText = 'Jagung';
+                                                        break;
+                                                      case 'rice':
+                                                        displayText =
+                                                            'Padi/Gabah';
+                                                        break;
+                                                      case 'tomato':
+                                                        displayText = 'Tomat';
+                                                        break;
+                                                      default:
+                                                        displayText = value;
+                                                    }
+                                                    return DropdownMenuItem<
+                                                        String>(
+                                                      value: value,
+                                                      child: Text(displayText),
+                                                    );
+                                                  }).toList(),
+                                                ),
+                                              ],
                                             ),
                                           ),
                                           // Input for price per kilogram
@@ -475,7 +491,8 @@ class HomePage extends StatelessWidget {
                                               controller:
                                                   value.luasSawahController,
                                               decoration: const InputDecoration(
-                                                labelText: 'Luas Sawah (m²)',
+                                                labelText:
+                                                    'Luas Sawah (m²/hektar)',
                                                 border: OutlineInputBorder(),
                                               ),
                                               keyboardType:
@@ -644,7 +661,7 @@ class HomePage extends StatelessWidget {
                               ),
                             ),
                           ),
-                          Padding(
+                          const Padding(
                             padding: EdgeInsets.symmetric(horizontal: 8),
                             child: SingleChildScrollView(
                               scrollDirection:
