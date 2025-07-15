@@ -182,16 +182,20 @@ class _DetailCommunityScreenState extends State<DetailCommunityScreen> {
                       ],
                     ),
                   ),
-                  const Spacer(),
-                  InputAnswer(
-                    questionId: widget.id,
-                    type: dataQuestion["question_type"] == "jagung"
-                        ? 1
-                        : dataQuestion["question_type"] == "padi"
-                            ? 2
-                            : dataQuestion["question_type"] == "tomat"
-                                ? 3
-                                : 4,
+                  Positioned(
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    child: InputAnswer(
+                      questionId: widget.id,
+                      type: dataQuestion["question_type"] == "jagung"
+                          ? 1
+                          : dataQuestion["question_type"] == "padi"
+                              ? 2
+                              : dataQuestion["question_type"] == "tomat"
+                                  ? 3
+                                  : 4,
+                    ),
                   )
                 ]),
               ));

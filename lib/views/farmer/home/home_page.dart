@@ -721,9 +721,6 @@ class HomePage extends StatelessWidget {
                               ),
                             ),
                           ),
-                          const SizedBox(
-                            height: 8,
-                          ),
                           Padding(
                             padding: const EdgeInsets.symmetric(
                               horizontal: 8,
@@ -1435,7 +1432,7 @@ Widget _buildHarvestData(Map<String, dynamic> data) {
       _buildResultRow('Tanggal Panen:', '${data['tanggal_panen']}'),
       _buildResultRow(
           'Total Harga Rupiah:', _formatRupiah(data['total_harga_rupiah'])),
-      _buildResultRow('Total Hasil (Kg):',
+      _buildResultRow('Total Hasil:',
           '${_formatNumber(data['total_hasil_kilogram'])} Kg / ${_formatNumber(data['total_hasil_ton'])} Ton'),
     ],
   );
