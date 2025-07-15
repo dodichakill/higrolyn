@@ -1434,10 +1434,39 @@ Widget _buildHarvestData(Map<String, dynamic> data) {
       _buildResultRow('Sisa Hari:', '${data['sisa_hari']} Hari'),
       _buildResultRow('Tanggal Panen:', '${data['tanggal_panen']}'),
       _buildResultRow(
-          'Total Harga Rupiah:', 'Rp.${data['total_harga_rupiah']}'),
-      _buildResultRow(
-          'Total Hasil (Kg):', '${data['total_hasil_kilogram']} Kg'),
-      _buildResultRow('Total Hasil (Ton):', '${data['total_hasil_ton']} Ton'),
+          'Total Harga Rupiah:', _formatRupiah(data['total_harga_rupiah'])),
+      _buildResultRow('Total Hasil (Kg):',
+          '${_formatNumber(data['total_hasil_kilogram'])} Kg / ${_formatNumber(data['total_hasil_ton'])} Ton'),
     ],
   );
+}
+
+String _formatRupiah(dynamic value) {
+  if (value == null) return 'Rp. 0';
+
+  // Convert to double jika berupa string
+  double amount =
+      value is String ? double.tryParse(value) ?? 0 : value.toDouble();
+
+  // Format dengan NumberFormat untuk Rupiah Indonesia
+  final formatter = NumberFormat.currency(
+    locale: 'id_ID',
+    symbol: 'Rp. ',
+    decimalDigits: 0,
+  );
+
+  return formatter.format(amount);
+}
+
+String _formatNumber(dynamic value) {
+  if (value == null) return '0';
+
+  // Convert to double jika berupa string
+  double number =
+      value is String ? double.tryParse(value) ?? 0 : value.toDouble();
+
+  // Format dengan pemisah ribuan
+  final formatter = NumberFormat('#,##0.##', 'id_ID');
+
+  return formatter.format(number);
 }
