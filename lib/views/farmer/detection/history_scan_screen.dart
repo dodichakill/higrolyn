@@ -3,6 +3,7 @@ import 'package:agrolyn/providers/detection_notifier.dart';
 import 'package:agrolyn/views/farmer/detection/card_history.dart';
 import 'package:agrolyn/widgets/menu.dart';
 import 'package:agrolyn/widgets/no_found_custom.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:provider/provider.dart';
@@ -14,29 +15,52 @@ class HistoryScanScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     void deleteAllHistory() {
-      showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: const Text("Hapus Semua Riwayat"),
-              content: const Text(
-                  "Apakah anda yakin ingin menghapus semua riwayat scan tanaman?"),
-              actions: [
-                TextButton(
-                  child: const Text("Batal"),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-                TextButton(
-                  child: const Text("Ya, Hapus!"),
-                  onPressed: () async {
-                    await DetectionService().fetchDeleteAllHistory(context);
-                  },
-                ),
-              ],
-            );
-          });
+      // showDialog(
+      //     context: context,
+      //     builder: (BuildContext context) {
+      //       return AlertDialog(
+      //         title: const Text("Hapus Semua Riwayat"),
+      //         content: const Text(
+      //             "Apakah anda yakin ingin menghapus semua riwayat scan tanaman?"),
+      //         actions: [
+      //           TextButton(
+      //             child: const Text("Batal"),
+      //             onPressed: () {
+      //               Navigator.of(context).pop();
+      //             },
+      //           ),
+      //           TextButton(
+      //             child: const Text("Ya, Hapus!"),
+      //             onPressed: () async {
+      //               await DetectionService().fetchDeleteAllHistory(context);
+      //             },
+      //           ),
+      //         ],
+      //       );
+      //     });
+      AwesomeDialog(
+        context: context,
+        dialogType: DialogType.warning,
+        headerAnimationLoop: false,
+        animType: AnimType.bottomSlide,
+        title: 'Hapus Semua Riwayat',
+        desc:
+            "Apakah anda yakin ingin menghapus semua riwayat scan tanaman ini?",
+        buttonsTextStyle: const TextStyle(color: Colors.white),
+        showCloseIcon: true,
+        btnCancelText: 'Batal', // Mengganti teks tombol Cancel
+        btnOkText: 'Hapus', // Mengganti teks tombol OK
+        btnOkColor: Colors.red, // Mengubah warna tombol OK menjadi merah
+        btnCancelColor:
+            Colors.grey, // Mengubah warna tombol Cancel menjadi abu-abu
+        btnCancelOnPress: () {
+          // Menutup dialog dengan aman
+          Navigator.of(context).maybePop();
+        },
+        btnOkOnPress: () async {
+          await DetectionService().fetchDeleteAllHistory(context);
+        },
+      ).show();
     }
 
     return ChangeNotifierProvider(
