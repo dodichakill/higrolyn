@@ -81,7 +81,7 @@ class HomePage extends StatelessWidget {
                                             SizedBox(width: 4),
                                             Flexible(
                                               child: Text(
-                                                "Tegal, Jawa Tengah",
+                                                "Semarang, Jawa Tengah",
                                                 style: TextStyle(
                                                   color: Colors.white,
                                                   fontWeight: FontWeight.normal,
