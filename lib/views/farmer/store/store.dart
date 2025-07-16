@@ -5,6 +5,7 @@ import 'package:agrolyn/utils/assets_path.dart';
 import 'package:agrolyn/views/common/store/detail_common_store.dart';
 import 'package:agrolyn/views/farmer/store/edit_product.dart';
 import 'package:agrolyn/views/farmer/store/form_product.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
@@ -376,45 +377,86 @@ class Store extends StatelessWidget {
                                               // Menampilkan data pada sisi kanan
                                               InkWell(
                                                 onTap: () {
-                                                  showDialog(
-                                                      context: context,
-                                                      builder: (context) {
-                                                        return AlertDialog(
-                                                          title: const Text(
-                                                              'Konfirmasi'),
-                                                          content: const Text(
-                                                              'Apakah Anda yakin ingin menghapus produk ini?'),
-                                                          actions: [
-                                                            TextButton(
-                                                              child: const Text(
-                                                                  'Batal'),
-                                                              onPressed: () {
-                                                                Navigator.of(
-                                                                        context)
-                                                                    .pop();
-                                                              },
-                                                            ),
-                                                            TextButton(
-                                                              child: const Text(
-                                                                  'Hapus'),
-                                                              onPressed: () {
-                                                                value.deleteProduct(
-                                                                    product[
-                                                                        'id']);
-                                                                showCustomSnackbar(
-                                                                    context,
-                                                                    "Berhasil dihapus",
-                                                                    "Produk Berhasil dihapus",
-                                                                    ContentType
-                                                                        .success);
-                                                                Navigator.of(
-                                                                        context)
-                                                                    .pop();
-                                                              },
-                                                            ),
-                                                          ],
-                                                        );
-                                                      });
+                                                  AwesomeDialog(
+                                                    context: context,
+                                                    dialogType:
+                                                        DialogType.warning,
+                                                    headerAnimationLoop: false,
+                                                    animType:
+                                                        AnimType.bottomSlide,
+                                                    title:
+                                                        'Konfirmasi Hapus Produk',
+                                                    desc:
+                                                        'Apakah Anda yakin ingin menghapus produk ini?',
+                                                    buttonsTextStyle:
+                                                        const TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                    showCloseIcon: true,
+                                                    btnCancelText:
+                                                        'Tidak', // Mengganti teks tombol Cancel
+                                                    btnOkText:
+                                                        'Ya', // Mengganti teks tombol OK
+                                                    btnOkColor: Colors
+                                                        .red, // Mengubah warna tombol OK menjadi merah
+                                                    btnCancelColor: Colors
+                                                        .grey, // Mengubah warna tombol Cancel menjadi abu-abu
+                                                    btnCancelOnPress: () {
+                                                      // Menutup dialog dengan aman
+                                                      Navigator.of(context)
+                                                          .maybePop();
+                                                    },
+                                                    btnOkOnPress: () async {
+                                                      value.deleteProduct(
+                                                          product['id']);
+                                                      showCustomSnackbar(
+                                                          context,
+                                                          "Berhasil dihapus",
+                                                          "Produk Berhasil dihapus",
+                                                          ContentType.success);
+                                                      Navigator.of(context)
+                                                          .maybePop();
+                                                    },
+                                                  ).show();
+                                                  // showDialog(
+                                                  //     context: context,
+                                                  //     builder: (context) {
+                                                  //       return AlertDialog(
+                                                  //         title: const Text(
+                                                  //             'Konfirmasi'),
+                                                  //         content: const Text(
+                                                  //             'Apakah Anda yakin ingin menghapus produk ini?'),
+                                                  //         actions: [
+                                                  //           TextButton(
+                                                  //             child: const Text(
+                                                  //                 'Batal'),
+                                                  //             onPressed: () {
+                                                  //               Navigator.of(
+                                                  //                       context)
+                                                  //                   .pop();
+                                                  //             },
+                                                  //           ),
+                                                  //           TextButton(
+                                                  //             child: const Text(
+                                                  //                 'Hapus'),
+                                                  //             onPressed: () {
+                                                  //               value.deleteProduct(
+                                                  //                   product[
+                                                  //                       'id']);
+                                                  //               showCustomSnackbar(
+                                                  //                   context,
+                                                  //                   "Berhasil dihapus",
+                                                  //                   "Produk Berhasil dihapus",
+                                                  //                   ContentType
+                                                  //                       .success);
+                                                  //               Navigator.of(
+                                                  //                       context)
+                                                  //                   .pop();
+                                                  //             },
+                                                  //           ),
+                                                  //         ],
+                                                  //       );
+                                                  //     });
                                                 },
                                                 child: Container(
                                                   height: 40,

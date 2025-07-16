@@ -14,55 +14,55 @@ class CardHistory extends StatelessWidget {
     final double screenWidth = MediaQuery.of(context).size.width;
 
     void deleteHistory() {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text("Hapus Riwayat"),
-            content: const Text(
-                "Apakah anda yakin ingin menghapus riwayat scan tanaman ini?"),
-            actions: [
-              TextButton(
-                child: const Text("Batal"),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-              TextButton(
-                child: const Text("Ya, Hapus!"),
-                onPressed: () async {
-                  await DetectionService()
-                      .fetchDeleteHistory(context, history['id']);
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-        },
-      );
-      // AwesomeDialog(
+      // showDialog(
       //   context: context,
-      //   dialogType: DialogType.warning,
-      //   headerAnimationLoop: false,
-      //   animType: AnimType.bottomSlide,
-      //   title: 'Hapus Riwayat',
-      //   desc: "Apakah anda yakin ingin menghapus riwayat scan tanaman ini?",
-      //   buttonsTextStyle: const TextStyle(color: Colors.white),
-      //   showCloseIcon: true,
-      //   btnCancelText: 'Batal', // Mengganti teks tombol Cancel
-      //   btnOkText: 'Hapus', // Mengganti teks tombol OK
-      //   btnOkColor: Colors.red, // Mengubah warna tombol OK menjadi merah
-      //   btnCancelColor:
-      //       Colors.grey, // Mengubah warna tombol Cancel menjadi abu-abu
-      //   btnCancelOnPress: () {
-      //     // Menutup dialog dengan aman
-      //     Navigator.of(context).maybePop();
+      //   builder: (BuildContext context) {
+      //     return AlertDialog(
+      //       title: const Text("Hapus Riwayat"),
+      //       content: const Text(
+      //           "Apakah anda yakin ingin menghapus riwayat scan tanaman ini?"),
+      //       actions: [
+      //         TextButton(
+      //           child: const Text("Batal"),
+      //           onPressed: () {
+      //             Navigator.of(context).pop();
+      //           },
+      //         ),
+      //         TextButton(
+      //           child: const Text("Ya, Hapus!"),
+      //           onPressed: () async {
+      //             await DetectionService()
+      //                 .fetchDeleteHistory(context, history['id']);
+      //             Navigator.of(context).pop();
+      //           },
+      //         ),
+      //       ],
+      //     );
       //   },
-      //   btnOkOnPress: () async {
-      //     await DetectionService().fetchDeleteHistory(context, history['id']);
-      //     Navigator.of(context).pop();
-      //   },
-      // ).show();
+      // );
+      AwesomeDialog(
+        context: context,
+        dialogType: DialogType.warning,
+        headerAnimationLoop: false,
+        animType: AnimType.bottomSlide,
+        title: 'Hapus Riwayat',
+        desc: "Apakah anda yakin ingin menghapus riwayat scan tanaman ini?",
+        buttonsTextStyle: const TextStyle(color: Colors.white),
+        showCloseIcon: true,
+        btnCancelText: 'Batal', // Mengganti teks tombol Cancel
+        btnOkText: 'Hapus', // Mengganti teks tombol OK
+        btnOkColor: Colors.red, // Mengubah warna tombol OK menjadi merah
+        btnCancelColor:
+            Colors.grey, // Mengubah warna tombol Cancel menjadi abu-abu
+        btnCancelOnPress: () {
+          // Menutup dialog dengan aman
+          Navigator.of(context).maybePop();
+        },
+        btnOkOnPress: () async {
+          await DetectionService().fetchDeleteHistory(context, history['id']);
+          Navigator.of(context).maybePop();
+        },
+      ).show();
     }
 
     return InkWell(
