@@ -8,6 +8,7 @@ import 'package:agrolyn/views/auth/forgot_password_screen.dart';
 import 'package:agrolyn/views/auth/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -68,7 +69,7 @@ class LoginScreen extends StatelessWidget {
                                           height: 16,
                                         ),
                                         const Text(
-                                          'Masuk Agrolyn',
+                                          'Masuk Higrolyn',
                                           style: TextStyle(
                                               fontSize: 20,
                                               fontWeight: FontWeight.bold,
@@ -253,13 +254,18 @@ class LoginScreen extends StatelessWidget {
                                           style: TextStyle(color: Colors.white),
                                         ),
                                         TextButton(
-                                          onPressed: () {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const RegisterScreen()),
-                                            );
+                                          onPressed: () async {
+                                            SharedPreferences prefs =
+                                                await SharedPreferences
+                                                    .getInstance();
+
+                                            await prefs.setString(
+                                                'role_choice', 2.toString());
+                                            Navigator.pushReplacement(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const RegisterScreen()));
                                           },
                                           child: const Text(
                                             'Daftar Akun',
