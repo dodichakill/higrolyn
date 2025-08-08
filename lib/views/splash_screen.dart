@@ -34,7 +34,7 @@ class SplashScreen extends StatelessWidget {
                         height: 16,
                       ),
                       const Text(
-                        "AGROLYN",
+                        "HIGROLYN",
                         style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,

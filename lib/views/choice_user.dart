@@ -80,7 +80,7 @@ class ChoiceUser extends StatelessWidget {
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: const Text(
-                                  "Deteksi penyakit tanamananmu dan jual produk kamu di Agrolyn",
+                                  "Deteksi penyakit tanamananmu dan jual produk kamu di Higrolyn",
                                   maxLines: 3,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
@@ -208,7 +208,7 @@ class ChoiceUser extends StatelessWidget {
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: const Text(
-                                  "Belanja dan masak makanan kamu sendiri di Agrolyn",
+                                  "Belanja dan masak makanan kamu sendiri di Higrolyn",
                                   maxLines: 3,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(

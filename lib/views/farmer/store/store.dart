@@ -21,10 +21,9 @@ class Store extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => StoreNotifier(context: context),
       child: Consumer<StoreNotifier>(
-        builder: (context, value, child) => SafeArea(
-          bottom: false,
-          child: Scaffold(
-            body: SingleChildScrollView(
+        builder: (context, value, child) => Scaffold(
+          body: SafeArea(
+            child: SingleChildScrollView(
               child: Stack(
                 children: [
                   Column(

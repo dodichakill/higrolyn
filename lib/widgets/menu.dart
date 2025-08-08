@@ -1,3 +1,5 @@
+import 'package:agrolyn/views/common/order/common_order.dart';
+import 'package:agrolyn/views/common/store/common_store.dart';
 import 'package:agrolyn/views/farmer/Profile/profile_screen.dart';
 import 'package:agrolyn/views/farmer/comunity/community_screen.dart';
 import 'package:agrolyn/views/farmer/detection/detection_screen.dart';
@@ -34,7 +36,7 @@ class Menu extends StatelessWidget {
             ),
           ),
           PersistentTabConfig(
-            screen: Store(),
+            screen: CommonStore(),
             item: ItemConfig(
               activeForegroundColor: Colors.green,
               icon: const Icon(Icons.store),

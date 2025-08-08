@@ -1,7 +1,9 @@
 import 'package:agrolyn/providers/common_store_notifier.dart';
 import 'package:agrolyn/shared/constants.dart';
 import 'package:agrolyn/utils/assets_path.dart';
+import 'package:agrolyn/views/common/order/common_order.dart';
 import 'package:agrolyn/views/common/store/detail_common_store.dart';
+import 'package:agrolyn/views/farmer/store/store.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
@@ -85,7 +87,7 @@ class CommonStore extends StatelessWidget {
                                           CrossAxisAlignment.start,
                                       children: [
                                         const Text(
-                                          "Belanja Cepat dan Mudah",
+                                          "Kelola Toko Anda dengan Mudah",
                                           maxLines: 3,
                                           style: TextStyle(
                                             color: Colors.white,
@@ -93,37 +95,86 @@ class CommonStore extends StatelessWidget {
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              right: 8, bottom: 8, top: 8),
-                                          child: Container(
-                                            height: 40,
-                                            width: double.infinity,
-                                            alignment: Alignment
-                                                .center, // Posisikan teks di tengah
-                                            decoration: BoxDecoration(
-                                              color: Colors.white,
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: Colors.black
-                                                      .withOpacity(0.2),
-                                                  offset: const Offset(0, 4),
-                                                  blurRadius: 8,
-                                                ),
-                                              ],
+                                        InkWell(
+                                          onTap: () => pushWithoutNavBar(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => Store(),
                                             ),
-                                            child: const Text(
-                                              "Belanja",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                                right: 8, bottom: 8, top: 8),
+                                            child: Container(
+                                              height: 40,
+                                              width: double.infinity,
+                                              alignment: Alignment
+                                                  .center, // Posisikan teks di tengah
+                                              decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                borderRadius:
+                                                    BorderRadius.circular(8),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    color: Colors.black
+                                                        .withOpacity(0.2),
+                                                    offset: const Offset(0, 4),
+                                                    blurRadius: 8,
+                                                  ),
+                                                ],
+                                              ),
+                                              child: const Text(
+                                                "Kelola",
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                ),
                                               ),
                                             ),
                                           ),
                                         )
                                       ],
                                     ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 16,
+                          ),
+                          Container(
+                            height: 100,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              color: MyColors.primaryColorDark,
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: Text("Lihat Pesanan Kamu Yuk!",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                        )),
+                                  ),
+                                  SizedBox(
+                                    width: 100,
+                                    child: Lottie.asset(ImageAssets.proses),
+                                  ),
+                                  InkWell(
+                                    onTap: () => pushWithoutNavBar(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const CommonOrder(),
+                                      ),
+                                    ),
+                                    child: Icon(Icons.arrow_forward_ios,
+                                        color: Colors.white, size: 24),
                                   ),
                                 ],
                               ),
